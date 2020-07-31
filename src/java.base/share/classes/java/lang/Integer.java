@@ -25,6 +25,7 @@
 
 package java.lang;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyIndex;
@@ -290,7 +291,7 @@ public final class Integer extends Number implements Comparable<Integer> {
      */
     @SideEffectFree
     @StaticallyExecutable
-    public static @ArrayLenRange(from = 1, to = 8) String toHexString(@Unsigned int i) {
+    public static @PolyDet @ArrayLenRange(from = 1, to = 8) String toHexString(@PolyDet @Unsigned int i) {
         return toUnsignedString0(i, 4);
     }
 
