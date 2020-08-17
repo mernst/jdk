@@ -263,7 +263,7 @@ public class File
     /**
      * Internal constructor for already-normalized pathname strings.
      */
-    private File(String pathname, int prefixLength) {
+    private @PolyDet File(@PolyDet String pathname, @PolyDet int prefixLength) {
         this.path = pathname;
         this.prefixLength = prefixLength;
     }
@@ -273,7 +273,7 @@ public class File
      * The parameter order is used to disambiguate this method from the
      * public(File, String) constructor.
      */
-    private File(String child, File parent) {
+    private @PolyDet File(@PolyDet String child, @PolyDet File parent) {
         assert parent.path != null;
         assert (!parent.path.equals(""));
         this.path = fs.resolve(parent.path, child);
@@ -289,7 +289,7 @@ public class File
      * @throws  NullPointerException
      *          If the <code>pathname</code> argument is <code>null</code>
      */
-    public File(String pathname) {
+    public @PolyDet File(@PolyDet String pathname) {
         if (pathname == null) {
             throw new NullPointerException();
         }
@@ -329,7 +329,7 @@ public class File
      * @throws  NullPointerException
      *          If <code>child</code> is <code>null</code>
      */
-    public File(@Nullable String parent, String child) {
+    public @PolyDet File(@PolyDet @Nullable String parent, @PolyDet String child) {
         if (child == null) {
             throw new NullPointerException();
         }
@@ -372,7 +372,7 @@ public class File
      * @throws  NullPointerException
      *          If <code>child</code> is <code>null</code>
      */
-    public File(@Nullable File parent, String child) {
+    public @PolyDet File(@PolyDet @Nullable File parent, @PolyDet String child) {
         if (child == null) {
             throw new NullPointerException();
         }
@@ -427,7 +427,7 @@ public class File
      * @see java.net.URI
      * @since 1.4
      */
-    public File(URI uri) {
+    public @PolyDet File(@PolyDet URI uri) {
 
         // Check our many preconditions
         if (!uri.isAbsolute())
