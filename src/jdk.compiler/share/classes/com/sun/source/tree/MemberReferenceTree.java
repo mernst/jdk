@@ -27,6 +27,7 @@ package com.sun.source.tree;
 
 import java.util.List;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import javax.lang.model.element.Name;
 
 /**
@@ -75,4 +76,6 @@ public interface MemberReferenceTree extends ExpressionTree {
      * @return the type arguments
      */
     List<? extends ExpressionTree> getTypeArguments();
+
+    @PolyDet String toString(@PolyDet MemberReferenceTree this);
 }

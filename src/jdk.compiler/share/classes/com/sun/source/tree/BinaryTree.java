@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for a binary expression.
  * Use {@link #getKind getKind} to determine the kind of operator.
@@ -52,4 +54,6 @@ public interface BinaryTree extends ExpressionTree {
      * @return the right operand
      */
     ExpressionTree getRightOperand();
+
+    @PolyDet String toString(@PolyDet BinaryTree this);
 }

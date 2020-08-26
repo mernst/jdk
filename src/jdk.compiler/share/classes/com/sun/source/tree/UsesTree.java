@@ -26,6 +26,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for a 'uses' directive in a module declaration.
  *
@@ -42,4 +44,6 @@ public interface UsesTree extends DirectiveTree {
      * @return  the name of the service type
      */
     ExpressionTree getServiceName();
+
+    @PolyDet String toString(@PolyDet UsesTree this);
 }

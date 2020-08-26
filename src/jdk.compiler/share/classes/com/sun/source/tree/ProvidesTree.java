@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 
 /**
@@ -49,4 +50,6 @@ public interface ProvidesTree extends DirectiveTree {
      * @return the names of the implementation types being provided
      */
     List<? extends ExpressionTree> getImplementationNames();
+
+    @PolyDet String toString(@PolyDet ProvidesTree this);
 }

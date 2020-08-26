@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import javax.lang.model.element.Name;
 
 /**
@@ -53,4 +54,6 @@ public interface MemberSelectTree extends ExpressionTree {
      * @return the member
      */
     Name getIdentifier();
+
+    @PolyDet String toString(@PolyDet MemberSelectTree this);
 }

@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 
 /**
@@ -77,4 +78,6 @@ public interface NewArrayTree extends ExpressionTree {
      * @return the annotations on the dimensions expressions
      */
     List<? extends List<? extends AnnotationTree>> getDimAnnotations();
+
+    @PolyDet String toString(@PolyDet NewArrayTree this);
 }

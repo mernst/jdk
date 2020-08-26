@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import javax.lang.model.element.Name;
 
 /**
@@ -49,4 +50,6 @@ public interface BreakTree extends StatementTree {
      * @return the label
      */
     Name getLabel();
+
+    @PolyDet String toString(@PolyDet BreakTree this);
 }

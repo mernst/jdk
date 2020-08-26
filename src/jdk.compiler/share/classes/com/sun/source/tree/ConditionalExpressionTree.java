@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for the conditional operator ? :.
  *
@@ -57,4 +59,6 @@ public interface ConditionalExpressionTree extends ExpressionTree {
      * @return the expression to be evaluated if the condition is false
      */
     ExpressionTree getFalseExpression();
+
+    @PolyDet String toString(@PolyDet ConditionalExpressionTree this);
 }

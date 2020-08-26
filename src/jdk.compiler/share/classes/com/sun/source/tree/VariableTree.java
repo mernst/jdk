@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import javax.lang.model.element.Name;
 
 /**
@@ -74,4 +75,6 @@ public interface VariableTree extends StatementTree {
      * @return the initializer
      */
     ExpressionTree getInitializer();
+
+    @PolyDet String toString(@PolyDet VariableTree this);
 }

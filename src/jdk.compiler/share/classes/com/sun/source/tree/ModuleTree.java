@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 
 
@@ -80,4 +81,5 @@ public interface ModuleTree extends Tree {
         STRONG;
     }
 
+    @PolyDet String toString(@PolyDet ModuleTree this);
 }

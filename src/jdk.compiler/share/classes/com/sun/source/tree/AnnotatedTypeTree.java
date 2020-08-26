@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 
 /**
@@ -53,4 +54,6 @@ public interface AnnotatedTypeTree extends ExpressionTree {
      * @return the underlying type
      */
     ExpressionTree getUnderlyingType();
+
+    @PolyDet String toString(@PolyDet AnnotatedTypeTree this);
 }

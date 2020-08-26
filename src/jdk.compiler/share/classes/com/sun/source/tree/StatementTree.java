@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node used as the base class for the different kinds of
  * statements.
@@ -35,4 +37,6 @@ package com.sun.source.tree;
  * @author Jonathan Gibbons
  * @since 1.6
  */
-public interface StatementTree extends Tree {}
+public interface StatementTree extends Tree {
+    @PolyDet String toString(@PolyDet StatementTree this);
+}

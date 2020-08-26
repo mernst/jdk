@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 
 /**
@@ -47,4 +48,6 @@ public interface PackageTree extends Tree {
      * @return the name
      */
     ExpressionTree getPackageName();
+
+    @PolyDet String toString(@PolyDet PackageTree this);
 }

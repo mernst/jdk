@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 
 /**
@@ -70,4 +71,6 @@ public interface LambdaExpressionTree extends ExpressionTree {
      * @return the kind of the body
      */
     BodyKind getBodyKind();
+
+    @PolyDet String toString(@PolyDet LambdaExpressionTree this);
 }

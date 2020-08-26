@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 import javax.lang.model.element.Name;
 
@@ -106,4 +107,6 @@ public interface MethodTree extends Tree {
      * @return the default value
      */
     Tree getDefaultValue(); // for annotation types
+
+    @PolyDet String toString(@PolyDet MethodTree this);
 }

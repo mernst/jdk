@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for an "enhanced" {@code for} loop statement.
  *
@@ -58,4 +60,6 @@ public interface EnhancedForLoopTree extends StatementTree {
      * @return the body of the loop
      */
     StatementTree getStatement();
+
+    @PolyDet String toString(@PolyDet EnhancedForLoopTree this);
 }

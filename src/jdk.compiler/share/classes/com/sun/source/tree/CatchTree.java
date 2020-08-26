@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for a {@code catch} block in a {@code try} statement.
  *
@@ -55,4 +57,6 @@ public interface CatchTree extends Tree {
      * @return the catch block
      */
     BlockTree getBlock();
+
+    @PolyDet String toString(@PolyDet CatchTree this);
 }

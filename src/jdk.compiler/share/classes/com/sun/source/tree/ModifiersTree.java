@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 import java.util.Set;
 import javax.lang.model.element.Modifier;
@@ -57,4 +58,6 @@ public interface ModifiersTree extends Tree {
      * @return the annotations
      */
     List<? extends AnnotationTree> getAnnotations();
+
+    @PolyDet String toString(@PolyDet ModifiersTree this);
 }

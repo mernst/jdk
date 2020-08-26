@@ -26,6 +26,7 @@
 package com.sun.source.tree;
 
 import javax.lang.model.element.Name;
+import org.checkerframework.checker.determinism.qual.PolyDet;
 
 /**
  * A tree node for a {@code continue} statement.
@@ -48,4 +49,6 @@ public interface ContinueTree extends StatementTree {
      * @return the label
      */
     Name getLabel();
+
+    @PolyDet String toString(@PolyDet ContinueTree this);
 }

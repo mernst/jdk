@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 
 /**
@@ -53,4 +54,6 @@ public interface OpensTree extends DirectiveTree {
      * @return the names of the modules to which the package is opened, or null
      */
     List<? extends ExpressionTree> getModuleNames();
+
+    @PolyDet String toString(@PolyDet OpensTree this);
 }

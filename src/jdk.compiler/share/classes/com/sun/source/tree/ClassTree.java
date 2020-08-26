@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 import javax.lang.model.element.Name;
 
@@ -86,4 +87,6 @@ public interface ClassTree extends StatementTree {
      * @return the members
      */
     List<? extends Tree> getMembers();
+
+    @PolyDet String toString(@PolyDet ClassTree this);
 }

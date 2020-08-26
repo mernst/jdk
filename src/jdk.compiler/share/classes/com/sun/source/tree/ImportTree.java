@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for an import declaration.
  *
@@ -57,4 +59,6 @@ public interface ImportTree extends Tree {
      * this is an import-on-demand
      */
     Tree getQualifiedIdentifier();
+
+    @PolyDet String toString(@PolyDet ImportTree this);
 }

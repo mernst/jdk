@@ -25,7 +25,11 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A super-type for all the directives in a ModuleTree.
  */
-public interface DirectiveTree extends Tree { }
+public interface DirectiveTree extends Tree {
+    @PolyDet String toString(@PolyDet DirectiveTree this);
+}

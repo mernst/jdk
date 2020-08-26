@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 
 /**
@@ -53,4 +54,6 @@ public interface ParameterizedTypeTree extends Tree {
      * @return the type arguments
      */
     List<? extends Tree> getTypeArguments();
+
+    @PolyDet String toString(@PolyDet PararmeterizedTypeTree this);
 }

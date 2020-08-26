@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for an {@code instanceof} expression.
  *
@@ -51,4 +53,6 @@ public interface InstanceOfTree extends ExpressionTree {
      * @return the type
      */
     Tree getType();
+
+    @PolyDet String toString(@PolyDet InstanceOfTree this);
 }
