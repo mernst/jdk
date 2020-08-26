@@ -236,7 +236,7 @@ public final class StringJoiner {
      * @throws NullPointerException if the other {@code StringJoiner} is null
      * @return This {@code StringJoiner}
      */
-    public @PolyDet StringJoiner merge(@Polydet StringJoiner this, @PolyDet StringJoiner other) {
+    public @PolyDet StringJoiner merge(@PolyDet StringJoiner this, @PolyDet StringJoiner other) {
         Objects.requireNonNull(other);
         if (other.elts == null) {
             return this;
