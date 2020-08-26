@@ -25,6 +25,7 @@
 
 package javax.lang.model.type;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import javax.lang.model.element.*;
@@ -64,7 +65,7 @@ public interface TypeMirror extends javax.lang.model.AnnotatedConstruct {
      *
      * @return the kind of this type
      */
-    TypeKind getKind();
+    @PolyDet TypeKind getKind(@PolyDet TypeMirror this);
 
     /**
      * Obeys the general contract of {@link Object#equals Object.equals}.
@@ -78,7 +79,7 @@ public interface TypeMirror extends javax.lang.model.AnnotatedConstruct {
      * @param obj  the object to be compared with this type
      * @return {@code true} if the specified object is equal to this one
      */
-    boolean equals(Object obj);
+    @PolyDet boolean equals(@PolyDet TypeMirror this, @PolyDet Object obj);
 
     /**
      * Obeys the general contract of {@link Object#hashCode Object.hashCode}.
@@ -95,7 +96,7 @@ public interface TypeMirror extends javax.lang.model.AnnotatedConstruct {
      *
      * @return a string representation of this type
      */
-    String toString();
+    @PolyDet String toString(@PolyDet TypeMirror this);
 
     /**
      * Applies a visitor to this type.

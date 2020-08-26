@@ -573,7 +573,7 @@ public class File
      *
      * @see     java.io.File#isAbsolute()
      */
-    public String getAbsolutePath() {
+    public @PolyDet String getAbsolutePath(@PolyDet File this) {
         return fs.resolve(this);
     }
 
@@ -779,7 +779,7 @@ public class File
      *          java.lang.SecurityManager#checkRead(java.lang.String)}
      *          method denies read access to the file
      */
-    public boolean canRead() {
+    public @PolyDet boolean canRead(@PolyDet File this) {
         SecurityManager security = System.getSecurityManager();
         if (security != null) {
             security.checkRead(path);
@@ -861,7 +861,7 @@ public class File
      *          method denies read access to the file
      */
     @Pure
-    public boolean isDirectory(@GuardSatisfied File this) {
+    public @PolyDet boolean isDirectory(@GuardSatisfied @PolyDet File this) {
         SecurityManager security = System.getSecurityManager();
         if (security != null) {
             security.checkRead(path);
@@ -895,7 +895,7 @@ public class File
      *          method denies read access to the file
      */
     @Pure
-    public boolean isFile(@GuardSatisfied File this) {
+    public @PolyDet boolean isFile(@GuardSatisfied @PolyDet File this) {
         SecurityManager security = System.getSecurityManager();
         if (security != null) {
             security.checkRead(path);
