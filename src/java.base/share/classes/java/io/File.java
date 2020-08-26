@@ -1239,7 +1239,7 @@ public class File
      *
      * @since  1.2
      */
-    public @NonDet File @Nullable @NonDet [] listFiles(@PolyDet File this) {
+    public @NonDet File @Nullable @PolyDet("upDet") [] listFiles(@PolyDet File this) {
         @NonDet String @NonDet[] ss = list();
         if (ss == null) return null;
         int n = ss.length;
