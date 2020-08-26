@@ -25,6 +25,7 @@
 
 package javax.lang.model.element;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 import javax.lang.model.type.*;
 
@@ -137,5 +138,5 @@ public interface ExecutableElement extends Element, Parameterizable {
      * initializer
      */
     @Override
-    Name getSimpleName();
+    @PolyDet Name getSimpleName(@PolyDet ExecutableElement this);
 }

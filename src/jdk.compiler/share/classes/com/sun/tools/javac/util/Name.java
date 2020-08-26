@@ -25,6 +25,7 @@
 
 package com.sun.tools.javac.util;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import com.sun.tools.javac.util.DefinedBy.Api;
 
 /** An abstraction for internal compiler strings. They are stored in
@@ -48,7 +49,7 @@ public abstract class Name implements javax.lang.model.element.Name {
      * {@inheritDoc}
      */
     @DefinedBy(Api.LANGUAGE_MODEL)
-    public boolean contentEquals(CharSequence cs) {
+    public @PolyDet boolean contentEquals(@PolyDet Name this, @PolyDet CharSequence cs) {
         return toString().equals(cs.toString());
     }
 

@@ -27,6 +27,7 @@ package com.sun.tools.javac.tree;
 
 import java.io.*;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import com.sun.source.tree.MemberReferenceTree.ReferenceMode;
 import com.sun.source.tree.ModuleTree.ModuleKind;
 import com.sun.tools.javac.code.*;
@@ -1151,7 +1152,7 @@ public class Pretty extends JCTree.Visitor {
         }
     }
 
-    public String operatorName(JCTree.Tag tag) {
+    public @PolyDet String operatorName(JCTree. @PolyDet Tag tag) {
         switch(tag) {
             case POS:     return "+";
             case NEG:     return "-";

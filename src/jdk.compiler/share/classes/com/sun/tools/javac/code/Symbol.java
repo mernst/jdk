@@ -298,7 +298,7 @@ public abstract class Symbol extends AnnoConstruct implements Element {
     /** The Java source which this symbol represents.
      *  A description of this symbol; overrides Object.
      */
-    public String toString() {
+    public @PolyDet String toString(@PolyDet Symbol this) {
         return name.toString();
     }
 

@@ -260,4 +260,6 @@ public interface Element extends javax.lang.model.AnnotatedConstruct {
      * @return a visitor-specified result
      */
     <R, P> R accept(ElementVisitor<R, P> v, P p);
+
+    @PolyDet String toString(@PolyDet Element this);
 }
