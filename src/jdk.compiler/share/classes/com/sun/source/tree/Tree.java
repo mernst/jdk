@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * Common interface for all nodes in an abstract syntax tree.
  *
@@ -678,4 +680,6 @@ public interface Tree {
      * @return the result returned from calling the visitor
      */
     <R,D> R accept(TreeVisitor<R,D> visitor, D data);
+
+    public @PolyDet String toString(@PolyDet Tree this);
 }
