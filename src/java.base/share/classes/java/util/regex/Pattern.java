@@ -1367,7 +1367,7 @@ public final @UsesObjectEquals class Pattern
      */
     @CFComment({"nullness: pure wrt equals() but not =="})
     @Pure
-    public static @Regex String quote(String s) {
+    public static @PolyDet @Regex String quote(@PolyDet String s) {
         int slashEIndex = s.indexOf("\\E");
         if (slashEIndex == -1)
             return "\\Q" + s + "\\E";
