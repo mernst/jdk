@@ -25,6 +25,7 @@
 
 package java.util.regex;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import org.checkerframework.checker.interning.qual.UsesObjectEquals;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.regex.qual.PolyRegex;
@@ -1139,7 +1140,7 @@ public final @UsesObjectEquals class Pattern
      *
      * @return  A new matcher for this pattern
      */
-    public @PolyRegex Matcher matcher(@PolyRegex Pattern this, CharSequence input) {
+    public @PolyRegex @PolyDet Matcher matcher(@PolyDet @PolyRegex Pattern this, @PolyDet CharSequence input) {
         if (!compiled) {
             synchronized(this) {
                 if (!compiled)
