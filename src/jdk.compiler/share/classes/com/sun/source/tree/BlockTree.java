@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 
 /**
@@ -57,4 +58,6 @@ public interface BlockTree extends StatementTree {
      * @return the statements
      */
     List<? extends StatementTree> getStatements();
+
+    @PolyDet String toString(@PolyDet BlockTree this);
 }

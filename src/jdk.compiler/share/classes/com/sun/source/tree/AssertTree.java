@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for an {@code assert} statement.
  *
@@ -53,4 +55,6 @@ public interface AssertTree extends StatementTree {
      * @return the detail expression
      */
     ExpressionTree getDetail();
+
+    @PolyDet String toString(@PolyDet AssertTree this);
 }

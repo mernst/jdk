@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import javax.lang.model.type.TypeKind;
 
 /**
@@ -47,4 +48,6 @@ public interface PrimitiveTypeTree extends Tree {
      * @return the kind of the type
      */
     TypeKind getPrimitiveTypeKind();
+
+    @PolyDet String toString(@PolyDet PrimitiveTypeTree this);
 }

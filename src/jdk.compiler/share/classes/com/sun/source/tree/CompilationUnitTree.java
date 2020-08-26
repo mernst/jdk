@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 import javax.tools.JavaFileObject;
 
@@ -88,4 +89,6 @@ public interface CompilationUnitTree extends Tree {
      * @return the line map for this compilation unit
      */
     LineMap getLineMap();
+
+    @PolyDet String toString(@PolyDet CompilationUnitTree this);
 }

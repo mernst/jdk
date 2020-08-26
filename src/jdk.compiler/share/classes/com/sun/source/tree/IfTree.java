@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for an {@code if} statement.
  *
@@ -64,4 +66,6 @@ public interface IfTree extends StatementTree {
      * @return the statement to be executed if the condition is false
      */
     StatementTree getElseStatement();
+
+    @PolyDet String toString(@PolyDet IfTree this);
 }

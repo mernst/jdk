@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 
 /**
@@ -75,4 +76,6 @@ public interface TryTree extends StatementTree {
      * @return the resource declarations
      */
     List<? extends Tree> getResources();
+
+    @PolyDet String toString(@PolyDet TryTree this);
 }

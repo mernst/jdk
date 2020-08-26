@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for postfix and unary expressions.
  * Use {@link #getKind getKind} to determine the kind of operator.
@@ -48,4 +50,6 @@ public interface UnaryTree extends ExpressionTree {
      * @return the expression
      */
     ExpressionTree getExpression();
+
+    @PolyDet String toString(@PolyDet UnaryTree this);
 }

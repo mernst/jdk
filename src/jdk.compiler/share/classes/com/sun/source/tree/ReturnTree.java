@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for a {@code return} statement.
  *
@@ -46,4 +48,6 @@ public interface ReturnTree extends StatementTree {
      * @return the expression
      */
     ExpressionTree getExpression();
+
+    @PolyDet String toString(@PolyDet ReturnTree this);
 }

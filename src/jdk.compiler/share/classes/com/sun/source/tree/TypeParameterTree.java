@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 import javax.lang.model.element.Name;
 
@@ -71,4 +72,6 @@ public interface TypeParameterTree extends Tree {
      * @since 1.8
      */
     List<? extends AnnotationTree> getAnnotations();
+
+    @PolyDet String toString(@PolyDet TypeParameterTree this);
 }

@@ -26,6 +26,7 @@
 package com.sun.source.tree;
 
 import java.util.List;
+import org.checkerframework.checker.determinism.qual.PolyDet;
 
 /**
  * A tree node for an 'exports' directive in a module declaration.
@@ -53,4 +54,6 @@ public interface ExportsTree extends DirectiveTree {
      * @return the names of the modules to which the package is exported, or null
      */
     List<? extends ExpressionTree> getModuleNames();
+
+    @PolyDet String toString(@PolyDet ExportsTree this);
 }

@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for an array type.
  *
@@ -45,4 +47,6 @@ public interface ArrayTypeTree extends Tree {
      * @return the element type
      */
     Tree getType();
+
+    @PolyDet String toString(@PolyDet ArrayTypeTree this);
 }

@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 
 /**
@@ -58,4 +59,6 @@ public interface CaseTree extends Tree {
      * @return the statements labeled by the case
      */
     List<? extends StatementTree> getStatements();
+
+    @PolyDet String toString(@PolyDet CaseTree this);
 }

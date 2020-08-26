@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for a literal expression.
  * Use {@link #getKind getKind} to determine the kind of literal.
@@ -47,4 +49,6 @@ public interface LiteralTree extends ExpressionTree {
      * @return the value
      */
     Object getValue();
+
+    @PolyDet String toString(@PolyDet LiteralTree this);
 }

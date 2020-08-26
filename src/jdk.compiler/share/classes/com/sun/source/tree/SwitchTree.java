@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 
 /**
@@ -55,4 +56,6 @@ public interface SwitchTree extends StatementTree {
      * @return the cases
      */
     List<? extends CaseTree> getCases();
+
+    @PolyDet String toString(@PolyDet SwitchTree this);
 }

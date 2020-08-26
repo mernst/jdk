@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 
 /**
@@ -40,4 +41,6 @@ public interface IntersectionTypeTree extends Tree {
      * @return the bounds
      */
     List<? extends Tree> getBounds();
+
+    @PolyDet String toString(@PolyDet IntersectionTypeTree this);
 }

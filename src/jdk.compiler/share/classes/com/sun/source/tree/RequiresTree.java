@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for a 'requires' directive in a module declaration.
  *
@@ -55,4 +57,6 @@ public interface RequiresTree extends DirectiveTree {
      * @return the name of the module that is required
      */
     ExpressionTree getModuleName();
+
+    @PolyDet String toString(@PolyDet RequiresTree this);
 }

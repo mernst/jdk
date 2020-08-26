@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 
 /**
@@ -79,4 +80,6 @@ public interface NewClassTree extends ExpressionTree {
      * @return the class body
      */
     ClassTree getClassBody();
+
+    @PolyDet String toString(@PolyDet NewClassTree this);
 }

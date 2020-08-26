@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for a {@code synchronized} statement.
  *
@@ -52,4 +54,6 @@ public interface SynchronizedTree extends StatementTree {
      * @return the block
      */
     BlockTree getBlock();
+
+    @PolyDet String toString(@PolyDet SynchronizedTree this);
 }

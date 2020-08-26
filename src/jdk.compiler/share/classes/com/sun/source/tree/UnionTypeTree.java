@@ -25,6 +25,7 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.util.List;
 
 /**
@@ -41,4 +42,6 @@ public interface UnionTypeTree extends Tree {
      * @return the alternative type expressions
      */
     List<? extends Tree> getTypeAlternatives();
+
+    @PolyDet String toString(@PolyDet UnionTypeTree this);
 }

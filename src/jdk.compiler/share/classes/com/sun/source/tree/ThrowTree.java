@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for a {@code throw} statement.
  *
@@ -45,4 +47,6 @@ public interface ThrowTree extends StatementTree {
      * @return the expression
      */
     ExpressionTree getExpression();
+
+    @PolyDet String toString(@PolyDet ThrowTree this);
 }

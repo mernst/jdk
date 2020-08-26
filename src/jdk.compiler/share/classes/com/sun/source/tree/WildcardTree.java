@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for a wildcard type argument.
  * Use {@link #getKind getKind} to determine the kind of bound.
@@ -50,4 +52,6 @@ public interface WildcardTree extends Tree {
      * @return the bound
      */
     Tree getBound();
+
+    @PolyDet String toString(@PolyDet WildcardTree this);
 }

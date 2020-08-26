@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for a parenthesized expression.  Note: parentheses
  * not be preserved by the parser.
@@ -46,4 +48,6 @@ public interface ParenthesizedTree extends ExpressionTree {
      * @return the expression
      */
     ExpressionTree getExpression();
+
+    @PolyDet String toString(@PolyDet ParenthesizedTree this);
 }

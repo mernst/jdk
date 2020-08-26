@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for compound assignment operator.
  * Use {@link #getKind getKind} to determine the kind of operator.
@@ -52,4 +54,6 @@ public interface CompoundAssignmentTree extends ExpressionTree {
      * @return the expression
      */
     ExpressionTree getExpression();
+
+    @PolyDet String toString(@PolyDet CompoundAssignmentTree this);
 }

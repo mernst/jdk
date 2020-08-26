@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for an empty (skip) statement.
  *
@@ -39,4 +41,6 @@ package com.sun.source.tree;
  * @author Jonathan Gibbons
  * @since 1.6
  */
-public interface EmptyStatementTree extends StatementTree {}
+public interface EmptyStatementTree extends StatementTree {
+    @PolyDet String toString(@PolyDet EmptyStatementTree this);
+}

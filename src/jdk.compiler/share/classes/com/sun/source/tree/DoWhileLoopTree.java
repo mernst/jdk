@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for a {@code do} statement.
  *
@@ -53,4 +55,6 @@ public interface DoWhileLoopTree extends StatementTree {
      * @return the body of the loop
      */
     StatementTree getStatement();
+
+    @PolyDet String toString(@PolyDet DoWhileLoopTree this);
 }

@@ -25,6 +25,8 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
 /**
  * A tree node for an assignment expression.
  *
@@ -51,4 +53,6 @@ public interface AssignmentTree extends ExpressionTree {
      * @return the expression
      */
     ExpressionTree getExpression();
+
+    @PolyDet String toString(@PolyDet AssignmentTree this);
 }

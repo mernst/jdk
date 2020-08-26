@@ -26,6 +26,7 @@
 package com.sun.source.tree;
 
 import java.util.List;
+import org.checkerframework.checker.determinism.qual.PolyDet;
 
 /**
  * A tree node for a method invocation expression.
@@ -61,4 +62,6 @@ public interface MethodInvocationTree extends ExpressionTree {
      * @return the arguments
      */
     List<? extends ExpressionTree> getArguments();
+
+    @PolyDet String toString(@PolyDet MethodInvocationTree this);
 }

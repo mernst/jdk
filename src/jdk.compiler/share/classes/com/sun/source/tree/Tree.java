@@ -681,5 +681,5 @@ public interface Tree {
      */
     <R,D> R accept(TreeVisitor<R,D> visitor, D data);
 
-    public @PolyDet String toString(@PolyDet Tree this);
+    @PolyDet String toString(@PolyDet Tree this);
 }

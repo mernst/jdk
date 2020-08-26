@@ -25,6 +25,9 @@
 
 package com.sun.source.tree;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+
+
 /**
  * A tree node for an array access expression.
  *
@@ -51,4 +54,6 @@ public interface ArrayAccessTree extends ExpressionTree {
      * @return the index
      */
     ExpressionTree getIndex();
+
+    @PolyDet String toString(@PolyDet ArrayAccessTree this);
 }
