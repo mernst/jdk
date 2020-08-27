@@ -748,7 +748,7 @@ public class File
      * @see java.net.URI#toURL()
      * @since 1.4
      */
-    public URI toURI() {
+    public @PolyDet URI toURI(@PolyDet File this) {
         try {
             File f = getAbsoluteFile();
             String sp = slashify(f.getPath(), f.isDirectory());
@@ -830,7 +830,7 @@ public class File
      *          java.lang.SecurityManager#checkRead(java.lang.String)}
      *          method denies read access to the file or directory
      */
-    public boolean exists() {
+    public @NonDet boolean exists(@PolyDet File this) {
         SecurityManager security = System.getSecurityManager();
         if (security != null) {
             security.checkRead(path);
@@ -1239,7 +1239,7 @@ public class File
      *
      * @since  1.2
      */
-    public @NonDet File @Nullable @NonDet [] listFiles(@PolyDet File this) {
+    public @PolyDet File @Nullable @PolyDet("upDet") [] listFiles(@PolyDet File this) {
         @NonDet String @NonDet[] ss = list();
         if (ss == null) return null;
         int n = ss.length;
