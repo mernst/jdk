@@ -25,6 +25,9 @@
 
 package javax.lang.model.element;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
+import org.checkerframework.checker.determinism.qual.Det;
+
 /**
  * An immutable sequence of characters.  When created by the same
  * implementation, objects implementing this interface must obey the
@@ -86,4 +89,6 @@ public interface Name extends CharSequence {
      * @see String#contentEquals(CharSequence)
      */
     boolean contentEquals(CharSequence cs);
+
+    @Det String toString(@Det Name this);
 }

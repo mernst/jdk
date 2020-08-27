@@ -26,6 +26,7 @@
 package javax.lang.model.element;
 
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.AnnotationTypeMismatchException;
 import java.lang.annotation.IncompleteAnnotationException;
@@ -220,7 +221,7 @@ public interface Element extends javax.lang.model.AnnotatedConstruct {
      *          element as this
      */
     @Override
-    boolean equals(Object obj);
+    @PolyDet boolean equals(@PolyDet Element this, @PolyDet Object obj);
 
     /**
      * Obeys the general contract of {@link Object#hashCode Object.hashCode}.

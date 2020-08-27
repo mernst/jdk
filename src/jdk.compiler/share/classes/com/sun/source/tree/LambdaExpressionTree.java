@@ -70,7 +70,7 @@ public interface LambdaExpressionTree extends ExpressionTree {
      * Returns the kind of the body of the lambda expression.
      * @return the kind of the body
      */
-    BodyKind getBodyKind();
+    @PolyDet BodyKind getBodyKind(@PolyDet LambdaExpressionTree this);
 
     @PolyDet String toString(@PolyDet LambdaExpressionTree this);
 }

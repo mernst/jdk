@@ -1238,7 +1238,7 @@ public final class Integer extends Number implements Comparable<Integer> {
      */
     @SideEffectFree
     @StaticallyExecutable
-    public @ArrayLenRange(from = 1, to = 11) String toString() {
+    public @PolyDet @ArrayLenRange(from = 1, to = 11) String toString(@PolyDet Integer this) {
         return toString(value);
     }
 
@@ -1283,7 +1283,7 @@ public final class Integer extends Number implements Comparable<Integer> {
      */
     @Pure
     @StaticallyExecutable
-    public boolean equals(@Nullable Object obj) {
+    public @PolyDet boolean equals(@PolyDet Integer this, @PolyDet @Nullable Object obj) {
         if (obj instanceof Integer) {
             return value == ((Integer)obj).intValue();
         }

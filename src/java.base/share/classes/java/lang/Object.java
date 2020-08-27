@@ -91,7 +91,7 @@ public class Object {
     @SafeEffect
     @Pure
     @HotSpotIntrinsicCandidate
-    public final native Class<?> getClass(@PolyUI @GuardSatisfied @UnknownInitialization Object this);
+    public final native @PolyDet Class<?> getClass(@PolyDet @PolyUI @GuardSatisfied @UnknownInitialization Object this);
 
     /**
      * Returns a hash code value for the object. This method is

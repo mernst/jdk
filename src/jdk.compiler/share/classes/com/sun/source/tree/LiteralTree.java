@@ -48,7 +48,7 @@ public interface LiteralTree extends ExpressionTree {
      * The value will be a boxed primitive value, a String, or {@code null}.
      * @return the value
      */
-    Object getValue();
+    @PolyDet Object getValue(@PolyDet LiteralTree this);
 
     @PolyDet String toString(@PolyDet LiteralTree this);
 }

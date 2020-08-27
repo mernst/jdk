@@ -25,6 +25,7 @@
 
 package java.lang;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import org.checkerframework.checker.index.qual.IndexFor;
 import org.checkerframework.checker.index.qual.IndexOrHigh;
 import org.checkerframework.checker.index.qual.LengthOf;
@@ -127,7 +128,7 @@ public interface CharSequence {
      * @return  a string consisting of exactly this sequence of characters
      */
     @SideEffectFree
-    public @SameLen({"this"}) String toString(@GuardSatisfied CharSequence this);
+    public @PolyDet @SameLen({"this"}) String toString(@PolyDet @GuardSatisfied CharSequence this);
 
     /**
      * Returns a stream of {@code int} zero-extending the {@code char} values

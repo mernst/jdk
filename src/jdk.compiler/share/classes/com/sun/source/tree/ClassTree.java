@@ -61,7 +61,7 @@ public interface ClassTree extends StatementTree {
      * Returns the simple name of this type declaration.
      * @return the simple name
      */
-    Name getSimpleName();
+    @PolyDet Name getSimpleName(@PolyDet ClassTree this);
 
     /**
      * Returns any type parameters of this type declaration.

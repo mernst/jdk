@@ -25,6 +25,7 @@
 
 package javax.lang.model.util;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.AnnotationTypeMismatchException;
 import java.lang.annotation.IncompleteAnnotationException;
@@ -81,7 +82,7 @@ public interface Types {
      * @param t2  the second type
      * @return {@code true} if and only if the two types are the same
      */
-    boolean isSameType(TypeMirror t1, TypeMirror t2);
+    @PolyDet boolean isSameType(@PolyDet Types this, @PolyDet TypeMirror t1, @PolyDet TypeMirror t2);
 
     /**
      * Tests whether one type is a subtype of another.

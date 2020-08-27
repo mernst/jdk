@@ -69,7 +69,7 @@ public interface MemberReferenceTree extends ExpressionTree {
      * Returns the name of the reference.
      * @return the name
      */
-    Name getName();
+    @PolyDet Name getName(@PolyDet MemberReferenceTree this);
 
     /**
      * Returns the type arguments for the reference.
