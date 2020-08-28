@@ -86,7 +86,7 @@ public interface Element extends javax.lang.model.AnnotatedConstruct {
      *
      * @return the kind of this element
      */
-    ElementKind getKind();
+    @PolyDet ElementKind getKind(@PolyDet Element this);
 
     /**
      * Returns the modifiers of this element, excluding annotations.
@@ -127,7 +127,7 @@ public interface Element extends javax.lang.model.AnnotatedConstruct {
      * @revised 9
      * @spec JPMS
      */
-    Name getSimpleName();
+    @PolyDet Name getSimpleName(@PolyDet Element this);
 
     /**
      * Returns the innermost element

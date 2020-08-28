@@ -149,7 +149,7 @@ public abstract class Name implements javax.lang.model.element.Name {
     /** Return the string representation of this name.
      */
     @Override
-    public String toString() {
+    public @PolyDet String toString(@PolyDet Name this) {
         return Convert.utf2string(getByteArray(), getByteOffset(), getByteLength());
     }
 

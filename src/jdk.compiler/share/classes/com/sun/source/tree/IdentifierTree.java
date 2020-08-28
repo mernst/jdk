@@ -47,7 +47,7 @@ public interface IdentifierTree extends ExpressionTree {
      * Returns the name of the identifier.
      * @return the name
      */
-    Name getName();
+    @PolyDet Name getName(@PolyDet IdentifierTree this);
 
     @PolyDet String toString(@PolyDet IdentifierTree this);
 }

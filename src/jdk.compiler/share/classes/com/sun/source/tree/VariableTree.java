@@ -54,7 +54,7 @@ public interface VariableTree extends StatementTree {
      * Returns the name of the variable being declared.
      * @return the name
      */
-    Name getName();
+    @PolyDet Name getName(@PolyDet Name this);
 
     /**
      * Returns the qualified identifier for the name being "declared".

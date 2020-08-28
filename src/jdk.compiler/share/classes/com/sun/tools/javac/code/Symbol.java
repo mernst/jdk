@@ -25,6 +25,7 @@
 
 package com.sun.tools.javac.code;
 
+import org.checkerframework.checker.determinism.qual.PolyDet;
 import org.checkerframework.checker.interning.qual.InternedDistinct;
 import org.checkerframework.checker.interning.qual.UsesObjectEquals;
 
@@ -1547,7 +1548,7 @@ public abstract class Symbol extends AnnoConstruct implements Element {
             return v;
         }
 
-        public String toString() {
+        public @PolyDet String toString(@PolyDet Symbol this) {
             return name.toString();
         }
 
