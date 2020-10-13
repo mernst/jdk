@@ -26,6 +26,8 @@
 package com.sun.tools.javac.code;
 
 import org.checkerframework.checker.determinism.qual.PolyDet;
+import org.checkerframework.checker.signature.qual.BinaryName;
+import org.checkerframework.checker.signature.qual.CanonicalName;
 import org.checkerframework.checker.interning.qual.InternedDistinct;
 import org.checkerframework.checker.interning.qual.UsesObjectEquals;
 
@@ -299,7 +301,7 @@ public abstract class Symbol extends AnnoConstruct implements Element {
     /** The Java source which this symbol represents.
      *  A description of this symbol; overrides Object.
      */
-    public @PolyDet String toString(@PolyDet Symbol this) {
+    public @PolyDet @CanonicalName String toString(@PolyDet Symbol this) {
         return name.toString();
     }
 
@@ -431,7 +433,7 @@ public abstract class Symbol extends AnnoConstruct implements Element {
      *  This is the same as the symbol's name except for class symbols,
      *  which are handled separately.
      */
-    public Name getQualifiedName() {
+    public @CanonicalName Name getQualifiedName() {
         return name;
     }
 
@@ -439,7 +441,7 @@ public abstract class Symbol extends AnnoConstruct implements Element {
      *  representation. This is the same as the symbol's name except for
      *  class symbols, which are handled separately.
      */
-    public Name flatName() {
+    public @BinaryName Name flatName() {
         return getQualifiedName();
     }
 
@@ -727,8 +729,8 @@ public abstract class Symbol extends AnnoConstruct implements Element {
         public Type externalType(Types types) { return other.externalType(types); }
         public boolean isLocal() { return other.isLocal(); }
         public boolean isConstructor() { return other.isConstructor(); }
-        public Name getQualifiedName() { return other.getQualifiedName(); }
-        public Name flatName() { return other.flatName(); }
+        public @CanonicalName Name getQualifiedName() { return other.getQualifiedName(); }
+        public @BinaryName Name flatName() { return other.flatName(); }
         public WriteableScope members() { return other.members(); }
         public boolean isInner() { return other.isInner(); }
         public boolean hasOuterInstance() { return other.hasOuterInstance(); }
@@ -764,7 +766,7 @@ public abstract class Symbol extends AnnoConstruct implements Element {
         }
         /** form a fully qualified name from a name and an owner
          */
-        static public Name formFullName(Name name, Symbol owner) {
+        static public @CanonicalName Name formFullName(Name name, Symbol owner) {
             if (owner == null) return name;
             if ((owner.kind != ERR) &&
                 (owner.kind.matches(KindSelector.VAL_MTH) ||
@@ -779,7 +781,7 @@ public abstract class Symbol extends AnnoConstruct implements Element {
         /** form a fully qualified name from a name and an owner, after
          *  converting to flat representation
          */
-        static public Name formFlatName(Name name, Symbol owner) {
+        static public @BinaryName Name formFlatName(Name name, Symbol owner) {
             if (owner == null || owner.kind.matches(KindSelector.VAL_MTH) ||
                 (owner.kind == TYP && owner.type.hasTag(TYPEVAR))
                 ) return name;
@@ -1122,7 +1124,7 @@ public abstract class Symbol extends AnnoConstruct implements Element {
         }
 
         @DefinedBy(Api.LANGUAGE_MODEL)
-        public Name getQualifiedName() {
+        public @CanonicalName Name getQualifiedName() {
             return fullname;
         }
 
@@ -1210,7 +1212,7 @@ public abstract class Symbol extends AnnoConstruct implements Element {
          *  representation, i.e. pck.outer$inner,
          *  set externally for local and anonymous classes
          */
-        public Name flatname;
+        public @BinaryName Name flatname;
 
         /** the sourcefile where the class came from
          */
@@ -1298,11 +1300,11 @@ public abstract class Symbol extends AnnoConstruct implements Element {
         }
 
         @DefinedBy(Api.LANGUAGE_MODEL)
-        public Name getQualifiedName() {
+        public @CanonicalName Name getQualifiedName() {
             return fullname;
         }
 
-        public Name flatName() {
+        public @BinaryName Name flatName() {
             return flatname;
         }
 
