@@ -505,7 +505,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      */
     @Override
     @SideEffectFree
-    public @PolyDet("down") String toString(@GuardSatisfied @PolyDet AbstractCollection<E> this) {
+    public @NonDet String toString(@GuardSatisfied @PolyDet AbstractCollection<E> this) {
         Iterator<E> it = iterator();
         if (! it.hasNext())
             return "[]";
