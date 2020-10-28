@@ -30,6 +30,9 @@ import org.checkerframework.checker.hasnext.qual.HasNextTrue;
 import org.checkerframework.checker.hasnext.qual.UnknownHasNext;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.*;
+import org.checkerframework.framework.qual.AnnotatedFor;
+import org.checkerframework.framework.qual.CFComment;
+import org.checkerframework.framework.qual.Covariant;
 
 import java.util.function.Consumer;
 
