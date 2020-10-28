@@ -75,6 +75,7 @@ public interface Iterator<E> {
      * @return {@code true} if the iteration has more elements
      */
     @Pure
+    @EnsuresQualifierIf(result = true, expression = "this", qualifier = HasNextTrue.class)
     boolean hasNext(@GuardSatisfied Iterator<E> this);
 
     /**
