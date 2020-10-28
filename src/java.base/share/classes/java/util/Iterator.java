@@ -84,7 +84,7 @@ public interface Iterator<E> {
      * @return the next element in the iteration
      * @throws NoSuchElementException if the iteration has no more elements
      */
-    @EnsuresQualifier(expression = "this", qualifier = UnknownHasNext.class)
+//    @EnsuresQualifier(expression = "this", qualifier = UnknownHasNext.class)
     E next(@HasNextTrue @GuardSatisfied Iterator<E> this);
 
     /**
