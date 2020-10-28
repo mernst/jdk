@@ -27,11 +27,9 @@ package java.util;
 
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.hasnext.qual.HasNextTrue;
+import org.checkerframework.checker.hasnext.qual.UnknownHasNext;
 import org.checkerframework.dataflow.qual.Pure;
-import org.checkerframework.framework.qual.AnnotatedFor;
-import org.checkerframework.framework.qual.CFComment;
-import org.checkerframework.framework.qual.Covariant;
-import org.checkerframework.framework.qual.EnsuresQualifierIf;
+import org.checkerframework.framework.qual.*;
 
 import java.util.function.Consumer;
 
@@ -86,7 +84,8 @@ public interface Iterator<E> {
      * @return the next element in the iteration
      * @throws NoSuchElementException if the iteration has no more elements
      */
-    E next(@GuardSatisfied Iterator<E> this);
+    @EnsuresQualifier(expression = "this", qualifier = UnknownHasNext.class)
+    E next(@HasNextTrue @GuardSatisfied Iterator<E> this);
 
     /**
      * Removes from the underlying collection the last element returned
