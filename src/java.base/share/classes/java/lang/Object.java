@@ -270,9 +270,12 @@ public class Object {
      */
     @CFComment({"nullness: toString() is @SideEffectFree rather than @Pure because it returns a string",
     "that differs according to ==, and @Deterministic requires that the results of",
-    "two calls of the method are ==."})
+    "two calls of the method are ==.",
+    "determinism: the formal parameter type reflects that one should not try to print nondeterministic objects.",
+    "This identifies some formatting problems, pinning the blame on the argument to toString() rather than the result of toString().",
+    "Clients should override the method as  @PolyDet toString(@PolyDet Object this)"})
     @SideEffectFree
-    public @NonDet String toString(@GuardSatisfied @PolyDet Object this) {
+    public @NonDet String toString(@GuardSatisfied @Det Object this) {
         return getClass().getName() + "@" + Integer.toHexString(hashCode());
     }
 
