@@ -273,7 +273,7 @@ public class Object {
     "two calls of the method are ==.",
     "determinism: the formal paramter type reflects that one should not try to print nondeterministic objects.",
     "This identifies some formatting problems, pinning the blame on the argument to toString() rather than the result of toString().",
-    "Clients should override the method as  @PolyDet toString(@PolyDet Object this)"})
+    "Clients should override the method as @PolyDet toString(@PolyDet Object this)"})
     @SideEffectFree
     public @NonDet String toString(@GuardSatisfied @PolyDet Object this) {
         return getClass().getName() + "@" + Integer.toHexString(hashCode());
