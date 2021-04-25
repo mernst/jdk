@@ -26,7 +26,6 @@
 package java.util;
 
 import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
-import org.checkerframework.checker.enhancedfor.qual.UnknownRepCollection;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
@@ -66,7 +65,7 @@ import java.util.function.Consumer;
 @CFComment({"nullness: This @Covariant annotation is sound, but it would not be sound on",
             "ListIterator (a subclass of Iterator), which supports a set operation."
 })
-@AnnotatedFor({"lock", "nullness", "enhancedfor"})
+@AnnotatedFor({"lock", "nullness", "boxing"})
 @Covariant({0})
 public interface Iterator<E> {
     /**
