@@ -25,6 +25,7 @@
 
 package java.util;
 
+import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 

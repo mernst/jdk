@@ -25,6 +25,7 @@
 
 package java.util;
 
+import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 

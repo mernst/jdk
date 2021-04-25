@@ -25,6 +25,7 @@
 
 package java.util;
 
+import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;

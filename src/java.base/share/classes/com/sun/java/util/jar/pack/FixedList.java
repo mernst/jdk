@@ -24,6 +24,7 @@
  */
 package com.sun.java.util.jar.pack;
 
+import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 
 import java.util.ArrayList;

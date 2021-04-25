@@ -24,6 +24,7 @@
  */
 package java.lang;
 
+import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
 import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
 import org.checkerframework.framework.qual.AnnotatedFor;
 

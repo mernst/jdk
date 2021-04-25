@@ -25,6 +25,8 @@
 
 package java.util;
 
+import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
+import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
@@ -244,7 +246,7 @@ public abstract class AbstractSequentialList<E> extends AbstractList<E> {
      * @return an iterator over the elements in this list (in proper sequence)
      */
     @SideEffectFree
-    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor AbstractSequentialList<E> this);
+    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor AbstractSequentialList<E> this) {
         return listIterator();
     }
 
