@@ -35,7 +35,7 @@
 
 package java.util.concurrent;
 
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.dataflow.qual.Pure;
@@ -202,7 +202,7 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this queue
      */
-    boolean add(@EnhancedForUnknown BlockingQueue<E> this, E e);
+    boolean add(@UnknownRepCollection BlockingQueue<E> this, E e);
 
     /**
      * Inserts the specified element into this queue if it is possible to do
@@ -221,7 +221,7 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this queue
      */
-    boolean offer(@EnhancedForUnknown BlockingQueue<E> this, E e);
+    boolean offer(@UnknownRepCollection BlockingQueue<E> this, E e);
 
     /**
      * Inserts the specified element into this queue, waiting if necessary
@@ -279,7 +279,7 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      *         specified waiting time elapses before an element is available
      * @throws InterruptedException if interrupted while waiting
      */
-    @Nullable E poll(@EnhancedForUnknown BlockingQueue<E> this, long timeout, TimeUnit unit)
+    @Nullable E poll(@UnknownRepCollection BlockingQueue<E> this, long timeout, TimeUnit unit)
         throws InterruptedException;
 
     /**

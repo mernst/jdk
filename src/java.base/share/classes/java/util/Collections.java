@@ -25,8 +25,8 @@
 
 package java.util;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
@@ -1061,7 +1061,7 @@ public class Collections {
         public String toString()                   {return c.toString();}
 
         @SideEffectFree
-        public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor UnmodifiableCollection<E> this) {
+        public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection UnmodifiableCollection<E> this) {
             return new Iterator<E>() {
                 private final Iterator<? extends E> i = c.iterator();
 
@@ -1113,7 +1113,7 @@ public class Collections {
         @SideEffectFree
         @SuppressWarnings("unchecked")
         @Override
-        public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor UnmodifiableCollection<E> this) {
+        public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection UnmodifiableCollection<E> this) {
             return (Spliterator<E>)c.spliterator();
         }
         @SuppressWarnings("unchecked")
@@ -2079,7 +2079,7 @@ public class Collections {
         }
 
         @SideEffectFree
-        public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor SynchronizedCollection<E> this) {
+        public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection SynchronizedCollection<E> this) {
             return c.iterator(); // Must be manually synched by user!
         }
 
@@ -2119,7 +2119,7 @@ public class Collections {
         }
         @SideEffectFree
         @Override
-        public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor SynchronizedCollection<E> this) {
+        public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection SynchronizedCollection<E> this) {
             return c.spliterator(); // Must be manually synched by user!
         }
         @Override
@@ -3154,7 +3154,7 @@ public class Collections {
         }
 
         @SideEffectFree
-        public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor CheckedCollection<E> this) {
+        public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection CheckedCollection<E> this) {
             // JDK-6363904 - unwrapped iterator could be typecast to
             // ListIterator with unsafe set()
             final Iterator<E> it = c.iterator();
@@ -3217,7 +3217,7 @@ public class Collections {
         }
         @SideEffectFree
         @Override
-        public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor CheckedCollection<E> this) {return c.spliterator();}
+        public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection CheckedCollection<E> this) {return c.spliterator();}
         @Override
         public Stream<E> stream()           {return c.stream();}
         @Override
@@ -4431,7 +4431,7 @@ public class Collections {
         private static final long serialVersionUID = 1582296315990362920L;
 
         @SideEffectFree
-        public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor EmptySet<E> this) { return emptyIterator(); }
+        public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection EmptySet<E> this) { return emptyIterator(); }
 
         @Pure
         public @NonNegative int size() {return 0;}
@@ -4464,7 +4464,7 @@ public class Collections {
         }
         @SideEffectFree
         @Override
-        public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor EmptySet<E> this) { return Spliterators.emptySpliterator(); }
+        public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection EmptySet<E> this) { return Spliterators.emptySpliterator(); }
 
         // Preserves singleton property
         private Object readResolve() {
@@ -4561,7 +4561,7 @@ public class Collections {
         private static final long serialVersionUID = 8842843931221139166L;
 
         @SideEffectFree
-        public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor EmptyList<E> this) {
+        public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection EmptyList<E> this) {
             return emptyIterator();
         }
         public ListIterator<E> listIterator() {
@@ -4618,7 +4618,7 @@ public class Collections {
 
         @SideEffectFree
         @Override
-        public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor EmptyList<E> this) { return Spliterators.emptySpliterator(); }
+        public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection EmptyList<E> this) { return Spliterators.emptySpliterator(); }
 
         // Preserves singleton property
         private Object readResolve() {
@@ -4901,7 +4901,7 @@ public class Collections {
         SingletonSet(E e) {element = e;}
 
         @SideEffectFree
-        public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor SingletonSet<E> this) {
+        public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection SingletonSet<E> this) {
             return singletonIterator(element);
         }
 
@@ -4917,7 +4917,7 @@ public class Collections {
         }
         @SideEffectFree
         @Override
-        public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor SingletonSet<E> this) {
+        public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection SingletonSet<E> this) {
             return singletonSpliterator(element);
         }
         @Override
@@ -4959,7 +4959,7 @@ public class Collections {
         SingletonList(E obj)                {element = obj;}
 
         @SideEffectFree
-        public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor SingletonList<E> this) {
+        public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection SingletonList<E> this) {
             return singletonIterator(element);
         }
 
@@ -4992,7 +4992,7 @@ public class Collections {
         }
         @SideEffectFree
         @Override
-        public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor SingletonList<E> this) {
+        public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection SingletonList<E> this) {
             return singletonSpliterator(element);
         }
         @Override
@@ -5585,7 +5585,7 @@ public class Collections {
      * @since 1.5
      */
     @SafeVarargs
-    public static <T> boolean addAll(@GuardSatisfied @EnhancedForUnknown List Collection<? super T> c, T... elements) {
+    public static <T> boolean addAll(@GuardSatisfied @UnknownRepCollection List Collection<? super T> c, T... elements) {
         boolean result = false;
         for (T element : elements)
             result |= c.add(element);

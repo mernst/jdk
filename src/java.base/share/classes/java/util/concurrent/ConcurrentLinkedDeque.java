@@ -35,8 +35,8 @@
 
 package java.util.concurrent;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.nullness.qual.EnsuresNonNullIf;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -834,7 +834,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      *
      * @throws NullPointerException if the specified element is null
      */
-    public void addFirst(@EnhancedForUnknown ConcurrentLinkedDeque<E> this, E e) {
+    public void addFirst(@UnknownRepCollection ConcurrentLinkedDeque<E> this, E e) {
         linkFirst(e);
     }
 
@@ -847,7 +847,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      *
      * @throws NullPointerException if the specified element is null
      */
-    public void addLast(@EnhancedForUnknown ConcurrentLinkedDeque<E> this, E e) {
+    public void addLast(@UnknownRepCollection ConcurrentLinkedDeque<E> this, E e) {
         linkLast(e);
     }
 
@@ -858,7 +858,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      * @return {@code true} (as specified by {@link Deque#offerFirst})
      * @throws NullPointerException if the specified element is null
      */
-    public boolean offerFirst(@EnhancedForUnknown ConcurrentLinkedDeque<E> this, E e) {
+    public boolean offerFirst(@UnknownRepCollection ConcurrentLinkedDeque<E> this, E e) {
         linkFirst(e);
         return true;
     }
@@ -872,12 +872,12 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      * @return {@code true} (as specified by {@link Deque#offerLast})
      * @throws NullPointerException if the specified element is null
      */
-    public boolean offerLast(@EnhancedForUnknown ConcurrentLinkedDeque<E> this, E e) {
+    public boolean offerLast(@UnknownRepCollection ConcurrentLinkedDeque<E> this, E e) {
         linkLast(e);
         return true;
     }
 
-    public @Nullable E peekFirst(@EnhancedForUnknown ConcurrentLinkedDeque<E> this) {
+    public @Nullable E peekFirst(@UnknownRepCollection ConcurrentLinkedDeque<E> this) {
         restart: for (;;) {
             E item;
             Node<E> first = first(), p = first;
@@ -892,7 +892,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
         }
     }
 
-    public @Nullable E peekLast(@EnhancedForUnknown ConcurrentLinkedDeque<E> this) {
+    public @Nullable E peekLast(@UnknownRepCollection ConcurrentLinkedDeque<E> this) {
         restart: for (;;) {
             E item;
             Node<E> last = last(), p = last;
@@ -910,18 +910,18 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E getFirst(@EnhancedForUnknown ConcurrentLinkedDeque<E> this) {
+    public E getFirst(@UnknownRepCollection ConcurrentLinkedDeque<E> this) {
         return screenNullResult(peekFirst());
     }
 
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E getLast(@EnhancedForUnknown ConcurrentLinkedDeque<E> this) {
+    public E getLast(@UnknownRepCollection ConcurrentLinkedDeque<E> this) {
         return screenNullResult(peekLast());
     }
 
-    public @Nullable E pollFirst(@EnhancedForUnknown ConcurrentLinkedDeque<E> this) {
+    public @Nullable E pollFirst(@UnknownRepCollection ConcurrentLinkedDeque<E> this) {
         restart: for (;;) {
             for (Node<E> first = first(), p = first;;) {
                 final E item;
@@ -942,7 +942,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
         }
     }
 
-    public @Nullable E pollLast(@EnhancedForUnknown ConcurrentLinkedDeque<E> this) {
+    public @Nullable E pollLast(@UnknownRepCollection ConcurrentLinkedDeque<E> this) {
         restart: for (;;) {
             for (Node<E> last = last(), p = last;;) {
                 final E item;
@@ -966,14 +966,14 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E removeFirst(@EnhancedForUnknown ConcurrentLinkedDeque<E> this) {
+    public E removeFirst(@UnknownRepCollection ConcurrentLinkedDeque<E> this) {
         return screenNullResult(pollFirst());
     }
 
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E removeLast(@EnhancedForUnknown ConcurrentLinkedDeque<E> this) {
+    public E removeLast(@UnknownRepCollection ConcurrentLinkedDeque<E> this) {
         return screenNullResult(pollLast());
     }
 
@@ -986,7 +986,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      * @return {@code true} (as specified by {@link Queue#offer})
      * @throws NullPointerException if the specified element is null
      */
-    public boolean offer(@EnhancedForUnknown ConcurrentLinkedDeque<E> this, E e) {
+    public boolean offer(@UnknownRepCollection ConcurrentLinkedDeque<E> this, E e) {
         return offerLast(e);
     }
 
@@ -998,7 +998,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      * @return {@code true} (as specified by {@link Collection#add})
      * @throws NullPointerException if the specified element is null
      */
-    public boolean add(@EnhancedForUnknown ConcurrentLinkedDeque<E> this, E e) {
+    public boolean add(@UnknownRepCollection ConcurrentLinkedDeque<E> this, E e) {
         return offerLast(e);
     }
 
@@ -1023,7 +1023,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public void push(@EnhancedForUnknown ConcurrentLinkedDeque<E> this, E e)     { addFirst(e); }
+    public void push(@UnknownRepCollection ConcurrentLinkedDeque<E> this, E e)     { addFirst(e); }
 
     /**
      * Removes the first occurrence of the specified element from this deque.
@@ -1104,7 +1104,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      */
     @EnsuresNonNullIf(expression={"peek()", "peekFirst()", "peekLast()", "poll()", "pollFirst()", "pollLast()"}, result=false)
     @Pure
-    public boolean isEmpty(@EnhancedForUnknown ConcurrentLinkedDeque<E> this) {
+    public boolean isEmpty(@UnknownRepCollection ConcurrentLinkedDeque<E> this) {
         return peekFirst() == null;
     }
 
@@ -1125,7 +1125,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      * @return the number of elements in this deque
      */
     @Pure
-    public int size(@EnhancedForUnknown ConcurrentLinkedDeque<E> this) {
+    public int size(@UnknownRepCollection ConcurrentLinkedDeque<E> this) {
         restart: for (;;) {
             int count = 0;
             for (Node<E> p = first(); p != null;) {
@@ -1169,7 +1169,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      *         of its elements are null
      * @throws IllegalArgumentException if the collection is this deque
      */
-    public boolean addAll(@EnhancedForUnknown ConcurrentLinkedDeque<E> this, Collection<? extends E> c) {
+    public boolean addAll(@UnknownRepCollection ConcurrentLinkedDeque<E> this, Collection<? extends E> c) {
         if (c == this)
             // As historically specified in AbstractQueue#addAll
             throw new IllegalArgumentException();
@@ -1223,7 +1223,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     /**
      * Removes all of the elements from this deque.
      */
-    public void clear(@EnhancedForUnknown ConcurrentLinkedDeque<E> this) {
+    public void clear(@UnknownRepCollection ConcurrentLinkedDeque<E> this) {
         while (pollFirst() != null)
             ;
     }
@@ -1356,7 +1356,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      * @return an iterator over the elements in this deque in proper sequence
      */
     @SideEffectFree
-    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor ConcurrentLinkedDeque<E> this) {
+    public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection ConcurrentLinkedDeque<E> this) {
         return new Itr();
     }
 
@@ -1370,7 +1370,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      *
      * @return an iterator over the elements in this deque in reverse order
      */
-    public @PolyEnhancedFor Iterator<E> descendingIterator(@PolyEnhancedFor ConcurrentLinkedDeque<E> this) {
+    public @PolyRepCollection Iterator<E> descendingIterator(@PolyRepCollection ConcurrentLinkedDeque<E> this) {
         return new DescendingItr();
     }
 
@@ -1562,7 +1562,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      * @since 1.8
      */
     @SideEffectFree
-    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor ConcurrentLinkedDeque<E> this) {
+    public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection ConcurrentLinkedDeque<E> this) {
         return new CLDSpliterator();
     }
 
@@ -1661,7 +1661,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public void forEach(@EnhancedForUnknown ConcurrentLinkedDeque<E> this, Consumer<? super E> action) {
+    public void forEach(@UnknownRepCollection ConcurrentLinkedDeque<E> this, Consumer<? super E> action) {
         Objects.requireNonNull(action);
         E item;
         for (Node<E> p = first(); p != null; p = succ(p))

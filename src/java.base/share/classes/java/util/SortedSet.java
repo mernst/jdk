@@ -25,7 +25,7 @@
 
 package java.util;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.dataflow.qual.Pure;
@@ -268,7 +268,7 @@ public interface SortedSet<E> extends Set<E> {
      * @since 1.8
      */
     @Override
-    default @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor SortedSet<E> this) {
+    default @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection SortedSet<E> this) {
         return new Spliterators.IteratorSpliterator<E>(
                 this, Spliterator.DISTINCT | Spliterator.SORTED | Spliterator.ORDERED) {
             @Override

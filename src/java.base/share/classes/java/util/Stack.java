@@ -25,7 +25,7 @@
 
 package java.util;
 
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
@@ -84,7 +84,7 @@ class Stack<E> extends Vector<E> {
      *          of the {@code Vector} object).
      * @throws  EmptyStackException  if this stack is empty.
      */
-    public synchronized E pop(@GuardSatisfied @EnhancedForUnknown Stack<E> this) {
+    public synchronized E pop(@GuardSatisfied @UnknownRepCollection Stack<E> this) {
         E       obj;
         int     len = size();
 

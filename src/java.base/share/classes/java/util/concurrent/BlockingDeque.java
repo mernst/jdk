@@ -35,8 +35,8 @@
 
 package java.util.concurrent;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.dataflow.qual.Pure;
@@ -225,7 +225,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      * @throws NullPointerException if the specified element is null
      * @throws IllegalArgumentException {@inheritDoc}
      */
-    void addFirst(@EnhancedForUnknown BlockingDeque<E> this, E e);
+    void addFirst(@UnknownRepCollection BlockingDeque<E> this, E e);
 
     /**
      * Inserts the specified element at the end of this deque if it is
@@ -240,7 +240,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      * @throws NullPointerException if the specified element is null
      * @throws IllegalArgumentException {@inheritDoc}
      */
-    void addLast(@EnhancedForUnknown BlockingDeque<E> this, E e);
+    void addLast(@UnknownRepCollection BlockingDeque<E> this, E e);
 
     /**
      * Inserts the specified element at the front of this deque if it is
@@ -256,7 +256,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      * @throws NullPointerException if the specified element is null
      * @throws IllegalArgumentException {@inheritDoc}
      */
-    boolean offerFirst(@EnhancedForUnknown BlockingDeque<E> this, E e);
+    boolean offerFirst(@UnknownRepCollection BlockingDeque<E> this, E e);
 
     /**
      * Inserts the specified element at the end of this deque if it is
@@ -272,7 +272,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      * @throws NullPointerException if the specified element is null
      * @throws IllegalArgumentException {@inheritDoc}
      */
-    boolean offerLast(@EnhancedForUnknown BlockingDeque<E> this, E e);
+    boolean offerLast(@UnknownRepCollection BlockingDeque<E> this, E e);
 
     /**
      * Inserts the specified element at the front of this deque,
@@ -321,7 +321,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this deque
      */
-    boolean offerFirst(@EnhancedForUnknown BlockingDeque<E> this, E e, long timeout, TimeUnit unit)
+    boolean offerFirst(@UnknownRepCollection BlockingDeque<E> this, E e, long timeout, TimeUnit unit)
         throws InterruptedException;
 
     /**
@@ -343,7 +343,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this deque
      */
-    boolean offerLast(@EnhancedForUnknown BlockingDeque<E> this, E e, long timeout, TimeUnit unit)
+    boolean offerLast(@UnknownRepCollection BlockingDeque<E> this, E e, long timeout, TimeUnit unit)
         throws InterruptedException;
 
     /**
@@ -377,7 +377,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      *         waiting time elapses before an element is available
      * @throws InterruptedException if interrupted while waiting
      */
-    @Nullable E pollFirst(@EnhancedForUnknown BlockingDeque<E> this, long timeout, TimeUnit unit)
+    @Nullable E pollFirst(@UnknownRepCollection BlockingDeque<E> this, long timeout, TimeUnit unit)
         throws InterruptedException;
 
     /**
@@ -393,7 +393,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      *         waiting time elapses before an element is available
      * @throws InterruptedException if interrupted while waiting
      */
-    @Nullable E pollLast(@EnhancedForUnknown BlockingDeque<E> this, long timeout, TimeUnit unit)
+    @Nullable E pollLast(@UnknownRepCollection BlockingDeque<E> this, long timeout, TimeUnit unit)
         throws InterruptedException;
 
     /**
@@ -453,7 +453,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this deque
      */
-    boolean add(@EnhancedForUnknown BlockingDeque<E> this, E e);
+    boolean add(@UnknownRepCollection BlockingDeque<E> this, E e);
 
     /**
      * Inserts the specified element into the queue represented by this deque
@@ -473,7 +473,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this deque
      */
-    boolean offer(@EnhancedForUnknown BlockingDeque<E> this, E e);
+    boolean offer(@UnknownRepCollection BlockingDeque<E> this, E e);
 
     /**
      * Inserts the specified element into the queue represented by this deque
@@ -524,7 +524,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      * @return the head of the queue represented by this deque
      * @throws NoSuchElementException if this deque is empty
      */
-    E remove(@EnhancedForUnknown BlockingDeque<E> this);
+    E remove(@UnknownRepCollection BlockingDeque<E> this);
 
     /**
      * Retrieves and removes the head of the queue represented by this deque
@@ -535,7 +535,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      *
      * @return the head of this deque, or {@code null} if this deque is empty
      */
-    @Nullable E poll(@EnhancedForUnknown BlockingDeque<E> this);
+    @Nullable E poll(@UnknownRepCollection BlockingDeque<E> this);
 
     /**
      * Retrieves and removes the head of the queue represented by this deque
@@ -561,7 +561,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      *         specified waiting time elapses before an element is available
      * @throws InterruptedException if interrupted while waiting
      */
-    @Nullable E poll(@EnhancedForUnknown BlockingDeque<E> this, long timeout, TimeUnit unit)
+    @Nullable E poll(@UnknownRepCollection BlockingDeque<E> this, long timeout, TimeUnit unit)
         throws InterruptedException;
 
     /**
@@ -575,7 +575,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      * @return the head of this deque
      * @throws NoSuchElementException if this deque is empty
      */
-    E element(@EnhancedForUnknown BlockingDeque<E> this);
+    E element(@UnknownRepCollection BlockingDeque<E> this);
 
     /**
      * Retrieves, but does not remove, the head of the queue represented by
@@ -586,7 +586,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      *
      * @return the head of this deque, or {@code null} if this deque is empty
      */
-    @Nullable E peek(@EnhancedForUnknown BlockingDeque<E> this);
+    @Nullable E peek(@UnknownRepCollection BlockingDeque<E> this);
 
     /**
      * Removes the first occurrence of the specified element from this deque.
@@ -631,7 +631,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      * @return the number of elements in this deque
      */
     @Pure
-    int size(@EnhancedForUnknown BlockingDeque<E> this);
+    int size(@UnknownRepCollection BlockingDeque<E> this);
 
     /**
      * Returns an iterator over the elements in this deque in proper sequence.
@@ -640,7 +640,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      * @return an iterator over the elements in this deque in proper sequence
      */
     @SideEffectFree
-    @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor BlockingDeque<E> this);
+    @PolyRepCollection Iterator<E> iterator(@PolyRepCollection BlockingDeque<E> this);
 
     // *** Stack methods ***
 
@@ -657,5 +657,5 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      * @throws NullPointerException if the specified element is null
      * @throws IllegalArgumentException {@inheritDoc}
      */
-    void push(@EnhancedForUnknown BlockingDeque<E> this, E e);
+    void push(@UnknownRepCollection BlockingDeque<E> this, E e);
 }

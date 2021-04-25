@@ -36,8 +36,8 @@
 
 package java.util.concurrent;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
@@ -914,7 +914,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      *         {@code false}
      * @throws NullPointerException if the specified element is null
      */
-    public boolean offer(@EnhancedForUnknown SynchronousQueue<E> this, E e) {
+    public boolean offer(@UnknownRepCollection SynchronousQueue<E> this, E e) {
         if (e == null) throw new NullPointerException();
         return transferer.transfer(e, true, 0) != null;
     }
@@ -943,7 +943,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      *         specified waiting time elapses before an element is present
      * @throws InterruptedException {@inheritDoc}
      */
-    public E poll(@EnhancedForUnknown SynchronousQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
+    public E poll(@UnknownRepCollection SynchronousQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
         E e = transferer.transfer(null, true, unit.toNanos(timeout));
         if (e != null || !Thread.interrupted())
             return e;
@@ -957,7 +957,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @return the head of this queue, or {@code null} if no
      *         element is available
      */
-    public E poll(@EnhancedForUnknown SynchronousQueue<E> this) {
+    public E poll(@UnknownRepCollection SynchronousQueue<E> this) {
         return transferer.transfer(null, true, 0);
     }
 
@@ -968,7 +968,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @return {@code true}
      */
     @Pure
-    public boolean isEmpty(@EnhancedForUnknown SynchronousQueue<E> this) {
+    public boolean isEmpty(@UnknownRepCollection SynchronousQueue<E> this) {
         return true;
     }
 
@@ -979,7 +979,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @return zero
      */
     @Pure
-    public int size(@EnhancedForUnknown SynchronousQueue<E> this) {
+    public int size(@UnknownRepCollection SynchronousQueue<E> this) {
         return 0;
     }
 
@@ -997,7 +997,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * Does nothing.
      * A {@code SynchronousQueue} has no internal capacity.
      */
-    public void clear(@EnhancedForUnknown SynchronousQueue<E> this) {
+    public void clear(@UnknownRepCollection SynchronousQueue<E> this) {
     }
 
     /**
@@ -1064,7 +1064,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      *
      * @return {@code null}
      */
-    public E peek(@EnhancedForUnknown SynchronousQueue<E> this) {
+    public E peek(@UnknownRepCollection SynchronousQueue<E> this) {
         return null;
     }
 
@@ -1075,7 +1075,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @return an empty iterator
      */
     @SideEffectFree
-    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor SynchronousQueue<E> this) {
+    public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection SynchronousQueue<E> this) {
         return Collections.emptyIterator();
     }
 
@@ -1087,7 +1087,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @since 1.8
      */
     @SideEffectFree
-    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor SynchronousQueue<E> this) {
+    public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection SynchronousQueue<E> this) {
         return Spliterators.emptySpliterator();
     }
 

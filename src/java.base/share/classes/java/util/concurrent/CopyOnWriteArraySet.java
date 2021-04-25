@@ -35,8 +35,8 @@
 
 package java.util.concurrent;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.nullness.qual.EnsuresNonNullIf;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -142,7 +142,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      * @return the number of elements in this set
      */
     @Pure
-    public int size(@EnhancedForUnknown CopyOnWriteArraySet<E> this) {
+    public int size(@UnknownRepCollection CopyOnWriteArraySet<E> this) {
         return al.size();
     }
 
@@ -152,7 +152,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      * @return {@code true} if this set contains no elements
      */
     @Pure
-    public boolean isEmpty(@EnhancedForUnknown CopyOnWriteArraySet<E> this) {
+    public boolean isEmpty(@UnknownRepCollection CopyOnWriteArraySet<E> this) {
         return al.isEmpty();
     }
 
@@ -237,7 +237,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      * Removes all of the elements from this set.
      * The set will be empty after this call returns.
      */
-    public void clear(@EnhancedForUnknown CopyOnWriteArraySet<E> this) {
+    public void clear(@UnknownRepCollection CopyOnWriteArraySet<E> this) {
         al.clear();
     }
 
@@ -268,7 +268,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      * @return {@code true} if this set did not already contain the specified
      *         element
      */
-    public boolean add(@EnhancedForUnknown CopyOnWriteArraySet<E> this, E e) {
+    public boolean add(@UnknownRepCollection CopyOnWriteArraySet<E> this, E e) {
         return al.addIfAbsent(e);
     }
 
@@ -337,7 +337,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      * @throws NullPointerException if the specified collection is null
      * @see #add(Object)
      */
-    public boolean addAll(@EnhancedForUnknown CopyOnWriteArraySet<E> this, Collection<? extends E> c) {
+    public boolean addAll(@UnknownRepCollection CopyOnWriteArraySet<E> this, Collection<? extends E> c) {
         return al.addAllAbsent(c) > 0;
     }
 
@@ -396,7 +396,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      *
      * @return an iterator over the elements in this set
      */
-    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor CopyOnWriteArraySet<E> this) {
+    public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection CopyOnWriteArraySet<E> this) {
         return al.iterator();
     }
 
@@ -434,7 +434,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public void forEach(@EnhancedForUnknown CopyOnWriteArraySet<E> this, Consumer<? super E> action) {
+    public void forEach(@UnknownRepCollection CopyOnWriteArraySet<E> this, Consumer<? super E> action) {
         al.forEach(action);
     }
 
@@ -453,7 +453,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      * @return a {@code Spliterator} over the elements in this set
      * @since 1.8
      */
-    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor CopyOnWriteArraySet<E> this) {
+    public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection CopyOnWriteArraySet<E> this) {
         return Spliterators.spliterator
             (al.getArray(), Spliterator.IMMUTABLE | Spliterator.DISTINCT);
     }

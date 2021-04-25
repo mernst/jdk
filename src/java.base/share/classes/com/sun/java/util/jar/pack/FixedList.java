@@ -24,7 +24,7 @@
  */
 package com.sun.java.util.jar.pack;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 
 import java.util.ArrayList;
@@ -155,17 +155,17 @@ final class FixedList<E> implements List<E> {
     }
 
     @Override
-    public @PolyEnhancedFor ListIterator<E> listIterator(@PolyEnhancedFor FixedList<E> this) {
+    public @PolyRepCollection ListIterator<E> listIterator(@PolyRepCollection FixedList<E> this) {
         return flist.listIterator();
     }
 
     @Override
-    public @PolyEnhancedFor ListIterator<E> listIterator(@PolyEnhancedFor FixedList<E> this, int index) {
+    public @PolyRepCollection ListIterator<E> listIterator(@PolyRepCollection FixedList<E> this, int index) {
         return flist.listIterator(index);
     }
 
     @Override
-    public @PolyEnhancedFor List<E> subList(@PolyEnhancedFor FixedList<E> this, int fromIndex, int toIndex) {
+    public @PolyRepCollection List<E> subList(@PolyRepCollection FixedList<E> this, int fromIndex, int toIndex) {
         return flist.subList(fromIndex, toIndex);
     }
 

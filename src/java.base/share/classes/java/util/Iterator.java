@@ -25,8 +25,8 @@
 
 package java.util;
 
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
-import org.checkerframework.checker.enhancedfor.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
+import org.checkerframework.checker.enhancedfor.qual.UnknownRepCollection;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
@@ -77,7 +77,7 @@ public interface Iterator<E> {
      * @return {@code true} if the iteration has more elements
      */
     @Pure
-    boolean hasNext(@GuardSatisfied @EnhancedForUnknown Iterator<E> this);
+    boolean hasNext(@GuardSatisfied @UnknownRepCollection Iterator<E> this);
 
     /**
      * Returns the next element in the iteration.
@@ -85,7 +85,7 @@ public interface Iterator<E> {
      * @return the next element in the iteration
      * @throws NoSuchElementException if the iteration has no more elements
      */
-    E next(@GuardSatisfied @EnhancedForUnknown Iterator<E> this);
+    E next(@GuardSatisfied @UnknownRepCollection Iterator<E> this);
 
     /**
      * Removes from the underlying collection the last element returned
@@ -112,7 +112,7 @@ public interface Iterator<E> {
      *         been called after the last call to the {@code next}
      *         method
      */
-    default void remove(@GuardSatisfied @EnhancedForUnknown Iterator<E> this) {
+    default void remove(@GuardSatisfied @UnknownRepCollection Iterator<E> this) {
         throw new UnsupportedOperationException("remove");
     }
 
@@ -141,7 +141,7 @@ public interface Iterator<E> {
      * @throws NullPointerException if the specified action is null
      * @since 1.8
      */
-    default void forEachRemaining(@EnhancedForUnknown Iterator<E> this, Consumer<? super E> action) {
+    default void forEachRemaining(@UnknownRepCollection Iterator<E> this, Consumer<? super E> action) {
         Objects.requireNonNull(action);
         while (hasNext())
             action.accept(next());

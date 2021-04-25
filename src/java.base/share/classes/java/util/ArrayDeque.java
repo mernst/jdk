@@ -34,8 +34,8 @@
 
 package java.util;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.nullness.qual.EnsuresNonNullIf;
@@ -296,7 +296,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @param e the element to add
      * @throws NullPointerException if the specified element is null
      */
-    public void addFirst(@GuardSatisfied @EnhancedForUnknown ArrayDeque<E> this, E e) {
+    public void addFirst(@GuardSatisfied @UnknownRepCollection ArrayDeque<E> this, E e) {
         if (e == null)
             throw new NullPointerException();
         final Object[] es = elements;
@@ -313,7 +313,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @param e the element to add
      * @throws NullPointerException if the specified element is null
      */
-    public void addLast(@GuardSatisfied @EnhancedForUnknown ArrayDeque<E> this, E e) {
+    public void addLast(@GuardSatisfied @UnknownRepCollection ArrayDeque<E> this, E e) {
         if (e == null)
             throw new NullPointerException();
         final Object[] es = elements;
@@ -332,7 +332,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @throws NullPointerException if the specified collection or any
      *         of its elements are null
      */
-    public boolean addAll(@EnhancedForUnknown ArrayDeque<E> this, Collection<? extends E> c) {
+    public boolean addAll(@UnknownRepCollection ArrayDeque<E> this, Collection<? extends E> c) {
         final int s, needed;
         if ((needed = (s = size()) + c.size() + 1 - elements.length) > 0)
             grow(needed);
@@ -351,7 +351,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @return {@code true} (as specified by {@link Deque#offerFirst})
      * @throws NullPointerException if the specified element is null
      */
-    public boolean offerFirst(@EnhancedForUnknown ArrayDeque<E> this, E e) {
+    public boolean offerFirst(@UnknownRepCollection ArrayDeque<E> this, E e) {
         addFirst(e);
         return true;
     }
@@ -363,7 +363,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @return {@code true} (as specified by {@link Deque#offerLast})
      * @throws NullPointerException if the specified element is null
      */
-    public boolean offerLast(@EnhancedForUnknown ArrayDeque<E> this, E e) {
+    public boolean offerLast(@UnknownRepCollection ArrayDeque<E> this, E e) {
         addLast(e);
         return true;
     }
@@ -371,7 +371,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E removeFirst(@GuardSatisfied @EnhancedForUnknown ArrayDeque<E> this) {
+    public E removeFirst(@GuardSatisfied @UnknownRepCollection ArrayDeque<E> this) {
         E e = pollFirst();
         if (e == null)
             throw new NoSuchElementException();
@@ -381,14 +381,14 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E removeLast(@GuardSatisfied @EnhancedForUnknown ArrayDeque<E> this) {
+    public E removeLast(@GuardSatisfied @UnknownRepCollection ArrayDeque<E> this) {
         E e = pollLast();
         if (e == null)
             throw new NoSuchElementException();
         return e;
     }
 
-    public @Nullable E pollFirst(@GuardSatisfied @EnhancedForUnknown ArrayDeque<E> this) {
+    public @Nullable E pollFirst(@GuardSatisfied @UnknownRepCollection ArrayDeque<E> this) {
         final Object[] es;
         final int h;
         E e = elementAt(es = elements, h = head);
@@ -399,7 +399,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
         return e;
     }
 
-    public @Nullable E pollLast(@GuardSatisfied @EnhancedForUnknown ArrayDeque<E> this) {
+    public @Nullable E pollLast(@GuardSatisfied @UnknownRepCollection ArrayDeque<E> this) {
         final Object[] es;
         final int t;
         E e = elementAt(es = elements, t = dec(tail, es.length));
@@ -411,7 +411,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E getFirst(@GuardSatisfied @EnhancedForUnknown ArrayDeque<E> this) {
+    public E getFirst(@GuardSatisfied @UnknownRepCollection ArrayDeque<E> this) {
         E e = elementAt(elements, head);
         if (e == null)
             throw new NoSuchElementException();
@@ -421,7 +421,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E getLast(@GuardSatisfied @EnhancedForUnknown ArrayDeque<E> this) {
+    public E getLast(@GuardSatisfied @UnknownRepCollection ArrayDeque<E> this) {
         final Object[] es = elements;
         E e = elementAt(es, dec(tail, es.length));
         if (e == null)
@@ -430,11 +430,11 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
     }
 
     @Pure
-    public @Nullable E peekFirst(@EnhancedForUnknown ArrayDeque<E> this) {
+    public @Nullable E peekFirst(@UnknownRepCollection ArrayDeque<E> this) {
         return elementAt(elements, head);
     }
 
-    public @Nullable E peekLast(@EnhancedForUnknown ArrayDeque<E> this) {
+    public @Nullable E peekLast(@UnknownRepCollection ArrayDeque<E> this) {
         final Object[] es;
         return elementAt(es = elements, dec(tail, es.length));
     }
@@ -506,7 +506,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @return {@code true} (as specified by {@link Collection#add})
      * @throws NullPointerException if the specified element is null
      */
-    public boolean add(@GuardSatisfied @EnhancedForUnknown ArrayDeque<E> this, E e) {
+    public boolean add(@GuardSatisfied @UnknownRepCollection ArrayDeque<E> this, E e) {
         addLast(e);
         return true;
     }
@@ -520,7 +520,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @return {@code true} (as specified by {@link Queue#offer})
      * @throws NullPointerException if the specified element is null
      */
-    public boolean offer(@GuardSatisfied @EnhancedForUnknown ArrayDeque<E> this, E e) {
+    public boolean offer(@GuardSatisfied @UnknownRepCollection ArrayDeque<E> this, E e) {
         return offerLast(e);
     }
 
@@ -535,7 +535,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @return the head of the queue represented by this deque
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E remove(@GuardSatisfied @EnhancedForUnknown ArrayDeque<E> this) {
+    public E remove(@GuardSatisfied @UnknownRepCollection ArrayDeque<E> this) {
         return removeFirst();
     }
 
@@ -549,7 +549,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @return the head of the queue represented by this deque, or
      *         {@code null} if this deque is empty
      */
-    public @Nullable E poll(@GuardSatisfied @EnhancedForUnknown ArrayDeque<E> this) {
+    public @Nullable E poll(@GuardSatisfied @UnknownRepCollection ArrayDeque<E> this) {
         return pollFirst();
     }
 
@@ -563,7 +563,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @return the head of the queue represented by this deque
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E element(@EnhancedForUnknown ArrayDeque<E> this) {
+    public E element(@UnknownRepCollection ArrayDeque<E> this) {
         return getFirst();
     }
 
@@ -576,7 +576,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @return the head of the queue represented by this deque, or
      *         {@code null} if this deque is empty
      */
-    public @Nullable E peek(@EnhancedForUnknown ArrayDeque<E> this) {
+    public @Nullable E peek(@UnknownRepCollection ArrayDeque<E> this) {
         return peekFirst();
     }
 
@@ -591,7 +591,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @param e the element to push
      * @throws NullPointerException if the specified element is null
      */
-    public void push(@GuardSatisfied @EnhancedForUnknown ArrayDeque<E> this, E e) {
+    public void push(@GuardSatisfied @UnknownRepCollection ArrayDeque<E> this, E e) {
         addFirst(e);
     }
 
@@ -605,7 +605,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      *         of the stack represented by this deque)
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E pop(@GuardSatisfied @EnhancedForUnknown ArrayDeque<E> this) {
+    public E pop(@GuardSatisfied @UnknownRepCollection ArrayDeque<E> this) {
         return removeFirst();
     }
 
@@ -662,7 +662,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @return the number of elements in this deque
      */
     @Pure
-    public @NonNegative int size(@GuardSatisfied @EnhancedForUnknown ArrayDeque<E> this) {
+    public @NonNegative int size(@GuardSatisfied @UnknownRepCollection ArrayDeque<E> this) {
         return sub(tail, head, elements.length);
     }
 
@@ -673,7 +673,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      */
     @EnsuresNonNullIf(expression={"peek()", "peekFirst()", "peekLast()", "poll()", "pollFirst()", "pollLast()"}, result=false)
     @Pure
-    public boolean isEmpty(@GuardSatisfied @EnhancedForUnknown ArrayDeque<E> this) {
+    public boolean isEmpty(@GuardSatisfied @UnknownRepCollection ArrayDeque<E> this) {
         return head == tail;
     }
 
@@ -686,11 +686,11 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @return an iterator over the elements in this deque
      */
     @SideEffectFree
-    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor ArrayDeque<E> this) {
+    public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection ArrayDeque<E> this) {
         return new DeqIterator();
     }
 
-    public @PolyEnhancedFor Iterator<E> descendingIterator(@PolyEnhancedFor ArrayDeque<E> this) {
+    public @PolyRepCollection Iterator<E> descendingIterator(@PolyRepCollection ArrayDeque<E> this) {
         return new DescendingIterator();
     }
 
@@ -813,7 +813,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @return a {@code Spliterator} over the elements in this deque
      * @since 1.8
      */
-    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor ArrayDeque<E> this) {
+    public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection ArrayDeque<E> this) {
         return new DeqSpliterator();
     }
 
@@ -899,7 +899,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public void forEach(@EnhancedForUnknown ArrayDeque<E> this, Consumer<? super E> action) {
+    public void forEach(@UnknownRepCollection ArrayDeque<E> this, Consumer<? super E> action) {
         Objects.requireNonNull(action);
         final Object[] es = elements;
         for (int i = head, end = tail, to = (i <= end) ? end : es.length;
@@ -1055,7 +1055,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * Removes all of the elements from this deque.
      * The deque will be empty after this call returns.
      */
-    public void clear(@GuardSatisfied @EnhancedForUnknown ArrayDeque<E> this) {
+    public void clear(@GuardSatisfied @UnknownRepCollection ArrayDeque<E> this) {
         circularClear(elements, head, tail);
         head = tail = 0;
     }

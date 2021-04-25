@@ -25,7 +25,7 @@
 
 package java.util;
 
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.nullness.qual.EnsuresKeyFor;
@@ -72,7 +72,7 @@ class Dictionary<K,V> {
      * @return  the number of keys in this dictionary.
      */
     @Pure
-    public abstract @NonNegative int size(@GuardSatisfied @EnhancedForUnknown Dictionary<K, V> this);
+    public abstract @NonNegative int size(@GuardSatisfied @UnknownRepCollection Dictionary<K, V> this);
 
     /**
      * Tests if this dictionary maps no keys to value. The general contract
@@ -83,7 +83,7 @@ class Dictionary<K,V> {
      *          {@code false} otherwise.
      */
     @Pure
-    public abstract boolean isEmpty(@GuardSatisfied @EnhancedForUnknown Dictionary<K, V> this);
+    public abstract boolean isEmpty(@GuardSatisfied @UnknownRepCollection Dictionary<K, V> this);
 
     /**
      * Returns an enumeration of the keys in this dictionary. The general

@@ -25,7 +25,7 @@
 
 package java.util;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 
@@ -195,7 +195,7 @@ public class LinkedHashSet<E>
      * @since 1.8
      */
     @Override
-    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor Spliterator<E> this) {
+    public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection Spliterator<E> this) {
         return Spliterators.spliterator(this, Spliterator.DISTINCT | Spliterator.ORDERED);
     }
 }

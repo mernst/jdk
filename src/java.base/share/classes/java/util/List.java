@@ -25,8 +25,8 @@
 
 package java.util;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.IndexFor;
 import org.checkerframework.checker.index.qual.IndexOrHigh;
@@ -163,7 +163,7 @@ public interface List<E> extends Collection<E> {
      * @return the number of elements in this list
      */
     @Pure
-    @NonNegative int size(@GuardSatisfied @EnhancedForUnknown List<E> this);
+    @NonNegative int size(@GuardSatisfied @UnknownRepCollection List<E> this);
 
     /**
      * Returns {@code true} if this list contains no elements.
@@ -171,7 +171,7 @@ public interface List<E> extends Collection<E> {
      * @return {@code true} if this list contains no elements
      */
     @Pure
-    boolean isEmpty(@GuardSatisfied @EnhancedForUnknown List<E> this);
+    boolean isEmpty(@GuardSatisfied @UnknownRepCollection List<E> this);
 
     /**
      * Returns {@code true} if this list contains the specified element.
@@ -197,7 +197,7 @@ public interface List<E> extends Collection<E> {
      * @return an iterator over the elements in this list in proper sequence
      */
     @SideEffectFree
-    @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor List<E> this);
+    @PolyRepCollection Iterator<E> iterator(@PolyRepCollection List<E> this);
 
     /**
      * Returns an array containing all of the elements in this list in proper
@@ -286,7 +286,7 @@ public interface List<E> extends Collection<E> {
      *         prevents it from being added to this list
      */
     @ReleasesNoLocks
-    boolean add(@GuardSatisfied @EnhancedForUnknown List<E> this, E e);
+    boolean add(@GuardSatisfied @UnknownRepCollection List<E> this, E e);
 
     /**
      * Removes the first occurrence of the specified element from this list,
@@ -356,7 +356,7 @@ public interface List<E> extends Collection<E> {
      *         specified collection prevents it from being added to this list
      * @see #add(Object)
      */
-    boolean addAll(@GuardSatisfied @EnhancedForUnknown List<E> this, Collection<? extends E> c);
+    boolean addAll(@GuardSatisfied @UnknownRepCollection List<E> this, Collection<? extends E> c);
 
     /**
      * Inserts all of the elements in the specified collection into this
@@ -385,7 +385,7 @@ public interface List<E> extends Collection<E> {
      * @throws IndexOutOfBoundsException if the index is out of range
      *         ({@code index < 0 || index > size()})
      */
-    boolean addAll(@GuardSatisfied @EnhancedForUnknown List<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c);
+    boolean addAll(@GuardSatisfied @UnknownRepCollection List<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c);
 
     /**
      * Removes from this list all of its elements that are contained in the
@@ -543,7 +543,7 @@ public interface List<E> extends Collection<E> {
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this list
      */
-    void clear(@GuardSatisfied @EnhancedForUnknown List<E> this);
+    void clear(@GuardSatisfied @UnknownRepCollection List<E> this);
 
 
     // Comparison and hashing
@@ -710,7 +710,7 @@ public interface List<E> extends Collection<E> {
      * @return a list iterator over the elements in this list (in proper
      *         sequence)
      */
-    @PolyEnhancedFor ListIterator<E> listIterator(@PolyEnhancedFor List<E> this);
+    @PolyRepCollection ListIterator<E> listIterator(@PolyRepCollection List<E> this);
 
     /**
      * Returns a list iterator over the elements in this list (in proper
@@ -766,7 +766,7 @@ public interface List<E> extends Collection<E> {
      *         fromIndex > toIndex})
      */
     @SideEffectFree
-    @PolyEnhancedFor List<E> subList(@GuardSatisfied @PolyEnhancedFor List<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex);
+    @PolyRepCollection List<E> subList(@GuardSatisfied @PolyRepCollection List<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex);
 
     /**
      * Creates a {@link Spliterator} over the elements in this list.
@@ -803,7 +803,7 @@ public interface List<E> extends Collection<E> {
      */
     @SideEffectFree
     @Override
-    @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor List<E> this) {
+    @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection List<E> this) {
         if (this instanceof RandomAccess) {
             return new AbstractList.RandomAccessSpliterator<>(this);
         } else {

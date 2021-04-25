@@ -25,8 +25,8 @@
 
 package java.util;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -134,7 +134,7 @@ public interface Set<E> extends Collection<E> {
      * @return the number of elements in this set (its cardinality)
      */
     @Pure
-    @NonNegative int size(@GuardSatisfied @EnhancedForUnknown Set<E> this);
+    @NonNegative int size(@GuardSatisfied @UnknownRepCollection Set<E> this);
 
     /**
      * Returns {@code true} if this set contains no elements.
@@ -142,7 +142,7 @@ public interface Set<E> extends Collection<E> {
      * @return {@code true} if this set contains no elements
      */
     @Pure
-    boolean isEmpty(@GuardSatisfied @EnhancedForUnknown Set<E> this);
+    boolean isEmpty(@GuardSatisfied @UnknownRepCollection Set<E> this);
 
     /**
      * Returns {@code true} if this set contains the specified element.
@@ -170,7 +170,7 @@ public interface Set<E> extends Collection<E> {
      * @return an iterator over the elements in this set
      */
     @SideEffectFree
-    @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor Set<E> this);
+    @PolyRepCollection Iterator<E> iterator(@PolyRepCollection Set<E> this);
 
     /**
      * Returns an array containing all of the elements in this set.
@@ -269,7 +269,7 @@ public interface Set<E> extends Collection<E> {
      * @throws IllegalArgumentException if some property of the specified element
      *         prevents it from being added to this set
      */
-    boolean add(@GuardSatisfied @EnhancedForUnknown Set<E> this, E e);
+    boolean add(@GuardSatisfied @UnknownRepCollection Set<E> this, E e);
 
 
     /**
@@ -342,7 +342,7 @@ public interface Set<E> extends Collection<E> {
      *         specified collection prevents it from being added to this set
      * @see #add(Object)
      */
-    boolean addAll(@GuardSatisfied @EnhancedForUnknown Set<E> this, Collection<? extends E> c);
+    boolean addAll(@GuardSatisfied @UnknownRepCollection Set<E> this, Collection<? extends E> c);
 
     /**
      * Retains only the elements in this set that are contained in the
@@ -397,7 +397,7 @@ public interface Set<E> extends Collection<E> {
      * @throws UnsupportedOperationException if the {@code clear} method
      *         is not supported by this set
      */
-    void clear(@GuardSatisfied @EnhancedForUnknown Set<E> this);
+    void clear(@GuardSatisfied @UnknownRepCollection Set<E> this);
 
 
     // Comparison and hashing
@@ -457,7 +457,7 @@ public interface Set<E> extends Collection<E> {
      * @since 1.8
      */
     @Override
-    @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor Set<E> this) {
+    @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection Set<E> this) {
         return Spliterators.spliterator(this, Spliterator.DISTINCT);
     }
 

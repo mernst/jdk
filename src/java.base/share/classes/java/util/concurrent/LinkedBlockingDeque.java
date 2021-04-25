@@ -35,8 +35,8 @@
 
 package java.util.concurrent;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
@@ -319,7 +319,7 @@ public class LinkedBlockingDeque<E>
      * @throws IllegalStateException if this deque is full
      * @throws NullPointerException {@inheritDoc}
      */
-    public void addFirst(@EnhancedForUnknown LinkedBlockingDeque<E> this, E e) {
+    public void addFirst(@UnknownRepCollection LinkedBlockingDeque<E> this, E e) {
         if (!offerFirst(e))
             throw new IllegalStateException("Deque full");
     }
@@ -328,7 +328,7 @@ public class LinkedBlockingDeque<E>
      * @throws IllegalStateException if this deque is full
      * @throws NullPointerException  {@inheritDoc}
      */
-    public void addLast(@EnhancedForUnknown LinkedBlockingDeque<E> this, E e) {
+    public void addLast(@UnknownRepCollection LinkedBlockingDeque<E> this, E e) {
         if (!offerLast(e))
             throw new IllegalStateException("Deque full");
     }
@@ -336,7 +336,7 @@ public class LinkedBlockingDeque<E>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public boolean offerFirst(@EnhancedForUnknown LinkedBlockingDeque<E> this, E e) {
+    public boolean offerFirst(@UnknownRepCollection LinkedBlockingDeque<E> this, E e) {
         if (e == null) throw new NullPointerException();
         Node<E> node = new Node<E>(e);
         final ReentrantLock lock = this.lock;
@@ -351,7 +351,7 @@ public class LinkedBlockingDeque<E>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public boolean offerLast(@EnhancedForUnknown LinkedBlockingDeque<E> this, E e) {
+    public boolean offerLast(@UnknownRepCollection LinkedBlockingDeque<E> this, E e) {
         if (e == null) throw new NullPointerException();
         Node<E> node = new Node<E>(e);
         final ReentrantLock lock = this.lock;
@@ -401,7 +401,7 @@ public class LinkedBlockingDeque<E>
      * @throws NullPointerException {@inheritDoc}
      * @throws InterruptedException {@inheritDoc}
      */
-    public boolean offerFirst(@EnhancedForUnknown LinkedBlockingDeque<E> this, E e, long timeout, TimeUnit unit)
+    public boolean offerFirst(@UnknownRepCollection LinkedBlockingDeque<E> this, E e, long timeout, TimeUnit unit)
         throws InterruptedException {
         if (e == null) throw new NullPointerException();
         Node<E> node = new Node<E>(e);
@@ -424,7 +424,7 @@ public class LinkedBlockingDeque<E>
      * @throws NullPointerException {@inheritDoc}
      * @throws InterruptedException {@inheritDoc}
      */
-    public boolean offerLast(@EnhancedForUnknown LinkedBlockingDeque<E> this, E e, long timeout, TimeUnit unit)
+    public boolean offerLast(@UnknownRepCollection LinkedBlockingDeque<E> this, E e, long timeout, TimeUnit unit)
         throws InterruptedException {
         if (e == null) throw new NullPointerException();
         Node<E> node = new Node<E>(e);
@@ -446,7 +446,7 @@ public class LinkedBlockingDeque<E>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E removeFirst(@EnhancedForUnknown LinkedBlockingDeque<E> this) {
+    public E removeFirst(@UnknownRepCollection LinkedBlockingDeque<E> this) {
         E x = pollFirst();
         if (x == null) throw new NoSuchElementException();
         return x;
@@ -455,13 +455,13 @@ public class LinkedBlockingDeque<E>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E removeLast(@EnhancedForUnknown LinkedBlockingDeque<E> this) {
+    public E removeLast(@UnknownRepCollection LinkedBlockingDeque<E> this) {
         E x = pollLast();
         if (x == null) throw new NoSuchElementException();
         return x;
     }
 
-    public E pollFirst(@EnhancedForUnknown LinkedBlockingDeque<E> this) {
+    public E pollFirst(@UnknownRepCollection LinkedBlockingDeque<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -471,7 +471,7 @@ public class LinkedBlockingDeque<E>
         }
     }
 
-    public E pollLast(@EnhancedForUnknown LinkedBlockingDeque<E> this) {
+    public E pollLast(@UnknownRepCollection LinkedBlockingDeque<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -507,7 +507,7 @@ public class LinkedBlockingDeque<E>
         }
     }
 
-    public E pollFirst(@EnhancedForUnknown LinkedBlockingDeque<E> this, long timeout, TimeUnit unit)
+    public E pollFirst(@UnknownRepCollection LinkedBlockingDeque<E> this, long timeout, TimeUnit unit)
         throws InterruptedException {
         long nanos = unit.toNanos(timeout);
         final ReentrantLock lock = this.lock;
@@ -525,7 +525,7 @@ public class LinkedBlockingDeque<E>
         }
     }
 
-    public E pollLast(@EnhancedForUnknown LinkedBlockingDeque<E> this, long timeout, TimeUnit unit)
+    public E pollLast(@UnknownRepCollection LinkedBlockingDeque<E> this, long timeout, TimeUnit unit)
         throws InterruptedException {
         long nanos = unit.toNanos(timeout);
         final ReentrantLock lock = this.lock;
@@ -546,7 +546,7 @@ public class LinkedBlockingDeque<E>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E getFirst(@EnhancedForUnknown LinkedBlockingDeque<E> this) {
+    public E getFirst(@UnknownRepCollection LinkedBlockingDeque<E> this) {
         E x = peekFirst();
         if (x == null) throw new NoSuchElementException();
         return x;
@@ -555,13 +555,13 @@ public class LinkedBlockingDeque<E>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E getLast(@EnhancedForUnknown LinkedBlockingDeque<E> this) {
+    public E getLast(@UnknownRepCollection LinkedBlockingDeque<E> this) {
         E x = peekLast();
         if (x == null) throw new NoSuchElementException();
         return x;
     }
 
-    public E peekFirst(@EnhancedForUnknown LinkedBlockingDeque<E> this) {
+    public E peekFirst(@UnknownRepCollection LinkedBlockingDeque<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -571,7 +571,7 @@ public class LinkedBlockingDeque<E>
         }
     }
 
-    public E peekLast(@EnhancedForUnknown LinkedBlockingDeque<E> this) {
+    public E peekLast(@UnknownRepCollection LinkedBlockingDeque<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -627,7 +627,7 @@ public class LinkedBlockingDeque<E>
      * @throws IllegalStateException if this deque is full
      * @throws NullPointerException if the specified element is null
      */
-    public boolean add(@EnhancedForUnknown LinkedBlockingDeque<E> this, E e) {
+    public boolean add(@UnknownRepCollection LinkedBlockingDeque<E> this, E e) {
         addLast(e);
         return true;
     }
@@ -635,7 +635,7 @@ public class LinkedBlockingDeque<E>
     /**
      * @throws NullPointerException if the specified element is null
      */
-    public boolean offer(@EnhancedForUnknown LinkedBlockingDeque<E> this, E e) {
+    public boolean offer(@UnknownRepCollection LinkedBlockingDeque<E> this, E e) {
         return offerLast(e);
     }
 
@@ -666,11 +666,11 @@ public class LinkedBlockingDeque<E>
      * @return the head of the queue represented by this deque
      * @throws NoSuchElementException if this deque is empty
      */
-    public E remove(@EnhancedForUnknown LinkedBlockingDeque<E> this) {
+    public E remove(@UnknownRepCollection LinkedBlockingDeque<E> this) {
         return removeFirst();
     }
 
-    public E poll(@EnhancedForUnknown LinkedBlockingDeque<E> this) {
+    public E poll(@UnknownRepCollection LinkedBlockingDeque<E> this) {
         return pollFirst();
     }
 
@@ -678,7 +678,7 @@ public class LinkedBlockingDeque<E>
         return takeFirst();
     }
 
-    public E poll(@EnhancedForUnknown LinkedBlockingDeque<E> this, long timeout, TimeUnit unit) throws InterruptedException {
+    public E poll(@UnknownRepCollection LinkedBlockingDeque<E> this, long timeout, TimeUnit unit) throws InterruptedException {
         return pollFirst(timeout, unit);
     }
 
@@ -692,11 +692,11 @@ public class LinkedBlockingDeque<E>
      * @return the head of the queue represented by this deque
      * @throws NoSuchElementException if this deque is empty
      */
-    public E element(@EnhancedForUnknown LinkedBlockingDeque<E> this) {
+    public E element(@UnknownRepCollection LinkedBlockingDeque<E> this) {
         return getFirst();
     }
 
-    public E peek(@EnhancedForUnknown LinkedBlockingDeque<E> this) {
+    public E peek(@UnknownRepCollection LinkedBlockingDeque<E> this) {
         return peekFirst();
     }
 
@@ -763,14 +763,14 @@ public class LinkedBlockingDeque<E>
      * @throws IllegalStateException if this deque is full
      * @throws NullPointerException {@inheritDoc}
      */
-    public void push(@EnhancedForUnknown LinkedBlockingDeque<E> this, E e) {
+    public void push(@UnknownRepCollection LinkedBlockingDeque<E> this, E e) {
         addFirst(e);
     }
 
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E pop(@EnhancedForUnknown LinkedBlockingDeque<E> this) {
+    public E pop(@UnknownRepCollection LinkedBlockingDeque<E> this) {
         return removeFirst();
     }
 
@@ -800,7 +800,7 @@ public class LinkedBlockingDeque<E>
      * @return the number of elements in this deque
      */
     @Pure
-    public int size(@EnhancedForUnknown LinkedBlockingDeque<E> this) {
+    public int size(@UnknownRepCollection LinkedBlockingDeque<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -846,7 +846,7 @@ public class LinkedBlockingDeque<E>
      * @throws IllegalStateException if this deque is full
      * @see #add(Object)
      */
-    public boolean addAll(@EnhancedForUnknown LinkedBlockingDeque<E> this, Collection<? extends E> c) {
+    public boolean addAll(@UnknownRepCollection LinkedBlockingDeque<E> this, Collection<? extends E> c) {
         if (c == this)
             // As historically specified in AbstractQueue#addAll
             throw new IllegalArgumentException();
@@ -983,7 +983,7 @@ public class LinkedBlockingDeque<E>
      * Atomically removes all of the elements from this deque.
      * The deque will be empty after this call returns.
      */
-    public void clear(@EnhancedForUnknown LinkedBlockingDeque<E> this) {
+    public void clear(@UnknownRepCollection LinkedBlockingDeque<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -1023,7 +1023,7 @@ public class LinkedBlockingDeque<E>
      *
      * @return an iterator over the elements in this deque in proper sequence
      */
-    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor LinkedBlockingDeque<E> this) {
+    public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection LinkedBlockingDeque<E> this) {
         return new Itr();
     }
 
@@ -1037,7 +1037,7 @@ public class LinkedBlockingDeque<E>
      *
      * @return an iterator over the elements in this deque in reverse order
      */
-    public @PolyEnhancedFor Iterator<E> descendingIterator(@PolyEnhancedFor LinkedBlockingDeque<E> this, ) {
+    public @PolyRepCollection Iterator<E> descendingIterator(@PolyRepCollection LinkedBlockingDeque<E> this, ) {
         return new DescendingItr();
     }
 
@@ -1287,14 +1287,14 @@ public class LinkedBlockingDeque<E>
      * @return a {@code Spliterator} over the elements in this deque
      * @since 1.8
      */
-    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor LinkedBlockingDeque<E> this) {
+    public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection LinkedBlockingDeque<E> this) {
         return new LBDSpliterator();
     }
 
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public void forEach(@EnhancedForUnknown LinkedBlockingDeque<E> this, Consumer<? super E> action) {
+    public void forEach(@UnknownRepCollection LinkedBlockingDeque<E> this, Consumer<? super E> action) {
         Objects.requireNonNull(action);
         forEachFrom(action, null);
     }

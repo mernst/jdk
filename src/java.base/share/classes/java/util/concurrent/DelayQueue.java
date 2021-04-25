@@ -35,8 +35,8 @@
 
 package java.util.concurrent;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
@@ -138,7 +138,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      * @return {@code true} (as specified by {@link Collection#add})
      * @throws NullPointerException if the specified element is null
      */
-    public boolean add(@EnhancedForUnknown DelayQueue<E> this, E e) {
+    public boolean add(@UnknownRepCollection DelayQueue<E> this, E e) {
         return offer(e);
     }
 
@@ -149,7 +149,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      * @return {@code true}
      * @throws NullPointerException if the specified element is null
      */
-    public boolean offer(@EnhancedForUnknown DelayQueue<E> this, E e) {
+    public boolean offer(@UnknownRepCollection DelayQueue<E> this, E e) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -196,7 +196,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      * @return the head of this queue, or {@code null} if this
      *         queue has no elements with an expired delay
      */
-    public @Nullable E poll(@EnhancedForUnknown DelayQueue<E> this) {
+    public @Nullable E poll(@UnknownRepCollection DelayQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -260,7 +260,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      *         an expired delay becomes available
      * @throws InterruptedException {@inheritDoc}
      */
-    public @Nullable E poll(@EnhancedForUnknown DelayQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
+    public @Nullable E poll(@UnknownRepCollection DelayQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
         long nanos = unit.toNanos(timeout);
         final ReentrantLock lock = this.lock;
         lock.lockInterruptibly();
@@ -311,7 +311,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      * @return the head of this queue, or {@code null} if this
      *         queue is empty
      */
-    public @Nullable E peek(@EnhancedForUnknown DelayQueue<E> this) {
+    public @Nullable E peek(@UnknownRepCollection DelayQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -322,7 +322,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
     }
 
     @Pure
-    public int size(@EnhancedForUnknown DelayQueue<E> this) {
+    public int size(@UnknownRepCollection DelayQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -378,7 +378,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      * Elements with an unexpired delay are not waited for; they are
      * simply discarded from the queue.
      */
-    public void clear(@EnhancedForUnknown DelayQueue<E> this) {
+    public void clear(@UnknownRepCollection DelayQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -511,7 +511,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      * @return an iterator over the elements in this queue
      */
     @SideEffectFree
-    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor DelayQueue<E> this) {
+    public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection DelayQueue<E> this) {
         return new Itr(toArray());
     }
 

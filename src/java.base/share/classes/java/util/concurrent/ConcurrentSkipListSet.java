@@ -35,8 +35,8 @@
 
 package java.util.concurrent;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.nullness.qual.EnsuresNonNullIf;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -209,7 +209,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @return the number of elements in this set
      */
     @Pure
-    public int size(@EnhancedForUnknown ConcurrentSkipListSet<E> this) {
+    public int size(@UnknownRepCollection ConcurrentSkipListSet<E> this) {
         return m.size();
     }
 
@@ -218,7 +218,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @return {@code true} if this set contains no elements
      */
     @Pure
-    public boolean isEmpty(@EnhancedForUnknown ConcurrentSkipListSet<E> this) {
+    public boolean isEmpty(@UnknownRepCollection ConcurrentSkipListSet<E> this) {
         return m.isEmpty();
     }
 
@@ -252,7 +252,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      *         with the elements currently in this set
      * @throws NullPointerException if the specified element is null
      */
-    public boolean add(@EnhancedForUnknown ConcurrentSkipListSet<E> this, E e) {
+    public boolean add(@UnknownRepCollection ConcurrentSkipListSet<E> this, E e) {
         return m.putIfAbsent(e, Boolean.TRUE) == null;
     }
 
@@ -277,7 +277,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
     /**
      * Removes all of the elements from this set.
      */
-    public void clear(@EnhancedForUnknown ConcurrentSkipListSet<E> this) {
+    public void clear(@UnknownRepCollection ConcurrentSkipListSet<E> this) {
         m.clear();
     }
 
@@ -287,7 +287,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @return an iterator over the elements in this set in ascending order
      */
     @SideEffectFree
-    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor ConcurrentSkipListMap<E> this) {
+    public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection ConcurrentSkipListMap<E> this) {
         return m.navigableKeySet().iterator();
     }
 
@@ -296,7 +296,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      *
      * @return an iterator over the elements in this set in descending order
      */
-    public @PolyEnhancedFor Iterator<E> descendingIterator(@PolyEnhancedFor ConcurrentSkipListMap<E> this) {
+    public @PolyRepCollection Iterator<E> descendingIterator(@PolyRepCollection ConcurrentSkipListMap<E> this) {
         return m.descendingKeySet().iterator();
     }
 
@@ -388,12 +388,12 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
         return m.higherKey(e);
     }
 
-    public @Nullable E pollFirst(@EnhancedForUnknown ConcurrentSkipListSet<E> this) {
+    public @Nullable E pollFirst(@UnknownRepCollection ConcurrentSkipListSet<E> this) {
         Map.Entry<E,Object> e = m.pollFirstEntry();
         return (e == null) ? null : e.getKey();
     }
 
-    public @Nullable E pollLast(@EnhancedForUnknown ConcurrentSkipListSet<E> this) {
+    public @Nullable E pollLast(@UnknownRepCollection ConcurrentSkipListSet<E> this) {
         Map.Entry<E,Object> e = m.pollLastEntry();
         return (e == null) ? null : e.getKey();
     }
@@ -517,7 +517,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      */
     @SuppressWarnings({"unchecked"})
     @SideEffectFree
-    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor ConcurrentSkipListMap<E> this) {
+    public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection ConcurrentSkipListMap<E> this) {
         return (m instanceof ConcurrentSkipListMap)
             ? ((ConcurrentSkipListMap<E,?>)m).keySpliterator()
             : ((ConcurrentSkipListMap.SubMap<E,?>)m).new SubMapKeyIterator();

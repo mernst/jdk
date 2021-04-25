@@ -25,7 +25,7 @@
 
 package java.util;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.nullness.qual.EnsuresKeyFor;
@@ -690,7 +690,7 @@ public class Hashtable<K extends @NonNull Object,V extends @NonNull Object>
 
     private class KeySet extends AbstractSet<K> {
         @SideEffectFree
-        public @PolyEnhancedFor Iterator<K> iterator(@PolyEnhancedFor AbstractSet<K> this) {
+        public @PolyRepCollection Iterator<K> iterator(@PolyRepCollection AbstractSet<K> this) {
             return getIterator(KEYS);
         }
         @Pure

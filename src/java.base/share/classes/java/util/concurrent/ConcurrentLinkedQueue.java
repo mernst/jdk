@@ -35,8 +35,8 @@
 
 package java.util.concurrent;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
@@ -289,7 +289,7 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
      * @return {@code true} (as specified by {@link Collection#add})
      * @throws NullPointerException if the specified element is null
      */
-    public boolean add(@EnhancedForUnknown ConcurrentLinkedQueue<E> this, E e) {
+    public boolean add(@UnknownRepCollection ConcurrentLinkedQueue<E> this, E e) {
         return offer(e);
     }
 
@@ -361,7 +361,7 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
      * @return {@code true} (as specified by {@link Queue#offer})
      * @throws NullPointerException if the specified element is null
      */
-    public boolean offer(@EnhancedForUnknown ConcurrentLinkedDeque<E> this, E e) {
+    public boolean offer(@UnknownRepCollection ConcurrentLinkedDeque<E> this, E e) {
         final Node<E> newNode = new Node<E>(Objects.requireNonNull(e));
 
         for (Node<E> t = tail, p = t;;) {
@@ -390,7 +390,7 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
         }
     }
 
-    public @Nullable E poll(@EnhancedForUnknown ConcurrentLinkedDeque<E> this) {
+    public @Nullable E poll(@UnknownRepCollection ConcurrentLinkedDeque<E> this) {
         restartFromHead: for (;;) {
             for (Node<E> h = head, p = h, q;; p = q) {
                 final E item;
@@ -411,7 +411,7 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
         }
     }
 
-    public @Nullable E peek(@EnhancedForUnknown ConcurrentLinkedDeque<E> this) {
+    public @Nullable E peek(@UnknownRepCollection ConcurrentLinkedDeque<E> this) {
         restartFromHead: for (;;) {
             for (Node<E> h = head, p = h, q;; p = q) {
                 final E item;
@@ -454,7 +454,7 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
      * @return {@code true} if this queue contains no elements
      */
     @Pure
-    public boolean isEmpty(@EnhancedForUnknown ConcurrentLinkedQueue<E> this) {
+    public boolean isEmpty(@UnknownRepCollection ConcurrentLinkedQueue<E> this) {
         return first() == null;
     }
 
@@ -475,7 +475,7 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
      * @return the number of elements in this queue
      */
     @Pure
-    public int size(@EnhancedForUnknown ConcurrentLinkedQueue<E> this) {
+    public int size(@UnknownRepCollection ConcurrentLinkedQueue<E> this) {
         restartFromHead: for (;;) {
             int count = 0;
             for (Node<E> p = first(); p != null;) {
@@ -567,7 +567,7 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
      *         of its elements are null
      * @throws IllegalArgumentException if the collection is this queue
      */
-    public boolean addAll(@EnhancedForUnknown ConcurrentLinkedQueue<E> this, Collection<? extends E> c) {
+    public boolean addAll(@UnknownRepCollection ConcurrentLinkedQueue<E> this, Collection<? extends E> c) {
         if (c == this)
             // As historically specified in AbstractQueue#addAll
             throw new IllegalArgumentException();
@@ -741,7 +741,7 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
      * @return an iterator over the elements in this queue in proper sequence
      */
     @SideEffectFree
-    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor ConcurrentLinkedQueue<E> this) {
+    public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection ConcurrentLinkedQueue<E> this) {
         return new Itr();
     }
 
@@ -969,7 +969,7 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
      */
     @SideEffectFree
     @Override
-    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor ConcurrentLinkedQueue<E> this) {
+    public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection ConcurrentLinkedQueue<E> this) {
         return new CLQSpliterator();
     }
 
@@ -997,7 +997,7 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
         return bulkRemove(e -> !c.contains(e));
     }
 
-    public void clear(@EnhancedForUnknown ConcurrentLinkedQueue<E> this) {
+    public void clear(@UnknownRepCollection ConcurrentLinkedQueue<E> this) {
         bulkRemove(e -> true);
     }
 
@@ -1066,7 +1066,7 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public void forEach(@EnhancedForUnknown ConcurrentLinkedQueue<E> this, Consumer<? super E> action) {
+    public void forEach(@UnknownRepCollection ConcurrentLinkedQueue<E> this, Consumer<? super E> action) {
         Objects.requireNonNull(action);
         forEachFrom(action, head);
     }

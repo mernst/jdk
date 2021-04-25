@@ -25,8 +25,8 @@
 
 package java.util;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
@@ -220,7 +220,7 @@ public abstract class AbstractSequentialList<E> extends AbstractList<E> {
      * @throws IllegalArgumentException      {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
-    public boolean addAll(@GuardSatisfied @EnhancedForUnknown AbstractSequentialList<E> this, int index, Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @UnknownRepCollection AbstractSequentialList<E> this, int index, Collection<? extends E> c) {
         try {
             boolean modified = false;
             ListIterator<E> e1 = listIterator(index);
@@ -246,7 +246,7 @@ public abstract class AbstractSequentialList<E> extends AbstractList<E> {
      * @return an iterator over the elements in this list (in proper sequence)
      */
     @SideEffectFree
-    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor AbstractSequentialList<E> this) {
+    public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection AbstractSequentialList<E> this) {
         return listIterator();
     }
 

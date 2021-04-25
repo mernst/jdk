@@ -24,8 +24,8 @@
  */
 package java.util;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
-import org.checkerframework.checker.boxing.qual.EnhancedForForbidden;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
+import org.checkerframework.checker.boxing.qual.PrimCollection;
 
 import java.util.function.Consumer;
 import java.util.function.DoubleConsumer;
@@ -418,7 +418,7 @@ public final class Spliterators {
      * @return A spliterator from an iterator
      * @throws NullPointerException if the given collection is {@code null}
      */
-    public static <T> @PolyEnhancedFor Spliterator<T> spliterator(@PolyEnhancedFor Collection<? extends T> c,
+    public static <T> @PolyRepCollection Spliterator<T> spliterator(@PolyRepCollection Collection<? extends T> c,
                                                  int characteristics) {
         return new IteratorSpliterator<>(Objects.requireNonNull(c),
                                          characteristics);
@@ -448,7 +448,7 @@ public final class Spliterators {
      * @return A spliterator from an iterator
      * @throws NullPointerException if the given iterator is {@code null}
      */
-    public static <T> @PolyEnhancedFor Spliterator<T> spliterator(@PolyEnhancedFor Iterator<? extends T> iterator,
+    public static <T> @PolyRepCollection Spliterator<T> spliterator(@PolyRepCollection Iterator<? extends T> iterator,
                                                  long size,
                                                  int characteristics) {
         return new IteratorSpliterator<>(Objects.requireNonNull(iterator), size,
@@ -476,7 +476,7 @@ public final class Spliterators {
      * @return A spliterator from an iterator
      * @throws NullPointerException if the given iterator is {@code null}
      */
-    public static <T> @PolyEnhancedFor Spliterator<T> spliteratorUnknownSize(@PolyEnhancedFor Iterator<? extends T> iterator,
+    public static <T> @PolyRepCollection Spliterator<T> spliteratorUnknownSize(@PolyRepCollection Iterator<? extends T> iterator,
                                                             int characteristics) {
         return new IteratorSpliterator<>(Objects.requireNonNull(iterator), characteristics);
     }
@@ -505,7 +505,7 @@ public final class Spliterators {
      * @return A spliterator from an iterator
      * @throws NullPointerException if the given iterator is {@code null}
      */
-    public static @EnhancedForForbidden Spliterator.OfInt spliterator(PrimitiveIterator.OfInt iterator,
+    public static @PrimCollection Spliterator.OfInt spliterator(PrimitiveIterator.OfInt iterator,
                                                 long size,
                                                 int characteristics) {
         return new IntIteratorSpliterator(Objects.requireNonNull(iterator),
@@ -533,7 +533,7 @@ public final class Spliterators {
      * @return A spliterator from an iterator
      * @throws NullPointerException if the given iterator is {@code null}
      */
-    public static @EnhancedForForbidden Spliterator.OfInt spliteratorUnknownSize(PrimitiveIterator.OfInt iterator,
+    public static @PrimCollection Spliterator.OfInt spliteratorUnknownSize(PrimitiveIterator.OfInt iterator,
                                                            int characteristics) {
         return new IntIteratorSpliterator(Objects.requireNonNull(iterator), characteristics);
     }
@@ -562,7 +562,7 @@ public final class Spliterators {
      * @return A spliterator from an iterator
      * @throws NullPointerException if the given iterator is {@code null}
      */
-    public static @EnhancedForForbidden Spliterator.OfLong spliterator(PrimitiveIterator.OfLong iterator,
+    public static @PrimCollection Spliterator.OfLong spliterator(PrimitiveIterator.OfLong iterator,
                                                  long size,
                                                  int characteristics) {
         return new LongIteratorSpliterator(Objects.requireNonNull(iterator),
@@ -590,7 +590,7 @@ public final class Spliterators {
      * @return A spliterator from an iterator
      * @throws NullPointerException if the given iterator is {@code null}
      */
-    public static @EnhancedForForbidden Spliterator.OfLong spliteratorUnknownSize(PrimitiveIterator.OfLong iterator,
+    public static @PrimCollection Spliterator.OfLong spliteratorUnknownSize(PrimitiveIterator.OfLong iterator,
                                                             int characteristics) {
         return new LongIteratorSpliterator(Objects.requireNonNull(iterator), characteristics);
     }
@@ -619,7 +619,7 @@ public final class Spliterators {
      * @return A spliterator from an iterator
      * @throws NullPointerException if the given iterator is {@code null}
      */
-    public static @EnhancedForForbidden Spliterator.OfDouble spliterator(PrimitiveIterator.OfDouble iterator,
+    public static @PrimCollection Spliterator.OfDouble spliterator(PrimitiveIterator.OfDouble iterator,
                                                    long size,
                                                    int characteristics) {
         return new DoubleIteratorSpliterator(Objects.requireNonNull(iterator),
@@ -647,7 +647,7 @@ public final class Spliterators {
      * @return A spliterator from an iterator
      * @throws NullPointerException if the given iterator is {@code null}
      */
-    public static @EnhancedForForbidden Spliterator.OfDouble spliteratorUnknownSize(PrimitiveIterator.OfDouble iterator,
+    public static @PrimCollection Spliterator.OfDouble spliteratorUnknownSize(PrimitiveIterator.OfDouble iterator,
                                                               int characteristics) {
         return new DoubleIteratorSpliterator(Objects.requireNonNull(iterator), characteristics);
     }
@@ -666,7 +666,7 @@ public final class Spliterators {
      * @return An iterator
      * @throws NullPointerException if the given spliterator is {@code null}
      */
-    public static<T> @PolyEnhancedFor Iterator<T> iterator(@PolyEnhancedFor Spliterator<? extends T> spliterator) {
+    public static<T> @PolyRepCollection Iterator<T> iterator(@PolyRepCollection Spliterator<? extends T> spliterator) {
         Objects.requireNonNull(spliterator);
         class Adapter implements Iterator<T>, Consumer<T> {
             boolean valueReady = false;
@@ -711,9 +711,9 @@ public final class Spliterators {
      * @return An iterator
      * @throws NullPointerException if the given spliterator is {@code null}
      */
-    public static @EnhancedForForbidden PrimitiveIterator.OfInt iterator(Spliterator.OfInt spliterator) {
+    public static @PrimCollection PrimitiveIterator.OfInt iterator(Spliterator.OfInt spliterator) {
         Objects.requireNonNull(spliterator);
-        @EnhancedForForbidden class Adapter implements PrimitiveIterator.OfInt, IntConsumer {
+        @PrimCollection class Adapter implements PrimitiveIterator.OfInt, IntConsumer {
             boolean valueReady = false;
             int nextElement;
 
@@ -756,7 +756,7 @@ public final class Spliterators {
      * @return An iterator
      * @throws NullPointerException if the given spliterator is {@code null}
      */
-    public static @EnhancedForForbidden PrimitiveIterator.OfLong iterator(Spliterator.OfLong spliterator) {
+    public static @PrimCollection PrimitiveIterator.OfLong iterator(Spliterator.OfLong spliterator) {
         Objects.requireNonNull(spliterator);
         class Adapter implements PrimitiveIterator.OfLong, LongConsumer {
             boolean valueReady = false;
@@ -801,7 +801,7 @@ public final class Spliterators {
      * @return An iterator
      * @throws NullPointerException if the given spliterator is {@code null}
      */
-    public static @EnhancedForForbidden PrimitiveIterator.OfDouble iterator(Spliterator.OfDouble spliterator) {
+    public static @PrimCollection PrimitiveIterator.OfDouble iterator(Spliterator.OfDouble spliterator) {
         Objects.requireNonNull(spliterator);
         class Adapter implements PrimitiveIterator.OfDouble, DoubleConsumer {
             boolean valueReady = false;
@@ -867,19 +867,19 @@ public final class Spliterators {
             OfRef() { }
         }
 
-        private static final @EnhancedForForbidden class OfInt
+        private static final @PrimCollection class OfInt
                 extends EmptySpliterator<Integer, Spliterator.OfInt, IntConsumer>
                 implements Spliterator.OfInt {
             OfInt() { }
         }
 
-        private static final @EnhancedForForbidden class OfLong
+        private static final @PrimCollection class OfLong
                 extends EmptySpliterator<Long, Spliterator.OfLong, LongConsumer>
                 implements Spliterator.OfLong {
             OfLong() { }
         }
 
-        private static final @EnhancedForForbidden class OfDouble
+        private static final @PrimCollection class OfDouble
                 extends EmptySpliterator<Double, Spliterator.OfDouble, DoubleConsumer>
                 implements Spliterator.OfDouble {
             OfDouble() { }
@@ -984,7 +984,7 @@ public final class Spliterators {
      * A Spliterator.OfInt designed for use by sources that traverse and split
      * elements maintained in an unmodifiable {@code int[]} array.
      */
-    static final @EnhancedForForbidden class IntArraySpliterator implements Spliterator.OfInt {
+    static final @PrimCollection class IntArraySpliterator implements Spliterator.OfInt {
         private final int[] array;
         private int index;        // current index, modified on advance/split
         private final int fence;  // one past last index
@@ -1067,7 +1067,7 @@ public final class Spliterators {
      * A Spliterator.OfLong designed for use by sources that traverse and split
      * elements maintained in an unmodifiable {@code int[]} array.
      */
-    static final @EnhancedForForbidden class LongArraySpliterator implements Spliterator.OfLong {
+    static final @PrimCollection class LongArraySpliterator implements Spliterator.OfLong {
         private final long[] array;
         private int index;        // current index, modified on advance/split
         private final int fence;  // one past last index
@@ -1150,7 +1150,7 @@ public final class Spliterators {
      * A Spliterator.OfDouble designed for use by sources that traverse and split
      * elements maintained in an unmodifiable {@code int[]} array.
      */
-    static final @EnhancedForForbidden class DoubleArraySpliterator implements Spliterator.OfDouble {
+    static final @PrimCollection class DoubleArraySpliterator implements Spliterator.OfDouble {
         private final double[] array;
         private int index;        // current index, modified on advance/split
         private final int fence;  // one past last index
@@ -1843,7 +1843,7 @@ public final class Spliterators {
      * operations. The spliterator implements {@code trySplit} to
      * permit limited parallelism.
      */
-    static final @EnhancedForForbidden class IntIteratorSpliterator implements Spliterator.OfInt {
+    static final @PrimCollection class IntIteratorSpliterator implements Spliterator.OfInt {
         static final int BATCH_UNIT = IteratorSpliterator.BATCH_UNIT;
         static final int MAX_BATCH = IteratorSpliterator.MAX_BATCH;
         private PrimitiveIterator.OfInt it;
@@ -1937,7 +1937,7 @@ public final class Spliterators {
         }
     }
 
-    static final @EnhancedForForbidden class LongIteratorSpliterator implements Spliterator.OfLong {
+    static final @PrimCollection class LongIteratorSpliterator implements Spliterator.OfLong {
         static final int BATCH_UNIT = IteratorSpliterator.BATCH_UNIT;
         static final int MAX_BATCH = IteratorSpliterator.MAX_BATCH;
         private PrimitiveIterator.OfLong it;
@@ -2031,7 +2031,7 @@ public final class Spliterators {
         }
     }
 
-    static final @EnhancedForForbidden class DoubleIteratorSpliterator implements Spliterator.OfDouble {
+    static final @PrimCollection class DoubleIteratorSpliterator implements Spliterator.OfDouble {
         static final int BATCH_UNIT = IteratorSpliterator.BATCH_UNIT;
         static final int MAX_BATCH = IteratorSpliterator.MAX_BATCH;
         private PrimitiveIterator.OfDouble it;

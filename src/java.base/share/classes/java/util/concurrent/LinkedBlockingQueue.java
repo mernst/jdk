@@ -35,8 +35,8 @@
 
 package java.util.concurrent;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
@@ -301,7 +301,7 @@ public class LinkedBlockingQueue<E> extends AbstractQueue<E>
      * @return the number of elements in this queue
      */
     @Pure
-    public int size(@EnhancedForUnknown LinkedBlockingQueue<E> this) {
+    public int size(@UnknownRepCollection LinkedBlockingQueue<E> this) {
         return count.get();
     }
 
@@ -406,7 +406,7 @@ public class LinkedBlockingQueue<E> extends AbstractQueue<E>
      *
      * @throws NullPointerException if the specified element is null
      */
-    public boolean offer(@EnhancedForUnknown LinkedBlockingQueue<E> this, E e) {
+    public boolean offer(@UnknownRepCollection LinkedBlockingQueue<E> this, E e) {
         if (e == null) throw new NullPointerException();
         final AtomicInteger count = this.count;
         if (count.get() == capacity)
@@ -452,7 +452,7 @@ public class LinkedBlockingQueue<E> extends AbstractQueue<E>
         return x;
     }
 
-    public E poll(@EnhancedForUnknown LinkedBlockingQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
+    public E poll(@UnknownRepCollection LinkedBlockingQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
         final E x;
         final int c;
         long nanos = unit.toNanos(timeout);
@@ -477,7 +477,7 @@ public class LinkedBlockingQueue<E> extends AbstractQueue<E>
         return x;
     }
 
-    public E poll(@EnhancedForUnknown LinkedBlockingQueue<E> this) {
+    public E poll(@UnknownRepCollection LinkedBlockingQueue<E> this) {
         final AtomicInteger count = this.count;
         if (count.get() == 0)
             return null;
@@ -500,7 +500,7 @@ public class LinkedBlockingQueue<E> extends AbstractQueue<E>
         return x;
     }
 
-    public E peek(@EnhancedForUnknown LinkedBlockingQueue<E> this) {
+    public E peek(@UnknownRepCollection LinkedBlockingQueue<E> this) {
         final AtomicInteger count = this.count;
         if (count.get() == 0)
             return null;
@@ -669,7 +669,7 @@ public class LinkedBlockingQueue<E> extends AbstractQueue<E>
      * Atomically removes all of the elements from this queue.
      * The queue will be empty after this call returns.
      */
-    public void clear(@EnhancedForUnknown LinkedBlockingQueue<E> this) {
+    public void clear(@UnknownRepCollection LinkedBlockingQueue<E> this) {
         fullyLock();
         try {
             for (Node<E> p, h = head; (p = h.next) != null; h = p) {
@@ -761,7 +761,7 @@ public class LinkedBlockingQueue<E> extends AbstractQueue<E>
      *
      * @return an iterator over the elements in this queue in proper sequence
      */
-    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor LinkedBlockingQueue<E> this) {
+    public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection LinkedBlockingQueue<E> this) {
         return new Itr();
     }
 
@@ -975,14 +975,14 @@ public class LinkedBlockingQueue<E> extends AbstractQueue<E>
      * @return a {@code Spliterator} over the elements in this queue
      * @since 1.8
      */
-    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor LinkedBlockingQueue<E> this) {
+    public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection LinkedBlockingQueue<E> this) {
         return new LBQSpliterator();
     }
 
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public void forEach(@EnhancedForUnknown LinkedBlockingQueue<E> this, Consumer<? super E> action) {
+    public void forEach(@UnknownRepCollection LinkedBlockingQueue<E> this, Consumer<? super E> action) {
         Objects.requireNonNull(action);
         forEachFrom(action, null);
     }

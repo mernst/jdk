@@ -35,7 +35,7 @@
 
 package java.util;
 
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.framework.qual.AnnotatedFor;
@@ -161,7 +161,7 @@ public interface Queue<E> extends Collection<E> {
      * @throws IllegalArgumentException if some property of this element
      *         prevents it from being added to this queue
      */
-    boolean add(@GuardSatisfied @EnhancedForUnknown Queue<E> this, E e);
+    boolean add(@GuardSatisfied @UnknownRepCollection Queue<E> this, E e);
 
     /**
      * Inserts the specified element into this queue if it is possible to do
@@ -180,7 +180,7 @@ public interface Queue<E> extends Collection<E> {
      * @throws IllegalArgumentException if some property of this element
      *         prevents it from being added to this queue
      */
-    boolean offer(@EnhancedForUnknown Queue<E> this, E e);
+    boolean offer(@UnknownRepCollection Queue<E> this, E e);
 
     /**
      * Retrieves and removes the head of this queue.  This method differs
@@ -190,7 +190,7 @@ public interface Queue<E> extends Collection<E> {
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
-    E remove(@GuardSatisfied @EnhancedForUnknown Queue<E> this);
+    E remove(@GuardSatisfied @UnknownRepCollection Queue<E> this);
 
     /**
      * Retrieves and removes the head of this queue,
@@ -198,7 +198,7 @@ public interface Queue<E> extends Collection<E> {
      *
      * @return the head of this queue, or {@code null} if this queue is empty
      */
-    @Nullable E poll(@GuardSatisfied @EnhancedForUnknown Queue<E> this);
+    @Nullable E poll(@GuardSatisfied @UnknownRepCollection Queue<E> this);
 
     /**
      * Retrieves, but does not remove, the head of this queue.  This method
@@ -208,7 +208,7 @@ public interface Queue<E> extends Collection<E> {
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
-    E element(@EnhancedForUnknown Queue<E> this);
+    E element(@UnknownRepCollection Queue<E> this);
 
     /**
      * Retrieves, but does not remove, the head of this queue,
@@ -216,5 +216,5 @@ public interface Queue<E> extends Collection<E> {
      *
      * @return the head of this queue, or {@code null} if this queue is empty
      */
-    @Nullable E peek(@EnhancedForUnknown Queue<E> this);
+    @Nullable E peek(@UnknownRepCollection Queue<E> this);
 }

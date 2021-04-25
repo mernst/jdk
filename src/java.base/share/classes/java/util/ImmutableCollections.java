@@ -25,7 +25,7 @@
 
 package java.util;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 
@@ -131,7 +131,7 @@ class ImmutableCollections {
         }
 
         @Override
-        public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor AbstractImmutableList<E> this) {
+        public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection AbstractImmutableList<E> this) {
             return new ListItr<E>(this, size());
         }
 
@@ -342,7 +342,7 @@ class ImmutableCollections {
             return size;
         }
 
-        public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor SubList<E> this) {
+        public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection SubList<E> this) {
             return new ListItr<>(this, size());
         }
 

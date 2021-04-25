@@ -35,8 +35,8 @@
 
 package java.util;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.dataflow.qual.SideEffectFree;
@@ -160,7 +160,7 @@ public interface NavigableSet<E> extends SortedSet<E> {
      *
      * @return the first element, or {@code null} if this set is empty
      */
-    @Nullable E pollFirst(@GuardSatisfied @EnhancedForUnknown NavigableSet<E> this);
+    @Nullable E pollFirst(@GuardSatisfied @UnknownRepCollection NavigableSet<E> this);
 
     /**
      * Retrieves and removes the last (highest) element,
@@ -168,7 +168,7 @@ public interface NavigableSet<E> extends SortedSet<E> {
      *
      * @return the last element, or {@code null} if this set is empty
      */
-    @Nullable E pollLast(@GuardSatisfied @EnhancedForUnknown NavigableSet<E> this);
+    @Nullable E pollLast(@GuardSatisfied @UnknownRepCollection NavigableSet<E> this);
 
     /**
      * Returns an iterator over the elements in this set, in ascending order.
@@ -176,7 +176,7 @@ public interface NavigableSet<E> extends SortedSet<E> {
      * @return an iterator over the elements in this set, in ascending order
      */
     @SideEffectFree
-    @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor NavigableSet<E> this);
+    @PolyRepCollection Iterator<E> iterator(@PolyRepCollection NavigableSet<E> this);
 
     /**
      * Returns a reverse order view of the elements contained in this set.
@@ -201,7 +201,7 @@ public interface NavigableSet<E> extends SortedSet<E> {
      *
      * @return an iterator over the elements in this set, in descending order
      */
-    @PolyEnhancedFor Iterator<E> descendingIterator(@PolyEnhancedFor NavigableSet<E> this);
+    @PolyRepCollection Iterator<E> descendingIterator(@PolyRepCollection NavigableSet<E> this);
 
     /**
      * Returns a view of the portion of this set whose elements range from

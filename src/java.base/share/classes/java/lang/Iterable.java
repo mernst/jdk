@@ -24,8 +24,8 @@
  */
 package java.lang;
 
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 import java.util.Iterator;
@@ -50,7 +50,7 @@ public interface Iterable<T> {
      *
      * @return an Iterator.
      */
-    @PolyEnhancedFor Iterator<T> iterator(@PolyEnhancedFor Iterable<T> this);
+    @PolyRepCollection Iterator<T> iterator(@PolyRepCollection Iterable<T> this);
 
     /**
      * Performs the given action for each element of the {@code Iterable}
@@ -74,7 +74,7 @@ public interface Iterable<T> {
      * @throws NullPointerException if the specified action is null
      * @since 1.8
      */
-    default void forEach(@EnhancedForUnknown Iterable<E> this, Consumer<? super T> action) {
+    default void forEach(@UnknownRepCollection Iterable<E> this, Consumer<? super T> action) {
         Objects.requireNonNull(action);
         for (T t : this) {
             action.accept(t);
@@ -102,7 +102,7 @@ public interface Iterable<T> {
      * {@code Iterable}.
      * @since 1.8
      */
-    default @PolyEnhancedFor Spliterator<T> spliterator(@PolyEnhancedFor Iterable<T> this) {
+    default @PolyRepCollection Spliterator<T> spliterator(@PolyRepCollection Iterable<T> this) {
         return Spliterators.spliteratorUnknownSize(iterator(), 0);
     }
 }

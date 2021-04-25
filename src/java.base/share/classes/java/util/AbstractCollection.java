@@ -25,8 +25,8 @@
 
 package java.util;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -88,11 +88,11 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      */
     @Override
     @SideEffectFree
-    public abstract @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor AbstractCollection<E> this);
+    public abstract @PolyRepCollection Iterator<E> iterator(@PolyRepCollection AbstractCollection<E> this);
 
     @Override
     @Pure
-    public abstract @NonNegative int size(@GuardSatisfied @EnhancedForUnknown AbstractCollection<E> this);
+    public abstract @NonNegative int size(@GuardSatisfied @UnknownRepCollection AbstractCollection<E> this);
 
     /**
      * {@inheritDoc}
@@ -102,7 +102,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      */
     @Override
     @Pure
-    public boolean isEmpty(@GuardSatisfied @EnhancedForUnknown AbstractCollection<E> this) {
+    public boolean isEmpty(@GuardSatisfied @UnknownRepCollection AbstractCollection<E> this) {
         return size() == 0;
     }
 
@@ -289,7 +289,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @throws IllegalStateException         {@inheritDoc}
      */
     @Override
-    public boolean add(@GuardSatisfied @EnhancedForUnknown AbstractCollection<E> this, E e) {
+    public boolean add(@GuardSatisfied @UnknownRepCollection AbstractCollection<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 
@@ -376,7 +376,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @see #add(Object)
      */
     @Override
-    public boolean addAll(@GuardSatisfied @EnhancedForUnknown AbstractCollection<E> this, Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @UnknownRepCollection AbstractCollection<E> this, Collection<? extends E> c) {
         boolean modified = false;
         for (E e : c)
             if (add(e))
@@ -473,7 +473,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      */
     @Override
-    public void clear(@GuardSatisfied @EnhancedForUnknown AbstractCollection<E> this) {
+    public void clear(@GuardSatisfied @UnknownRepCollection AbstractCollection<E> this) {
         Iterator<E> it = iterator();
         while (it.hasNext()) {
             it.next();

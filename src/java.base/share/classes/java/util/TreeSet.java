@@ -25,8 +25,8 @@
 
 package java.util;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.nullness.qual.EnsuresNonNullIf;
@@ -191,7 +191,7 @@ public class TreeSet<E> extends AbstractSet<E>
      * @return an iterator over the elements in this set in ascending order
      */
     @SideEffectFree
-    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor TreeSet<E> this) {
+    public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection TreeSet<E> this) {
         return m.navigableKeySet().iterator();
     }
 
@@ -201,7 +201,7 @@ public class TreeSet<E> extends AbstractSet<E>
      * @return an iterator over the elements in this set in descending order
      * @since 1.6
      */
-    public @PolyEnhancedFor Iterator<E> descendingIterator(@PolyEnhancedFor TreeSet<E> this) {
+    public @PolyRepCollection Iterator<E> descendingIterator(@PolyRepCollection TreeSet<E> this) {
         return m.descendingKeySet().iterator();
     }
 
@@ -218,7 +218,7 @@ public class TreeSet<E> extends AbstractSet<E>
      * @return the number of elements in this set (its cardinality)
      */
     @Pure
-    public @NonNegative int size(@GuardSatisfied @EnhancedForUnknown TreeSet<E> this) {
+    public @NonNegative int size(@GuardSatisfied @UnknownRepCollection TreeSet<E> this) {
         return m.size();
     }
 
@@ -229,7 +229,7 @@ public class TreeSet<E> extends AbstractSet<E>
      */
     @EnsuresNonNullIf(expression={"pollFirst()", "pollLast()"}, result=false)
     @Pure
-    public boolean isEmpty(@GuardSatisfied @EnhancedForUnknown TreeSet<E> this) {
+    public boolean isEmpty(@GuardSatisfied @UnknownRepCollection TreeSet<E> this) {
         return m.isEmpty();
     }
 
@@ -269,7 +269,7 @@ public class TreeSet<E> extends AbstractSet<E>
      *         and this set uses natural ordering, or its comparator
      *         does not permit null elements
      */
-    public boolean add(@GuardSatisfied @EnhancedForUnknown TreeSet<E> this, E e) {
+    public boolean add(@GuardSatisfied @UnknownRepCollection TreeSet<E> this, E e) {
         return m.put(e, PRESENT)==null;
     }
 
@@ -298,7 +298,7 @@ public class TreeSet<E> extends AbstractSet<E>
      * Removes all of the elements from this set.
      * The set will be empty after this call returns.
      */
-    public void clear(@GuardSatisfied @EnhancedForUnknown TreeSet<E> this) {
+    public void clear(@GuardSatisfied @UnknownRepCollection TreeSet<E> this) {
         m.clear();
     }
 
@@ -313,7 +313,7 @@ public class TreeSet<E> extends AbstractSet<E>
      *         if any element is null and this set uses natural ordering, or
      *         its comparator does not permit null elements
      */
-    public  boolean addAll(@GuardSatisfied @EnhancedForUnknown TreeSet<E> this, Collection<? extends E> c) {
+    public  boolean addAll(@GuardSatisfied @UnknownRepCollection TreeSet<E> this, Collection<? extends E> c) {
         // Use linear-time version if applicable
         if (m.size()==0 && c.size() > 0 &&
             c instanceof SortedSet &&
@@ -477,7 +477,7 @@ public class TreeSet<E> extends AbstractSet<E>
     /**
      * @since 1.6
      */
-    public @Nullable E pollFirst(@GuardSatisfied @EnhancedForUnknown TreeSet<E> this) {
+    public @Nullable E pollFirst(@GuardSatisfied @UnknownRepCollection TreeSet<E> this) {
         Map.Entry<E,?> e = m.pollFirstEntry();
         return (e == null) ? null : e.getKey();
     }
@@ -485,7 +485,7 @@ public class TreeSet<E> extends AbstractSet<E>
     /**
      * @since 1.6
      */
-    public @Nullable E pollLast(@GuardSatisfied @EnhancedForUnknown TreeSet<E> this) {
+    public @Nullable E pollLast(@GuardSatisfied @UnknownRepCollection TreeSet<E> this) {
         Map.Entry<E,?> e = m.pollLastEntry();
         return (e == null) ? null : e.getKey();
     }
@@ -580,7 +580,7 @@ public class TreeSet<E> extends AbstractSet<E>
      * @return a {@code Spliterator} over the elements in this set
      * @since 1.8
      */
-    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor TreeSet<E> this) {
+    public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection TreeSet<E> this) {
         return TreeMap.keySpliteratorFor(m);
     }
 

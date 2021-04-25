@@ -25,8 +25,8 @@
 
 package java.util;
 
-import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
-import org.checkerframework.checker.boxing.qual.EnhancedForUnknown;
+import org.checkerframework.checker.boxing.qual.PolyRepCollection;
+import org.checkerframework.checker.boxing.qual.UnknownRepCollection;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.Positive;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
@@ -338,7 +338,7 @@ public class PriorityQueue<E extends @NonNull Object> extends AbstractQueue<E>
      *         according to the priority queue's ordering
      * @throws NullPointerException if the specified element is null
      */
-    public boolean add(@GuardSatisfied @EnhancedForUnknown PriorityQueue<E> this, E e) {
+    public boolean add(@GuardSatisfied @UnknownRepCollection PriorityQueue<E> this, E e) {
         return offer(e);
     }
 
@@ -351,7 +351,7 @@ public class PriorityQueue<E extends @NonNull Object> extends AbstractQueue<E>
      *         according to the priority queue's ordering
      * @throws NullPointerException if the specified element is null
      */
-    public boolean offer(@EnhancedForUnknown PriorityQueue<E> this, E e) {
+    public boolean offer(@UnknownRepCollection PriorityQueue<E> this, E e) {
         if (e == null)
             throw new NullPointerException();
         modCount++;
@@ -363,7 +363,7 @@ public class PriorityQueue<E extends @NonNull Object> extends AbstractQueue<E>
         return true;
     }
 
-    public @Nullable E peek(@GuardSatisfied @EnhancedForUnknown PriorityQueue<E> this) {
+    public @Nullable E peek(@GuardSatisfied @UnknownRepCollection PriorityQueue<E> this) {
         return (E) queue[0];
     }
 
@@ -499,7 +499,7 @@ public class PriorityQueue<E extends @NonNull Object> extends AbstractQueue<E>
      * @return an iterator over the elements in this queue
      */
     @SideEffectFree
-    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor PriorityQueue<E> this) {
+    public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection PriorityQueue<E> this) {
         return new Itr();
     }
 
@@ -588,7 +588,7 @@ public class PriorityQueue<E extends @NonNull Object> extends AbstractQueue<E>
     }
 
     @Pure
-    public @NonNegative int size(@GuardSatisfied @EnhancedForUnknown PriorityQueue<E> this) {
+    public @NonNegative int size(@GuardSatisfied @UnknownRepCollection PriorityQueue<E> this) {
         return size;
     }
 
@@ -596,7 +596,7 @@ public class PriorityQueue<E extends @NonNull Object> extends AbstractQueue<E>
      * Removes all of the elements from this priority queue.
      * The queue will be empty after this call returns.
      */
-    public void clear(@GuardSatisfied @EnhancedForUnknown PriorityQueue<E> this) {
+    public void clear(@GuardSatisfied @UnknownRepCollection PriorityQueue<E> this) {
         modCount++;
         final Object[] es = queue;
         for (int i = 0, n = size; i < n; i++)
@@ -604,7 +604,7 @@ public class PriorityQueue<E extends @NonNull Object> extends AbstractQueue<E>
         size = 0;
     }
 
-    public @Nullable E poll(@GuardSatisfied @EnhancedForUnknown PriorityQueue<E> this) {
+    public @Nullable E poll(@GuardSatisfied @UnknownRepCollection PriorityQueue<E> this) {
         final Object[] es;
         final E result;
 
@@ -850,7 +850,7 @@ public class PriorityQueue<E extends @NonNull Object> extends AbstractQueue<E>
      * @return a {@code Spliterator} over the elements in this queue
      * @since 1.8
      */
-    public @PolyEnhancedFor SplIterator<E> spliterator(@PolyEnhancedFor PriorityQueue<E> this) {
+    public @PolyRepCollection SplIterator<E> spliterator(@PolyRepCollection PriorityQueue<E> this) {
         return new PriorityQueueSpliterator(0, -1, 0);
     }
 
@@ -996,7 +996,7 @@ public class PriorityQueue<E extends @NonNull Object> extends AbstractQueue<E>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public void forEach(@EnhancedForUnknown PriorityQueue<E> this, Consumer<? super E> action) {
+    public void forEach(@UnknownRepCollection PriorityQueue<E> this, Consumer<? super E> action) {
         Objects.requireNonNull(action);
         final int expectedModCount = modCount;
         final Object[] es = queue;
