@@ -267,7 +267,7 @@ public interface SortedSet<E> extends Set<E> {
      * @since 1.8
      */
     @Override
-    default Spliterator<E> spliterator() {
+    default @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor SortedSet<E> this) {
         return new Spliterators.IteratorSpliterator<E>(
                 this, Spliterator.DISTINCT | Spliterator.SORTED | Spliterator.ORDERED) {
             @Override

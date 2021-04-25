@@ -154,17 +154,17 @@ final class FixedList<E> implements List<E> {
     }
 
     @Override
-    public ListIterator<E> listIterator() {
+    public @PolyEnhancedFor ListIterator<E> listIterator(@PolyEnhancedFor FixedList<E> this) {
         return flist.listIterator();
     }
 
     @Override
-    public ListIterator<E> listIterator(int index) {
+    public @PolyEnhancedFor ListIterator<E> listIterator(@PolyEnhancedFor FixedList<E> this, int index) {
         return flist.listIterator(index);
     }
 
     @Override
-    public List<E> subList(int fromIndex, int toIndex) {
+    public @PolyEnhancedFor List<E> subList(@PolyEnhancedFor FixedList<E> this, int fromIndex, int toIndex) {
         return flist.subList(fromIndex, toIndex);
     }
 

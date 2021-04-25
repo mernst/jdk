@@ -1161,7 +1161,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      * @return a {@code Spliterator} over the elements in this queue
      * @since 1.8
      */
-    public Spliterator<E> spliterator() {
+    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor LinkedTransferQueue<E> this) {
         return new LTQSpliterator();
     }
 
@@ -1294,7 +1294,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      * @return {@code true} (as specified by {@link Queue#offer})
      * @throws NullPointerException if the specified element is null
      */
-    public boolean offer(E e) {
+    public boolean offer(@EnhancedForUnknown LinkedTransferQueue<E> this, E e) {
         xfer(e, true, ASYNC, 0);
         return true;
     }
@@ -1307,7 +1307,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      * @return {@code true} (as specified by {@link Collection#add})
      * @throws NullPointerException if the specified element is null
      */
-    public boolean add(E e) {
+    public boolean add(@EnhancedForUnknown LinkedTransferQueue<E> this, E e) {
         xfer(e, true, ASYNC, 0);
         return true;
     }
@@ -1375,14 +1375,14 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
         throw new InterruptedException();
     }
 
-    public E poll(long timeout, TimeUnit unit) throws InterruptedException {
+    public E poll(@EnhancedForUnknown LinkedTransferQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
         E e = xfer(null, false, TIMED, unit.toNanos(timeout));
         if (e != null || !Thread.interrupted())
             return e;
         throw new InterruptedException();
     }
 
-    public E poll() {
+    public E poll(@EnhancedForUnknown LinkedTransferQueue<E> this) {
         return xfer(null, false, NOW, 0);
     }
 
@@ -1423,11 +1423,11 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      *
      * @return an iterator over the elements in this queue in proper sequence
      */
-    public Iterator<E> iterator() {
+    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor LinkedTransferQueue<E> this) {
         return new Itr();
     }
 
-    public E peek() {
+    public E peek(@EnhancedForUnknown LinkedTransferQueue<E> this) {
         restartFromHead: for (;;) {
             for (Node p = head; p != null;) {
                 Object item = p.item;
@@ -1452,7 +1452,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      * @return {@code true} if this queue contains no elements
      */
     @Pure
-    public boolean isEmpty() {
+    public boolean isEmpty(@EnhancedForUnknown LinkedTransferQueue<E> this) {
         return firstDataNode() == null;
     }
 
@@ -1486,7 +1486,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      * @return the number of elements in this queue
      */
     @Pure
-    public int size() {
+    public int size(@EnhancedForUnknown LinkedTransferQueue<E> this) {
         return countOfMode(true);
     }
 
@@ -1644,7 +1644,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
         return bulkRemove(e -> !c.contains(e));
     }
 
-    public void clear() {
+    public void clear(@EnhancedForUnknown LinkedTransferQueue<E> this) {
         bulkRemove(e -> true);
     }
 
@@ -1721,7 +1721,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public void forEach(Consumer<? super E> action) {
+    public void forEach(@EnhancedForUnknown LinkedTransferQueue<E> this, Consumer<? super E> action) {
         Objects.requireNonNull(action);
         forEachFrom(action, head);
     }

@@ -201,7 +201,7 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this queue
      */
-    boolean add(E e);
+    boolean add(@EnhancedForUnknown BlockingQueue<E> this, E e);
 
     /**
      * Inserts the specified element into this queue if it is possible to do
@@ -220,7 +220,7 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this queue
      */
-    boolean offer(E e);
+    boolean offer(@EnhancedForUnknown BlockingQueue<E> this, E e);
 
     /**
      * Inserts the specified element into this queue, waiting if necessary
@@ -278,7 +278,7 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      *         specified waiting time elapses before an element is available
      * @throws InterruptedException if interrupted while waiting
      */
-    @Nullable E poll(long timeout, TimeUnit unit)
+    @Nullable E poll(@EnhancedForUnknown BlockingQueue<E> this, long timeout, TimeUnit unit)
         throws InterruptedException;
 
     /**

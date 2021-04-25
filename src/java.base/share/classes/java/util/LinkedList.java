@@ -255,7 +255,7 @@ public class LinkedList<E>
      * @return the first element in this list
      * @throws NoSuchElementException if this list is empty
      */
-    public E getFirst(@GuardSatisfied LinkedList<E> this) {
+    public E getFirst(@GuardSatisfied @EnhancedForUnknown LinkedList<E> this) {
         final Node<E> f = first;
         if (f == null)
             throw new NoSuchElementException();
@@ -268,7 +268,7 @@ public class LinkedList<E>
      * @return the last element in this list
      * @throws NoSuchElementException if this list is empty
      */
-    public E getLast(@GuardSatisfied LinkedList<E> this) {
+    public E getLast(@GuardSatisfied @EnhancedForUnknown LinkedList<E> this) {
         final Node<E> l = last;
         if (l == null)
             throw new NoSuchElementException();
@@ -281,7 +281,7 @@ public class LinkedList<E>
      * @return the first element from this list
      * @throws NoSuchElementException if this list is empty
      */
-    public E removeFirst(@GuardSatisfied LinkedList<E> this) {
+    public E removeFirst(@GuardSatisfied @EnhancedForUnknown LinkedList<E> this) {
         final Node<E> f = first;
         if (f == null)
             throw new NoSuchElementException();
@@ -294,7 +294,7 @@ public class LinkedList<E>
      * @return the last element from this list
      * @throws NoSuchElementException if this list is empty
      */
-    public E removeLast(@GuardSatisfied LinkedList<E> this) {
+    public E removeLast(@GuardSatisfied @EnhancedForUnknown LinkedList<E> this) {
         final Node<E> l = last;
         if (l == null)
             throw new NoSuchElementException();
@@ -306,7 +306,7 @@ public class LinkedList<E>
      *
      * @param e the element to add
      */
-    public void addFirst(@GuardSatisfied LinkedList<E> this, E e) {
+    public void addFirst(@GuardSatisfied @EnhancedForUnknown LinkedList<E> this, E e) {
         linkFirst(e);
     }
 
@@ -317,7 +317,7 @@ public class LinkedList<E>
      *
      * @param e the element to add
      */
-    public void addLast(@GuardSatisfied LinkedList<E> this, E e) {
+    public void addLast(@GuardSatisfied @EnhancedForUnknown LinkedList<E> this, E e) {
         linkLast(e);
     }
 
@@ -341,7 +341,7 @@ public class LinkedList<E>
      * @return the number of elements in this list
      */
     @Pure
-    public @NonNegative int size(@GuardSatisfied LinkedList<E> this) {
+    public @NonNegative int size(@GuardSatisfied @EnhancedForUnknown LinkedList<E> this) {
         return size;
     }
 
@@ -354,7 +354,7 @@ public class LinkedList<E>
      * @return {@code true} (as specified by {@link Collection#add})
      */
     @ReleasesNoLocks
-    public boolean add(@GuardSatisfied LinkedList<E> this, E e) {
+    public boolean add(@GuardSatisfied @EnhancedForUnknown LinkedList<E> this, E e) {
         linkLast(e);
         return true;
     }
@@ -404,7 +404,7 @@ public class LinkedList<E>
      * @return {@code true} if this list changed as a result of the call
      * @throws NullPointerException if the specified collection is null
      */
-    public boolean addAll(@GuardSatisfied LinkedList<E> this, Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @EnhancedForUnknown LinkedList<E> this, Collection<? extends E> c) {
         return addAll(size, c);
     }
 
@@ -466,7 +466,7 @@ public class LinkedList<E>
      * Removes all of the elements from this list.
      * The list will be empty after this call returns.
      */
-    public void clear(@GuardSatisfied LinkedList<E> this) {
+    public void clear(@GuardSatisfied @EnhancedForUnknown LinkedList<E> this) {
         // Clearing all of the links between nodes is "unnecessary", but:
         // - helps a generational GC if the discarded nodes inhabit
         //   more than one generation
@@ -671,7 +671,7 @@ public class LinkedList<E>
      * @return the head of this list, or {@code null} if this list is empty
      * @since 1.5
      */
-    public @Nullable E peek() {
+    public @Nullable E peek(@EnhancedForUnknown LinkedList<E> this) {
         final Node<E> f = first;
         return (f == null) ? null : f.item;
     }
@@ -683,7 +683,7 @@ public class LinkedList<E>
      * @throws NoSuchElementException if this list is empty
      * @since 1.5
      */
-    public E element() {
+    public E element(@EnhancedForUnknown LinkedList<E> this) {
         return getFirst();
     }
 
@@ -693,7 +693,7 @@ public class LinkedList<E>
      * @return the head of this list, or {@code null} if this list is empty
      * @since 1.5
      */
-    public @Nullable E poll(@GuardSatisfied LinkedList<E> this) {
+    public @Nullable E poll(@GuardSatisfied @EnhancedForUnknown LinkedList<E> this) {
         final Node<E> f = first;
         return (f == null) ? null : unlinkFirst(f);
     }
@@ -705,7 +705,7 @@ public class LinkedList<E>
      * @throws NoSuchElementException if this list is empty
      * @since 1.5
      */
-    public E remove(@GuardSatisfied LinkedList<E> this) {
+    public E remove(@GuardSatisfied @EnhancedForUnknown LinkedList<E> this) {
         return removeFirst();
     }
 
@@ -716,7 +716,7 @@ public class LinkedList<E>
      * @return {@code true} (as specified by {@link Queue#offer})
      * @since 1.5
      */
-    public boolean offer(E e) {
+    public boolean offer(@EnhancedForUnknown LinkedList<E> this, E e) {
         return add(e);
     }
 
@@ -728,7 +728,7 @@ public class LinkedList<E>
      * @return {@code true} (as specified by {@link Deque#offerFirst})
      * @since 1.6
      */
-    public boolean offerFirst(E e) {
+    public boolean offerFirst(@EnhancedForUnknown LinkedList<E> this, E e) {
         addFirst(e);
         return true;
     }
@@ -740,7 +740,7 @@ public class LinkedList<E>
      * @return {@code true} (as specified by {@link Deque#offerLast})
      * @since 1.6
      */
-    public boolean offerLast(E e) {
+    public boolean offerLast(@EnhancedForUnknown LinkedList<E> this, E e) {
         addLast(e);
         return true;
     }
@@ -753,7 +753,7 @@ public class LinkedList<E>
      *         if this list is empty
      * @since 1.6
      */
-    public @Nullable E peekFirst() {
+    public @Nullable E peekFirst(@EnhancedForUnknown LinkedList<E> this) {
         final Node<E> f = first;
         return (f == null) ? null : f.item;
      }
@@ -766,7 +766,7 @@ public class LinkedList<E>
      *         if this list is empty
      * @since 1.6
      */
-    public @Nullable E peekLast() {
+    public @Nullable E peekLast(@EnhancedForUnknown LinkedList<E> this) {
         final Node<E> l = last;
         return (l == null) ? null : l.item;
     }
@@ -779,7 +779,7 @@ public class LinkedList<E>
      *     this list is empty
      * @since 1.6
      */
-    public @Nullable E pollFirst(@GuardSatisfied LinkedList<E> this) {
+    public @Nullable E pollFirst(@GuardSatisfied @EnhancedForUnknown LinkedList<E> this) {
         final Node<E> f = first;
         return (f == null) ? null : unlinkFirst(f);
     }
@@ -792,7 +792,7 @@ public class LinkedList<E>
      *     this list is empty
      * @since 1.6
      */
-    public @Nullable E pollLast(@GuardSatisfied LinkedList<E> this) {
+    public @Nullable E pollLast(@GuardSatisfied @EnhancedForUnknown LinkedList<E> this) {
         final Node<E> l = last;
         return (l == null) ? null : unlinkLast(l);
     }
@@ -806,7 +806,7 @@ public class LinkedList<E>
      * @param e the element to push
      * @since 1.6
      */
-    public void push(@GuardSatisfied LinkedList<E> this, E e) {
+    public void push(@GuardSatisfied @EnhancedForUnknown LinkedList<E> this, E e) {
         addFirst(e);
     }
 
@@ -821,7 +821,7 @@ public class LinkedList<E>
      * @throws NoSuchElementException if this list is empty
      * @since 1.6
      */
-    public E pop(@GuardSatisfied LinkedList<E> this) {
+    public E pop(@GuardSatisfied @EnhancedForUnknown LinkedList<E> this) {
         return removeFirst();
     }
 
@@ -887,7 +887,7 @@ public class LinkedList<E>
      * @throws IndexOutOfBoundsException {@inheritDoc}
      * @see List#listIterator(int)
      */
-    public ListIterator<E> listIterator(@NonNegative int index) {
+    public @PolyEnhancedFor ListIterator<E> listIterator(@PolyEnhancedFor ListIterator<E> this, @NonNegative int index) {
         checkPositionIndex(index);
         return new ListItr(index);
     }
@@ -1006,7 +1006,7 @@ public class LinkedList<E>
     /**
      * @since 1.6
      */
-    public Iterator<E> descendingIterator() {
+    public @PolyEnhancedFor Iterator<E> descendingIterator(@PolyEnhancedFor LinkedList<E> this) {
         return new DescendingIterator();
     }
 
@@ -1194,7 +1194,7 @@ public class LinkedList<E>
      */
     @SideEffectFree
     @Override
-    public Spliterator<E> spliterator() {
+    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor LinkedList<E> this) {
         return new LLSpliterator<>(this, -1, 0);
     }
 

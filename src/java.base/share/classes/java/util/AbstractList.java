@@ -119,7 +119,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws IllegalArgumentException if some property of this element
      *         prevents it from being added to this list
      */
-    public boolean add(@GuardSatisfied AbstractList<E> this, E e) {
+    public boolean add(@GuardSatisfied @EnhancedForUnknown AbstractList<E> this, E e) {
         add(size(), e);
         return true;
     }
@@ -254,7 +254,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this list
      */
-    public void clear(@GuardSatisfied AbstractList<E> this) {
+    public void clear(@GuardSatisfied @EnhancedForUnknown AbstractList<E> this) {
         removeRange(0, size());
     }
 
@@ -278,7 +278,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws IllegalArgumentException      {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
-    public boolean addAll(@GuardSatisfied AbstractList<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @EnhancedForUnknown AbstractList<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c) {
         rangeCheckForAdd(index);
         boolean modified = false;
         for (E e : c) {
@@ -311,7 +311,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @return an iterator over the elements in this list in proper sequence
      */
     @SideEffectFree
-    public Iterator<E> iterator() {
+    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor AbstractList<E> this) {
         return new Itr();
     }
 
@@ -323,7 +323,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      *
      * @see #listIterator(int)
      */
-    public ListIterator<E> listIterator() {
+    public @PolyEnhancedFor ListIterator<E> listIterator(@PolyEnhancedFor AbstractList<E> this) {
         return listIterator(0);
     }
 
@@ -350,7 +350,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      *
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public ListIterator<E> listIterator(final @IndexOrHigh({"this"}) int index) {
+    public @PolyEnhancedFor ListIterator<E> listIterator(@PolyEnhancedFor AbstractList<E> this, final @IndexOrHigh({"this"}) int index) {
         rangeCheckForAdd(index);
 
         return new ListItr(index);
@@ -510,7 +510,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      *         {@code (fromIndex > toIndex)}
      */
     @SideEffectFree
-    public List<E> subList(@GuardSatisfied AbstractList<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex) {
+    public @PolyEnhancedFor List<E> subList(@GuardSatisfied @PolyEnhancedFor AbstractList<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex) {
         subListRangeCheck(fromIndex, toIndex, size());
         return (this instanceof RandomAccess ?
                 new RandomAccessSubList<>(this, fromIndex, toIndex) :
@@ -851,7 +851,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
             return listIterator();
         }
 
-        public ListIterator<E> listIterator(int index) {
+        public @PolyEnhancedFor ListIterator<E> listIterator(@PolyEnhancedFor SubList<E> this, int index) {
             checkForComodification();
             rangeCheckForAdd(index);
 

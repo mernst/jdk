@@ -178,7 +178,7 @@ public class HashSet<E>
      * @see ConcurrentModificationException
      */
     @SideEffectFree
-    public Iterator<E> iterator() {
+    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor HashSet<E> this) {
         return map.keySet().iterator();
     }
 
@@ -188,7 +188,7 @@ public class HashSet<E>
      * @return the number of elements in this set (its cardinality)
      */
     @Pure
-    public @NonNegative int size(@GuardSatisfied HashSet<E> this) {
+    public @NonNegative int size(@GuardSatisfied @EnhancedForUnknown HashSet<E> this) {
         return map.size();
     }
 
@@ -198,7 +198,7 @@ public class HashSet<E>
      * @return {@code true} if this set contains no elements
      */
     @Pure
-    public boolean isEmpty(@GuardSatisfied HashSet<E> this) {
+    public boolean isEmpty(@GuardSatisfied @EnhancedForUnknown HashSet<E> this) {
         return map.isEmpty();
     }
 
@@ -228,7 +228,7 @@ public class HashSet<E>
      * @return {@code true} if this set did not already contain the specified
      * element
      */
-    public boolean add(@GuardSatisfied HashSet<E> this, E e) {
+    public boolean add(@GuardSatisfied @EnhancedForUnknown HashSet<E> this, E e) {
         return map.put(e, PRESENT)==null;
     }
 
@@ -252,7 +252,7 @@ public class HashSet<E>
      * Removes all of the elements from this set.
      * The set will be empty after this call returns.
      */
-    public void clear(@GuardSatisfied HashSet<E> this) {
+    public void clear(@GuardSatisfied @EnhancedForUnknown HashSet<E> this) {
         map.clear();
     }
 
@@ -368,7 +368,7 @@ public class HashSet<E>
      * @return a {@code Spliterator} over the elements in this set
      * @since 1.8
      */
-    public Spliterator<E> spliterator() {
+    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor HashSet<E> this) {
         return new HashMap.KeySpliterator<>(map, 0, -1, 0, 0);
     }
 }

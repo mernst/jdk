@@ -24,6 +24,7 @@
  */
 package java.util.stream;
 
+import org.checkerframework.checker.boxing.qual.EnhancedForForbidden;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.framework.qual.AnnotatedFor;
@@ -74,8 +75,8 @@ import java.util.function.Supplier;
  * @see Stream
  * @see <a href="package-summary.html">java.util.stream</a>
  */
-@AnnotatedFor({"lock", "nullness"})
-public interface IntStream extends BaseStream<Integer, IntStream> {
+@AnnotatedFor({"boxing", "lock", "nullness"})
+public @EnhancedForForbidden interface IntStream extends BaseStream<Integer, IntStream> {
 
     /**
      * Returns a stream consisting of the elements of this stream that match

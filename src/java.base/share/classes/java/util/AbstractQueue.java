@@ -95,7 +95,7 @@ public abstract class AbstractQueue<E>
      * @throws IllegalArgumentException if some property of this element
      *         prevents it from being added to this queue
      */
-    public boolean add(@GuardSatisfied AbstractQueue<E> this, E e) {
+    public boolean add(@GuardSatisfied @EnhancedForUnknown AbstractQueue<E> this, E e) {
         if (offer(e))
             return true;
         else
@@ -113,7 +113,7 @@ public abstract class AbstractQueue<E>
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
-    public E remove(@GuardSatisfied AbstractQueue<E> this) {
+    public E remove(@GuardSatisfied @EnhancedForUnknown AbstractQueue<E> this) {
         E x = poll();
         if (x != null)
             return x;
@@ -132,7 +132,7 @@ public abstract class AbstractQueue<E>
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
-    public E element() {
+    public E element(@EnhancedForUnknown AbstractQueue<E> this) {
         E x = peek();
         if (x != null)
             return x;
@@ -147,7 +147,7 @@ public abstract class AbstractQueue<E>
      * <p>This implementation repeatedly invokes {@link #poll poll} until it
      * returns {@code null}.
      */
-    public void clear(@GuardSatisfied AbstractQueue<E> this) {
+    public void clear(@GuardSatisfied @EnhancedForUnknown AbstractQueue<E> this) {
         while (poll() != null)
             ;
     }
@@ -181,7 +181,7 @@ public abstract class AbstractQueue<E>
      *         this time due to insertion restrictions
      * @see #add(Object)
      */
-    public boolean addAll(@GuardSatisfied AbstractQueue<E> this, Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @EnhancedForUnknown AbstractQueue<E> this, Collection<? extends E> c) {
         if (c == null)
             throw new NullPointerException();
         if (c == this)

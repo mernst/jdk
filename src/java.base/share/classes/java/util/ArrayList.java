@@ -189,7 +189,8 @@ public class ArrayList<E> extends AbstractList<E>
      * @param c the collection whose elements are to be placed into this list
      * @throws NullPointerException if the specified collection is null
      */
-    public ArrayList(Collection<? extends E> c) {
+    public
+    ArrayList(Collection<? extends E> c) {
         elementData = c.toArray();
         if ((size = elementData.length) != 0) {
             // defend against c.toArray (incorrectly) not returning Object[]
@@ -207,7 +208,7 @@ public class ArrayList<E> extends AbstractList<E>
      * list's current size.  An application can use this operation to minimize
      * the storage of an {@code ArrayList} instance.
      */
-    public void trimToSize(@GuardSatisfied ArrayList<E> this) {
+    public void trimToSize(@GuardSatisfied @EnhancedForUnknown ArrayList<E> this) {
         modCount++;
         if (size < elementData.length) {
             elementData = (size == 0)
@@ -223,7 +224,7 @@ public class ArrayList<E> extends AbstractList<E>
      *
      * @param minCapacity the desired minimum capacity
      */
-    public void ensureCapacity(@GuardSatisfied ArrayList<E> this, int minCapacity) {
+    public void ensureCapacity(@GuardSatisfied @EnhancedForUnknown ArrayList<E> this, int minCapacity) {
         if (minCapacity > elementData.length
             && !(elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA
                  && minCapacity <= DEFAULT_CAPACITY)) {
@@ -295,7 +296,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @return the number of elements in this list
      */
     @Pure
-    public @NonNegative int size(@GuardSatisfied ArrayList<E> this) {
+    public @NonNegative int size(@GuardSatisfied @EnhancedForUnknown ArrayList<E> this) {
         return size;
     }
 
@@ -305,7 +306,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @return {@code true} if this list contains no elements
      */
     @Pure
-    public boolean isEmpty(@GuardSatisfied ArrayList<E> this) {
+    public boolean isEmpty(@GuardSatisfied @EnhancedForUnknown ArrayList<E> this) {
         return size == 0;
     }
 
@@ -516,7 +517,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @param e element to be appended to this list
      * @return {@code true} (as specified by {@link Collection#add})
      */
-    public boolean add(@GuardSatisfied ArrayList<E> this, E e) {
+    public boolean add(@GuardSatisfied @EnhancedForUnknown ArrayList<E> this, E e) {
         modCount++;
         add(e, elementData, size);
         return true;
@@ -702,7 +703,7 @@ public class ArrayList<E> extends AbstractList<E>
      * Removes all of the elements from this list.  The list will
      * be empty after this call returns.
      */
-    public void clear(@GuardSatisfied ArrayList<E> this) {
+    public void clear(@GuardSatisfied @EnhancedForUnknown ArrayList<E> this) {
         modCount++;
         final Object[] es = elementData;
         for (int to = size, i = size = 0; i < to; i++)
@@ -722,7 +723,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @return {@code true} if this list changed as a result of the call
      * @throws NullPointerException if the specified collection is null
      */
-    public boolean addAll(@GuardSatisfied ArrayList<E> this, Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @EnhancedForUnknown ArrayList<E> this, Collection<? extends E> c) {
         Object[] a = c.toArray();
         modCount++;
         int numNew = a.length;
@@ -752,7 +753,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws IndexOutOfBoundsException {@inheritDoc}
      * @throws NullPointerException if the specified collection is null
      */
-    public boolean addAll(@GuardSatisfied ArrayList<E> this, @NonNegative int index, Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @EnhancedForUnknown ArrayList<E> this, @NonNegative int index, Collection<? extends E> c) {
         rangeCheckForAdd(index);
 
         Object[] a = c.toArray();
@@ -973,7 +974,7 @@ public class ArrayList<E> extends AbstractList<E>
      *
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public ListIterator<E> listIterator(@NonNegative int index) {
+    public @PolyEnhancedFor ListIterator<E> listIterator(@PolyEnhancedFor ArrayList<E> this, @NonNegative int index) {
         rangeCheckForAdd(index);
         return new ListItr(index);
     }
@@ -986,7 +987,7 @@ public class ArrayList<E> extends AbstractList<E>
      *
      * @see #listIterator(int)
      */
-    public ListIterator<E> listIterator() {
+    public @PolyEnhancedFor ListIterator<E> listIterator(@PolyEnhancedFor ArrayList<E> this) {
         return new ListItr(0);
     }
 
@@ -998,7 +999,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @return an iterator over the elements in this list in proper sequence
      */
     @SideEffectFree
-    public Iterator<E> iterator() {
+    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor ArrayDeque<E> this) {
         return new Itr();
     }
 
@@ -1160,7 +1161,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws IndexOutOfBoundsException {@inheritDoc}
      * @throws IllegalArgumentException {@inheritDoc}
      */
-    public List<E> subList(@NonNegative int fromIndex, @NonNegative int toIndex) {
+    public @PolyEnhancedFor List<E> subList(@PolyEnhancedFor ArrayList<E> this, @NonNegative int fromIndex, @NonNegative int toIndex) {
         subListRangeCheck(fromIndex, toIndex, size);
         return new SubList<>(this, fromIndex, toIndex);
     }
@@ -1338,7 +1339,7 @@ public class ArrayList<E> extends AbstractList<E>
             return listIterator();
         }
 
-        public ListIterator<E> listIterator(@NonNegative int index) {
+        public @PolyEnhancedFor ListIterator<E> listIterator(@PolyEnhancedFor SubList<E> this, @NonNegative int index) {
             checkForComodification();
             rangeCheckForAdd(index);
 
@@ -1561,7 +1562,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public void forEach(Consumer<? super E> action) {
+    public void forEach(@EnhancedForUnknown Consumer<? super E> action) {
         Objects.requireNonNull(action);
         final int expectedModCount = modCount;
         final Object[] es = elementData;
@@ -1587,7 +1588,7 @@ public class ArrayList<E> extends AbstractList<E>
      */
     @SideEffectFree
     @Override
-    public Spliterator<E> spliterator() {
+    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor ArrayDeque<E> this) {
         return new ArrayListSpliterator(0, -1, 0);
     }
 

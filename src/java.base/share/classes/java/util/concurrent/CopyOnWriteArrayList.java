@@ -171,7 +171,7 @@ public class CopyOnWriteArrayList<E>
      * @return the number of elements in this list
      */
     @Pure
-    public int size() {
+    public int size(@EnhancedForUnknown CopyOnWriteArrayList<E> this) {
         return getArray().length;
     }
 
@@ -181,7 +181,7 @@ public class CopyOnWriteArrayList<E>
      * @return {@code true} if this list contains no elements
      */
     @Pure
-    public boolean isEmpty() {
+    public boolean isEmpty(@EnhancedForUnknown CopyOnWriteArrayList<E> this) {
         return size() == 0;
     }
 
@@ -434,7 +434,7 @@ public class CopyOnWriteArrayList<E>
      * @param e element to be appended to this list
      * @return {@code true} (as specified by {@link Collection#add})
      */
-    public boolean add(E e) {
+    public boolean add(@EnhancedForUnknown CopyOnWriteArrayList<E> this, E e) {
         synchronized (lock) {
             Object[] es = getArray();
             int len = es.length;
@@ -724,7 +724,7 @@ public class CopyOnWriteArrayList<E>
      * Removes all of the elements from this list.
      * The list will be empty after this call returns.
      */
-    public void clear() {
+    public void clear(@EnhancedForUnknown CopyOnWriteArrayList<E> this) {
         synchronized (lock) {
             setArray(new Object[0]);
         }
@@ -740,7 +740,7 @@ public class CopyOnWriteArrayList<E>
      * @throws NullPointerException if the specified collection is null
      * @see #add(Object)
      */
-    public boolean addAll(Collection<? extends E> c) {
+    public boolean addAll(@EnhancedForUnknown CopyOnWriteArrayList<E> this, Collection<? extends E> c) {
         Object[] cs = (c.getClass() == CopyOnWriteArrayList.class) ?
             ((CopyOnWriteArrayList<?>)c).getArray() : c.toArray();
         if (cs.length == 0)
@@ -776,7 +776,7 @@ public class CopyOnWriteArrayList<E>
      * @throws NullPointerException if the specified collection is null
      * @see #add(int,Object)
      */
-    public boolean addAll(int index, Collection<? extends E> c) {
+    public boolean addAll(@EnhancedForUnknown CopyOnWriteArrayList<E> this, int index, Collection<? extends E> c) {
         Object[] cs = c.toArray();
         synchronized (lock) {
             Object[] es = getArray();
@@ -805,7 +805,7 @@ public class CopyOnWriteArrayList<E>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public void forEach(Consumer<? super E> action) {
+    public void forEach(@EnhancedForUnknown CopyOnWriteArrayList<E> this, Consumer<? super E> action) {
         Objects.requireNonNull(action);
         for (Object x : getArray()) {
             @SuppressWarnings("unchecked") E e = (E) x;
@@ -1027,7 +1027,7 @@ public class CopyOnWriteArrayList<E>
      *
      * @return an iterator over the elements in this list in proper sequence
      */
-    public Iterator<E> iterator() {
+    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor CopyOnWriteArrayList<E> this) {
         return new COWIterator<E>(getArray(), 0);
     }
 
@@ -1039,7 +1039,7 @@ public class CopyOnWriteArrayList<E>
      * traversing the iterator. The iterator does <em>NOT</em> support the
      * {@code remove}, {@code set} or {@code add} methods.
      */
-    public ListIterator<E> listIterator() {
+    public @PolyEnhancedFor ListIterator<E> listIterator(@PolyEnhancedFor CopyOnWriteArrayList<E> this) {
         return new COWIterator<E>(getArray(), 0);
     }
 
@@ -1053,7 +1053,7 @@ public class CopyOnWriteArrayList<E>
      *
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public ListIterator<E> listIterator(int index) {
+    public @PolyEnhancedFor ListIterator<E> listIterator(@PolyEnhancedFor CopyOnWriteArrayList<E> this, int index) {
         Object[] es = getArray();
         int len = es.length;
         if (index < 0 || index > len)
@@ -1076,7 +1076,7 @@ public class CopyOnWriteArrayList<E>
      * @return a {@code Spliterator} over the elements in this list
      * @since 1.8
      */
-    public Spliterator<E> spliterator() {
+    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor CopyOnWriteArrayList<E> this) {
         return Spliterators.spliterator
             (getArray(), Spliterator.IMMUTABLE | Spliterator.ORDERED);
     }
@@ -1175,7 +1175,7 @@ public class CopyOnWriteArrayList<E>
      * @return a view of the specified range within this list
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public List<E> subList(int fromIndex, int toIndex) {
+    public @PolyEnhancedFor List<E> subList(@PolyEnhancedFor CopyOnWriteArrayList<E> this, int fromIndex, int toIndex) {
         synchronized (lock) {
             Object[] es = getArray();
             int len = es.length;
@@ -1306,7 +1306,7 @@ public class CopyOnWriteArrayList<E>
         }
 
         @Pure
-        public boolean isEmpty() {
+        public boolean isEmpty(@EnhancedForUnknown CopyOnWriteArrayList<E> this) {
             return size() == 0;
         }
 

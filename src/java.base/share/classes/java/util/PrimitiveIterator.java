@@ -24,6 +24,7 @@
  */
 package java.util;
 
+import org.checkerframework.checker.boxing.qual.EnhancedForForbidden;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
@@ -68,8 +69,8 @@ import java.util.function.LongConsumer;
  *
  * @since 1.8
  */
-@AnnotatedFor({"lock", "nullness"})
-public interface PrimitiveIterator<T, T_CONS> extends Iterator<T> {
+@AnnotatedFor({"boxing", "lock", "nullness"})
+public @EnhancedForForbidden interface PrimitiveIterator<T, T_CONS> extends Iterator<T> {
 
     /**
      * Performs the given action for each remaining element, in the order
@@ -87,7 +88,7 @@ public interface PrimitiveIterator<T, T_CONS> extends Iterator<T> {
      * An Iterator specialized for {@code int} values.
      * @since 1.8
      */
-    public static interface OfInt extends PrimitiveIterator<Integer, IntConsumer> {
+    public static @EnhancedForForbidden interface OfInt extends PrimitiveIterator<Integer, IntConsumer> {
 
         /**
          * Returns the next {@code int} element in the iteration.
@@ -162,7 +163,7 @@ public interface PrimitiveIterator<T, T_CONS> extends Iterator<T> {
      * An Iterator specialized for {@code long} values.
      * @since 1.8
      */
-    public static interface OfLong extends PrimitiveIterator<Long, LongConsumer> {
+    public static @EnhancedForForbidden interface OfLong extends PrimitiveIterator<Long, LongConsumer> {
 
         /**
          * Returns the next {@code long} element in the iteration.
@@ -236,7 +237,7 @@ public interface PrimitiveIterator<T, T_CONS> extends Iterator<T> {
      * An Iterator specialized for {@code double} values.
      * @since 1.8
      */
-    public static interface OfDouble extends PrimitiveIterator<Double, DoubleConsumer> {
+    public static @EnhancedForForbidden interface OfDouble extends PrimitiveIterator<Double, DoubleConsumer> {
 
         /**
          * Returns the next {@code double} element in the iteration.

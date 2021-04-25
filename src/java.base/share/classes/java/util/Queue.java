@@ -160,7 +160,7 @@ public interface Queue<E> extends Collection<E> {
      * @throws IllegalArgumentException if some property of this element
      *         prevents it from being added to this queue
      */
-    boolean add(@GuardSatisfied Queue<E> this, E e);
+    boolean add(@GuardSatisfied @EnhancedForUnknown Queue<E> this, E e);
 
     /**
      * Inserts the specified element into this queue if it is possible to do
@@ -179,7 +179,7 @@ public interface Queue<E> extends Collection<E> {
      * @throws IllegalArgumentException if some property of this element
      *         prevents it from being added to this queue
      */
-    boolean offer(E e);
+    boolean offer(@EnhancedForUnknown Queue<E> this, E e);
 
     /**
      * Retrieves and removes the head of this queue.  This method differs
@@ -189,7 +189,7 @@ public interface Queue<E> extends Collection<E> {
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
-    E remove(@GuardSatisfied Queue<E> this);
+    E remove(@GuardSatisfied @EnhancedForUnknown Queue<E> this);
 
     /**
      * Retrieves and removes the head of this queue,
@@ -197,7 +197,7 @@ public interface Queue<E> extends Collection<E> {
      *
      * @return the head of this queue, or {@code null} if this queue is empty
      */
-    @Nullable E poll(@GuardSatisfied Queue<E> this);
+    @Nullable E poll(@GuardSatisfied @EnhancedForUnknown Queue<E> this);
 
     /**
      * Retrieves, but does not remove, the head of this queue.  This method
@@ -207,7 +207,7 @@ public interface Queue<E> extends Collection<E> {
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
-    E element();
+    E element(@EnhancedForUnknown Queue<E> this);
 
     /**
      * Retrieves, but does not remove, the head of this queue,
@@ -215,5 +215,5 @@ public interface Queue<E> extends Collection<E> {
      *
      * @return the head of this queue, or {@code null} if this queue is empty
      */
-    @Nullable E peek();
+    @Nullable E peek(@EnhancedForUnknown Queue<E> this);
 }

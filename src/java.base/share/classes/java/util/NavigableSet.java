@@ -158,7 +158,7 @@ public interface NavigableSet<E> extends SortedSet<E> {
      *
      * @return the first element, or {@code null} if this set is empty
      */
-    @Nullable E pollFirst(@GuardSatisfied NavigableSet<E> this);
+    @Nullable E pollFirst(@GuardSatisfied @EnhancedForUnknown NavigableSet<E> this);
 
     /**
      * Retrieves and removes the last (highest) element,
@@ -166,7 +166,7 @@ public interface NavigableSet<E> extends SortedSet<E> {
      *
      * @return the last element, or {@code null} if this set is empty
      */
-    @Nullable E pollLast(@GuardSatisfied NavigableSet<E> this);
+    @Nullable E pollLast(@GuardSatisfied @EnhancedForUnknown NavigableSet<E> this);
 
     /**
      * Returns an iterator over the elements in this set, in ascending order.
@@ -174,7 +174,7 @@ public interface NavigableSet<E> extends SortedSet<E> {
      * @return an iterator over the elements in this set, in ascending order
      */
     @SideEffectFree
-    Iterator<E> iterator();
+    @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor NavigableSet<E> this);
 
     /**
      * Returns a reverse order view of the elements contained in this set.
@@ -199,7 +199,7 @@ public interface NavigableSet<E> extends SortedSet<E> {
      *
      * @return an iterator over the elements in this set, in descending order
      */
-    Iterator<E> descendingIterator();
+    @PolyEnhancedFor Iterator<E> descendingIterator(@PolyEnhancedFor NavigableSet<E> this);
 
     /**
      * Returns a view of the portion of this set whose elements range from

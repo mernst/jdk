@@ -207,7 +207,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @return the number of elements in this set
      */
     @Pure
-    public int size() {
+    public int size(@EnhancedForUnknown ConcurrentSkipListSet<E> this) {
         return m.size();
     }
 
@@ -216,7 +216,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @return {@code true} if this set contains no elements
      */
     @Pure
-    public boolean isEmpty() {
+    public boolean isEmpty(@EnhancedForUnknown ConcurrentSkipListSet<E> this) {
         return m.isEmpty();
     }
 
@@ -250,7 +250,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      *         with the elements currently in this set
      * @throws NullPointerException if the specified element is null
      */
-    public boolean add(E e) {
+    public boolean add(@EnhancedForUnknown ConcurrentSkipListSet<E> this, E e) {
         return m.putIfAbsent(e, Boolean.TRUE) == null;
     }
 
@@ -275,7 +275,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
     /**
      * Removes all of the elements from this set.
      */
-    public void clear() {
+    public void clear(@EnhancedForUnknown ConcurrentSkipListSet<E> this) {
         m.clear();
     }
 
@@ -285,7 +285,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @return an iterator over the elements in this set in ascending order
      */
     @SideEffectFree
-    public Iterator<E> iterator() {
+    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor ConcurrentSkipListMap<E> this) {
         return m.navigableKeySet().iterator();
     }
 
@@ -294,7 +294,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      *
      * @return an iterator over the elements in this set in descending order
      */
-    public Iterator<E> descendingIterator() {
+    public @PolyEnhancedFor Iterator<E> descendingIterator(@PolyEnhancedFor ConcurrentSkipListMap<E> this) {
         return m.descendingKeySet().iterator();
     }
 
@@ -386,12 +386,12 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
         return m.higherKey(e);
     }
 
-    public @Nullable E pollFirst() {
+    public @Nullable E pollFirst(@EnhancedForUnknown ConcurrentSkipListSet<E> this) {
         Map.Entry<E,Object> e = m.pollFirstEntry();
         return (e == null) ? null : e.getKey();
     }
 
-    public @Nullable E pollLast() {
+    public @Nullable E pollLast(@EnhancedForUnknown ConcurrentSkipListSet<E> this) {
         Map.Entry<E,Object> e = m.pollLastEntry();
         return (e == null) ? null : e.getKey();
     }
@@ -515,7 +515,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      */
     @SuppressWarnings({"unchecked"})
     @SideEffectFree
-    public Spliterator<E> spliterator() {
+    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor ConcurrentSkipListMap<E> this) {
         return (m instanceof ConcurrentSkipListMap)
             ? ((ConcurrentSkipListMap<E,?>)m).keySpliterator()
             : ((ConcurrentSkipListMap.SubMap<E,?>)m).new SubMapKeyIterator();

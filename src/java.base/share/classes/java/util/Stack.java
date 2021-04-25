@@ -83,7 +83,7 @@ class Stack<E> extends Vector<E> {
      *          of the {@code Vector} object).
      * @throws  EmptyStackException  if this stack is empty.
      */
-    public synchronized E pop(@GuardSatisfied Stack<E> this) {
+    public synchronized E pop(@GuardSatisfied @EnhancedForUnknown Stack<E> this) {
         E       obj;
         int     len = size();
 

@@ -136,7 +136,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      * @return {@code true} (as specified by {@link Collection#add})
      * @throws NullPointerException if the specified element is null
      */
-    public boolean add(E e) {
+    public boolean add(@EnhancedForUnknown DelayQueue<E> this, E e) {
         return offer(e);
     }
 
@@ -147,7 +147,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      * @return {@code true}
      * @throws NullPointerException if the specified element is null
      */
-    public boolean offer(E e) {
+    public boolean offer(@EnhancedForUnknown DelayQueue<E> this, E e) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -194,7 +194,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      * @return the head of this queue, or {@code null} if this
      *         queue has no elements with an expired delay
      */
-    public @Nullable E poll() {
+    public @Nullable E poll(@EnhancedForUnknown DelayQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -258,7 +258,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      *         an expired delay becomes available
      * @throws InterruptedException {@inheritDoc}
      */
-    public @Nullable E poll(long timeout, TimeUnit unit) throws InterruptedException {
+    public @Nullable E poll(@EnhancedForUnknown DelayQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
         long nanos = unit.toNanos(timeout);
         final ReentrantLock lock = this.lock;
         lock.lockInterruptibly();
@@ -309,7 +309,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      * @return the head of this queue, or {@code null} if this
      *         queue is empty
      */
-    public @Nullable E peek() {
+    public @Nullable E peek(@EnhancedForUnknown DelayQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -320,7 +320,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
     }
 
     @Pure
-    public int size() {
+    public int size(@EnhancedForUnknown DelayQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -376,7 +376,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      * Elements with an unexpired delay are not waited for; they are
      * simply discarded from the queue.
      */
-    public void clear() {
+    public void clear(@EnhancedForUnknown DelayQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -509,7 +509,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      * @return an iterator over the elements in this queue
      */
     @SideEffectFree
-    public Iterator<E> iterator() {
+    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor DelayQueue<E> this) {
         return new Itr(toArray());
     }
 

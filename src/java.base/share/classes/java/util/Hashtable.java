@@ -689,7 +689,7 @@ public class Hashtable<K extends @NonNull Object,V extends @NonNull Object>
 
     private class KeySet extends AbstractSet<K> {
         @SideEffectFree
-        public Iterator<K> iterator() {
+        public @PolyEnhancedFor Iterator<K> iterator(@PolyEnhancedFor AbstractSet<K> this) {
             return getIterator(KEYS);
         }
         @Pure

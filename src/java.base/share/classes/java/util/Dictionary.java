@@ -71,7 +71,7 @@ class Dictionary<K,V> {
      * @return  the number of keys in this dictionary.
      */
     @Pure
-    public abstract @NonNegative int size(@GuardSatisfied Dictionary<K, V> this);
+    public abstract @NonNegative int size(@GuardSatisfied @EnhancedForUnknown Dictionary<K, V> this);
 
     /**
      * Tests if this dictionary maps no keys to value. The general contract
@@ -82,7 +82,7 @@ class Dictionary<K,V> {
      *          {@code false} otherwise.
      */
     @Pure
-    public abstract boolean isEmpty(@GuardSatisfied Dictionary<K, V> this);
+    public abstract boolean isEmpty(@GuardSatisfied @EnhancedForUnknown Dictionary<K, V> this);
 
     /**
      * Returns an enumeration of the keys in this dictionary. The general

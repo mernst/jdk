@@ -86,11 +86,11 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      */
     @Override
     @SideEffectFree
-    public abstract Iterator<E> iterator();
+    public abstract @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor AbstractCollection<E> this);
 
     @Override
     @Pure
-    public abstract @NonNegative int size(@GuardSatisfied AbstractCollection<E> this);
+    public abstract @NonNegative int size(@GuardSatisfied @EnhancedForUnknown AbstractCollection<E> this);
 
     /**
      * {@inheritDoc}
@@ -100,7 +100,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      */
     @Override
     @Pure
-    public boolean isEmpty(@GuardSatisfied AbstractCollection<E> this) {
+    public boolean isEmpty(@GuardSatisfied @EnhancedForUnknown AbstractCollection<E> this) {
         return size() == 0;
     }
 
@@ -287,7 +287,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @throws IllegalStateException         {@inheritDoc}
      */
     @Override
-    public boolean add(@GuardSatisfied AbstractCollection<E> this, E e) {
+    public boolean add(@GuardSatisfied @EnhancedForUnknown AbstractCollection<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 
@@ -374,7 +374,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @see #add(Object)
      */
     @Override
-    public boolean addAll(@GuardSatisfied AbstractCollection<E> this, Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @EnhancedForUnknown AbstractCollection<E> this, Collection<? extends E> c) {
         boolean modified = false;
         for (E e : c)
             if (add(e))
@@ -471,7 +471,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      */
     @Override
-    public void clear(@GuardSatisfied AbstractCollection<E> this) {
+    public void clear(@GuardSatisfied @EnhancedForUnknown AbstractCollection<E> this) {
         Iterator<E> it = iterator();
         while (it.hasNext()) {
             it.next();

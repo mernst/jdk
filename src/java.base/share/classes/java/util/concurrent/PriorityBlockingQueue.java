@@ -462,7 +462,7 @@ public class PriorityBlockingQueue<E> extends AbstractQueue<E>
      *         priority queue's ordering
      * @throws NullPointerException if the specified element is null
      */
-    public boolean add(E e) {
+    public boolean add(@EnhancedForUnknown PriorityBlockingQueue<E> this, E e) {
         return offer(e);
     }
 
@@ -477,7 +477,7 @@ public class PriorityBlockingQueue<E> extends AbstractQueue<E>
      *         priority queue's ordering
      * @throws NullPointerException if the specified element is null
      */
-    public boolean offer(E e) {
+    public boolean offer(@EnhancedForUnknown PriorityBlockingQueue<E> this, E e) {
         if (e == null)
             throw new NullPointerException();
         final ReentrantLock lock = this.lock;
@@ -533,7 +533,7 @@ public class PriorityBlockingQueue<E> extends AbstractQueue<E>
         return offer(e); // never need to block
     }
 
-    public E poll() {
+    public E poll(@EnhancedForUnknown PriorityBlockingQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -556,7 +556,7 @@ public class PriorityBlockingQueue<E> extends AbstractQueue<E>
         return result;
     }
 
-    public E poll(long timeout, TimeUnit unit) throws InterruptedException {
+    public E poll(@EnhancedForUnknown PriorityBlockingQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
         long nanos = unit.toNanos(timeout);
         final ReentrantLock lock = this.lock;
         lock.lockInterruptibly();
@@ -570,7 +570,7 @@ public class PriorityBlockingQueue<E> extends AbstractQueue<E>
         return result;
     }
 
-    public E peek() {
+    public E peek(@EnhancedForUnknown PriorityBlockingQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -594,7 +594,7 @@ public class PriorityBlockingQueue<E> extends AbstractQueue<E>
     }
 
     @Pure
-    public int size() {
+    public int size(@EnhancedForUnknown PriorityBlockingQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -757,7 +757,7 @@ public class PriorityBlockingQueue<E> extends AbstractQueue<E>
      * Atomically removes all of the elements from this queue.
      * The queue will be empty after this call returns.
      */
-    public void clear() {
+    public void clear(@EnhancedForUnknown PriorityBlockingQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -855,7 +855,7 @@ public class PriorityBlockingQueue<E> extends AbstractQueue<E>
      *
      * @return an iterator over the elements in this queue
      */
-    public Iterator<E> iterator() {
+    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor PriorityBlockingQueue<E> this) {
         return new Itr(toArray());
     }
 
@@ -1019,7 +1019,7 @@ public class PriorityBlockingQueue<E> extends AbstractQueue<E>
      * @return a {@code Spliterator} over the elements in this queue
      * @since 1.8
      */
-    public Spliterator<E> spliterator() {
+    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor PriorityBlockingQueue<E> this) {
         return new PBQSpliterator();
     }
 
@@ -1097,7 +1097,7 @@ public class PriorityBlockingQueue<E> extends AbstractQueue<E>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public void forEach(Consumer<? super E> action) {
+    public void forEach(@EnhancedForUnknown PriorityBlockingQueue<E> this, Consumer<? super E> action) {
         Objects.requireNonNull(action);
         final ReentrantLock lock = this.lock;
         lock.lock();

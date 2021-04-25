@@ -327,7 +327,7 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E>
      * @throws IllegalStateException if this queue is full
      * @throws NullPointerException if the specified element is null
      */
-    public boolean add(E e) {
+    public boolean add(@EnhancedForUnknown ArrayBlockingQueue<E> this, E e) {
         return super.add(e);
     }
 
@@ -340,7 +340,7 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E>
      *
      * @throws NullPointerException if the specified element is null
      */
-    public boolean offer(E e) {
+    public boolean offer(@EnhancedForUnknown ArrayBlockingQueue<E> this, E e) {
         Objects.requireNonNull(e);
         final ReentrantLock lock = this.lock;
         lock.lock();
@@ -404,7 +404,7 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E>
         }
     }
 
-    public E poll() {
+    public E poll(@EnhancedForUnknown ArrayBlockingQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -426,7 +426,7 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E>
         }
     }
 
-    public E poll(long timeout, TimeUnit unit) throws InterruptedException {
+    public E poll(@EnhancedForUnknown ArrayBlockingQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
         long nanos = unit.toNanos(timeout);
         final ReentrantLock lock = this.lock;
         lock.lockInterruptibly();
@@ -442,7 +442,7 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E>
         }
     }
 
-    public E peek() {
+    public E peek(@EnhancedForUnknown ArrayBlockingQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -460,7 +460,7 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E>
      * @return the number of elements in this queue
      */
     @Pure
-    public int size() {
+    public int size(@EnhancedForUnknown ArrayBlockingQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -659,7 +659,7 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E>
      * Atomically removes all of the elements from this queue.
      * The queue will be empty after this call returns.
      */
-    public void clear() {
+    public void clear(@EnhancedForUnknown ArrayBlockingQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -760,7 +760,7 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E>
      *
      * @return an iterator over the elements in this queue in proper sequence
      */
-    public Iterator<E> iterator() {
+    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor ArrayBlockingQueue<E> this) {
         return new Itr();
     }
 
@@ -1438,7 +1438,7 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E>
      * @return a {@code Spliterator} over the elements in this queue
      * @since 1.8
      */
-    public Spliterator<E> spliterator() {
+    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor ArrayBlockingQueue<E> this) {
         return Spliterators.spliterator
             (this, (Spliterator.ORDERED |
                     Spliterator.NONNULL |
@@ -1448,7 +1448,7 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public void forEach(Consumer<? super E> action) {
+    public void forEach(@EnhancedForUnknown ArrayBlockingQueue<E> this, Consumer<? super E> action) {
         Objects.requireNonNull(action);
         final ReentrantLock lock = this.lock;
         lock.lock();

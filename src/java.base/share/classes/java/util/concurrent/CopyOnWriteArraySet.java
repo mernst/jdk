@@ -140,7 +140,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      * @return the number of elements in this set
      */
     @Pure
-    public int size() {
+    public int size(@EnhancedForUnknown CopyOnWriteArraySet<E> this) {
         return al.size();
     }
 
@@ -150,7 +150,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      * @return {@code true} if this set contains no elements
      */
     @Pure
-    public boolean isEmpty() {
+    public boolean isEmpty(@EnhancedForUnknown CopyOnWriteArraySet<E> this) {
         return al.isEmpty();
     }
 
@@ -235,7 +235,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      * Removes all of the elements from this set.
      * The set will be empty after this call returns.
      */
-    public void clear() {
+    public void clear(@EnhancedForUnknown CopyOnWriteArraySet<E> this) {
         al.clear();
     }
 
@@ -266,7 +266,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      * @return {@code true} if this set did not already contain the specified
      *         element
      */
-    public boolean add(E e) {
+    public boolean add(@EnhancedForUnknown CopyOnWriteArraySet<E> this, E e) {
         return al.addIfAbsent(e);
     }
 
@@ -335,7 +335,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      * @throws NullPointerException if the specified collection is null
      * @see #add(Object)
      */
-    public boolean addAll(Collection<? extends E> c) {
+    public boolean addAll(@EnhancedForUnknown CopyOnWriteArraySet<E> this, Collection<? extends E> c) {
         return al.addAllAbsent(c) > 0;
     }
 
@@ -394,7 +394,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      *
      * @return an iterator over the elements in this set
      */
-    public Iterator<E> iterator() {
+    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor CopyOnWriteArraySet<E> this) {
         return al.iterator();
     }
 
@@ -432,7 +432,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public void forEach(Consumer<? super E> action) {
+    public void forEach(@EnhancedForUnknown CopyOnWriteArraySet<E> this, Consumer<? super E> action) {
         al.forEach(action);
     }
 
@@ -451,7 +451,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      * @return a {@code Spliterator} over the elements in this set
      * @since 1.8
      */
-    public Spliterator<E> spliterator() {
+    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor CopyOnWriteArraySet<E> this) {
         return Spliterators.spliterator
             (al.getArray(), Spliterator.IMMUTABLE | Spliterator.DISTINCT);
     }

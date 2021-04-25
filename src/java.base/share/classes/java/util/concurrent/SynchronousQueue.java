@@ -912,7 +912,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      *         {@code false}
      * @throws NullPointerException if the specified element is null
      */
-    public boolean offer(E e) {
+    public boolean offer(@EnhancedForUnknown SynchronousQueue<E> this, E e) {
         if (e == null) throw new NullPointerException();
         return transferer.transfer(e, true, 0) != null;
     }
@@ -941,7 +941,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      *         specified waiting time elapses before an element is present
      * @throws InterruptedException {@inheritDoc}
      */
-    public E poll(long timeout, TimeUnit unit) throws InterruptedException {
+    public E poll(@EnhancedForUnknown SynchronousQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
         E e = transferer.transfer(null, true, unit.toNanos(timeout));
         if (e != null || !Thread.interrupted())
             return e;
@@ -955,7 +955,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @return the head of this queue, or {@code null} if no
      *         element is available
      */
-    public E poll() {
+    public E poll(@EnhancedForUnknown SynchronousQueue<E> this) {
         return transferer.transfer(null, true, 0);
     }
 
@@ -966,7 +966,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @return {@code true}
      */
     @Pure
-    public boolean isEmpty() {
+    public boolean isEmpty(@EnhancedForUnknown SynchronousQueue<E> this) {
         return true;
     }
 
@@ -977,7 +977,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @return zero
      */
     @Pure
-    public int size() {
+    public int size(@EnhancedForUnknown SynchronousQueue<E> this) {
         return 0;
     }
 
@@ -995,7 +995,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * Does nothing.
      * A {@code SynchronousQueue} has no internal capacity.
      */
-    public void clear() {
+    public void clear(@EnhancedForUnknown SynchronousQueue<E> this) {
     }
 
     /**
@@ -1062,7 +1062,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      *
      * @return {@code null}
      */
-    public E peek() {
+    public E peek(@EnhancedForUnknown SynchronousQueue<E> this) {
         return null;
     }
 
@@ -1073,7 +1073,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @return an empty iterator
      */
     @SideEffectFree
-    public Iterator<E> iterator() {
+    public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor SynchronousQueue<E> this) {
         return Collections.emptyIterator();
     }
 
@@ -1085,7 +1085,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @since 1.8
      */
     @SideEffectFree
-    public Spliterator<E> spliterator() {
+    public @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor SynchronousQueue<E> this) {
         return Spliterators.emptySpliterator();
     }
 

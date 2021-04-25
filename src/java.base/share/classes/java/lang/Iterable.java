@@ -24,6 +24,7 @@
  */
 package java.lang;
 
+import org.checkerframework.checker.boxing.qual.PolyEnhancedFor;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 import java.util.Iterator;
@@ -41,14 +42,14 @@ import java.util.function.Consumer;
  * @since 1.5
  * @jls 14.14.2 The enhanced {@code for} statement
  */
-@AnnotatedFor({"lock", "nullness"})
+@AnnotatedFor({"boxing", "lock", "nullness"})
 public interface Iterable<T> {
     /**
      * Returns an iterator over elements of type {@code T}.
      *
      * @return an Iterator.
      */
-    Iterator<T> iterator();
+    @PolyEnhancedFor Iterator<T> iterator(@PolyEnhancedFor Iterable<T> this);
 
     /**
      * Performs the given action for each element of the {@code Iterable}
@@ -72,7 +73,7 @@ public interface Iterable<T> {
      * @throws NullPointerException if the specified action is null
      * @since 1.8
      */
-    default void forEach(Consumer<? super T> action) {
+    default void forEach(@EnhancedForUnknown Iterable<E> this, Consumer<? super T> action) {
         Objects.requireNonNull(action);
         for (T t : this) {
             action.accept(t);
@@ -100,7 +101,7 @@ public interface Iterable<T> {
      * {@code Iterable}.
      * @since 1.8
      */
-    default Spliterator<T> spliterator() {
+    default @PolyEnhancedFor Spliterator<T> spliterator(@PolyEnhancedFor Iterable<T> this) {
         return Spliterators.spliteratorUnknownSize(iterator(), 0);
     }
 }

@@ -240,7 +240,7 @@ public interface Collection<E> extends Iterable<E> {
      * @return the number of elements in this collection
      */
     @Pure
-    @NonNegative int size(@GuardSatisfied Collection<E> this);
+    @NonNegative int size(@GuardSatisfied @EnhancedForUnknown Collection<E> this);
 
     /**
      * Returns {@code true} if this collection contains no elements.
@@ -248,7 +248,7 @@ public interface Collection<E> extends Iterable<E> {
      * @return {@code true} if this collection contains no elements
      */
     @Pure
-    boolean isEmpty(@GuardSatisfied Collection<E> this);
+    boolean isEmpty(@GuardSatisfied @EnhancedForUnknown Collection<E> this);
 
     /**
      * Returns {@code true} if this collection contains the specified element.
@@ -279,7 +279,7 @@ public interface Collection<E> extends Iterable<E> {
      * @return an {@code Iterator} over the elements in this collection
      */
     @SideEffectFree
-    Iterator<E> iterator();
+    @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor Collection<E> this);
 
     /**
      * Returns an array containing all of the elements in this collection.
@@ -438,7 +438,7 @@ public interface Collection<E> extends Iterable<E> {
      * @throws IllegalStateException if the element cannot be added at this
      *         time due to insertion restrictions
      */
-    boolean add(@GuardSatisfied Collection<E> this, E e);
+    boolean add(@GuardSatisfied @EnhancedForUnknown Collection<E> this, E e);
 
     /**
      * Removes a single instance of the specified element from this
@@ -510,7 +510,7 @@ public interface Collection<E> extends Iterable<E> {
      *         this time due to insertion restrictions
      * @see #add(Object)
      */
-    boolean addAll(@GuardSatisfied Collection<E> this, Collection<? extends E> c);
+    boolean addAll(@GuardSatisfied @EnhancedForUnknown Collection<E> this, Collection<? extends E> c);
 
     /**
      * Removes all of this collection's elements that are also contained in the
@@ -603,7 +603,7 @@ public interface Collection<E> extends Iterable<E> {
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this collection
      */
-    void clear(@GuardSatisfied Collection<E> this);
+    void clear(@GuardSatisfied @EnhancedForUnknown Collection<E> this);
 
 
     // Comparison and hashing
@@ -714,7 +714,7 @@ public interface Collection<E> extends Iterable<E> {
      */
     @SideEffectFree
     @Override
-    default Spliterator<E> spliterator() {
+    default @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor Collection<E> this) {
         return Spliterators.spliterator(this, 0);
     }
 

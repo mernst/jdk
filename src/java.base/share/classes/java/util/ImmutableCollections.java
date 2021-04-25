@@ -130,7 +130,7 @@ class ImmutableCollections {
         }
 
         @Override
-        public Iterator<E> iterator() {
+        public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor AbstractImmutableList<E> this) {
             return new ListItr<E>(this, size());
         }
 
@@ -341,7 +341,7 @@ class ImmutableCollections {
             return size;
         }
 
-        public Iterator<E> iterator() {
+        public @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor SubList<E> this) {
             return new ListItr<>(this, size());
         }
 

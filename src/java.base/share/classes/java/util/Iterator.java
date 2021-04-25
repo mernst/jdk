@@ -25,6 +25,7 @@
 
 package java.util;
 
+import org.checkerframework.checker.enhancedfor.qual.EnhancedForUnknown;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
@@ -64,7 +65,7 @@ import java.util.function.Consumer;
 @CFComment({"nullness: This @Covariant annotation is sound, but it would not be sound on",
             "ListIterator (a subclass of Iterator), which supports a set operation."
 })
-@AnnotatedFor({"lock", "nullness"})
+@AnnotatedFor({"lock", "nullness", "enhancedfor"})
 @Covariant({0})
 public interface Iterator<E> {
     /**
@@ -75,7 +76,7 @@ public interface Iterator<E> {
      * @return {@code true} if the iteration has more elements
      */
     @Pure
-    boolean hasNext(@GuardSatisfied Iterator<E> this);
+    boolean hasNext(@GuardSatisfied @EnhancedForUnknown Iterator<E> this);
 
     /**
      * Returns the next element in the iteration.
@@ -83,7 +84,7 @@ public interface Iterator<E> {
      * @return the next element in the iteration
      * @throws NoSuchElementException if the iteration has no more elements
      */
-    E next(@GuardSatisfied Iterator<E> this);
+    E next(@GuardSatisfied @EnhancedForUnknown Iterator<E> this);
 
     /**
      * Removes from the underlying collection the last element returned
@@ -110,7 +111,7 @@ public interface Iterator<E> {
      *         been called after the last call to the {@code next}
      *         method
      */
-    default void remove(@GuardSatisfied Iterator<E> this) {
+    default void remove(@GuardSatisfied @EnhancedForUnknown Iterator<E> this) {
         throw new UnsupportedOperationException("remove");
     }
 
@@ -139,7 +140,7 @@ public interface Iterator<E> {
      * @throws NullPointerException if the specified action is null
      * @since 1.8
      */
-    default void forEachRemaining(Consumer<? super E> action) {
+    default void forEachRemaining(@EnhancedForUnknown Iterator<E> this, Consumer<? super E> action) {
         Objects.requireNonNull(action);
         while (hasNext())
             action.accept(next());

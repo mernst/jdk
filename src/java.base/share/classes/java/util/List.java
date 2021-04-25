@@ -161,7 +161,7 @@ public interface List<E> extends Collection<E> {
      * @return the number of elements in this list
      */
     @Pure
-    @NonNegative int size(@GuardSatisfied List<E> this);
+    @NonNegative int size(@GuardSatisfied @EnhancedForUnknown List<E> this);
 
     /**
      * Returns {@code true} if this list contains no elements.
@@ -169,7 +169,7 @@ public interface List<E> extends Collection<E> {
      * @return {@code true} if this list contains no elements
      */
     @Pure
-    boolean isEmpty(@GuardSatisfied List<E> this);
+    boolean isEmpty(@GuardSatisfied @EnhancedForUnknown List<E> this);
 
     /**
      * Returns {@code true} if this list contains the specified element.
@@ -195,7 +195,7 @@ public interface List<E> extends Collection<E> {
      * @return an iterator over the elements in this list in proper sequence
      */
     @SideEffectFree
-    Iterator<E> iterator();
+    @PolyEnhancedFor Iterator<E> iterator(@PolyEnhancedFor List<E> this);
 
     /**
      * Returns an array containing all of the elements in this list in proper
@@ -284,7 +284,7 @@ public interface List<E> extends Collection<E> {
      *         prevents it from being added to this list
      */
     @ReleasesNoLocks
-    boolean add(@GuardSatisfied List<E> this, E e);
+    boolean add(@GuardSatisfied @EnhancedForUnknown List<E> this, E e);
 
     /**
      * Removes the first occurrence of the specified element from this list,
@@ -354,7 +354,7 @@ public interface List<E> extends Collection<E> {
      *         specified collection prevents it from being added to this list
      * @see #add(Object)
      */
-    boolean addAll(@GuardSatisfied List<E> this, Collection<? extends E> c);
+    boolean addAll(@GuardSatisfied @EnhancedForUnknown List<E> this, Collection<? extends E> c);
 
     /**
      * Inserts all of the elements in the specified collection into this
@@ -383,7 +383,7 @@ public interface List<E> extends Collection<E> {
      * @throws IndexOutOfBoundsException if the index is out of range
      *         ({@code index < 0 || index > size()})
      */
-    boolean addAll(@GuardSatisfied List<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c);
+    boolean addAll(@GuardSatisfied @EnhancedForUnknown List<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c);
 
     /**
      * Removes from this list all of its elements that are contained in the
@@ -541,7 +541,7 @@ public interface List<E> extends Collection<E> {
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this list
      */
-    void clear(@GuardSatisfied List<E> this);
+    void clear(@GuardSatisfied @EnhancedForUnknown List<E> this);
 
 
     // Comparison and hashing
@@ -708,7 +708,7 @@ public interface List<E> extends Collection<E> {
      * @return a list iterator over the elements in this list (in proper
      *         sequence)
      */
-    ListIterator<E> listIterator();
+    @PolyEnhancedFor ListIterator<E> listIterator(@PolyEnhancedFor List<E> this);
 
     /**
      * Returns a list iterator over the elements in this list (in proper
@@ -764,7 +764,7 @@ public interface List<E> extends Collection<E> {
      *         fromIndex > toIndex})
      */
     @SideEffectFree
-    List<E> subList(@GuardSatisfied List<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex);
+    @PolyEnhancedFor List<E> subList(@GuardSatisfied @PolyEnhancedFor List<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex);
 
     /**
      * Creates a {@link Spliterator} over the elements in this list.
@@ -801,7 +801,7 @@ public interface List<E> extends Collection<E> {
      */
     @SideEffectFree
     @Override
-    default Spliterator<E> spliterator() {
+    @PolyEnhancedFor Spliterator<E> spliterator(@PolyEnhancedFor List<E> this) {
         if (this instanceof RandomAccess) {
             return new AbstractList.RandomAccessSpliterator<>(this);
         } else {
