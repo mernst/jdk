@@ -1037,7 +1037,7 @@ public class LinkedBlockingDeque<E>
      *
      * @return an iterator over the elements in this deque in reverse order
      */
-    public @PolyRepCollection Iterator<E> descendingIterator(@PolyRepCollection LinkedBlockingDeque<E> this, ) {
+    public @PolyRepCollection Iterator<E> descendingIterator(@PolyRepCollection LinkedBlockingDeque<E> this) {
         return new DescendingItr();
     }
 

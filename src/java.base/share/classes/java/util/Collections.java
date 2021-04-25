@@ -5585,7 +5585,7 @@ public class Collections {
      * @since 1.5
      */
     @SafeVarargs
-    public static <T> boolean addAll(@GuardSatisfied @UnknownRepCollection List Collection<? super T> c, T... elements) {
+    public static <T> boolean addAll(@GuardSatisfied @UnknownRepCollection Collection<? super T> c, T... elements) {
         boolean result = false;
         for (T element : elements)
             result |= c.add(element);
