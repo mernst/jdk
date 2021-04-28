@@ -803,7 +803,7 @@ public interface List<E> extends Collection<E> {
      */
     @SideEffectFree
     @Override
-    @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection List<E> this) {
+    default @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection List<E> this) {
         if (this instanceof RandomAccess) {
             return new AbstractList.RandomAccessSpliterator<>(this);
         } else {

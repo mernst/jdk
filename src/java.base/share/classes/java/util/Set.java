@@ -457,7 +457,7 @@ public interface Set<E> extends Collection<E> {
      * @since 1.8
      */
     @Override
-    @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection Set<E> this) {
+    default @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection Set<E> this) {
         return Spliterators.spliterator(this, Spliterator.DISTINCT);
     }
 
