@@ -691,7 +691,7 @@ public class Hashtable<K extends @NonNull Object,V extends @NonNull Object>
 
     private class KeySet extends AbstractSet<K> {
         @SideEffectFree
-        public @PolyRepCollection Iterator<K> iterator(@PolyRepCollection Hashtable<K, V> this) {
+        public @PolyRepCollection Iterator<K> iterator(@PolyRepCollection Hashtable<K, V>.KeySet this) {
             return getIterator(KEYS);
         }
         @Pure
