@@ -711,7 +711,7 @@ public final class Spliterators {
      * @return An iterator
      * @throws NullPointerException if the given spliterator is {@code null}
      */
-    public static @PrimCollection PrimitiveIterator.OfInt iterator(Spliterator.OfInt spliterator) {
+    public static PrimitiveIterator.@PrimCollection OfInt iterator(Spliterator.OfInt spliterator) {
         Objects.requireNonNull(spliterator);
         @PrimCollection class Adapter implements PrimitiveIterator.OfInt, IntConsumer {
             boolean valueReady = false;
@@ -756,7 +756,7 @@ public final class Spliterators {
      * @return An iterator
      * @throws NullPointerException if the given spliterator is {@code null}
      */
-    public static @PrimCollection PrimitiveIterator.OfLong iterator(Spliterator.OfLong spliterator) {
+    public static PrimitiveIterator.@PrimCollection OfLong iterator(Spliterator.OfLong spliterator) {
         Objects.requireNonNull(spliterator);
         class Adapter implements PrimitiveIterator.OfLong, LongConsumer {
             boolean valueReady = false;
@@ -801,7 +801,7 @@ public final class Spliterators {
      * @return An iterator
      * @throws NullPointerException if the given spliterator is {@code null}
      */
-    public static @PrimCollection PrimitiveIterator.OfDouble iterator(Spliterator.OfDouble spliterator) {
+    public static PrimitiveIterator.@PrimCollection OfDouble iterator(Spliterator.OfDouble spliterator) {
         Objects.requireNonNull(spliterator);
         class Adapter implements PrimitiveIterator.OfDouble, DoubleConsumer {
             boolean valueReady = false;
