@@ -361,7 +361,7 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
      * @return {@code true} (as specified by {@link Queue#offer})
      * @throws NullPointerException if the specified element is null
      */
-    public boolean offer(@UnknownRepCollection ConcurrentLinkedDeque<E> this, E e) {
+    public boolean offer(@UnknownRepCollection ConcurrentLinkedQueue<E> this, E e) {
         final Node<E> newNode = new Node<E>(Objects.requireNonNull(e));
 
         for (Node<E> t = tail, p = t;;) {
@@ -390,7 +390,7 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
         }
     }
 
-    public @Nullable E poll(@UnknownRepCollection ConcurrentLinkedDeque<E> this) {
+    public @Nullable E poll(@UnknownRepCollection ConcurrentLinkedQueue<E> this) {
         restartFromHead: for (;;) {
             for (Node<E> h = head, p = h, q;; p = q) {
                 final E item;
@@ -411,7 +411,7 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
         }
     }
 
-    public @Nullable E peek(@UnknownRepCollection ConcurrentLinkedDeque<E> this) {
+    public @Nullable E peek(@UnknownRepCollection ConcurrentLinkedQueue<E> this) {
         restartFromHead: for (;;) {
             for (Node<E> h = head, p = h, q;; p = q) {
                 final E item;

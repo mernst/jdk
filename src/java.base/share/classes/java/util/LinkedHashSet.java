@@ -195,7 +195,7 @@ public class LinkedHashSet<E>
      * @since 1.8
      */
     @Override
-    public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection Spliterator<E> this) {
+    public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection LinkedHashSet<E> this) {
         return Spliterators.spliterator(this, Spliterator.DISTINCT | Spliterator.ORDERED);
     }
 }

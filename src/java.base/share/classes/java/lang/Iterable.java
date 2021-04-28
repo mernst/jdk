@@ -74,7 +74,7 @@ public interface Iterable<T> {
      * @throws NullPointerException if the specified action is null
      * @since 1.8
      */
-    default void forEach(@UnknownRepCollection Iterable<E> this, Consumer<? super T> action) {
+    default void forEach(@UnknownRepCollection Iterable<T> this, Consumer<? super T> action) {
         Objects.requireNonNull(action);
         for (T t : this) {
             action.accept(t);

@@ -889,7 +889,7 @@ public class LinkedList<E>
      * @throws IndexOutOfBoundsException {@inheritDoc}
      * @see List#listIterator(int)
      */
-    public @PolyRepCollection ListIterator<E> listIterator(@PolyRepCollection ListIterator<E> this, @NonNegative int index) {
+    public @PolyRepCollection ListIterator<E> listIterator(@PolyRepCollection LinkedList<E> this, @NonNegative int index) {
         checkPositionIndex(index);
         return new ListItr(index);
     }

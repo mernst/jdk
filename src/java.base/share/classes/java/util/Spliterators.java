@@ -505,7 +505,7 @@ public final class Spliterators {
      * @return A spliterator from an iterator
      * @throws NullPointerException if the given iterator is {@code null}
      */
-    public static @PrimCollection Spliterator.OfInt spliterator(PrimitiveIterator.OfInt iterator,
+    public static Spliterator.@PrimCollection OfInt spliterator(PrimitiveIterator.OfInt iterator,
                                                 long size,
                                                 int characteristics) {
         return new IntIteratorSpliterator(Objects.requireNonNull(iterator),
@@ -533,7 +533,7 @@ public final class Spliterators {
      * @return A spliterator from an iterator
      * @throws NullPointerException if the given iterator is {@code null}
      */
-    public static @PrimCollection Spliterator.OfInt spliteratorUnknownSize(PrimitiveIterator.OfInt iterator,
+    public static Spliterator.@PrimCollection OfInt spliteratorUnknownSize(PrimitiveIterator.OfInt iterator,
                                                            int characteristics) {
         return new IntIteratorSpliterator(Objects.requireNonNull(iterator), characteristics);
     }
@@ -562,7 +562,7 @@ public final class Spliterators {
      * @return A spliterator from an iterator
      * @throws NullPointerException if the given iterator is {@code null}
      */
-    public static @PrimCollection Spliterator.OfLong spliterator(PrimitiveIterator.OfLong iterator,
+    public static Spliterator.@PrimCollection OfLong spliterator(PrimitiveIterator.OfLong iterator,
                                                  long size,
                                                  int characteristics) {
         return new LongIteratorSpliterator(Objects.requireNonNull(iterator),
@@ -590,7 +590,7 @@ public final class Spliterators {
      * @return A spliterator from an iterator
      * @throws NullPointerException if the given iterator is {@code null}
      */
-    public static @PrimCollection Spliterator.OfLong spliteratorUnknownSize(PrimitiveIterator.OfLong iterator,
+    public static Spliterator.@PrimCollection OfLong spliteratorUnknownSize(PrimitiveIterator.OfLong iterator,
                                                             int characteristics) {
         return new LongIteratorSpliterator(Objects.requireNonNull(iterator), characteristics);
     }
@@ -619,7 +619,7 @@ public final class Spliterators {
      * @return A spliterator from an iterator
      * @throws NullPointerException if the given iterator is {@code null}
      */
-    public static @PrimCollection Spliterator.OfDouble spliterator(PrimitiveIterator.OfDouble iterator,
+    public static Spliterator.@PrimCollection OfDouble spliterator(PrimitiveIterator.OfDouble iterator,
                                                    long size,
                                                    int characteristics) {
         return new DoubleIteratorSpliterator(Objects.requireNonNull(iterator),
@@ -647,7 +647,7 @@ public final class Spliterators {
      * @return A spliterator from an iterator
      * @throws NullPointerException if the given iterator is {@code null}
      */
-    public static @PrimCollection Spliterator.OfDouble spliteratorUnknownSize(PrimitiveIterator.OfDouble iterator,
+    public static Spliterator.@PrimCollection OfDouble spliteratorUnknownSize(PrimitiveIterator.OfDouble iterator,
                                                               int characteristics) {
         return new DoubleIteratorSpliterator(Objects.requireNonNull(iterator), characteristics);
     }

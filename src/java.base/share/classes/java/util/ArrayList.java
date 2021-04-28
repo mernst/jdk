@@ -1003,7 +1003,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @return an iterator over the elements in this list in proper sequence
      */
     @SideEffectFree
-    public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection ArrayDeque<E> this) {
+    public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection ArrayList<E> this) {
         return new Itr();
     }
 
@@ -1592,7 +1592,7 @@ public class ArrayList<E> extends AbstractList<E>
      */
     @SideEffectFree
     @Override
-    public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection ArrayDeque<E> this) {
+    public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection ArrayList<E> this) {
         return new ArrayListSpliterator(0, -1, 0);
     }
 

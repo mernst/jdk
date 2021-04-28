@@ -1308,7 +1308,7 @@ public class CopyOnWriteArrayList<E>
         }
 
         @Pure
-        public boolean isEmpty(@UnknownRepCollection CopyOnWriteArrayList<E> this) {
+        public boolean isEmpty(@UnknownRepCollection CopyOnWriteArrayList<E>.COWSubList this) {
             return size() == 0;
         }
 

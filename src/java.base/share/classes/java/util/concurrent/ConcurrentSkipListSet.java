@@ -287,7 +287,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @return an iterator over the elements in this set in ascending order
      */
     @SideEffectFree
-    public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection ConcurrentSkipListMap<E> this) {
+    public @PolyRepCollection Iterator<E> iterator(@PolyRepCollection ConcurrentSkipListSet<E> this) {
         return m.navigableKeySet().iterator();
     }
 
@@ -296,7 +296,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      *
      * @return an iterator over the elements in this set in descending order
      */
-    public @PolyRepCollection Iterator<E> descendingIterator(@PolyRepCollection ConcurrentSkipListMap<E> this) {
+    public @PolyRepCollection Iterator<E> descendingIterator(@PolyRepCollection ConcurrentSkipListSet<E> this) {
         return m.descendingKeySet().iterator();
     }
 
@@ -517,7 +517,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      */
     @SuppressWarnings({"unchecked"})
     @SideEffectFree
-    public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection ConcurrentSkipListMap<E> this) {
+    public @PolyRepCollection Spliterator<E> spliterator(@PolyRepCollection ConcurrentSkipListSet<E> this) {
         return (m instanceof ConcurrentSkipListMap)
             ? ((ConcurrentSkipListMap<E,?>)m).keySpliterator()
             : ((ConcurrentSkipListMap.SubMap<E,?>)m).new SubMapKeyIterator();
