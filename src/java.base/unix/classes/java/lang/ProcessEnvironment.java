@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003, 2011, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2003, 2022, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -56,7 +56,9 @@ package java.lang;
 
 import org.checkerframework.dataflow.qual.Pure;
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.*;
+import jdk.internal.util.StaticProperty;
 
 
 final class ProcessEnvironment
@@ -164,7 +166,7 @@ final class ProcessEnvironment
         }
 
         public static Variable valueOfQueryOnly(String str) {
-            return new Variable(str, str.getBytes());
+            return new Variable(str, str.getBytes(StaticProperty.jnuCharset()));
         }
 
         public static Variable valueOf(String str) {
@@ -173,7 +175,7 @@ final class ProcessEnvironment
         }
 
         public static Variable valueOf(byte[] bytes) {
-            return new Variable(new String(bytes), bytes);
+            return new Variable(new String(bytes, StaticProperty.jnuCharset()), bytes);
         }
 
         public int compareTo(Variable variable) {
@@ -197,7 +199,7 @@ final class ProcessEnvironment
         }
 
         public static Value valueOfQueryOnly(String str) {
-            return new Value(str, str.getBytes());
+            return new Value(str, str.getBytes(StaticProperty.jnuCharset()));
         }
 
         public static Value valueOf(String str) {
@@ -206,7 +208,7 @@ final class ProcessEnvironment
         }
 
         public static Value valueOf(byte[] bytes) {
-            return new Value(new String(bytes), bytes);
+            return new Value(new String(bytes, StaticProperty.jnuCharset()), bytes);
         }
 
         public int compareTo(Value value) {
