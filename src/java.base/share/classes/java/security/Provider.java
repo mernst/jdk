@@ -629,7 +629,7 @@ public abstract class Provider extends Properties {
      */
     @Override
     public synchronized void replaceAll(BiFunction<? super Object,
-            ? super Object, ? extends Object> function) {
+            ? super Object, @NonNull ?> function) {
         check("putProviderProperty." + name);
 
         if (debug != null) {
@@ -973,7 +973,7 @@ public abstract class Provider extends Properties {
 
     @SuppressWarnings("unchecked") // Function must actually operate over strings
     private Object implMerge(Object key, Object value,
-            BiFunction<? super Object, ? super Object, ? extends Object>
+            BiFunction<? super Object, ? super Object, @NonNull ?>
             remappingFunction) {
         if ((key instanceof String) && (value instanceof String)) {
             if (!checkLegacy(key)) {
@@ -988,7 +988,7 @@ public abstract class Provider extends Properties {
 
     @SuppressWarnings("unchecked") // Function must actually operate over strings
     private Object implCompute(Object key, BiFunction<? super Object,
-            ? super Object, ? extends Object> remappingFunction) {
+            ? super Object, @NonNull ?> remappingFunction) {
         if (key instanceof String) {
             if (!checkLegacy(key)) {
                 return null;
@@ -1016,7 +1016,7 @@ public abstract class Provider extends Properties {
 
     @SuppressWarnings("unchecked") // Function must actually operate over strings
     private Object implComputeIfPresent(Object key, BiFunction<? super Object,
-            ? super Object, ? extends Object> remappingFunction) {
+            ? super Object, @NonNull ?> remappingFunction) {
         if (key instanceof String) {
             if (!checkLegacy(key)) {
                 return null;
