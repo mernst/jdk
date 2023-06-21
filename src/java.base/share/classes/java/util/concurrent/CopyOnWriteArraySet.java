@@ -286,7 +286,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      * @see #contains(Object)
      */
     @Pure
-    public boolean containsAll(Collection<? extends @UnknownSignedness Object> c) {
+    public boolean containsAll(Collection<?> c) {
         return (c instanceof Set)
             ? compareSets(al.getArray(), (Set<?>) c) >= 0
             : al.containsAll(c);

@@ -115,7 +115,7 @@ public class Arrays {
      *
      * @param a the array to be sorted
      */
-    public static void sort(int[] a) {
+    public static void sort(int @MustCallUnknown [] a) {
         DualPivotQuicksort.sort(a, 0, 0, a.length);
     }
 
@@ -138,7 +138,7 @@ public class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
-    public static void sort(int[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
+    public static void sort(int @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, 0, fromIndex, toIndex);
     }
@@ -153,7 +153,7 @@ public class Arrays {
      *
      * @param a the array to be sorted
      */
-    public static void sort(long[] a) {
+    public static void sort(long @MustCallUnknown [] a) {
         DualPivotQuicksort.sort(a, 0, 0, a.length);
     }
 
@@ -176,7 +176,7 @@ public class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
-    public static void sort(long[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
+    public static void sort(long @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, 0, fromIndex, toIndex);
     }
@@ -191,7 +191,7 @@ public class Arrays {
      *
      * @param a the array to be sorted
      */
-    public static void sort(short[] a) {
+    public static void sort(short @MustCallUnknown [] a) {
         DualPivotQuicksort.sort(a, 0, a.length);
     }
 
@@ -214,7 +214,7 @@ public class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
-    public static void sort(short[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
+    public static void sort(short @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, fromIndex, toIndex);
     }
@@ -229,7 +229,7 @@ public class Arrays {
      *
      * @param a the array to be sorted
      */
-    public static void sort(char[] a) {
+    public static void sort(char @MustCallUnknown [] a) {
         DualPivotQuicksort.sort(a, 0, a.length);
     }
 
@@ -252,7 +252,7 @@ public class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
-    public static void sort(char[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
+    public static void sort(char @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, fromIndex, toIndex);
     }
@@ -267,7 +267,7 @@ public class Arrays {
      *
      * @param a the array to be sorted
      */
-    public static void sort(byte[] a) {
+    public static void sort(byte @MustCallUnknown [] a) {
         DualPivotQuicksort.sort(a, 0, a.length);
     }
 
@@ -290,7 +290,7 @@ public class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
-    public static void sort(byte[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
+    public static void sort(byte @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, fromIndex, toIndex);
     }
@@ -313,7 +313,7 @@ public class Arrays {
      *
      * @param a the array to be sorted
      */
-    public static void sort(float[] a) {
+    public static void sort(float @MustCallUnknown [] a) {
         DualPivotQuicksort.sort(a, 0, 0, a.length);
     }
 
@@ -344,7 +344,7 @@ public class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
-    public static void sort(float[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
+    public static void sort(float @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, 0, fromIndex, toIndex);
     }
@@ -367,7 +367,7 @@ public class Arrays {
      *
      * @param a the array to be sorted
      */
-    public static void sort(double[] a) {
+    public static void sort(double @MustCallUnknown [] a) {
         DualPivotQuicksort.sort(a, 0, 0, a.length);
     }
 
@@ -398,7 +398,7 @@ public class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
-    public static void sort(double[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
+    public static void sort(double @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, 0, fromIndex, toIndex);
     }
@@ -415,7 +415,7 @@ public class Arrays {
      *
      * @since 1.8
      */
-    public static void parallelSort(byte[] a) {
+    public static void parallelSort(byte @MustCallUnknown [] a) {
         DualPivotQuicksort.sort(a, 0, a.length);
     }
 
@@ -440,7 +440,7 @@ public class Arrays {
      *
      * @since 1.8
      */
-    public static void parallelSort(byte[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
+    public static void parallelSort(byte @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, fromIndex, toIndex);
     }
@@ -457,7 +457,7 @@ public class Arrays {
      *
      * @since 1.8
      */
-    public static void parallelSort(char[] a) {
+    public static void parallelSort(char @MustCallUnknown [] a) {
         DualPivotQuicksort.sort(a, 0, a.length);
     }
 
@@ -482,7 +482,7 @@ public class Arrays {
      *
      * @since 1.8
      */
-    public static void parallelSort(char[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
+    public static void parallelSort(char @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, fromIndex, toIndex);
     }
@@ -499,7 +499,7 @@ public class Arrays {
      *
      * @since 1.8
      */
-    public static void parallelSort(short[] a) {
+    public static void parallelSort(short @MustCallUnknown [] a) {
         DualPivotQuicksort.sort(a, 0, a.length);
     }
 
@@ -524,7 +524,7 @@ public class Arrays {
      *
      * @since 1.8
      */
-    public static void parallelSort(short[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
+    public static void parallelSort(short @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, fromIndex, toIndex);
     }
@@ -541,7 +541,7 @@ public class Arrays {
      *
      * @since 1.8
      */
-    public static void parallelSort(int[] a) {
+    public static void parallelSort(int @MustCallUnknown [] a) {
         DualPivotQuicksort.sort(a, ForkJoinPool.getCommonPoolParallelism(), 0, a.length);
     }
 
@@ -566,7 +566,7 @@ public class Arrays {
      *
      * @since 1.8
      */
-    public static void parallelSort(int[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
+    public static void parallelSort(int @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, ForkJoinPool.getCommonPoolParallelism(), fromIndex, toIndex);
     }
@@ -583,7 +583,7 @@ public class Arrays {
      *
      * @since 1.8
      */
-    public static void parallelSort(long[] a) {
+    public static void parallelSort(long @MustCallUnknown [] a) {
         DualPivotQuicksort.sort(a, ForkJoinPool.getCommonPoolParallelism(), 0, a.length);
     }
 
@@ -608,7 +608,7 @@ public class Arrays {
      *
      * @since 1.8
      */
-    public static void parallelSort(long[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
+    public static void parallelSort(long @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, ForkJoinPool.getCommonPoolParallelism(), fromIndex, toIndex);
     }
@@ -633,7 +633,7 @@ public class Arrays {
      *
      * @since 1.8
      */
-    public static void parallelSort(float[] a) {
+    public static void parallelSort(float @MustCallUnknown [] a) {
         DualPivotQuicksort.sort(a, ForkJoinPool.getCommonPoolParallelism(), 0, a.length);
     }
 
@@ -666,7 +666,7 @@ public class Arrays {
      *
      * @since 1.8
      */
-    public static void parallelSort(float[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
+    public static void parallelSort(float @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, ForkJoinPool.getCommonPoolParallelism(), fromIndex, toIndex);
     }
@@ -691,7 +691,7 @@ public class Arrays {
      *
      * @since 1.8
      */
-    public static void parallelSort(double[] a) {
+    public static void parallelSort(double @MustCallUnknown [] a) {
         DualPivotQuicksort.sort(a, ForkJoinPool.getCommonPoolParallelism(), 0, a.length);
     }
 
@@ -724,7 +724,7 @@ public class Arrays {
      *
      * @since 1.8
      */
-    public static void parallelSort(double[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
+    public static void parallelSort(double @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, ForkJoinPool.getCommonPoolParallelism(), fromIndex, toIndex);
     }
@@ -812,7 +812,7 @@ public class Arrays {
      * @since 1.8
      */
     @SuppressWarnings("unchecked")
-    public static <T extends Comparable<? super T>> void parallelSort(T[] a) {
+    public static <T extends Comparable<? super T>> void parallelSort(T @MustCallUnknown [] a) {
         int n = a.length, p, g;
         if (n <= MIN_ARRAY_SORT_GRAN ||
             (p = ForkJoinPool.getCommonPoolParallelism()) == 1)
@@ -870,7 +870,7 @@ public class Arrays {
      */
     @SuppressWarnings("unchecked")
     public static <T extends Comparable<? super T>>
-    void parallelSort(T[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
+    void parallelSort(T @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         int n = toIndex - fromIndex, p, g;
         if (n <= MIN_ARRAY_SORT_GRAN ||
@@ -918,7 +918,7 @@ public class Arrays {
      * @since 1.8
      */
     @SuppressWarnings("unchecked")
-    public static <T> void parallelSort(T[] a, @Nullable Comparator<? super T> cmp) {
+    public static <T> void parallelSort(T @MustCallUnknown [] a, @Nullable Comparator<? super T> cmp) {
         if (cmp == null)
             cmp = NaturalOrder.INSTANCE;
         int n = a.length, p, g;
@@ -977,7 +977,7 @@ public class Arrays {
      * @since 1.8
      */
     @SuppressWarnings("unchecked")
-    public static <T> void parallelSort(T[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
+    public static <T> void parallelSort(T @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
                                         Comparator<? super T> cmp) {
         rangeCheck(a.length, fromIndex, toIndex);
         if (cmp == null)
@@ -1054,7 +1054,7 @@ public class Arrays {
      *         ordering of the array elements is found to violate the
      *         {@link Comparable} contract
      */
-    public static void sort(@PolyInterned @PolyNull Object[] a) {
+    public static void sort(@PolyInterned @PolyNull Object @MustCallUnknown [] a) {
         if (LegacyMergeSort.userRequested)
             legacyMergeSort(a);
         else
@@ -1062,7 +1062,7 @@ public class Arrays {
     }
 
     /** To be removed in a future release. */
-    private static void legacyMergeSort(Object[] a) {
+    private static void legacyMergeSort(Object @MustCallUnknown [] a) {
         Object[] aux = a.clone();
         mergeSort(aux, a, 0, a.length, 0);
     }
@@ -1119,7 +1119,7 @@ public class Arrays {
      *         not <i>mutually comparable</i> (for example, strings and
      *         integers).
      */
-    public static void sort(@PolyInterned @PolyNull Object[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
+    public static void sort(@PolyInterned @PolyNull Object @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         if (LegacyMergeSort.userRequested)
             legacyMergeSort(a, fromIndex, toIndex);
@@ -1128,7 +1128,7 @@ public class Arrays {
     }
 
     /** To be removed in a future release. */
-    private static void legacyMergeSort(Object[] a,
+    private static void legacyMergeSort(Object @MustCallUnknown [] a,
                                         @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         Object[] aux = copyOfRange(a, fromIndex, toIndex);
         mergeSort(aux, a, fromIndex, toIndex, -fromIndex);
@@ -1150,8 +1150,8 @@ public class Arrays {
      * To be removed in a future release.
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
-    private static void mergeSort(Object[] src,
-                                  Object[] dest,
+    private static void mergeSort(Object @MustCallUnknown [] src,
+                                  Object @MustCallUnknown [] dest,
                                   int low,
                                   int high,
                                   int off) {
@@ -1243,7 +1243,7 @@ public class Arrays {
      * @throws IllegalArgumentException (optional) if the comparator is
      *         found to violate the {@link Comparator} contract
      */
-    public static <T> void sort(@PolyNull @UnknownSignedness T[] a, @Nullable Comparator<? super T> c) {
+    public static <T> void sort(@PolyNull @UnknownSignedness T @MustCallUnknown [] a, @Nullable Comparator<? super T> c) {
         if (c == null) {
             sort(a);
         } else {
@@ -1255,7 +1255,7 @@ public class Arrays {
     }
 
     /** To be removed in a future release. */
-    private static <T> void legacyMergeSort(T[] a, @Nullable Comparator<? super T> c) {
+    private static <T> void legacyMergeSort(T @MustCallUnknown [] a, @Nullable Comparator<? super T> c) {
         T[] aux = a.clone();
         if (c==null)
             mergeSort(aux, a, 0, a.length, 0);
@@ -1315,7 +1315,7 @@ public class Arrays {
      * @throws ArrayIndexOutOfBoundsException if {@code fromIndex < 0} or
      *         {@code toIndex > a.length}
      */
-    public static <T> void sort(T[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
+    public static <T> void sort(T @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
                                 Comparator<? super T> c) {
         if (c == null) {
             sort(a, fromIndex, toIndex);
@@ -1329,7 +1329,7 @@ public class Arrays {
     }
 
     /** To be removed in a future release. */
-    private static <T> void legacyMergeSort(T[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
+    private static <T> void legacyMergeSort(T @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
                                             Comparator<? super T> c) {
         T[] aux = copyOfRange(a, fromIndex, toIndex);
         if (c==null)
@@ -1347,8 +1347,8 @@ public class Arrays {
      * To be removed in a future release.
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    private static void mergeSort(Object[] src,
-                                  Object[] dest,
+    private static void mergeSort(Object @MustCallUnknown [] src,
+                                  Object @MustCallUnknown [] dest,
                                   int low, int high, int off,
                                   Comparator c) {
         int length = high - low;
@@ -3171,7 +3171,7 @@ public class Arrays {
      * @param a the array to be filled
      * @param val the value to be stored in all elements of the array
      */
-    public static void fill(@PolySigned long[] a, @PolySigned long val) {
+    public static void fill(@PolySigned long @MustCallUnknown [] a, @PolySigned long val) {
         for (int i = 0, len = a.length; i < len; i++)
             a[i] = val;
     }
@@ -3439,7 +3439,7 @@ public class Arrays {
      * @throws ArrayIndexOutOfBoundsException if {@code fromIndex < 0} or
      *         {@code toIndex > a.length}
      */
-    public static void fill(float[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex, float val) {
+    public static void fill(float @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex, float val) {
         rangeCheck(a.length, fromIndex, toIndex);
         for (int i = fromIndex; i < toIndex; i++)
             a[i] = val;
@@ -3454,7 +3454,7 @@ public class Arrays {
      * @throws ArrayStoreException if the specified value is not of a
      *         runtime type that can be stored in the specified array
      */
-    public static void fill(@PolyNull @PolySigned @PolyInterned Object[] a, @PolyNull @PolySigned @PolyInterned Object val) {
+    public static void fill(@PolyNull @PolySigned @PolyInterned Object @MustCallUnknown [] a, @PolyNull @PolySigned @PolyInterned Object val) {
         for (int i = 0, len = a.length; i < len; i++)
             a[i] = val;
     }
@@ -3478,7 +3478,7 @@ public class Arrays {
      * @throws ArrayStoreException if the specified value is not of a
      *         runtime type that can be stored in the specified array
      */
-    public static void fill(@PolyNull @PolySigned @PolyInterned Object[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex, @PolyNull @PolySigned @PolyInterned Object val) {
+    public static void fill(@PolyNull @PolySigned @PolyInterned @PolyMustCall Object @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex, @PolyNull @PolySigned @PolyInterned @PolyMustCall Object val) {
         rangeCheck(a.length, fromIndex, toIndex);
         for (int i = fromIndex; i < toIndex; i++)
             a[i] = val;

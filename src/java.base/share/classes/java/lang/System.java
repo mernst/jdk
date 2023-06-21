@@ -648,7 +648,7 @@ public final @UsesObjectEquals class System {
      */
     @Pure
     @IntrinsicCandidate
-    public static native int identityHashCode(@GuardSatisfied @Nullable Object x);
+    public static native int identityHashCode(@GuardSatisfied @Nullable @UnknownSignedness Object x);
 
     /**
      * System properties.

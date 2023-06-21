@@ -3290,7 +3290,7 @@ return mh1;
          * @see #findVirtual
          */
         public MethodHandle bind(Object receiver, String name, MethodType type) throws NoSuchMethodException, IllegalAccessException {
-            Class<? extends Object> refc = receiver.getClass(); // may get NPE
+            Class<?> refc = receiver.getClass(); // may get NPE
             MemberName method = resolveOrFail(REF_invokeSpecial, refc, name, type);
             MethodHandle mh = getDirectMethodNoRestrictInvokeSpecial(refc, method, findBoundCallerLookup(method));
             if (!mh.type().leadingReferenceParameter().isAssignableFrom(receiver.getClass())) {

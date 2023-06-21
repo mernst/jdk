@@ -364,13 +364,13 @@ public class Util {
                 public boolean remove(@UnknownSignedness Object o)   { return s.remove(o); }
 
                 @Pure
-                public boolean containsAll(Collection<? extends @UnknownSignedness Object> coll) {
+                public boolean containsAll(Collection<?> coll) {
                     return s.containsAll(coll);
                 }
-                public boolean removeAll(Collection<? extends @UnknownSignedness Object> coll) {
+                public boolean removeAll(Collection<?> coll) {
                     return s.removeAll(coll);
                 }
-                public boolean retainAll(Collection<? extends @UnknownSignedness Object> coll) {
+                public boolean retainAll(Collection<?> coll) {
                     return s.retainAll(coll);
                 }
 

@@ -1300,7 +1300,7 @@ public final class Subject implements java.io.Serializable {
         }
 
         @SuppressWarnings("removal")
-        public boolean removeAll(Collection<? extends @UnknownSignedness Object> c) {
+        public boolean removeAll(Collection<?> c) {
             c = collectionNullClean(c);
 
             boolean modified = false;
@@ -1331,7 +1331,7 @@ public final class Subject implements java.io.Serializable {
         }
 
         @Pure
-        public boolean containsAll(Collection<? extends @UnknownSignedness Object> c) {
+        public boolean containsAll(Collection<?> c) {
             c = collectionNullClean(c);
 
             for (Object item : c) {
@@ -1344,7 +1344,7 @@ public final class Subject implements java.io.Serializable {
         }
 
         @SuppressWarnings("removal")
-        public boolean retainAll(Collection<? extends @UnknownSignedness Object> c) {
+        public boolean retainAll(Collection<?> c) {
             c = collectionNullClean(c);
 
             boolean modified = false;

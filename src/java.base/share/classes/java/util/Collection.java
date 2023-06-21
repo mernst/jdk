@@ -398,7 +398,7 @@ public interface Collection<E> extends Iterable<E> {
      * @throws NullPointerException if the specified array is null
      */
     @SideEffectFree
-    <T extends @UnknownSignedness Object> @Nullable T [] toArray(@PolyNull T[] a);
+    <T> @Nullable T [] toArray(@PolyNull T[] a);
 
     /**
      * Returns an array containing all of the elements in this collection,
@@ -520,7 +520,7 @@ public interface Collection<E> extends Iterable<E> {
      * @see    #contains(Object)
      */
     @Pure
-    boolean containsAll(@GuardSatisfied Collection<E> this, @GuardSatisfied Collection<? extends @UnknownSignedness Object> c);
+    boolean containsAll(@GuardSatisfied Collection<E> this, @GuardSatisfied Collection<?> c);
 
     /**
      * Adds all of the elements in the specified collection to this collection
@@ -571,7 +571,7 @@ public interface Collection<E> extends Iterable<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    boolean removeAll(@GuardSatisfied Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean removeAll(@GuardSatisfied Collection<E> this, Collection<?> c);
 
     /**
      * Removes all of the elements of this collection that satisfy the given
@@ -630,7 +630,7 @@ public interface Collection<E> extends Iterable<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    boolean retainAll(@GuardSatisfied Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean retainAll(@GuardSatisfied Collection<E> this, Collection<?> c);
 
     /**
      * Removes all of the elements from this collection (optional operation).

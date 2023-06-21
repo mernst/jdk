@@ -638,7 +638,7 @@ public class CopyOnWriteArrayList<E>
      * @see #contains(Object)
      */
     @Pure
-    public boolean containsAll(Collection<? extends @UnknownSignedness Object> c) {
+    public boolean containsAll(Collection<?> c) {
         Object[] es = getArray();
         int len = es.length;
         for (Object e : c) {

@@ -210,7 +210,7 @@ class RegularEnumSet<E extends Enum<E>> extends EnumSet<E> {
      * @throws NullPointerException if the specified collection is null
      */
     @Pure
-    public boolean containsAll(Collection<? extends @UnknownSignedness Object> c) {
+    public boolean containsAll(Collection<?> c) {
         if (!(c instanceof RegularEnumSet<?> es))
             return super.containsAll(c);
 
@@ -253,7 +253,7 @@ class RegularEnumSet<E extends Enum<E>> extends EnumSet<E> {
      * @return {@code true} if this set changed as a result of the call
      * @throws NullPointerException if the specified collection is null
      */
-    public boolean removeAll(Collection<? extends @UnknownSignedness Object> c) {
+    public boolean removeAll(Collection<?> c) {
         if (!(c instanceof RegularEnumSet<?> es))
             return super.removeAll(c);
 
@@ -273,7 +273,7 @@ class RegularEnumSet<E extends Enum<E>> extends EnumSet<E> {
      * @return {@code true} if this set changed as a result of the call
      * @throws NullPointerException if the specified collection is null
      */
-    public boolean retainAll(Collection<? extends @UnknownSignedness Object> c) {
+    public boolean retainAll(Collection<?> c) {
         if (!(c instanceof RegularEnumSet<?> es))
             return super.retainAll(c);
 

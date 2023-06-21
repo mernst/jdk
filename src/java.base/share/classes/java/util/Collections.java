@@ -1098,16 +1098,16 @@ public class Collections {
         }
 
         @Pure
-        public boolean containsAll(Collection<? extends @UnknownSignedness Object> coll) {
+        public boolean containsAll(Collection<?> coll) {
             return c.containsAll(coll);
         }
         public boolean addAll(Collection<? extends E> coll) {
             throw new UnsupportedOperationException();
         }
-        public boolean removeAll(Collection<? extends @UnknownSignedness Object> coll) {
+        public boolean removeAll(Collection<?> coll) {
             throw new UnsupportedOperationException();
         }
-        public boolean retainAll(Collection<? extends @UnknownSignedness Object> coll) {
+        public boolean retainAll(Collection<?> coll) {
             throw new UnsupportedOperationException();
         }
         public void clear() {
@@ -1805,7 +1805,7 @@ public class Collections {
              * when o is a Map.Entry, and calls o.setValue.
              */
             @Pure
-            public boolean containsAll(Collection<? extends @UnknownSignedness Object> coll) {
+            public boolean containsAll(Collection<?> coll) {
                 for (Object e : coll) {
                     if (!contains(e)) // Invokes safe contains() above
                         return false;
@@ -2165,16 +2165,16 @@ public class Collections {
         }
 
         @Pure
-        public boolean containsAll(Collection<? extends @UnknownSignedness Object> coll) {
+        public boolean containsAll(Collection<?> coll) {
             synchronized (mutex) {return c.containsAll(coll);}
         }
         public boolean addAll(Collection<? extends E> coll) {
             synchronized (mutex) {return c.addAll(coll);}
         }
-        public boolean removeAll(Collection<? extends @UnknownSignedness Object> coll) {
+        public boolean removeAll(Collection<?> coll) {
             synchronized (mutex) {return c.removeAll(coll);}
         }
-        public boolean retainAll(Collection<? extends @UnknownSignedness Object> coll) {
+        public boolean retainAll(Collection<?> coll) {
             synchronized (mutex) {return c.retainAll(coll);}
         }
         public void clear() {
@@ -3242,13 +3242,13 @@ public class Collections {
         public void clear()                        {        c.clear(); }
 
         @Pure
-        public boolean containsAll(Collection<? extends @UnknownSignedness Object> coll) {
+        public boolean containsAll(Collection<?> coll) {
             return c.containsAll(coll);
         }
-        public boolean removeAll(Collection<? extends @UnknownSignedness Object> coll) {
+        public boolean removeAll(Collection<?> coll) {
             return c.removeAll(coll);
         }
-        public boolean retainAll(Collection<? extends @UnknownSignedness Object> coll) {
+        public boolean retainAll(Collection<?> coll) {
             return c.retainAll(coll);
         }
 
@@ -4037,7 +4037,7 @@ public class Collections {
              * method senses when o is a Map.Entry, and calls o.setValue.
              */
             @Pure
-            public boolean containsAll(Collection<? extends @UnknownSignedness Object> c) {
+            public boolean containsAll(Collection<?> c) {
                 for (Object o : c)
                     if (!contains(o)) // Invokes safe contains() above
                         return false;
@@ -4051,10 +4051,10 @@ public class Collections {
                                 <>((Map.Entry<?,?>)o));
             }
 
-            public boolean removeAll(Collection<? extends @UnknownSignedness Object> c) {
+            public boolean removeAll(Collection<?> c) {
                 return batchRemove(c, false);
             }
-            public boolean retainAll(Collection<? extends @UnknownSignedness Object> c) {
+            public boolean retainAll(Collection<?> c) {
                 return batchRemove(c, true);
             }
             private boolean batchRemove(Collection<?> c, boolean complement) {
@@ -4562,7 +4562,7 @@ public class Collections {
         @Pure
         public boolean contains(@UnknownSignedness Object obj) {return false;}
         @Pure
-        public boolean containsAll(Collection<? extends @UnknownSignedness Object> c) { return c.isEmpty(); }
+        public boolean containsAll(Collection<?> c) { return c.isEmpty(); }
 
         @SideEffectFree
         public @PolyNull @PolySigned Object[] toArray(Collections.EmptySet<@PolyNull @PolySigned E> this) { return new Object[0]; }
@@ -4704,7 +4704,7 @@ public class Collections {
         @Pure
         public boolean contains(@UnknownSignedness Object obj) {return false;}
         @Pure
-        public boolean containsAll(Collection<? extends @UnknownSignedness Object> c) { return c.isEmpty(); }
+        public boolean containsAll(Collection<?> c) { return c.isEmpty(); }
 
         @SideEffectFree
         public @PolyNull @PolySigned Object[] toArray(Collections.EmptyList<@PolyNull @PolySigned E> this) { return new Object[0]; }
@@ -5866,9 +5866,9 @@ public class Collections {
         public int hashCode()             { return s.hashCode(); }
         public boolean equals(Object o)   { return o == this || s.equals(o); }
         @Pure
-        public boolean containsAll(Collection<? extends @UnknownSignedness Object> c) {return s.containsAll(c);}
-        public boolean removeAll(Collection<? extends @UnknownSignedness Object> c)   {return s.removeAll(c);}
-        public boolean retainAll(Collection<? extends @UnknownSignedness Object> c)   {return s.retainAll(c);}
+        public boolean containsAll(Collection<?> c) {return s.containsAll(c);}
+        public boolean removeAll(Collection<?> c)   {return s.removeAll(c);}
+        public boolean retainAll(Collection<?> c)   {return s.retainAll(c);}
         // addAll is the only inherited implementation
 
         // Override default methods in Collection
@@ -5956,9 +5956,9 @@ public class Collections {
         public <T> T[] toArray(IntFunction<T[]> f)  { return q.toArray(f); }
         public String toString()                    { return q.toString(); }
         @Pure
-        public boolean containsAll(Collection<? extends @UnknownSignedness Object> c) { return q.containsAll(c); }
-        public boolean removeAll(Collection<? extends @UnknownSignedness Object> c)   { return q.removeAll(c); }
-        public boolean retainAll(Collection<? extends @UnknownSignedness Object> c)   { return q.retainAll(c); }
+        public boolean containsAll(Collection<?> c) { return q.containsAll(c); }
+        public boolean removeAll(Collection<?> c)   { return q.removeAll(c); }
+        public boolean retainAll(Collection<?> c)   { return q.retainAll(c); }
         // We use inherited addAll; forwarding addAll would be wrong
 
         // Override default methods in Collection

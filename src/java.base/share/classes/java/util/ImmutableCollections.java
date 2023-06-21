@@ -155,9 +155,9 @@ class ImmutableCollections {
         @Override public boolean addAll(Collection<? extends E> c) { throw uoe(); }
         @Override public void    clear() { throw uoe(); }
         @Override public boolean remove(@UnknownSignedness Object o) { throw uoe(); }
-        @Override public boolean removeAll(Collection<? extends @UnknownSignedness Object> c) { throw uoe(); }
+        @Override public boolean removeAll(Collection<?> c) { throw uoe(); }
         @Override public boolean removeIf(Predicate<? super E> filter) { throw uoe(); }
-        @Override public boolean retainAll(Collection<? extends @UnknownSignedness Object> c) { throw uoe(); }
+        @Override public boolean retainAll(Collection<?> c) { throw uoe(); }
     }
 
     // ---------- List Static Factory Methods ----------

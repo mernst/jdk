@@ -1387,7 +1387,7 @@ public class Properties extends Hashtable<Object,Object> {
 
         @Override
         @Pure
-        public boolean containsAll(Collection<? extends @UnknownSignedness Object> c) {
+        public boolean containsAll(Collection<?> c) {
             return entrySet.containsAll(c);
         }
 
@@ -1407,12 +1407,12 @@ public class Properties extends Hashtable<Object,Object> {
         }
 
         @Override
-        public boolean removeAll(Collection<? extends @UnknownSignedness Object> c) {
+        public boolean removeAll(Collection<?> c) {
             return entrySet.removeAll(c);
         }
 
         @Override
-        public boolean retainAll(Collection<? extends @UnknownSignedness Object> c) {
+        public boolean retainAll(Collection<?> c) {
             return entrySet.retainAll(c);
         }
 
