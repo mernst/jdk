@@ -1054,7 +1054,7 @@ public class Arrays {
      *         ordering of the array elements is found to violate the
      *         {@link Comparable} contract
      */
-    public static void sort(@PolyInterned @PolyNull Object @MustCallUnknown [] a) {
+    public static void sort(@PolyInterned @PolyMustCall @PolyNull Object @MustCallUnknown [] a) {
         if (LegacyMergeSort.userRequested)
             legacyMergeSort(a);
         else
@@ -1062,7 +1062,7 @@ public class Arrays {
     }
 
     /** To be removed in a future release. */
-    private static void legacyMergeSort(Object @MustCallUnknown [] a) {
+    private static void legacyMergeSort(Object[] a) {
         Object[] aux = a.clone();
         mergeSort(aux, a, 0, a.length, 0);
     }
@@ -1119,7 +1119,7 @@ public class Arrays {
      *         not <i>mutually comparable</i> (for example, strings and
      *         integers).
      */
-    public static void sort(@PolyInterned @PolyNull Object @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
+    public static void sort(@PolyInterned @MustCallUnknown @PolyNull Object @MustCallUnknown [] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         if (LegacyMergeSort.userRequested)
             legacyMergeSort(a, fromIndex, toIndex);
@@ -1128,7 +1128,7 @@ public class Arrays {
     }
 
     /** To be removed in a future release. */
-    private static void legacyMergeSort(Object @MustCallUnknown [] a,
+    private static void legacyMergeSort(Object[] a,
                                         @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         Object[] aux = copyOfRange(a, fromIndex, toIndex);
         mergeSort(aux, a, fromIndex, toIndex, -fromIndex);
@@ -1150,8 +1150,8 @@ public class Arrays {
      * To be removed in a future release.
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
-    private static void mergeSort(Object @MustCallUnknown [] src,
-                                  Object @MustCallUnknown [] dest,
+    private static void mergeSort(Object[] src,
+                                  Object[] dest,
                                   int low,
                                   int high,
                                   int off) {
@@ -1347,8 +1347,8 @@ public class Arrays {
      * To be removed in a future release.
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    private static void mergeSort(Object @MustCallUnknown [] src,
-                                  Object @MustCallUnknown [] dest,
+    private static void mergeSort(Object[] src,
+                                  Object[] dest,
                                   int low, int high, int off,
                                   Comparator c) {
         int length = high - low;
@@ -3454,7 +3454,7 @@ public class Arrays {
      * @throws ArrayStoreException if the specified value is not of a
      *         runtime type that can be stored in the specified array
      */
-    public static void fill(@PolyInterned @PolyNull @PolySigned Object @MustCallUnknown [] a, @PolyInterned @PolyNull @PolySigned Object val) {
+    public static void fill(@PolyInterned @PolyMustCall @PolyNull @PolySigned Object @MustCallUnknown [] a, @PolyInterned @PolyMustCall @PolyNull @PolySigned Object val) {
         for (int i = 0, len = a.length; i < len; i++)
             a[i] = val;
     }
