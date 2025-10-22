@@ -33,6 +33,10 @@ import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.index.qual.Shrinkable;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.lock.qual.ReleasesNoLocks;
+import org.checkerframework.checker.modifiable.qual.AnyModifiable;
+import org.checkerframework.checker.modifiable.qual.Modifiable;
+import org.checkerframework.checker.modifiable.qual.PolyModifiable;
+import org.checkerframework.checker.modifiable.qual.Unmodifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -174,7 +178,7 @@ public interface List<E> extends Collection<E> {
      * @return the number of elements in this list
      */
     @Pure
-    @NonNegative int size(@GuardSatisfied List<E> this);
+    @NonNegative int size(@AnyModifiable @GuardSatisfied List<E> this);
 
     /**
      * Returns {@code true} if this list contains no elements.
@@ -183,7 +187,7 @@ public interface List<E> extends Collection<E> {
      */
     @Pure
     @EnsuresNonEmptyIf(result = false, expression = "this")
-    boolean isEmpty(@GuardSatisfied List<E> this);
+    boolean isEmpty(@AnyModifiable @GuardSatisfied List<E> this);
 
     /**
      * Returns {@code true} if this list contains the specified element.
@@ -202,7 +206,7 @@ public interface List<E> extends Collection<E> {
      */
     @Pure
     @EnsuresNonEmptyIf(result = true, expression = "this")
-    boolean contains(@GuardSatisfied List<E> this, @UnknownSignedness Object o);
+    boolean contains(@AnyModifiable @GuardSatisfied List<E> this, @UnknownSignedness Object o);
 
     /**
      * Returns an iterator over the elements in this list in proper sequence.
@@ -349,7 +353,7 @@ public interface List<E> extends Collection<E> {
      * @see #contains(Object)
      */
     @Pure
-    boolean containsAll(@GuardSatisfied List<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean containsAll(@AnyModifiable @GuardSatisfied List<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Appends all of the elements in the specified collection to the end of
@@ -583,7 +587,7 @@ public interface List<E> extends Collection<E> {
      * @return {@code true} if the specified object is equal to this list
      */
     @Pure
-    boolean equals(@GuardSatisfied List<E> this, @Nullable Object o);
+    boolean equals(@AnyModifiable @GuardSatisfied List<E> this, @Nullable Object o);
 
     /**
      * Returns the hash code value for this list.  The hash code of a list
@@ -603,7 +607,7 @@ public interface List<E> extends Collection<E> {
      * @see #equals(Object)
      */
     @Pure
-    int hashCode(@GuardSatisfied List<E> this);
+    int hashCode(@AnyModifiable @GuardSatisfied List<E> this);
 
 
     // Positional Access Operations
@@ -617,7 +621,7 @@ public interface List<E> extends Collection<E> {
      *         ({@code index < 0 || index >= size()})
      */
     @Pure
-    E get(@GuardSatisfied List<E> this, @IndexFor({"this"}) int index);
+    E get(@AnyModifiable @GuardSatisfied List<E> this, @IndexFor({"this"}) int index);
 
     /**
      * Replaces the element at the specified position in this list with the
@@ -699,7 +703,7 @@ public interface List<E> extends Collection<E> {
      *         (<a href="Collection.html#optional-restrictions">optional</a>)
      */
     @Pure
-    @GTENegativeOne int indexOf(@GuardSatisfied List<E> this, @GuardSatisfied @UnknownSignedness Object o);
+    @GTENegativeOne int indexOf(@AnyModifiable @GuardSatisfied List<E> this, @GuardSatisfied @UnknownSignedness Object o);
 
     /**
      * Returns the index of the last occurrence of the specified element
@@ -719,7 +723,7 @@ public interface List<E> extends Collection<E> {
      *         (<a href="Collection.html#optional-restrictions">optional</a>)
      */
     @Pure
-    @GTENegativeOne int lastIndexOf(@GuardSatisfied List<E> this, @GuardSatisfied @UnknownSignedness Object o);
+    @GTENegativeOne int lastIndexOf(@AnyModifiable @GuardSatisfied List<E> this, @GuardSatisfied @UnknownSignedness Object o);
 
 
     // List Iterators
@@ -731,7 +735,7 @@ public interface List<E> extends Collection<E> {
      * @return a list iterator over the elements in this list (in proper
      *         sequence)
      */
-    @PolyGrowShrink @PolyNonEmpty ListIterator<E> listIterator(@PolyGrowShrink @PolyNonEmpty List<E> this);
+    @PolyModifiable @PolyGrowShrink @PolyNonEmpty ListIterator<E> listIterator(@PolyModifiable @PolyGrowShrink @PolyNonEmpty List<E> this);
 
     /**
      * Returns a list iterator over the elements in this list (in proper
@@ -748,7 +752,7 @@ public interface List<E> extends Collection<E> {
      * @throws IndexOutOfBoundsException if the index is out of range
      *         ({@code index < 0 || index > size()})
      */
-    @PolyGrowShrink @PolyNonEmpty ListIterator<E> listIterator(@PolyGrowShrink @PolyNonEmpty List<E> this, @IndexOrHigh({"this"}) int index);
+    @PolyModifiable @PolyGrowShrink @PolyNonEmpty ListIterator<E> listIterator(@PolyModifiable @PolyGrowShrink @PolyNonEmpty List<E> this, @IndexOrHigh({"this"}) int index);
 
     // View
 
@@ -843,7 +847,7 @@ public interface List<E> extends Collection<E> {
      * @since 9
      */
     @SuppressWarnings("unchecked")
-    static <E> List<E> of() {
+    static <E> @Unmodifiable List<E> of() {
         return (List<E>) ImmutableCollections.EMPTY_LIST;
     }
 
@@ -859,7 +863,7 @@ public interface List<E> extends Collection<E> {
      *
      * @since 9
      */
-    static <E extends Object> @NonEmpty List<E> of(E e1) {
+    static <E extends Object> @Unmodifiable @NonEmpty List<E> of(E e1) {
         return new ImmutableCollections.List12<>(e1);
     }
 
@@ -876,7 +880,7 @@ public interface List<E> extends Collection<E> {
      *
      * @since 9
      */
-    static <E extends Object> @NonEmpty List<E> of(E e1, E e2) {
+    static <E extends Object> @Unmodifiable @NonEmpty List<E> of(E e1, E e2) {
         return new ImmutableCollections.List12<>(e1, e2);
     }
 
@@ -894,7 +898,7 @@ public interface List<E> extends Collection<E> {
      *
      * @since 9
      */
-    static <E extends Object> @NonEmpty List<E> of(E e1, E e2, E e3) {
+    static <E extends Object> @Unmodifiable @NonEmpty List<E> of(E e1, E e2, E e3) {
         return ImmutableCollections.listFromTrustedArray(e1, e2, e3);
     }
 
@@ -913,7 +917,7 @@ public interface List<E> extends Collection<E> {
      *
      * @since 9
      */
-    static <E extends Object> @NonEmpty List<E> of(E e1, E e2, E e3, E e4) {
+    static <E extends Object> @Unmodifiable @NonEmpty List<E> of(E e1, E e2, E e3, E e4) {
         return ImmutableCollections.listFromTrustedArray(e1, e2, e3, e4);
     }
 
@@ -933,7 +937,7 @@ public interface List<E> extends Collection<E> {
      *
      * @since 9
      */
-    static <E extends Object> @NonEmpty List<E> of(E e1, E e2, E e3, E e4, E e5) {
+    static <E extends Object> @Unmodifiable @NonEmpty List<E> of(E e1, E e2, E e3, E e4, E e5) {
         return ImmutableCollections.listFromTrustedArray(e1, e2, e3, e4, e5);
     }
 
@@ -954,7 +958,7 @@ public interface List<E> extends Collection<E> {
      *
      * @since 9
      */
-    static <E extends Object> @NonEmpty List<E> of(E e1, E e2, E e3, E e4, E e5, E e6) {
+    static <E extends Object> @Unmodifiable @NonEmpty List<E> of(E e1, E e2, E e3, E e4, E e5, E e6) {
         return ImmutableCollections.listFromTrustedArray(e1, e2, e3, e4, e5,
                                                          e6);
     }
@@ -977,7 +981,7 @@ public interface List<E> extends Collection<E> {
      *
      * @since 9
      */
-    static <E extends Object> @NonEmpty List<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7) {
+    static <E extends Object> @Unmodifiable @NonEmpty List<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7) {
         return ImmutableCollections.listFromTrustedArray(e1, e2, e3, e4, e5,
                                                          e6, e7);
     }
@@ -1001,7 +1005,7 @@ public interface List<E> extends Collection<E> {
      *
      * @since 9
      */
-    static <E extends Object> @NonEmpty List<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8) {
+    static <E extends Object> @Unmodifiable @NonEmpty List<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8) {
         return ImmutableCollections.listFromTrustedArray(e1, e2, e3, e4, e5,
                                                          e6, e7, e8);
     }
@@ -1026,7 +1030,7 @@ public interface List<E> extends Collection<E> {
      *
      * @since 9
      */
-    static <E extends Object> @NonEmpty List<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9) {
+    static <E extends Object> @Unmodifiable @NonEmpty List<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9) {
         return ImmutableCollections.listFromTrustedArray(e1, e2, e3, e4, e5,
                                                          e6, e7, e8, e9);
     }
@@ -1052,7 +1056,7 @@ public interface List<E> extends Collection<E> {
      *
      * @since 9
      */
-    static <E extends Object> @NonEmpty List<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10) {
+    static <E extends Object> @Unmodifiable @NonEmpty List<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10) {
         return ImmutableCollections.listFromTrustedArray(e1, e2, e3, e4, e5,
                                                          e6, e7, e8, e9, e10);
     }
@@ -1084,7 +1088,7 @@ public interface List<E> extends Collection<E> {
      */
     @SafeVarargs
     @SuppressWarnings("varargs")
-    static <E extends Object> @PolyNonEmpty List<E> of(E @PolyNonEmpty... elements) {
+    static <E extends Object> @Unmodifiable @PolyNonEmpty List<E> of(E @PolyNonEmpty... elements) {
         switch (elements.length) { // implicit null check of elements
             case 0:
                 @SuppressWarnings("unchecked")
@@ -1115,7 +1119,7 @@ public interface List<E> extends Collection<E> {
      * @throws NullPointerException if coll is null, or if it contains any nulls
      * @since 10
      */
-    static <E extends Object> @PolyNonEmpty List<E> copyOf(@PolyNonEmpty Collection<? extends E> coll) {
+    static <E extends Object> @Unmodifiable @PolyNonEmpty List<E> copyOf(@AnyModifiable @PolyNonEmpty Collection<? extends E> coll) {
         return ImmutableCollections.listCopy(coll);
     }
 }

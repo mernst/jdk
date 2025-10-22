@@ -31,6 +31,8 @@ import org.checkerframework.checker.guieffect.qual.SafeEffect;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.initialization.qual.UnknownInitialization;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiable.qual.AnyModifiable;
+import org.checkerframework.checker.modifiable.qual.PolyModifiable;
 import org.checkerframework.checker.mustcall.qual.MustCall;
 import org.checkerframework.checker.nullness.qual.EnsuresNonNullIf;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -87,7 +89,7 @@ public class Object {
     @SafeEffect
     @Pure
     @IntrinsicCandidate
-    public final native Class<? extends @MustCall() Object> getClass(@PolyUI @GuardSatisfied @UnknownInitialization @UnknownSignedness Object this);
+    public final native Class<? extends @MustCall() Object> getClass(@PolyModifiable @PolyUI @GuardSatisfied @UnknownInitialization @UnknownSignedness Object this);
 
     /**
      * Returns a hash code value for the object. This method is
@@ -186,7 +188,7 @@ public class Object {
      */
     @Pure
     @EnsuresNonNullIf(expression="#1", result=true)
-    public boolean equals(@GuardSatisfied Object this, @GuardSatisfied @Nullable Object obj) {
+    public boolean equals(@AnyModifiable @GuardSatisfied Object this, @AnyModifiable @GuardSatisfied @Nullable Object obj) {
         return (this == obj);
     }
 
@@ -284,7 +286,7 @@ public class Object {
     "that differs according to ==, and @Deterministic requires that the results of",
     "two calls of the method are ==."})
     @SideEffectFree
-    public String toString(@GuardSatisfied Object this) {
+    public String toString(@AnyModifiable @GuardSatisfied Object this) {
         return getClass().getName() + "@" + Integer.toHexString(hashCode());
     }
 
