@@ -1220,7 +1220,7 @@ public class Collections {
      *        returned.
      * @return an unmodifiable view of the specified sorted set.
      */
-    public static <T> @Unmodifiable @PolyNonEmpty SortedSet<T> unmodifiableSortedSet(@PolyModifiable @PolyNonEmpty SortedSet<T> s) {
+    public static <T> @Unmodifiable @PolyNonEmpty SortedSet<T> unmodifiableSortedSet(@AnyModifiable @PolyNonEmpty SortedSet<T> s) {
         // Not checking for subclasses because of heap pollution and information leakage.
         if (s.getClass() == UnmodifiableSortedSet.class) {
             return s;
@@ -1275,7 +1275,7 @@ public class Collections {
      * @return an unmodifiable view of the specified navigable set
      * @since 1.8
      */
-    public static <T> @Unmodifiable @PolyNonEmpty NavigableSet<T> unmodifiableNavigableSet(@PolyModifiable @PolyNonEmpty NavigableSet<T> s) {
+    public static <T> @Unmodifiable @PolyNonEmpty NavigableSet<T> unmodifiableNavigableSet(@AnyModifiable @PolyNonEmpty NavigableSet<T> s) {
         if (s.getClass() == UnmodifiableNavigableSet.class) {
             return s;
         }
@@ -1371,7 +1371,7 @@ public class Collections {
      * @return an unmodifiable view of the specified list.
      */
     @SuppressWarnings("unchecked")
-    public static <T> @Unmodifiable @PolyGrowShrink @PolyNonEmpty List<T> unmodifiableList(@PolyGrowShrink @PolyModifiable @PolyNonEmpty List<? extends T> list) {
+    public static <T> @Unmodifiable @PolyGrowShrink @PolyNonEmpty List<T> unmodifiableList(@PolyGrowShrink @AnyModifiable @PolyNonEmpty List<? extends T> list) {
         if (list.getClass() == UnmodifiableList.class || list.getClass() == UnmodifiableRandomAccessList.class) {
            return (List<T>) list;
         }
@@ -1532,7 +1532,7 @@ public class Collections {
      * @return an unmodifiable view of the specified map.
      */
     @SuppressWarnings("unchecked")
-    public static <K,V> @Unmodifiable @PolyNonEmpty Map<K,V> unmodifiableMap(@PolyModifiable @PolyNonEmpty Map<? extends K, ? extends V> m) {
+    public static <K,V> @Unmodifiable @PolyNonEmpty Map<K,V> unmodifiableMap(@AnyModifiable @PolyNonEmpty Map<? extends K, ? extends V> m) {
         // Not checking for subclasses because of heap pollution and information leakage.
         if (m.getClass() == UnmodifiableMap.class) {
             return (Map<K,V>) m;
@@ -1906,7 +1906,7 @@ public class Collections {
      * @return an unmodifiable view of the specified sorted map.
      */
     @SuppressWarnings("unchecked")
-    public static <K,V> @Unmodifiable @PolyNonEmpty SortedMap<K,V> unmodifiableSortedMap(@AnyModifiable @PolyNonEmpty SortedMap<K, ? extends > m) {
+    public static <K,V> @Unmodifiable @PolyNonEmpty SortedMap<K,V> unmodifiableSortedMap(@AnyModifiable @PolyNonEmpty SortedMap<K, ? extends V> m) {
         // Not checking for subclasses because of heap pollution and information leakage.
         if (m.getClass() == UnmodifiableSortedMap.class) {
             return (SortedMap<K,V>) m;
