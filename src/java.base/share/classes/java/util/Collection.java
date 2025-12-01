@@ -29,6 +29,11 @@ import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.index.qual.Shrinkable;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Unmodifiable;
+import org.checkerframework.checker.modifiability.qual.BottomModifiable;
+import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -280,7 +285,7 @@ public interface Collection<E> extends Iterable<E> {
      * @return the number of elements in this collection
      */
     @Pure
-    @NonNegative int size(@GuardSatisfied Collection<E> this);
+    @NonNegative int size(@UnknownModifiability @GuardSatisfied Collection<E> this);
 
     /**
      * Returns {@code true} if this collection contains no elements.
@@ -289,7 +294,7 @@ public interface Collection<E> extends Iterable<E> {
      */
     @Pure
     @EnsuresNonEmptyIf(result = false, expression = "this")
-    boolean isEmpty(@GuardSatisfied Collection<E> this);
+    boolean isEmpty(@UnknownModifiability @GuardSatisfied Collection<E> this);
 
     /**
      * Returns {@code true} if this collection contains the specified element.
@@ -312,7 +317,7 @@ public interface Collection<E> extends Iterable<E> {
                 "(though I think a nicer specification would be to return false in that case)"})
     @Pure
     @EnsuresNonEmptyIf(result = true, expression = "this")
-    boolean contains(@GuardSatisfied Collection<E> this, @GuardSatisfied @UnknownSignedness Object o);
+    boolean contains(@UnknownModifiability @GuardSatisfied Collection<E> this, @GuardSatisfied @UnknownSignedness Object o);
 
     /**
      * Returns an iterator over the elements in this collection.  There are no
@@ -323,7 +328,7 @@ public interface Collection<E> extends Iterable<E> {
      * @return an {@code Iterator} over the elements in this collection
      */
     @SideEffectFree
-    @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty Collection<E> this);
+    @PolyModifiable @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyModifiable @PolyGrowShrink @PolyNonEmpty Collection<E> this);
 
     /**
      * Returns an array containing all of the elements in this collection.
@@ -352,7 +357,7 @@ public interface Collection<E> extends Iterable<E> {
     "methods, because the most useful type for toArray is not expressible",
     "in the surface syntax that the nullness annotations support."})
     @SideEffectFree
-    @PolyNull @PolySigned Object[] toArray(Collection<@PolyNull @PolySigned E> this);
+    @PolyNull @PolySigned Object[] toArray(@UnknownModifiability Collection<@PolyNull @PolySigned E> this);
 
     /**
      * Returns an array containing all of the elements in this collection;
@@ -406,7 +411,7 @@ public interface Collection<E> extends Iterable<E> {
      * @throws NullPointerException if the specified array is null
      */
     @SideEffectFree
-    <T extends @UnknownSignedness Object> @Nullable T [] toArray(@PolyNull T[] a);
+    <T extends @UnknownSignedness Object> @Nullable T [] toArray(@UnknownModifiability Collection<E> this, @PolyNull T[] a);
 
     /**
      * Returns an array containing all of the elements in this collection,
@@ -443,7 +448,7 @@ public interface Collection<E> extends Iterable<E> {
      * @throws NullPointerException if the generator function is null
      * @since 11
      */
-    default <T> T[] toArray(IntFunction<T[]> generator) {
+    default <T> T[] toArray(@UnknownModifiability Collection<E> this, IntFunction<T[]> generator) {
         return toArray(generator.apply(0));
     }
 
@@ -483,7 +488,7 @@ public interface Collection<E> extends Iterable<E> {
      *         time due to insertion restrictions
      */
     @EnsuresNonEmpty("this")
-    boolean add(@GuardSatisfied Collection<E> this, E e);
+    boolean add(@Modifiable @GuardSatisfied Collection<E> this, E e);
 
     /**
      * Removes a single instance of the specified element from this
@@ -505,7 +510,7 @@ public interface Collection<E> extends Iterable<E> {
      * @throws UnsupportedOperationException if the {@code remove} operation
      *         is not supported by this collection
      */
-    boolean remove(@GuardSatisfied @Shrinkable Collection<E> this, @UnknownSignedness Object o);
+    boolean remove(@Modifiable @GuardSatisfied @Shrinkable Collection<E> this, @UnknownSignedness Object o);
 
 
     // Bulk Operations
@@ -529,7 +534,7 @@ public interface Collection<E> extends Iterable<E> {
      * @see    #contains(Object)
      */
     @Pure
-    boolean containsAll(@GuardSatisfied Collection<E> this, @GuardSatisfied Collection<? extends @UnknownSignedness Object> c);
+    boolean containsAll(@UnknownModifiability @GuardSatisfied Collection<E> this, @GuardSatisfied Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Adds all of the elements in the specified collection to this collection
@@ -555,7 +560,7 @@ public interface Collection<E> extends Iterable<E> {
      *         this time due to insertion restrictions
      * @see #add(Object)
      */
-    boolean addAll(@GuardSatisfied Collection<E> this, Collection<? extends E> c);
+    boolean addAll(@Modifiable @GuardSatisfied Collection<E> this, Collection<? extends E> c);
 
     /**
      * Removes all of this collection's elements that are also contained in the
@@ -580,7 +585,7 @@ public interface Collection<E> extends Iterable<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    boolean removeAll(@GuardSatisfied @Shrinkable Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean removeAll(@Modifiable @GuardSatisfied @Shrinkable Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Removes all of the elements of this collection that satisfy the given
@@ -604,7 +609,7 @@ public interface Collection<E> extends Iterable<E> {
      *         supported.
      * @since 1.8
      */
-    default boolean removeIf(@Shrinkable Collection<E> this, Predicate<? super E> filter) {
+    default boolean removeIf(@Modifiable @Shrinkable Collection<E> this, Predicate<? super E> filter) {
         Objects.requireNonNull(filter);
         boolean removed = false;
         final Iterator<E> each = iterator();
@@ -639,7 +644,7 @@ public interface Collection<E> extends Iterable<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    boolean retainAll(@GuardSatisfied @Shrinkable Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean retainAll(@Modifiable @GuardSatisfied @Shrinkable Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Removes all of the elements from this collection (optional operation).
@@ -648,7 +653,7 @@ public interface Collection<E> extends Iterable<E> {
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this collection
      */
-    void clear(@GuardSatisfied @Shrinkable Collection<E> this);
+    void clear(@Modifiable @GuardSatisfied @Shrinkable Collection<E> this);
 
 
     // Comparison and hashing
@@ -687,7 +692,7 @@ public interface Collection<E> extends Iterable<E> {
      * @see List#equals(Object)
      */
     @Pure
-    boolean equals(@GuardSatisfied Collection<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o);
+    boolean equals(@UnknownModifiability @GuardSatisfied Collection<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o);
 
     /**
      * Returns the hash code value for this collection.  While the
@@ -705,7 +710,7 @@ public interface Collection<E> extends Iterable<E> {
      * @see Object#equals(Object)
      */
     @Pure
-    int hashCode(@GuardSatisfied Collection<E> this);
+    int hashCode(@UnknownModifiability @GuardSatisfied Collection<E> this);
 
     /**
      * Creates a {@link Spliterator} over the elements in this collection.
@@ -759,7 +764,7 @@ public interface Collection<E> extends Iterable<E> {
      */
     @SideEffectFree
     @Override
-    default Spliterator<E> spliterator() {
+    default Spliterator<E> spliterator(@UnknownModifiability Collection<E> this) {
         return Spliterators.spliterator(this, 0);
     }
 
@@ -778,7 +783,7 @@ public interface Collection<E> extends Iterable<E> {
      * @return a sequential {@code Stream} over the elements in this collection
      * @since 1.8
      */
-    default @PolyNonEmpty Stream<E> stream(@PolyNonEmpty Collection<E> this) {
+    default @PolyNonEmpty Stream<E> stream(@UnknownModifiability @PolyNonEmpty Collection<E> this) {
         return StreamSupport.stream(spliterator(), false);
     }
 
@@ -799,7 +804,7 @@ public interface Collection<E> extends Iterable<E> {
      * collection
      * @since 1.8
      */
-    default Stream<E> parallelStream() {
+    default Stream<E> parallelStream(@UnknownModifiability Collection<E> this) {
         return StreamSupport.stream(spliterator(), true);
     }
 }
