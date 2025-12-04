@@ -435,7 +435,7 @@ public interface Map<K, V> {
      * @return a set view of the mappings contained in this map
      */
     @SideEffectFree
-    @PolyModifiable @PolyNonEmpty Set<Map.Entry<@KeyFor({"this"}) K, V>> entrySet(@PolyModifiable @GuardSatisfied @PolyNonEmpty Map<K, V> this);
+    @PolyModifiable @PolyNonEmpty Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K, V>> entrySet(@PolyModifiable @GuardSatisfied @PolyNonEmpty Map<K, V> this);
 
     /**
      * A map entry (key-value pair). The Entry may be unmodifiable, or the
@@ -1785,7 +1785,7 @@ public interface Map<K, V> {
      * @since 10
      */
     @SuppressWarnings({"rawtypes","unchecked"})
-    static <K extends @NonNull Object, V extends @NonNull Object> @Unmodifiable @PolyNonEmpty Map<K, V> copyOf(@PolyNonEmpty Map<? extends K, ? extends V> map) {
+    static <K extends @NonNull Object, V extends @NonNull Object> @Unmodifiable @PolyNonEmpty Map<K, V> copyOf(@UnknownModifiablity @PolyNonEmpty Map<? extends K, ? extends V> map) {
         if (map instanceof ImmutableCollections.AbstractImmutableMap) {
             return (Map<K,V>)map;
         } else {
