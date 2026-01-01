@@ -180,7 +180,7 @@ public abstract class AbstractSequentialList<E> extends AbstractList<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
-    public E remove(@GuardSatisfied @Shrinkable AbstractSequentialList<E> this, int index) {
+    public E remove(@GuardSatisfied @Modifiable @Shrinkable AbstractSequentialList<E> this, int index) {
         try {
             ListIterator<E> e = listIterator(index);
             E outCast = e.next();

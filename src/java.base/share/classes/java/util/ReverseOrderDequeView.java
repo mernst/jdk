@@ -80,7 +80,7 @@ class ReverseOrderDequeView<E> implements Deque<E> {
         return modified;
     }
 
-    public void clear() {
+    public void clear(@GuardSatisfied @Modifiable @Shrinkable ReverseOrderDequeView<E>) {
         base.clear();
     }
 

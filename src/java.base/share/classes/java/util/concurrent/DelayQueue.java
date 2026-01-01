@@ -229,7 +229,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      * @return the <em>expired head</em> of this queue, or {@code null} if this
      *         queue has no elements with an expired delay
      */
-    public @Nullable E poll(@GuardSatisfied @Shrinkable DelayQueue<E> this) {
+    public @Nullable E poll(@GuardSatisfied @Modifiable @Shrinkable DelayQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -250,7 +250,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      * @return the <em>expired head</em> of this queue
      * @throws InterruptedException {@inheritDoc}
      */
-    public E take(@GuardSatisfied @Shrinkable DelayQueue<E> this) throws InterruptedException {
+    public E take(@GuardSatisfied @Modifiable @Shrinkable DelayQueue<E> this) throws InterruptedException {
         final ReentrantLock lock = this.lock;
         lock.lockInterruptibly();
         try {
@@ -295,7 +295,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      *         an expired delay becomes available
      * @throws InterruptedException {@inheritDoc}
      */
-    public @Nullable E poll(@GuardSatisfied @Shrinkable DelayQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
+    public @Nullable E poll(@GuardSatisfied @Modifiable @Shrinkable DelayQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
         long nanos = unit.toNanos(timeout);
         final ReentrantLock lock = this.lock;
         lock.lockInterruptibly();
@@ -386,7 +386,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      * @throws NullPointerException          {@inheritDoc}
      * @throws IllegalArgumentException      {@inheritDoc}
      */
-    public int drainTo(@GuardSatisfied @Shrinkable DelayQueue<E> this, Collection<? super E> c) {
+    public int drainTo(@GuardSatisfied @Modifiable @Shrinkable DelayQueue<E> this, Collection<? super E> c) {
         return drainTo(c, Integer.MAX_VALUE);
     }
 
@@ -396,7 +396,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      * @throws NullPointerException          {@inheritDoc}
      * @throws IllegalArgumentException      {@inheritDoc}
      */
-    public int drainTo(@GuardSatisfied @Shrinkable DelayQueue<E> this, Collection<? super E> c, int maxElements) {
+    public int drainTo(@GuardSatisfied @Modifiable @Shrinkable DelayQueue<E> this, Collection<? super E> c, int maxElements) {
         Objects.requireNonNull(c);
         if (c == this)
             throw new IllegalArgumentException();
@@ -426,7 +426,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      * Elements with an unexpired delay are not waited for; they are
      * simply discarded from the queue.
      */
-    public void clear(@GuardSatisfied @Shrinkable DelayQueue<E> this) {
+    public void clear(@GuardSatisfied @Modifiable @Shrinkable DelayQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {

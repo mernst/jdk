@@ -275,7 +275,7 @@ public class HashSet<E>
      * The set will be empty after this call returns.
      */
     @SideEffectsOnly("this")
-    public void clear(@GuardSatisfied HashSet<E> this) {
+    public void clear(@GuardSatisfied @Modifiable HashSet<E> this) {
         map.clear();
     }
 

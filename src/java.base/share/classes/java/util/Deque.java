@@ -323,7 +323,7 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      *
      * @return the head of this deque, or {@code null} if this deque is empty
      */
-    @Nullable E pollFirst(@GuardSatisfied @Shrinkable Deque<E> this);
+    @Nullable E pollFirst(@GuardSatisfied @Modifiable @Shrinkable Deque<E> this);
 
     /**
      * Retrieves and removes the last element of this deque,
@@ -331,7 +331,7 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      *
      * @return the tail of this deque, or {@code null} if this deque is empty
      */
-    @Nullable E pollLast(@GuardSatisfied @Shrinkable Deque<E> this);
+    @Nullable E pollLast(@GuardSatisfied @Modifiable @Shrinkable Deque<E> this);
 
     /**
      * Retrieves, but does not remove, the first element of this deque.
@@ -389,7 +389,7 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      *         deque does not permit null elements
      *         ({@linkplain Collection##optional-restrictions optional})
      */
-    boolean removeFirstOccurrence(@GuardSatisfied @Shrinkable Deque<E> this, Object o);
+    boolean removeFirstOccurrence(@GuardSatisfied @Modifiable @Shrinkable Deque<E> this, Object o);
 
     /**
      * Removes the last occurrence of the specified element from this deque.
@@ -408,7 +408,7 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      *         deque does not permit null elements
      *         ({@linkplain Collection##optional-restrictions optional})
      */
-    boolean removeLastOccurrence(@GuardSatisfied @Shrinkable Deque<E> this, Object o);
+    boolean removeLastOccurrence(@GuardSatisfied @Modifiable @Shrinkable Deque<E> this, Object o);
 
     // *** Queue methods ***
 
@@ -483,7 +483,7 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      * @return the first element of this deque, or {@code null} if
      *         this deque is empty
      */
-    @Nullable E poll(@GuardSatisfied @Shrinkable Deque<E> this);
+    @Nullable E poll(@GuardSatisfied @Modifiable @Shrinkable Deque<E> this);
 
     /**
      * Retrieves, but does not remove, the head of the queue represented by
@@ -592,7 +592,7 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      *         deque does not permit null elements
      *         ({@linkplain Collection##optional-restrictions optional})
      */
-    boolean remove(@GuardSatisfied @Shrinkable Deque<E> this, @UnknownSignedness Object o);
+    boolean remove(@GuardSatisfied @Modifiable @Shrinkable Deque<E> this, @UnknownSignedness Object o);
 
     /**
      * Returns {@code true} if this deque contains the specified element.

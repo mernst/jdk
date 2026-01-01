@@ -547,7 +547,7 @@ public class CopyOnWriteArrayList<E>
      *
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public E remove(@GuardSatisfied @Shrinkable CopyOnWriteArrayList<E> this, int index) {
+    public E remove(@GuardSatisfied @Modifiable @Shrinkable CopyOnWriteArrayList<E> this, int index) {
         synchronized (lock) {
             Object[] es = getArray();
             int len = es.length;
@@ -663,7 +663,7 @@ public class CopyOnWriteArrayList<E>
      * @throws IndexOutOfBoundsException if fromIndex or toIndex out of range
      *         ({@code fromIndex < 0 || toIndex > size() || toIndex < fromIndex})
      */
-    void removeRange(@GuardSatisfied @Shrinkable CopyOnWriteArrayList<E> this, int fromIndex, int toIndex) {
+    void removeRange(@GuardSatisfied @Modifiable @Shrinkable CopyOnWriteArrayList<E> this, int fromIndex, int toIndex) {
         synchronized (lock) {
             Object[] es = getArray();
             int len = es.length;
@@ -779,7 +779,7 @@ public class CopyOnWriteArrayList<E>
      *         or if the specified collection is null
      * @see #remove(Object)
      */
-    public boolean retainAll(@GuardSatisfied @Shrinkable CopyOnWriteArrayList<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
+    public boolean retainAll(@GuardSatisfied @Modifiable @Shrinkable CopyOnWriteArrayList<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         return bulkRemove(e -> !c.contains(e));
     }
@@ -826,7 +826,7 @@ public class CopyOnWriteArrayList<E>
      * Removes all of the elements from this list.
      * The list will be empty after this call returns.
      */
-    public void clear(@GuardSatisfied @Shrinkable CopyOnWriteArrayList<E> this) {
+    public void clear(@GuardSatisfied @Modifiable @Shrinkable CopyOnWriteArrayList<E> this) {
         synchronized (lock) {
             setArray(new Object[0]);
         }

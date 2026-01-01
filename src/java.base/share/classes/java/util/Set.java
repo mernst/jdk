@@ -411,7 +411,7 @@ public interface Set<E> extends Collection<E> {
      * @throws UnsupportedOperationException if the {@code clear} method
      *         is not supported by this set
      */
-    void clear(@GuardSatisfied Set<E> this);
+    void clear(@GuardSatisfied @Modifiable Set<E> this);
 
 
     // Comparison and hashing

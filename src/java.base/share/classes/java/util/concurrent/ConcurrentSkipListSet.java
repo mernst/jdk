@@ -286,7 +286,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
     /**
      * Removes all of the elements from this set.
      */
-    public void clear() {
+    public void clear(@GuardSatisfied @Modifiable ConcurrentSkipListSet<E> this) {
         m.clear();
     }
 

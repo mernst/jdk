@@ -360,7 +360,7 @@ final class JumboEnumSet<E extends Enum<E>> extends EnumSet<E> {
     /**
      * Removes all of the elements from this set.
      */
-    public void clear() {
+    public void clear(@GuardSatisfied @Modifiable JumboEnumSet<E>) {
         Arrays.fill(elements, 0);
         size = 0;
     }

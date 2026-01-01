@@ -176,7 +176,7 @@ class ReverseOrderListView<E> implements List<E> {
         }
     }
 
-    public void clear() {
+    public void clear(@GuardSatisfied @Modifiable @Shrinkable ReverseOrderListView<E>) {
         checkModifiable();
         base.clear();
     }

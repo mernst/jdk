@@ -303,7 +303,7 @@ final class RegularEnumSet<E extends Enum<E>> extends EnumSet<E> {
     /**
      * Removes all of the elements from this set.
      */
-    public void clear() {
+    public void clear(@GuardSatisfied @Modifiable RegularEnumSet<E>) {
         elements = 0;
     }
 

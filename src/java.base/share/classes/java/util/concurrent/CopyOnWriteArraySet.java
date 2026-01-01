@@ -246,7 +246,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      * Removes all of the elements from this set.
      * The set will be empty after this call returns.
      */
-    public void clear() {
+    public void clear(@GuardSatisfied @Modifiable CopyOnWriteArraySet<E> this) {
         al.clear();
     }
 

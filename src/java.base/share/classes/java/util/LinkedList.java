@@ -391,7 +391,7 @@ public class LinkedList<E>
      * @return {@code true} if this list contained the specified element
      */
     @ReleasesNoLocks
-    public boolean remove(@GuardSatisfied @Shrinkable LinkedList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
+    public boolean remove(@GuardSatisfied @Modifiable @Shrinkable LinkedList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         if (o == null) {
             for (Node<E> x = first; x != null; x = x.next) {
                 if (x.item == null) {
@@ -484,7 +484,7 @@ public class LinkedList<E>
      * Removes all of the elements from this list.
      * The list will be empty after this call returns.
      */
-    public void clear(@GuardSatisfied @Shrinkable LinkedList<E> this) {
+    public void clear(@GuardSatisfied @Modifiable @Shrinkable LinkedList<E> this) {
         // Clearing all of the links between nodes is "unnecessary", but:
         // - helps a generational GC if the discarded nodes inhabit
         //   more than one generation
@@ -561,7 +561,7 @@ public class LinkedList<E>
      * @return the element previously at the specified position
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public E remove(@GuardSatisfied @Shrinkable LinkedList<E> this, @NonNegative int index) {
+    public E remove(@GuardSatisfied @Modifiable @Shrinkable LinkedList<E> this, @NonNegative int index) {
         checkElementIndex(index);
         return unlink(node(index));
     }
@@ -712,7 +712,7 @@ public class LinkedList<E>
      * @return the head of this list, or {@code null} if this list is empty
      * @since 1.5
      */
-    public @Nullable E poll(@GuardSatisfied @Shrinkable LinkedList<E> this) {
+    public @Nullable E poll(@GuardSatisfied @Modifiable @Shrinkable LinkedList<E> this) {
         final Node<E> f = first;
         return (f == null) ? null : unlinkFirst(f);
     }
@@ -800,7 +800,7 @@ public class LinkedList<E>
      *     this list is empty
      * @since 1.6
      */
-    public @Nullable E pollFirst(@GuardSatisfied @Shrinkable LinkedList<E> this) {
+    public @Nullable E pollFirst(@GuardSatisfied @Modifiable @Shrinkable LinkedList<E> this) {
         final Node<E> f = first;
         return (f == null) ? null : unlinkFirst(f);
     }
@@ -813,7 +813,7 @@ public class LinkedList<E>
      *     this list is empty
      * @since 1.6
      */
-    public @Nullable E pollLast(@GuardSatisfied @Shrinkable LinkedList<E> this) {
+    public @Nullable E pollLast(@GuardSatisfied @Modifiable @Shrinkable LinkedList<E> this) {
         final Node<E> l = last;
         return (l == null) ? null : unlinkLast(l);
     }
@@ -855,7 +855,7 @@ public class LinkedList<E>
      * @return {@code true} if the list contained the specified element
      * @since 1.6
      */
-    public boolean removeFirstOccurrence(@GuardSatisfied @Shrinkable LinkedList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
+    public boolean removeFirstOccurrence(@GuardSatisfied @Modifiable @Shrinkable LinkedList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         return remove(o);
     }
 
@@ -868,7 +868,7 @@ public class LinkedList<E>
      * @return {@code true} if the list contained the specified element
      * @since 1.6
      */
-    public boolean removeLastOccurrence(@GuardSatisfied @Shrinkable LinkedList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
+    public boolean removeLastOccurrence(@GuardSatisfied @Modifiable @Shrinkable LinkedList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         if (o == null) {
             for (Node<E> x = last; x != null; x = x.prev) {
                 if (x.item == null) {
@@ -1520,7 +1520,7 @@ public class LinkedList<E>
             return rlist.get(index);
         }
 
-        public void clear() {
+        public void clear(@GuardSatisfied @Modifiable @Shrinkable LinkedList<E>) {
             rlist.clear();
         }
 

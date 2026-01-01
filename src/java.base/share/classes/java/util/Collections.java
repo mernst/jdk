@@ -509,13 +509,7 @@ public class Collections {
      * @since 21
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-<<<<<<< HEAD
-    public static void shuffle(@Modifiable @GuardSatisfied List<?> list, Random rnd) {
-||||||| 985c44f37ad
-    public static void shuffle(@Modifiable @GuardSatisfied List<?> list, Random rnd) {
-=======
     public static void shuffle(@Modifiable @GuardSatisfied List<?> list, RandomGenerator rnd) {
->>>>>>> 47f798c1ceeb6f900151a60b79334d7fdd49dec4
         int size = list.size();
         if (size < SHUFFLE_THRESHOLD || list instanceof RandomAccess) {
             for (int i=size; i>1; i--)
@@ -1166,7 +1160,7 @@ public class Collections {
         public boolean retainAll(Collection<? extends @UnknownSignedness Object> coll) {
             throw new UnsupportedOperationException();
         }
-        public void clear() {
+        public void clear(@GuardSatisfied @Modifiable @Shrinkable UnmodifiableCollection<E> this) {
             throw new UnsupportedOperationException();
         }
 
@@ -1739,7 +1733,7 @@ public class Collections {
         public void putAll(Map<? extends K, ? extends V> m) {
             throw new UnsupportedOperationException();
         }
-        public void clear() {
+        public void clear(UnmodifiableMap<K,V> this) {
             throw new UnsupportedOperationException();
         }
 
@@ -2442,7 +2436,7 @@ public class Collections {
         public boolean retainAll(Collection<? extends @UnknownSignedness Object> coll) {
             synchronized (mutex) {return c.retainAll(coll);}
         }
-        public void clear() {
+        public void clear(@GuardSatisfied @Modifiable @Shrinkable SynchronizedCollection<E> this) {
             synchronized (mutex) {c.clear();}
         }
         public String toString() {
@@ -3507,7 +3501,7 @@ public class Collections {
         public <T> T[] toArray(IntFunction<T[]> f) { return c.toArray(f); }
         public String toString()                   { return c.toString(); }
         public boolean remove(@UnknownSignedness Object o)            { return c.remove(o); }
-        public void clear()                        {        c.clear(); }
+        public void clear(@GuardSatisfied @Modifiable @Shrinkable Collections.CheckedCollection<E> this)                        {        c.clear(); }
 
         @Pure
         public boolean containsAll(Collection<? extends @UnknownSignedness Object> coll) {
@@ -4235,7 +4229,7 @@ public class Collections {
             public boolean isEmpty() { return s.isEmpty(); }
             public String toString() { return s.toString(); }
             public int hashCode()    { return s.hashCode(); }
-            public void clear()      {        s.clear(); }
+            public void clear(@GuardSatisfied @Modifiable @Shrinkable CheckedEntrySet<K,V> this)      {        s.clear(); }
 
             @EnsuresNonEmpty("this")
             public boolean add(Map.Entry<K, V> e) {
@@ -4833,7 +4827,7 @@ public class Collections {
     /**
      * @serial include
      */
-    private static class EmptySet<E>
+    private static @Unmodifiable class EmptySet<E>
         extends AbstractSet<E>
         implements Serializable
     {
@@ -4848,7 +4842,7 @@ public class Collections {
         @Pure
         @EnsuresNonEmptyIf(result = false, expression = "this")
         public boolean isEmpty() {return true;}
-        public void clear() {}
+        public void clear(@GuardSatisfied @Modifiable @Shrinkable EmptySet<E>) {}
 
         @Pure
         @EnsuresNonEmptyIf(result = true, expression = "this")
@@ -4973,7 +4967,7 @@ public class Collections {
     /**
      * @serial include
      */
-    private static class EmptyList<E>
+    private static @Unmodifiable class EmptyList<E>
         extends AbstractList<E>
         implements RandomAccess, Serializable {
         @java.io.Serial
@@ -4992,7 +4986,7 @@ public class Collections {
         @Pure
         @EnsuresNonEmptyIf(result = false, expression = "this")
         public boolean isEmpty() {return true;}
-        public void clear() {}
+        public void clear(@GuardSatisfied @Modifiable @Shrinkable EmptyList<E>) {}
 
         @Pure
         @EnsuresNonEmptyIf(result = true, expression = "this")
@@ -6152,13 +6146,7 @@ public class Collections {
      * @since 1.6
      */
     @SideEffectFree
-<<<<<<< HEAD
     public static <E> @PolyModifiable Set<E> newSetFromMap(@PolyModifiable Map<E, Boolean> map) {
-||||||| 985c44f37ad
-    public static <E> Set<E> newSetFromMap(Map<E, Boolean> map) {
-=======
-    public static <E> Set<E> newSetFromMap(Map<E, Boolean> map) {
->>>>>>> 47f798c1ceeb6f900151a60b79334d7fdd49dec4
         if (! map.isEmpty()) // implicit null check
             throw new IllegalArgumentException("Map is non-empty");
         return new SetFromMap<>(map);
@@ -6179,7 +6167,7 @@ public class Collections {
             s = map.keySet();
         }
 
-        public void clear()               {        m.clear(); }
+        public void clear(@GuardSatisfied @Modifiable @Shrinkable SetFromMap<E>)               {        m.clear(); }
         @Pure
         public @NonNegative int size()                 { return m.size(); }
         @Pure
@@ -6366,7 +6354,7 @@ public class Collections {
         @Pure
         public E peek()                             { return q.peekFirst(); }
         public E element()                          { return q.getFirst(); }
-        public void clear()                         {        q.clear(); }
+        public void clear(@GuardSatisfied @Modifiable @Shrinkable AsLIFOQueue<E>)                         {        q.clear(); }
         @Pure
         public @NonNegative int size()                           { return q.size(); }
         @Pure

@@ -361,7 +361,7 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      *         queue, or some property of an element of this queue prevents
      *         it from being added to the specified collection
      */
-    int drainTo(@GuardSatisfied @Shrinkable BlockingQueue<E> this, Collection<? super E> c);
+    int drainTo(@GuardSatisfied @Modifiable @Shrinkable BlockingQueue<E> this, Collection<? super E> c);
 
     /**
      * Removes at most the given number of available elements from
@@ -386,5 +386,5 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      *         queue, or some property of an element of this queue prevents
      *         it from being added to the specified collection
      */
-    int drainTo(@GuardSatisfied @Shrinkable BlockingQueue<E> this, Collection<? super E> c, int maxElements);
+    int drainTo(@GuardSatisfied @Modifiable @Shrinkable BlockingQueue<E> this, Collection<? super E> c, int maxElements);
 }

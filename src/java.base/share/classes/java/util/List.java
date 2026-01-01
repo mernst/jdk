@@ -328,7 +328,7 @@ public interface List<E> extends SequencedCollection<E> {
      *         is not supported by this list
      */
     @SideEffectsOnly("this")
-    boolean remove(@GuardSatisfied @Shrinkable List<E> this, @UnknownSignedness Object o);
+    boolean remove(@GuardSatisfied @Modifiable @Shrinkable List<E> this, @UnknownSignedness Object o);
 
 
     // Bulk Modification Operations
@@ -428,7 +428,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    boolean removeAll(@GuardSatisfied @Shrinkable List<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable List<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Retains only the elements in this list that are contained in the
@@ -450,7 +450,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    boolean retainAll(@GuardSatisfied @Shrinkable List<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean retainAll(@GuardSatisfied @Modifiable @Shrinkable List<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Replaces each element of this list with the result of applying the
@@ -566,7 +566,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this list
      */
-    void clear(@GuardSatisfied @Shrinkable List<E> this);
+    void clear(@GuardSatisfied @Modifiable @Shrinkable List<E> this);
 
 
     // Comparison and hashing
@@ -679,7 +679,7 @@ public interface List<E> extends SequencedCollection<E> {
      *         ({@code index < 0 || index >= size()})
      */
     @ReleasesNoLocks
-    E remove(@GuardSatisfied @Shrinkable List<E> this, @IndexFor({"this"}) int index);
+    E remove(@GuardSatisfied @Modifiable @Shrinkable List<E> this, @IndexFor({"this"}) int index);
 
 
     // Search Operations

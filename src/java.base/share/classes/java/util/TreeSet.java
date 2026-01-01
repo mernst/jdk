@@ -309,7 +309,7 @@ public class TreeSet<E> extends AbstractSet<E>
      * Removes all of the elements from this set.
      * The set will be empty after this call returns.
      */
-    public void clear(@GuardSatisfied TreeSet<E> this) {
+    public void clear(@GuardSatisfied @Modifiable TreeSet<E> this) {
         m.clear();
     }
 

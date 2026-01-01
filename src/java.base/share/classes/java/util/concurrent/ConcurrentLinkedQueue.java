@@ -399,7 +399,7 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
         }
     }
 
-    public @Nullable E poll(@GuardSatisfied @Shrinkable ConcurrentLinkedQueue<E> this) {
+    public @Nullable E poll(@GuardSatisfied @Modifiable @Shrinkable ConcurrentLinkedQueue<E> this) {
         restartFromHead: for (;;) {
             for (Node<E> h = head, p = h, q;; p = q) {
                 final E item;
@@ -1007,12 +1007,12 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public boolean retainAll(@GuardSatisfied @Shrinkable ConcurrentLinkedQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
+    public boolean retainAll(@GuardSatisfied @Modifiable @Shrinkable ConcurrentLinkedQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         return bulkRemove(e -> !c.contains(e));
     }
 
-    public void clear(@GuardSatisfied @Shrinkable ConcurrentLinkedQueue<E> this) {
+    public void clear(@GuardSatisfied @Modifiable @Shrinkable ConcurrentLinkedQueue<E> this) {
         bulkRemove(e -> true);
     }
 

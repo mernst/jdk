@@ -393,7 +393,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
         return e;
     }
 
-    public @Nullable E pollFirst(@GuardSatisfied @Shrinkable ArrayDeque<E> this) {
+    public @Nullable E pollFirst(@GuardSatisfied @Modifiable @Shrinkable ArrayDeque<E> this) {
         final Object[] es;
         final int h;
         E e = elementAt(es = elements, h = head);
@@ -404,7 +404,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
         return e;
     }
 
-    public @Nullable E pollLast(@GuardSatisfied @Shrinkable ArrayDeque<E> this) {
+    public @Nullable E pollLast(@GuardSatisfied @Modifiable @Shrinkable ArrayDeque<E> this) {
         final Object[] es;
         final int t;
         E e = elementAt(es = elements, t = dec(tail, es.length));
@@ -457,7 +457,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @param o element to be removed from this deque, if present
      * @return {@code true} if the deque contained the specified element
      */
-    public boolean removeFirstOccurrence(@GuardSatisfied @Shrinkable ArrayDeque<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
+    public boolean removeFirstOccurrence(@GuardSatisfied @Modifiable @Shrinkable ArrayDeque<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         if (o != null) {
             final Object[] es = elements;
             for (int i = head, end = tail, to = (i <= end) ? end : es.length;
@@ -485,7 +485,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @param o element to be removed from this deque, if present
      * @return {@code true} if the deque contained the specified element
      */
-    public boolean removeLastOccurrence(@GuardSatisfied @Shrinkable ArrayDeque<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
+    public boolean removeLastOccurrence(@GuardSatisfied @Modifiable @Shrinkable ArrayDeque<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         if (o != null) {
             final Object[] es = elements;
             for (int i = tail, end = head, to = (i >= end) ? end : 0;
@@ -556,7 +556,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @return the head of the queue represented by this deque, or
      *         {@code null} if this deque is empty
      */
-    public @Nullable E poll(@GuardSatisfied @Shrinkable ArrayDeque<E> this) {
+    public @Nullable E poll(@GuardSatisfied @Modifiable @Shrinkable ArrayDeque<E> this) {
         return pollFirst();
     }
 
@@ -944,7 +944,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public boolean retainAll(@GuardSatisfied @Shrinkable ArrayDeque<E> this, Collection<? extends @UnknownSignedness Object> c) {
+    public boolean retainAll(@GuardSatisfied @Modifiable @Shrinkable ArrayDeque<E> this, Collection<? extends @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         return bulkRemove(e -> !c.contains(e));
     }
@@ -1060,7 +1060,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @param o element to be removed from this deque, if present
      * @return {@code true} if this deque contained the specified element
      */
-    public boolean remove(@GuardSatisfied @Shrinkable ArrayDeque<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
+    public boolean remove(@GuardSatisfied @Modifiable @Shrinkable ArrayDeque<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         return removeFirstOccurrence(o);
     }
 
@@ -1068,7 +1068,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * Removes all of the elements from this deque.
      * The deque will be empty after this call returns.
      */
-    public void clear(@GuardSatisfied @Shrinkable ArrayDeque<E> this) {
+    public void clear(@GuardSatisfied @Modifiable @Shrinkable ArrayDeque<E> this) {
         circularClear(elements, head, tail);
         head = tail = 0;
     }
