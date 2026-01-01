@@ -66,7 +66,7 @@ class ReverseOrderDequeView<E> implements Deque<E> {
 
     // ========== Collection ==========
 
-    public boolean add(E e) {
+    public boolean add(@GuardSatisfied @Modifiable ReverseOrderDequeView<E> this, E e) {
         base.addFirst(e);
         return true;
     }

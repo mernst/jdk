@@ -280,7 +280,7 @@ public class TreeSet<E> extends AbstractSet<E>
      *         does not permit null elements
      */
     @EnsuresNonEmpty("this")
-    public boolean add(@GuardSatisfied TreeSet<E> this, E e) {
+    public boolean add(@GuardSatisfied @Modifiable TreeSet<E> this, E e) {
         return m.put(e, PRESENT)==null;
     }
 

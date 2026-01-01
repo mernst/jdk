@@ -249,7 +249,7 @@ public class HashSet<E>
      */
     @SideEffectsOnly("this")
     @EnsuresNonEmpty("this")
-    public boolean add(@GuardSatisfied HashSet<E> this, E e) {
+    public boolean add(@GuardSatisfied @Modifiable HashSet<E> this, E e) {
         return map.put(e, PRESENT)==null;
     }
 

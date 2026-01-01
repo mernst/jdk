@@ -116,7 +116,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
 
     // ========== Collection ==========
 
-    public boolean add(E e) {
+    public boolean add(@GuardSatisfied @Modifiable ReverseOrderSortedSetView<E> this, E e) {
         base.add(e);
         return true;
     }
@@ -304,7 +304,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
             };
         }
 
-        public boolean add(E e) {
+        public boolean add(@GuardSatisfied @Modifiable Subset this, E e) {
             if (aboveHead(e) && belowTail(e))
                 return base.add(e);
             else

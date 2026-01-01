@@ -184,7 +184,7 @@ final class RegularEnumSet<E extends Enum<E>> extends EnumSet<E> {
      * @throws NullPointerException if {@code e} is null
      */
     @EnsuresNonEmpty("this")
-    public boolean add(E e) {
+    public boolean add(@GuardSatisfied @Modifiable RegularEnumSet<E> this, E e) {
         typeCheck(e);
 
         long oldElements = elements;

@@ -282,7 +282,7 @@ public interface Set<E> extends Collection<E> {
      *         prevents it from being added to this set
      */
     @EnsuresNonEmpty("this")
-    boolean add(@GuardSatisfied Set<E> this, E e);
+    boolean add(@GuardSatisfied @Modifiable Set<E> this, E e);
 
 
     /**

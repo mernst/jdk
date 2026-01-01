@@ -330,7 +330,7 @@ public class PriorityQueue<E extends @NonNull Object> extends AbstractQueue<E>
      * @throws NullPointerException if the specified element is null
      */
     @EnsuresNonEmpty("this")
-    public boolean add(@GuardSatisfied PriorityQueue<E> this, E e) {
+    public boolean add(@GuardSatisfied @Modifiable PriorityQueue<E> this, E e) {
         return offer(e);
     }
 

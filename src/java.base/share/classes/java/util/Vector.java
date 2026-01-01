@@ -798,7 +798,7 @@ public class Vector<E>
      *         ({@code index < 0 || index >= size()})
      * @since 1.2
      */
-    public synchronized E set(@GuardSatisfied Vector<E> this, @NonNegative int index, E element) {
+    public synchronized E set(@GuardSatisfied @Modifiable Vector<E> this, @NonNegative int index, E element) {
         if (index >= elementCount)
             throw new ArrayIndexOutOfBoundsException(index);
 
@@ -828,7 +828,7 @@ public class Vector<E>
      */
     @SideEffectsOnly("this")
     @EnsuresNonEmpty("this")
-    public synchronized boolean add(@GuardSatisfied Vector<E> this, E e) {
+    public synchronized boolean add(@GuardSatisfied @Modifiable Vector<E> this, E e) {
         modCount++;
         add(e, elementData, elementCount);
         return true;

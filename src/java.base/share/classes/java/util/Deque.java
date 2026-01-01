@@ -435,7 +435,7 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      *         element prevents it from being added to this deque
      */
     @EnsuresNonEmpty("this")
-    boolean add(@GuardSatisfied Deque<E> this, E e);
+    boolean add(@GuardSatisfied @Modifiable Deque<E> this, E e);
 
     /**
      * Inserts the specified element into the queue represented by this deque

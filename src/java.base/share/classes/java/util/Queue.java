@@ -166,7 +166,7 @@ public interface Queue<E> extends Collection<E> {
      *         prevents it from being added to this queue
      */
     @EnsuresNonEmpty("this")
-    boolean add(@GuardSatisfied Queue<E> this, E e);
+    boolean add(@GuardSatisfied @Modifiable Queue<E> this, E e);
 
     /**
      * Inserts the specified element into this queue if it is possible to do

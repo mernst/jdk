@@ -460,7 +460,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      *         element prevents it from being added to this deque
      */
     @EnsuresNonEmpty("this")
-    boolean add(E e);
+    boolean add(@GuardSatisfied @Modifiable BlockingDeque<E> this, E e);
 
     /**
      * Inserts the specified element into the queue represented by this deque

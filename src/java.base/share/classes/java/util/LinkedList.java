@@ -372,7 +372,7 @@ public class LinkedList<E>
      */
     @ReleasesNoLocks
     @EnsuresNonEmpty("this")
-    public boolean add(@GuardSatisfied LinkedList<E> this, E e) {
+    public boolean add(@GuardSatisfied @Modifiable LinkedList<E> this, E e) {
         linkLast(e);
         return true;
     }
@@ -526,7 +526,7 @@ public class LinkedList<E>
      * @return the element previously at the specified position
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public E set(@GuardSatisfied LinkedList<E> this, @NonNegative int index, E element) {
+    public E set(@GuardSatisfied @Modifiable LinkedList<E> this, @NonNegative int index, E element) {
         checkElementIndex(index);
         Node<E> x = node(index);
         E oldVal = x.item;
@@ -1512,7 +1512,7 @@ public class LinkedList<E>
             rlist.add(index, element);
         }
 
-        public E set(int index, E element) {
+        public E set(@GuardSatisfied @Modifiable ReverseOrderLinkedListView<E> this, int index, E element) {
             return rlist.set(index, element);
         }
 
@@ -1536,7 +1536,7 @@ public class LinkedList<E>
             return rlist.remove(o);
         }
 
-        public boolean add(E e) {
+        public boolean add(@GuardSatisfied @Modifiable ReverseOrderLinkedListView<E> this, E e) {
             return rlist.add(e);
         }
 

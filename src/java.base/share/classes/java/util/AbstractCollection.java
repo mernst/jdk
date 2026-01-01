@@ -275,7 +275,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @throws IllegalArgumentException      {@inheritDoc}
      * @throws IllegalStateException         {@inheritDoc}
      */
-    public boolean add(@GuardSatisfied AbstractCollection<E> this, E e) {
+    public boolean add(@GuardSatisfied @Modifiable AbstractCollection<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 

@@ -304,7 +304,7 @@ public interface List<E> extends SequencedCollection<E> {
     @ReleasesNoLocks
     @SideEffectsOnly("this")
     @EnsuresNonEmpty("this")
-    boolean add(@GuardSatisfied List<E> this, E e);
+    boolean add(@GuardSatisfied @Modifiable List<E> this, E e);
 
     /**
      * Removes the first occurrence of the specified element from this list,
@@ -640,7 +640,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws IndexOutOfBoundsException if the index is out of range
      *         ({@code index < 0 || index >= size()})
      */
-    E set(@GuardSatisfied List<E> this, @IndexFor({"this"}) int index, E element);
+    E set(@GuardSatisfied @Modifiable List<E> this, @IndexFor({"this"}) int index, E element);
 
     /**
      * Inserts the specified element at the specified position in this list
@@ -734,7 +734,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @return a list iterator over the elements in this list (in proper
      *         sequence)
      */
-    @PolyModifiable @PolyGrowShrink @PolyNonEmpty ListIterator<E> listIterator(@PolyModifiable @PolyGrowShrink @PolyNonEmpty List<E> this);
+    @PolyGrowShrink @PolyModifiable @PolyNonEmpty ListIterator<E> listIterator(@PolyGrowShrink @PolyModifiable @PolyNonEmpty List<E> this);
 
     /**
      * Returns a list iterator over the elements in this list (in proper
@@ -751,7 +751,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws IndexOutOfBoundsException if the index is out of range
      *         ({@code index < 0 || index > size()})
      */
-    @PolyModifiable @PolyGrowShrink @PolyNonEmpty ListIterator<E> listIterator(@PolyModifiable @PolyGrowShrink @PolyNonEmpty List<E> this, @IndexOrHigh({"this"}) int index);
+    @PolyGrowShrink @PolyModifiable @PolyNonEmpty ListIterator<E> listIterator(@PolyGrowShrink @PolyModifiable @PolyNonEmpty List<E> this, @IndexOrHigh({"this"}) int index);
 
     // View
 

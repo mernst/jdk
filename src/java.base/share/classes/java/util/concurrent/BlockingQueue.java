@@ -208,7 +208,7 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      *         element prevents it from being added to this queue
      */
     @EnsuresNonEmpty("this")
-    boolean add(E e);
+    boolean add(@GuardSatisfied @Modifiable BlockingQueue<E> this, E e);
 
     /**
      * Inserts the specified element into this queue if it is possible to do

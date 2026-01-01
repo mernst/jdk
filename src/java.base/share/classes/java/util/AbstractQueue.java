@@ -99,7 +99,7 @@ public abstract class AbstractQueue<E>
      *         prevents it from being added to this queue
      */
     @EnsuresNonEmpty("this")
-    public boolean add(@GuardSatisfied AbstractQueue<E> this, E e) {
+    public boolean add(@GuardSatisfied @Modifiable AbstractQueue<E> this, E e) {
         if (offer(e))
             return true;
         else

@@ -1140,7 +1140,7 @@ public class Collections {
         }
 
         @EnsuresNonEmpty("this")
-        public boolean add(E e) {
+        public boolean add(@GuardSatisfied @Modifiable UnmodifiableCollection<E> this, E e) {
             throw new UnsupportedOperationException();
         }
         public boolean remove(@UnknownSignedness Object o) {
@@ -1556,7 +1556,7 @@ public class Collections {
         public int hashCode()           {return list.hashCode();}
 
         public E get(int index) {return list.get(index);}
-        public E set(int index, E element) {
+        public E set(@GuardSatisfied @Modifiable UnmodifiableList<E> this, int index, E element) {
             throw new UnsupportedOperationException();
         }
         public void add(int index, E element) {
@@ -2416,7 +2416,7 @@ public class Collections {
         }
 
         @EnsuresNonEmpty("this")
-        public boolean add(E e) {
+        public boolean add(@GuardSatisfied @Modifiable SynchronizedCollection<E> this, E e) {
             synchronized (mutex) {return c.add(e);}
         }
         public boolean remove(@UnknownSignedness Object o) {
@@ -2815,7 +2815,7 @@ public class Collections {
         public E get(int index) {
             synchronized (mutex) {return list.get(index);}
         }
-        public E set(int index, E element) {
+        public E set(@GuardSatisfied @Modifiable SynchronizedList<E> this, int index, E element) {
             synchronized (mutex) {return list.set(index, element);}
         }
         public void add(int index, E element) {
@@ -3533,7 +3533,7 @@ public class Collections {
         }
 
         @EnsuresNonEmpty("this")
-        public boolean add(E e)          { return c.add(typeCheck(e)); }
+        public boolean add(@GuardSatisfied @Modifiable CheckedCollection<E> this, E e)          { return c.add(typeCheck(e)); }
 
         @SuppressWarnings("serial") // Conditionally serializable
         private E[] zeroLengthElementArray; // Lazily initialized
@@ -3902,7 +3902,7 @@ public class Collections {
         public int indexOf(Object o)     { return list.indexOf(o); }
         public int lastIndexOf(Object o) { return list.lastIndexOf(o); }
 
-        public E set(int index, E element) {
+        public E set(@GuardSatisfied @Modifiable CheckedList<E> this, int index, E element) {
             return list.set(index, typeCheck(element));
         }
 
@@ -4232,7 +4232,7 @@ public class Collections {
             public void clear(@GuardSatisfied @Modifiable @Shrinkable CheckedEntrySet<K,V> this)      {        s.clear(); }
 
             @EnsuresNonEmpty("this")
-            public boolean add(Map.Entry<K, V> e) {
+            public boolean add(@GuardSatisfied @Modifiable CheckedEntrySet<K,V> this, Map.Entry<K, V> e) {
                 throw new UnsupportedOperationException();
             }
             public boolean addAll(Collection<? extends Map.Entry<K, V>> coll) {
@@ -6178,7 +6178,7 @@ public class Collections {
         public boolean contains(@UnknownSignedness Object o) { return m.containsKey(o); }
         public boolean remove(@UnknownSignedness Object o)   { return m.remove(o) != null; }
         @EnsuresNonEmpty("this")
-        public boolean add(E e) { return m.put(e, Boolean.TRUE) == null; }
+        public boolean add(@GuardSatisfied @Modifiable SetFromMap<E> this, E e) { return m.put(e, Boolean.TRUE) == null; }
         @SideEffectFree
         public Iterator<E> iterator()     { return s.iterator(); }
         @SideEffectFree
@@ -6347,7 +6347,7 @@ public class Collections {
         private final Deque<E> q;
         AsLIFOQueue(Deque<E> q)                     { this.q = q; }
         @EnsuresNonEmpty("this")
-        public boolean add(E e)                     { q.addFirst(e); return true; }
+        public boolean add(@GuardSatisfied @Modifiable AsLIFOQueue<E> this, E e)                     { q.addFirst(e); return true; }
         public boolean offer(E e)                   { return q.offerFirst(e); }
         public E poll()                             { return q.pollFirst(); }
         public E remove()                           { return q.removeFirst(); }

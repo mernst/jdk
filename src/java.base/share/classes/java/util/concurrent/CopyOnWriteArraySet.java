@@ -278,7 +278,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      *         element
      */
     @EnsuresNonEmpty("this")
-    public boolean add(E e) {
+    public boolean add(@GuardSatisfied @Modifiable CopyOnWriteArraySet<E> this, E e) {
         return al.addIfAbsent(e);
     }
 

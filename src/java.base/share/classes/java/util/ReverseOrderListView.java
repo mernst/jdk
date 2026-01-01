@@ -157,7 +157,7 @@ class ReverseOrderListView<E> implements List<E> {
 
     // ========== Collection ==========
 
-    public boolean add(E e) {
+    public boolean add(@GuardSatisfied @Modifiable ReverseOrderListView<E> this, E e) {
         checkModifiable();
         base.add(0, e);
         return true;
@@ -384,7 +384,7 @@ class ReverseOrderListView<E> implements List<E> {
         base.sort(Collections.reverseOrder(c));
     }
 
-    public E set(int index, E element) {
+    public E set(@GuardSatisfied @Modifiable ReverseOrderListView<E> this, int index, E element) {
         checkModifiable();
         int size = base.size();
         Objects.checkIndex(index, size);

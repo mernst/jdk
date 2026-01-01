@@ -131,7 +131,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      *         prevents it from being added to this list
      */
     @EnsuresNonEmpty("this")
-    public boolean add(@GuardSatisfied AbstractList<E> this, E e) {
+    public boolean add(@GuardSatisfied @Modifiable AbstractList<E> this, E e) {
         add(size(), e);
         return true;
     }
@@ -157,7 +157,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws IllegalArgumentException      {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
-    public E set(@GuardSatisfied AbstractList<E> this, @IndexFor({"this"}) int index, E element) {
+    public E set(@GuardSatisfied @Modifiable AbstractList<E> this, @IndexFor({"this"}) int index, E element) {
         throw new UnsupportedOperationException();
     }
 
@@ -808,7 +808,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
             this.modCount = root.modCount;
         }
 
-        public E set(int index, E element) {
+        public E set(@GuardSatisfied @Modifiable SubList<E> this, int index, E element) {
             Objects.checkIndex(index, size);
             checkForComodification();
             return root.set(offset + index, element);

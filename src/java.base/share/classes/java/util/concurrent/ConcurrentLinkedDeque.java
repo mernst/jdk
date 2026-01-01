@@ -1009,7 +1009,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      * @throws NullPointerException if the specified element is null
      */
     @EnsuresNonEmpty("this")
-    public boolean add(E e) {
+    public boolean add(@GuardSatisfied @Modifiable ConcurrentLinkedDeque<E> this, E e) {
         return offerLast(e);
     }
 

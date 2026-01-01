@@ -513,7 +513,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @throws NullPointerException if the specified element is null
      */
     @EnsuresNonEmpty("this")
-    public boolean add(@GuardSatisfied ArrayDeque<E> this, E e) {
+    public boolean add(@GuardSatisfied @Modifiable ArrayDeque<E> this, E e) {
         addLast(e);
         return true;
     }

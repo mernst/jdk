@@ -504,7 +504,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
     @SideEffectsOnly("this")
-    public E set(@GuardSatisfied ArrayList<E> this, @NonNegative int index, E element) {
+    public E set(@GuardSatisfied @Modifiable ArrayList<E> this, @NonNegative int index, E element) {
         Objects.checkIndex(index, size);
         E oldValue = elementData(index);
         elementData[index] = element;
@@ -532,7 +532,7 @@ public class ArrayList<E> extends AbstractList<E>
      */
     @SideEffectsOnly("this")
     @EnsuresNonEmpty("this")
-    public boolean add(@GuardSatisfied ArrayList<E> this, E e) {
+    public boolean add(@GuardSatisfied @Modifiable ArrayList<E> this, E e) {
         modCount++;
         add(e, elementData, size);
         return true;
@@ -1270,7 +1270,7 @@ public class ArrayList<E> extends AbstractList<E>
             this.modCount = parent.modCount;
         }
 
-        public E set(@NonNegative int index, E element) {
+        public E set(@GuardSatisfied @Modifiable SubList<E> this, @NonNegative int index, E element) {
             Objects.checkIndex(index, size);
             checkForComodification();
             E oldValue = root.elementData(offset + index);

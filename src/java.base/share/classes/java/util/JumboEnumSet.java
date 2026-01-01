@@ -227,7 +227,7 @@ final class JumboEnumSet<E extends Enum<E>> extends EnumSet<E> {
      * @throws NullPointerException if {@code e} is null
      */
     @EnsuresNonEmpty("this")
-    public boolean add(E e) {
+    public boolean add(@GuardSatisfied @Modifiable JumboEnumSet<E> this, E e) {
         typeCheck(e);
 
         int eOrdinal = e.ordinal();

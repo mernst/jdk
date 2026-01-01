@@ -459,7 +459,7 @@ public class CopyOnWriteArrayList<E>
      *
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public E set(int index, E element) {
+    public E set(@GuardSatisfied @Modifiable CopyOnWriteArrayList<E> this, int index, E element) {
         synchronized (lock) {
             Object[] es = getArray();
             E oldValue = elementAt(es, index);
@@ -481,7 +481,7 @@ public class CopyOnWriteArrayList<E>
      * @return {@code true} (as specified by {@link Collection#add})
      */
     @EnsuresNonEmpty("this")
-    public boolean add(E e) {
+    public boolean add(@GuardSatisfied @Modifiable CopyOnWriteArrayList<E> this, E e) {
         synchronized (lock) {
             Object[] es = getArray();
             int len = es.length;
@@ -1462,7 +1462,7 @@ public class CopyOnWriteArrayList<E>
             return !it.hasNext();
         }
 
-        public E set(int index, E element) {
+        public E set(@GuardSatisfied @Modifiable COWSubList<E> this, int index, E element) {
             synchronized (lock) {
                 rangeCheck(index);
                 checkForComodification();
@@ -1507,7 +1507,7 @@ public class CopyOnWriteArrayList<E>
         }
 
         @EnsuresNonEmpty("this")
-        public boolean add(E element) {
+        public boolean add(@GuardSatisfied @Modifiable COWSubList this, E element) {
             synchronized (lock) {
                 checkForComodification();
                 CopyOnWriteArrayList.this.add(offset + size, element);
@@ -1871,7 +1871,7 @@ public class CopyOnWriteArrayList<E>
 
         // ========== Collection ==========
 
-        public boolean add(E e) {
+        public boolean add(@GuardSatisfied @Modifiable Reversed<E> this, E e) {
             base.add(0, e);
             return true;
         }
@@ -2105,7 +2105,7 @@ public class CopyOnWriteArrayList<E>
             base.sort(Collections.reverseOrder(c));
         }
 
-        public E set(int index, E element) {
+        public E set(@GuardSatisfied @Modifiable Reversed<E> this, int index, E element) {
             synchronized (lock) {
                 return base.set(base.size() - index - 1, element);
             }
