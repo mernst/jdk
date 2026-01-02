@@ -2163,7 +2163,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
             next = n;
         }
 
-        public final void remove() {
+        public final void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             Node<K,V> n; K k;
             if ((n = lastReturned) == null || (k = n.key) == null)
                 throw new IllegalStateException();
@@ -3038,7 +3038,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
                 }
             }
 
-            public void remove() {
+            public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
                 Node<K,V> l = lastReturned;
                 if (l == null)
                     throw new IllegalStateException();

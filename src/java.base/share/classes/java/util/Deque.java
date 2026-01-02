@@ -237,7 +237,7 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      *         element prevents it from being added to this deque
      */
     @EnsuresNonEmpty("this")
-    void addFirst(@GuardSatisfied Deque<E> this, E e);
+    void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, @GuardSatisfied Deque<E> this, E e);
 
     /**
      * Inserts the specified element at the end of this deque if it is
@@ -389,7 +389,7 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      *         deque does not permit null elements
      *         ({@linkplain Collection##optional-restrictions optional})
      */
-    boolean removeFirstOccurrence(@GuardSatisfied @Modifiable @Shrinkable Deque<E> this, Object o);
+    boolean removeFirstOccurrence(@GuardSatisfied @AnyModifiable @Shrinkable Deque<E> this, Object o);
 
     /**
      * Removes the last occurrence of the specified element from this deque.
@@ -408,7 +408,7 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      *         deque does not permit null elements
      *         ({@linkplain Collection##optional-restrictions optional})
      */
-    boolean removeLastOccurrence(@GuardSatisfied @Modifiable @Shrinkable Deque<E> this, Object o);
+    boolean removeLastOccurrence(@GuardSatisfied @AnyModifiable @Shrinkable Deque<E> this, Object o);
 
     // *** Queue methods ***
 
@@ -471,7 +471,7 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      * @return the head of the queue represented by this deque
      * @throws NoSuchElementException if this deque is empty
      */
-    E remove(@GuardSatisfied @NonEmpty @Shrinkable Deque<E> this);
+    E remove(@GuardSatisfied @NonEmpty @Modifiable @Shrinkable Deque<E> this);
 
     /**
      * Retrieves and removes the head of the queue represented by this deque
@@ -534,7 +534,7 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      * @throws IllegalArgumentException if some property of an element of the
      *         specified collection prevents it from being added to this deque
      */
-    boolean addAll(Collection<? extends E> c);
+    boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends E> c);
 
     // *** Stack methods ***
 
@@ -592,7 +592,7 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      *         deque does not permit null elements
      *         ({@linkplain Collection##optional-restrictions optional})
      */
-    boolean remove(@GuardSatisfied @Modifiable @Shrinkable Deque<E> this, @UnknownSignedness Object o);
+    boolean remove(@GuardSatisfied @AnyModifiable @Shrinkable Deque<E> this, @UnknownSignedness Object o);
 
     /**
      * Returns {@code true} if this deque contains the specified element.
@@ -610,7 +610,7 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      */
     @Pure
     @EnsuresNonEmptyIf(result = true, expression = "this")
-    boolean contains(@GuardSatisfied Deque<E> this, @UnknownSignedness Object o);
+    boolean contains(@GuardSatisfied @AnyModifiable Deque<E> this, @UnknownSignedness Object o);
 
     /**
      * Returns the number of elements in this deque.

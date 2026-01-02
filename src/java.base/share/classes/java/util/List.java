@@ -352,7 +352,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @see #contains(Object)
      */
     @Pure
-    boolean containsAll(@AnyModifiable @GuardSatisfied List<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean containsAll(@GuardSatisfied @AnyModifiable List<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Appends all of the elements in the specified collection to the end of
@@ -377,7 +377,7 @@ public interface List<E> extends SequencedCollection<E> {
      */
     @SideEffectsOnly("this")
     @EnsuresNonEmptyIf(result = true, expression = "this")
-    boolean addAll(@GuardSatisfied List<E> this, Collection<? extends E> c);
+    boolean addAll(@GuardSatisfied @Modifiable List<E> this, Collection<? extends E> c);
 
     /**
      * Inserts all of the elements in the specified collection into this
@@ -408,7 +408,7 @@ public interface List<E> extends SequencedCollection<E> {
      */
     @SideEffectsOnly("this")
     @EnsuresNonEmptyIf(result = true, expression = "this")
-    boolean addAll(@GuardSatisfied List<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c);
+    boolean addAll(@GuardSatisfied @Modifiable List<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c);
 
     /**
      * Removes from this list all of its elements that are contained in the
@@ -481,7 +481,7 @@ public interface List<E> extends SequencedCollection<E> {
      *         (<a href="Collection.html#optional-restrictions">optional</a>)
      * @since 1.8
      */
-    default void replaceAll(UnaryOperator<E> operator) {
+    default void replaceAll(@GuardSatisfied @Modifiable List<E> this, UnaryOperator<E> operator) {
         Objects.requireNonNull(operator);
         final ListIterator<E> li = this.listIterator();
         while (li.hasNext()) {
@@ -663,7 +663,7 @@ public interface List<E> extends SequencedCollection<E> {
      */
     @ReleasesNoLocks
     @SideEffectsOnly("this")
-    void add(@GuardSatisfied List<E> this, @IndexOrHigh({"this"}) int index, E element);
+    void add(@GuardSatisfied @Modifiable List<E> this, @IndexOrHigh({"this"}) int index, E element);
 
     /**
      * Removes the element at the specified position in this list (optional
@@ -847,7 +847,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
-    default void addFirst(E e) {
+    default void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
         this.add(0, e);
     }
 

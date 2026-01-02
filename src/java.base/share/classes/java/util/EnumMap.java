@@ -579,7 +579,7 @@ public class EnumMap<K extends Enum<K>, V> extends AbstractMap<K, V>
             return index != vals.length;
         }
 
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             checkLastReturnedIndex();
 
             if (vals[lastReturnedIndex] != null) {
@@ -626,7 +626,7 @@ public class EnumMap<K extends Enum<K>, V> extends AbstractMap<K, V>
             return lastReturnedEntry;
         }
 
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             lastReturnedIndex =
                 ((null == lastReturnedEntry) ? -1 : lastReturnedEntry.index);
             super.remove();

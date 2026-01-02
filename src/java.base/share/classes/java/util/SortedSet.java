@@ -291,7 +291,7 @@ public interface SortedSet<E> extends Set<E>, SequencedSet<E> {
      * @throws UnsupportedOperationException always
      * @since 21
      */
-    default void addFirst(E e) {
+    default void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 

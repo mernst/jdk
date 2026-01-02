@@ -1591,7 +1591,7 @@ public class TreeMap<K,V>
             return e;
         }
 
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             if (lastReturned == null)
                 throw new IllegalStateException();
             if (modCount != expectedModCount)
@@ -1639,7 +1639,7 @@ public class TreeMap<K,V>
         public K next(@NonEmpty DescendingKeyIterator this) {
             return prevEntry().key;
         }
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             if (lastReturned == null)
                 throw new IllegalStateException();
             if (modCount != expectedModCount)
@@ -2174,7 +2174,7 @@ public class TreeMap<K,V>
             public Map.Entry<K,V> next(@NonEmpty SubMapEntryIterator this) {
                 return nextEntry();
             }
-            public void remove() {
+            public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
                 removeAscending();
             }
         }
@@ -2188,7 +2188,7 @@ public class TreeMap<K,V>
             public Map.Entry<K,V> next(@NonEmpty DescendingSubMapEntryIterator this) {
                 return prevEntry();
             }
-            public void remove() {
+            public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
                 removeDescending();
             }
         }
@@ -2203,7 +2203,7 @@ public class TreeMap<K,V>
             public K next(@NonEmpty SubMapKeyIterator this) {
                 return nextEntry().key;
             }
-            public void remove() {
+            public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
                 removeAscending();
             }
             public Spliterator<K> trySplit() {
@@ -2241,7 +2241,7 @@ public class TreeMap<K,V>
             public K next(@NonEmpty DescendingSubMapKeyIterator this) {
                 return prevEntry().key;
             }
-            public void remove() {
+            public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
                 removeDescending();
             }
             public Spliterator<K> trySplit() {

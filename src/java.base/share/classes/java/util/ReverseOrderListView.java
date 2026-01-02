@@ -82,7 +82,7 @@ class ReverseOrderListView<E> implements List<E> {
         final ListIterator<E> it = base.listIterator(base.size());
         public boolean hasNext() { return it.hasPrevious(); }
         public E next() { return it.previous(); }
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             checkModifiable();
             it.remove();
             // TODO - make sure ListIterator is positioned correctly afterward
@@ -122,17 +122,17 @@ class ReverseOrderListView<E> implements List<E> {
             return nextIndex() - 1;
         }
 
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             checkModifiable();
             it.remove();
         }
 
-        public void set(E e) {
+        public void set(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
             checkModifiable();
             it.set(e);
         }
 
-        public void add(E e) {
+        public void add(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
             checkModifiable();
             it.add(e);
             it.previous();
@@ -163,7 +163,7 @@ class ReverseOrderListView<E> implements List<E> {
         return true;
     }
 
-    public boolean addAll(Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends E> c) {
         checkModifiable();
 
         @SuppressWarnings("unchecked")
@@ -246,7 +246,7 @@ class ReverseOrderListView<E> implements List<E> {
     }
 
     // copied from AbstractCollection
-    public boolean removeAll(Collection<?> c) {
+    public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<?> c) {
         checkModifiable();
         Objects.requireNonNull(c);
         boolean modified = false;
@@ -315,14 +315,14 @@ class ReverseOrderListView<E> implements List<E> {
 
     // ========== List ==========
 
-    public void add(int index, E element) {
+    public void add(@GuardSatisfied @Modifiable ThisClass<E> this, @IndexOrHigh({"this"}) int index, E element) {
         checkModifiable();
         int size = base.size();
         checkClosedRange(index, size);
         base.add(size - index, element);
     }
 
-    public boolean addAll(int index, Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, int index, Collection<? extends E> c) {
         checkModifiable();
         int size = base.size();
         checkClosedRange(index, size);
@@ -362,7 +362,7 @@ class ReverseOrderListView<E> implements List<E> {
         return new DescendingListIterator(size, index);
     }
 
-    public E remove(int index) {
+    public @GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, @IndexFor({"this"})  {
         checkModifiable();
         int size = base.size();
         Objects.checkIndex(index, size);
@@ -374,7 +374,7 @@ class ReverseOrderListView<E> implements List<E> {
         return base.removeIf(filter);
     }
 
-    public void replaceAll(UnaryOperator<E> operator) {
+    public void replaceAll(@GuardSatisfied @Modifiable ThisClass<E> this, UnaryOperator<E> operator) {
         checkModifiable();
         base.replaceAll(operator);
     }

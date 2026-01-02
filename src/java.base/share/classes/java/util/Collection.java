@@ -565,7 +565,7 @@ public interface Collection<E> extends Iterable<E> {
      *         this time due to insertion restrictions
      * @see #add(Object)
      */
-    boolean addAll(@GuardSatisfied Collection<E> this, Collection<? extends E> c);
+    boolean addAll(@GuardSatisfied @Modifiable Collection<E> this, Collection<? extends E> c);
 
     /**
      * Removes all of this collection's elements that are also contained in the

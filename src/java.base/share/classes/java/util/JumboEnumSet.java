@@ -164,7 +164,7 @@ final class JumboEnumSet<E extends Enum<E>> extends EnumSet<E> {
         }
 
         @Override
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             if (lastReturned == 0)
                 throw new IllegalStateException();
             final long oldElements = elements[lastReturnedIndex];
@@ -297,7 +297,7 @@ final class JumboEnumSet<E extends Enum<E>> extends EnumSet<E> {
      * @throws NullPointerException if the specified collection or any of
      *     its elements are null
      */
-    public boolean addAll(Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends E> c) {
         if (!(c instanceof JumboEnumSet<?> es))
             return super.addAll(c);
 
@@ -322,7 +322,7 @@ final class JumboEnumSet<E extends Enum<E>> extends EnumSet<E> {
      * @return {@code true} if this set changed as a result of the call
      * @throws NullPointerException if the specified collection is null
      */
-    public boolean removeAll(Collection<? extends @UnknownSignedness Object> c) {
+    public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @UnknownSignedness Object> c) {
         if (!(c instanceof JumboEnumSet<?> es))
             return super.removeAll(c);
 

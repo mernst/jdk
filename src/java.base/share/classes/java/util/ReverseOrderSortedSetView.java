@@ -121,7 +121,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
         return true;
     }
 
-    public boolean addAll(Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends E> c) {
         return base.addAll(c);
     }
 
@@ -149,7 +149,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
         return base.remove(o);
     }
 
-    public boolean removeAll(Collection<?> c) {
+    public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<?> c) {
         return base.removeAll(c);
     }
 
@@ -221,7 +221,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
                 return t;
             }
 
-            public void remove() {
+            public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
                 if (prev == null) {
                     throw new IllegalStateException();
                 } else {

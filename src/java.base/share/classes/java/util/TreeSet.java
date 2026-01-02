@@ -324,7 +324,7 @@ public class TreeSet<E> extends AbstractSet<E>
      *         if any element is null and this set uses natural ordering, or
      *         its comparator does not permit null elements
      */
-    public  boolean addAll(@GuardSatisfied TreeSet<E> this, Collection<? extends E> c) {
+    public  boolean addAll(@GuardSatisfied @Modifiable TreeSet<E> this, Collection<? extends E> c) {
         // Use linear-time version if applicable
         if (m.size()==0 && c.size() > 0 &&
             c instanceof SortedSet &&
@@ -506,7 +506,7 @@ public class TreeSet<E> extends AbstractSet<E>
      * @throws UnsupportedOperationException always
      * @since 21
      */
-    public void addFirst(E e) {
+    public void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 

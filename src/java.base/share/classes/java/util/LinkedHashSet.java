@@ -243,7 +243,7 @@ public class LinkedHashSet<E>
      *
      * @since 21
      */
-    public void addFirst(E e) {
+    public void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
         map().putFirst(e, PRESENT);
     }
 
@@ -313,7 +313,7 @@ public class LinkedHashSet<E>
             public int size()                  { return LinkedHashSet.this.size(); }
             public Iterator<E> iterator()      { return map().sequencedKeySet().reversed().iterator(); }
             public boolean add(@GuardSatisfied @Modifiable SequencedSet<E> this, E e)            { return LinkedHashSet.this.add(e); }
-            public void addFirst(E e)          { LinkedHashSet.this.addLast(e); }
+            public void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, E e)          { LinkedHashSet.this.addLast(e); }
             public void addLast(E e)           { LinkedHashSet.this.addFirst(e); }
             public E getFirst()                { return LinkedHashSet.this.getLast(); }
             public E getLast()                 { return LinkedHashSet.this.getFirst(); }

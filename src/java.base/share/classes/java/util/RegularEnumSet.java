@@ -126,7 +126,7 @@ final class RegularEnumSet<E extends Enum<E>> extends EnumSet<E> {
             return (E) universe[Long.numberOfTrailingZeros(lastReturned)];
         }
 
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             if (lastReturned == 0)
                 throw new IllegalStateException();
             elements &= ~lastReturned;
@@ -240,7 +240,7 @@ final class RegularEnumSet<E extends Enum<E>> extends EnumSet<E> {
      * @throws NullPointerException if the specified collection or any
      *     of its elements are null
      */
-    public boolean addAll(Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends E> c) {
         if (!(c instanceof RegularEnumSet<?> es))
             return super.addAll(c);
 
@@ -265,7 +265,7 @@ final class RegularEnumSet<E extends Enum<E>> extends EnumSet<E> {
      * @return {@code true} if this set changed as a result of the call
      * @throws NullPointerException if the specified collection is null
      */
-    public boolean removeAll(Collection<? extends @UnknownSignedness Object> c) {
+    public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @UnknownSignedness Object> c) {
         if (!(c instanceof RegularEnumSet<?> es))
             return super.removeAll(c);
 

@@ -867,7 +867,7 @@ public class LinkedBlockingQueue<E extends Object> extends AbstractQueue<E>
             } while (n > 0 && p != null);
         }
 
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             Node<E> p = lastRet;
             if (p == null)
                 throw new IllegalStateException();
@@ -1048,7 +1048,7 @@ public class LinkedBlockingQueue<E extends Object> extends AbstractQueue<E>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public boolean removeAll(@Shrinkable LinkedBlockingQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
+    public boolean removeAll(@GuardSatisfied @Modifiable @ShrinkableLinkedBlockingQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         return bulkRemove(e -> c.contains(e));
     }

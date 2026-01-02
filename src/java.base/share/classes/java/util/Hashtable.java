@@ -1555,7 +1555,7 @@ public class Hashtable<K extends @NonNull Object,V extends @NonNull Object>
             return nextElement();
         }
 
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             if (!iterator)
                 throw new UnsupportedOperationException();
             if (lastReturned == null)

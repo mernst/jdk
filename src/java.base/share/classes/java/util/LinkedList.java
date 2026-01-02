@@ -322,7 +322,7 @@ public class LinkedList<E>
      *
      * @param e the element to add
      */
-    public void addFirst(@GuardSatisfied LinkedList<E> this, E e) {
+    public void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, @GuardSatisfied LinkedList<E> this, E e) {
         linkFirst(e);
     }
 
@@ -422,7 +422,7 @@ public class LinkedList<E>
      * @return {@code true} if this list changed as a result of the call
      * @throws NullPointerException if the specified collection is null
      */
-    public boolean addAll(@GuardSatisfied LinkedList<E> this, Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @Modifiable LinkedList<E> this, Collection<? extends E> c) {
         return addAll(size, c);
     }
 
@@ -441,7 +441,7 @@ public class LinkedList<E>
      * @throws IndexOutOfBoundsException {@inheritDoc}
      * @throws NullPointerException if the specified collection is null
      */
-    public boolean addAll(@GuardSatisfied LinkedList<E> this, @NonNegative int index, Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @Modifiable LinkedList<E> this, @NonNegative int index, Collection<? extends E> c) {
         checkPositionIndex(index);
 
         Object[] a = c.toArray();
@@ -543,7 +543,7 @@ public class LinkedList<E>
      * @param element element to be inserted
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public void add(@GuardSatisfied LinkedList<E> this, @NonNegative int index, E element) {
+    public void add(@GuardSatisfied @Modifiable LinkedList<E> this, @NonNegative int index, E element) {
         checkPositionIndex(index);
 
         if (index == size)
@@ -724,7 +724,7 @@ public class LinkedList<E>
      * @throws NoSuchElementException if this list is empty
      * @since 1.5
      */
-    public E remove(@GuardSatisfied @NonEmpty @Shrinkable LinkedList<E> this) {
+    public E remove(@GuardSatisfied @NonEmpty @Modifiable @Shrinkable LinkedList<E> this) {
         return removeFirst();
     }
 
@@ -965,7 +965,7 @@ public class LinkedList<E>
             return nextIndex - 1;
         }
 
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             checkForComodification();
             if (lastReturned == null)
                 throw new IllegalStateException();
@@ -980,14 +980,14 @@ public class LinkedList<E>
             expectedModCount++;
         }
 
-        public void set(E e) {
+        public void set(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
             if (lastReturned == null)
                 throw new IllegalStateException();
             checkForComodification();
             lastReturned.item = e;
         }
 
-        public void add(E e) {
+        public void add(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
             checkForComodification();
             lastReturned = null;
             if (next == null)
@@ -1048,7 +1048,7 @@ public class LinkedList<E>
         public E next(@NonEmpty DescendingIterator this) {
             return itr.previous();
         }
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             itr.remove();
         }
     }
@@ -1352,7 +1352,7 @@ public class LinkedList<E>
             return rlist.retainAll(c);
         }
 
-        public boolean removeAll(Collection<?> c) {
+        public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<?> c) {
             return rlist.removeAll(c);
         }
 
@@ -1408,7 +1408,7 @@ public class LinkedList<E>
             rlist.sort(c);
         }
 
-        public void replaceAll(UnaryOperator<E> operator) {
+        public void replaceAll(@GuardSatisfied @Modifiable ThisClass<E> this, UnaryOperator<E> operator) {
             rlist.replaceAll(operator);
         }
 
@@ -1480,7 +1480,7 @@ public class LinkedList<E>
             return rdeque.offer(e);
         }
 
-        public E remove() {
+        public E remove(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this) {
             return rdeque.remove();
         }
 
@@ -1504,11 +1504,11 @@ public class LinkedList<E>
             return rlist.indexOf(o);
         }
 
-        public E remove(int index) {
+        public @GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, @IndexFor({"this"})  {
             return rlist.remove(index);
         }
 
-        public void add(int index, E element) {
+        public void add(@GuardSatisfied @Modifiable ThisClass<E> this, @IndexOrHigh({"this"}) int index, E element) {
             rlist.add(index, element);
         }
 
@@ -1524,11 +1524,11 @@ public class LinkedList<E>
             rlist.clear();
         }
 
-        public boolean addAll(int index, Collection<? extends E> c) {
+        public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, int index, Collection<? extends E> c) {
             return rlist.addAll(index, c);
         }
 
-        public boolean addAll(Collection<? extends E> c) {
+        public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends E> c) {
             return rlist.addAll(c);
         }
 
@@ -1552,7 +1552,7 @@ public class LinkedList<E>
             rdeque.addLast(e);
         }
 
-        public void addFirst(E e) {
+        public void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
             rdeque.addFirst(e);
         }
 

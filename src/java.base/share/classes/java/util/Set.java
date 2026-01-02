@@ -356,7 +356,7 @@ public interface Set<E> extends Collection<E> {
      * @see #add(Object)
      */
     @EnsuresNonEmptyIf(result = true, expression = "this")
-    boolean addAll(@GuardSatisfied Set<E> this, Collection<? extends E> c);
+    boolean addAll(@GuardSatisfied @Modifiable Set<E> this, Collection<? extends E> c);
 
     /**
      * Retains only the elements in this set that are contained in the
@@ -402,7 +402,7 @@ public interface Set<E> extends Collection<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    boolean removeAll(@GuardSatisfied Set<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean removeAll(@GuardSatisfied @Modifiable Set<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Removes all of the elements from this set (optional operation).

@@ -888,7 +888,7 @@ public class PriorityBlockingQueue<E extends Object> extends AbstractQueue<E>
             return (E)array[lastRet = cursor++];
         }
 
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             if (lastRet < 0)
                 throw new IllegalStateException();
             removeEq(array[lastRet]);
@@ -1041,7 +1041,7 @@ public class PriorityBlockingQueue<E extends Object> extends AbstractQueue<E>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public boolean removeAll(@Shrinkable PriorityBlockingQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
+    public boolean removeAll(@GuardSatisfied @Modifiable @ShrinkablePriorityBlockingQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         return bulkRemove(e -> c.contains(e));
     }

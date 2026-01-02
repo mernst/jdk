@@ -155,7 +155,7 @@ public abstract class AbstractSequentialList<E> extends AbstractList<E> {
      * @throws IllegalArgumentException      {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
-    public void add(@GuardSatisfied AbstractSequentialList<E> this, int index, E element) {
+    public void add(@GuardSatisfied @Modifiable AbstractSequentialList<E> this, @IndexOrHigh({"this"}) int index, E element) {
         try {
             listIterator(index).add(element);
         } catch (NoSuchElementException exc) {
@@ -223,7 +223,7 @@ public abstract class AbstractSequentialList<E> extends AbstractList<E> {
      * @throws IllegalArgumentException      {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
-    public boolean addAll(@GuardSatisfied AbstractSequentialList<E> this, int index, Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @Modifiable AbstractSequentialList<E> this, int index, Collection<? extends E> c) {
         try {
             boolean modified = false;
             ListIterator<E> e1 = listIterator(index);

@@ -1358,7 +1358,7 @@ public class ScheduledThreadPoolExecutor
                 return array[lastRet = cursor++];
             }
 
-            public void remove() {
+            public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
                 if (lastRet < 0)
                     throw new IllegalStateException();
                 DelayedWorkQueue.this.remove(array[lastRet]);

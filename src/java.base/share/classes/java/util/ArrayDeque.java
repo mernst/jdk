@@ -301,7 +301,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @param e the element to add
      * @throws NullPointerException if the specified element is null
      */
-    public void addFirst(@GuardSatisfied ArrayDeque<E> this, E e) {
+    public void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, @GuardSatisfied ArrayDeque<E> this, E e) {
         if (e == null)
             throw new NullPointerException();
         final Object[] es = elements;
@@ -337,7 +337,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @throws NullPointerException if the specified collection or any
      *         of its elements are null
      */
-    public boolean addAll(Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends E> c) {
         final int s, needed;
         if ((needed = (s = size()) + c.size() + 1 - elements.length) > 0)
             grow(needed);
@@ -542,7 +542,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @return the head of the queue represented by this deque
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E remove(@GuardSatisfied @NonEmpty @Shrinkable ArrayDeque<E> this) {
+    public E remove(@GuardSatisfied @NonEmpty @Modifiable @Shrinkable ArrayDeque<E> this) {
         return removeFirst();
     }
 
@@ -740,7 +740,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
                 cursor = dec(cursor, elements.length);
         }
 
-        public final void remove() {
+        public final void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             if (lastRet < 0)
                 throw new IllegalStateException();
             postDelete(delete(lastRet));
@@ -936,7 +936,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public boolean removeAll(@Shrinkable ArrayDeque<E> this, Collection<? extends @UnknownSignedness Object> c) {
+    public boolean removeAll(@GuardSatisfied @Modifiable @ShrinkableArrayDeque<E> this, Collection<? extends @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         return bulkRemove(e -> c.contains(e));
     }

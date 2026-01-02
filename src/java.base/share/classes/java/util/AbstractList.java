@@ -174,7 +174,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws IllegalArgumentException      {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
-    public void add(@GuardSatisfied AbstractList<E> this, @IndexOrHigh({"this"}) int index, E element) {
+    public void add(@GuardSatisfied @Modifiable AbstractList<E> this, @IndexOrHigh({"this"}) int index, E element) {
         throw new UnsupportedOperationException();
     }
 
@@ -290,7 +290,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws IllegalArgumentException      {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
-    public boolean addAll(@GuardSatisfied AbstractList<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @Modifiable AbstractList<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c) {
         rangeCheckForAdd(index);
         boolean modified = false;
         for (E e : c) {
@@ -409,7 +409,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
             }
         }
 
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             if (lastRet < 0)
                 throw new IllegalStateException();
             checkForComodification();
@@ -461,7 +461,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
             return cursor-1;
         }
 
-        public void set(E e) {
+        public void set(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
             if (lastRet < 0)
                 throw new IllegalStateException();
             checkForComodification();
@@ -474,7 +474,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
             }
         }
 
-        public void add(E e) {
+        public void add(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
             checkForComodification();
 
             try {
@@ -826,14 +826,14 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
             return size;
         }
 
-        public void add(int index, E element) {
+        public void add(@GuardSatisfied @Modifiable ThisClass<E> this, @IndexOrHigh({"this"}) int index, E element) {
             rangeCheckForAdd(index);
             checkForComodification();
             root.add(offset + index, element);
             updateSizeAndModCount(1);
         }
 
-        public E remove(int index) {
+        public @GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, @IndexFor({"this"})  {
             Objects.checkIndex(index, size);
             checkForComodification();
             E result = root.remove(offset + index);
@@ -847,11 +847,11 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
             updateSizeAndModCount(fromIndex - toIndex);
         }
 
-        public boolean addAll(Collection<? extends E> c) {
+        public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends E> c) {
             return addAll(size, c);
         }
 
-        public boolean addAll(int index, Collection<? extends E> c) {
+        public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, int index, Collection<? extends E> c) {
             rangeCheckForAdd(index);
             int cSize = c.size();
             if (cSize==0)
@@ -911,16 +911,16 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
                     return i.previousIndex() - offset;
                 }
 
-                public void remove() {
+                public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
                     i.remove();
                     updateSizeAndModCount(-1);
                 }
 
-                public void set(E e) {
+                public void set(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
                     i.set(e);
                 }
 
-                public void add(E e) {
+                public void add(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
                     i.add(e);
                     updateSizeAndModCount(1);
                 }

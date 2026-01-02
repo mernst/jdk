@@ -359,7 +359,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      *
      * @see #add(Object)
      */
-    public boolean addAll(@GuardSatisfied AbstractCollection<E> this, Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @Modifiable AbstractCollection<E> this, Collection<? extends E> c) {
         boolean modified = false;
         for (E e : c)
             if (add(e))

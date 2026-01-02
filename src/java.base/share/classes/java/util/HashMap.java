@@ -1663,7 +1663,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
             return e;
         }
 
-        public final void remove() {
+        public final void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             Node<K,V> p = current;
             if (p == null)
                 throw new IllegalStateException();

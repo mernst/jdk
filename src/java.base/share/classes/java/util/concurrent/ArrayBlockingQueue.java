@@ -1292,7 +1292,7 @@ public class ArrayBlockingQueue<E extends Object> extends AbstractQueue<E>
             }
         }
 
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             final ReentrantLock lock = ArrayBlockingQueue.this.lock;
             lock.lock();
             // assert lock.getHoldCount() == 1;
@@ -1501,7 +1501,7 @@ public class ArrayBlockingQueue<E extends Object> extends AbstractQueue<E>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public boolean removeAll(@Shrinkable ArrayBlockingQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
+    public boolean removeAll(@GuardSatisfied @Modifiable @ShrinkableArrayBlockingQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         return bulkRemove(e -> c.contains(e));
     }

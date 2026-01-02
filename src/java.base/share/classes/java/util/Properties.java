@@ -1433,7 +1433,7 @@ public class Properties extends Hashtable<Object,Object> {
         }
 
         @Override
-        public boolean addAll(Collection<? extends Map.Entry<Object, Object>> c) {
+        public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends Map.Entry<Object, Object>> c) {
             throw new UnsupportedOperationException();
         }
 
@@ -1459,7 +1459,7 @@ public class Properties extends Hashtable<Object,Object> {
         }
 
         @Override
-        public boolean removeAll(Collection<? extends @UnknownSignedness Object> c) {
+        public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @UnknownSignedness Object> c) {
             return entrySet.removeAll(c);
         }
 

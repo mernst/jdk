@@ -842,7 +842,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      *
      * @throws NullPointerException if the specified element is null
      */
-    public void addFirst(E e) {
+    public void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
         linkFirst(e);
     }
 
@@ -1020,7 +1020,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E remove(@NonEmpty @Shrinkable ConcurrentLinkedDeque<E> this)         { return removeFirst(); }
+    public E remove(@NonEmpty @Modifiable @Shrinkable ConcurrentLinkedDeque<E> this)         { return removeFirst(); }
 
     /**
      * @throws NoSuchElementException {@inheritDoc}
@@ -1183,7 +1183,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      *         of its elements are null
      * @throws IllegalArgumentException if the collection is this deque
      */
-    public boolean addAll(Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends E> c) {
         if (c == this)
             // As historically specified in AbstractQueue#addAll
             throw new IllegalArgumentException();
@@ -1453,7 +1453,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
             return item;
         }
 
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             Node<E> l = lastRet;
             if (l == null) throw new IllegalStateException();
             l.item = null;
@@ -1646,7 +1646,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public boolean removeAll(@Shrinkable ConcurrentLinkedDeque<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
+    public boolean removeAll(@GuardSatisfied @Modifiable @ShrinkableConcurrentLinkedDeque<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         return bulkRemove(e -> c.contains(e));
     }

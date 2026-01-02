@@ -561,7 +561,7 @@ public class PriorityQueue<E extends @NonNull Object> extends AbstractQueue<E>
             throw new NoSuchElementException();
         }
 
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             if (expectedModCount != modCount)
                 throw new ConcurrentModificationException();
             if (lastRet != -1) {

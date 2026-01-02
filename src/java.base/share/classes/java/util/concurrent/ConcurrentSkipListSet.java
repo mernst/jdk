@@ -354,7 +354,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @throws NullPointerException if the specified collection or any
      *         of its elements are null
      */
-    public boolean removeAll(Collection<? extends @NonNull @UnknownSignedness Object> c) {
+    public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @NonNull @UnknownSignedness Object> c) {
         // Override AbstractSet version to avoid unnecessary call to size()
         boolean modified = false;
         for (Object e : c)
@@ -437,7 +437,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @throws UnsupportedOperationException always
      * @since 21
      */
-    public void addFirst(E e) {
+    public void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 

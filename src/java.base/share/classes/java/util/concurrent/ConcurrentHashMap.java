@@ -3478,7 +3478,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
         @Pure
         public final boolean hasMoreElements() { return next != null; }
 
-        public final void remove() {
+        public final void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             Node<K,V> p;
             if ((p = lastReturned) == null)
                 throw new IllegalStateException();
@@ -4591,7 +4591,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
             return true;
         }
 
-        public boolean removeAll(Collection<? extends @NonNull @UnknownSignedness Object> c) {
+        public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @NonNull @UnknownSignedness Object> c) {
             if (c == null) throw new NullPointerException();
             boolean modified = false;
             // Use (c instanceof Set) as a hint that lookup in c is as
@@ -4719,7 +4719,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
          * @throws UnsupportedOperationException if no default mapped value
          * for additions was provided
          */
-        public boolean addAll(Collection<? extends K> c) {
+        public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends K> c) {
             boolean added = false;
             V v;
             if ((v = value) == null)
@@ -4804,11 +4804,11 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
         public final boolean add(V e) {
             throw new UnsupportedOperationException();
         }
-        public final boolean addAll(Collection<? extends V> c) {
+        public final boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends V> c) {
             throw new UnsupportedOperationException();
         }
 
-        @Override public boolean removeAll(Collection<? extends @NonNull @UnknownSignedness Object> c) {
+        @Override public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @NonNull @UnknownSignedness Object> c) {
             if (c == null) throw new NullPointerException();
             boolean modified = false;
             for (Iterator<V> it = iterator(); it.hasNext();) {
@@ -4889,7 +4889,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
             return map.putVal(e.getKey(), e.getValue(), false) == null;
         }
 
-        public boolean addAll(Collection<? extends Entry<K,V>> c) {
+        public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends Entry<K,V>> c) {
             boolean added = false;
             for (Entry<K,V> e : c) {
                 if (add(e))

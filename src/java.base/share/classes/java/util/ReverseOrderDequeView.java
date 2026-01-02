@@ -71,7 +71,7 @@ class ReverseOrderDequeView<E> implements Deque<E> {
         return true;
     }
 
-    public boolean addAll(Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends E> c) {
         boolean modified = false;
         for (E e : c) {
             base.addFirst(e);
@@ -122,7 +122,7 @@ class ReverseOrderDequeView<E> implements Deque<E> {
     }
 
     // copied from AbstractCollection
-    public boolean removeAll(Collection<?> c) {
+    public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<?> c) {
         Objects.requireNonNull(c);
         boolean modified = false;
         Iterator<?> it = iterator();
@@ -189,7 +189,7 @@ class ReverseOrderDequeView<E> implements Deque<E> {
 
     // ========== Deque and Queue ==========
 
-    public void addFirst(E e) {
+    public void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
         base.addLast(e);
     }
 
@@ -257,7 +257,7 @@ class ReverseOrderDequeView<E> implements Deque<E> {
         base.addLast(e);
     }
 
-    public E remove() {
+    public E remove(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this) {
         return base.removeLast();
     }
 

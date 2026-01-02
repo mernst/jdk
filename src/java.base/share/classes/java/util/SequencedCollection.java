@@ -103,7 +103,7 @@ public interface SequencedCollection<E> extends Collection<E> {
      * @throws UnsupportedOperationException if this collection implementation
      *         does not support this operation
      */
-    default void addFirst(E e) {
+    default void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 

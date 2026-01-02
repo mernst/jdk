@@ -853,7 +853,7 @@ public class WeakHashMap<K,V>
             return lastReturned;
         }
 
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             if (lastReturned == null)
                 throw new IllegalStateException();
             if (modCount != expectedModCount)

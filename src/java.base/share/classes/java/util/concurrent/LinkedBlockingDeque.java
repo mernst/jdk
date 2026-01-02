@@ -331,7 +331,7 @@ public class LinkedBlockingDeque<E extends Object>
      * @throws IllegalStateException if this deque is full
      * @throws NullPointerException {@inheritDoc}
      */
-    public void addFirst(E e) {
+    public void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
         if (!offerFirst(e))
             throw new IllegalStateException("Deque full");
     }
@@ -681,7 +681,7 @@ public class LinkedBlockingDeque<E extends Object>
      * @return the head of the queue represented by this deque
      * @throws NoSuchElementException if this deque is empty
      */
-    public E remove(@GuardSatisfied @NonEmpty @Shrinkable LinkedBlockingDeque<E> this) {
+    public E remove(@GuardSatisfied @NonEmpty @Modifiable @Shrinkable LinkedBlockingDeque<E> this) {
         return removeFirst();
     }
 
@@ -864,7 +864,7 @@ public class LinkedBlockingDeque<E extends Object>
      * @throws IllegalStateException if this deque is full
      * @see #add(Object)
      */
-    public boolean addAll(Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends E> c) {
         if (c == this)
             // As historically specified in AbstractQueue#addAll
             throw new IllegalArgumentException();
@@ -1170,7 +1170,7 @@ public class LinkedBlockingDeque<E extends Object>
             } while (n > 0 && p != null);
         }
 
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             Node<E> n = lastRet;
             if (n == null)
                 throw new IllegalStateException();
@@ -1365,7 +1365,7 @@ public class LinkedBlockingDeque<E extends Object>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public boolean removeAll(@Shrinkable LinkedBlockingDeque<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
+    public boolean removeAll(@GuardSatisfied @Modifiable @ShrinkableLinkedBlockingDeque<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         return bulkRemove(e -> c.contains(e));
     }

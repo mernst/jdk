@@ -755,7 +755,7 @@ public class LinkedHashMap<K,V>
             if (modCount != mc)
                 throw new ConcurrentModificationException();
         }
-        public final void addFirst(K k) { throw new UnsupportedOperationException(); }
+        public final void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, K k) { throw new UnsupportedOperationException(); }
         public final void addLast(K k) { throw new UnsupportedOperationException(); }
         public final K getFirst() { return nsee(reversed ? tail : head).key; }
         public final K getLast() { return nsee(reversed ? head : tail).key; }
@@ -864,7 +864,7 @@ public class LinkedHashMap<K,V>
             if (modCount != mc)
                 throw new ConcurrentModificationException();
         }
-        public final void addFirst(V v) { throw new UnsupportedOperationException(); }
+        public final void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, V v) { throw new UnsupportedOperationException(); }
         public final void addLast(V v) { throw new UnsupportedOperationException(); }
         public final V getFirst() { return nsee(reversed ? tail : head).value; }
         public final V getLast() { return nsee(reversed ? head : tail).value; }
@@ -988,7 +988,7 @@ public class LinkedHashMap<K,V>
             else
                 return e;
         }
-        public final void addFirst(Map.Entry<K,V> e) { throw new UnsupportedOperationException(); }
+        public final void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, Map.Entry<K,V> e) { throw new UnsupportedOperationException(); }
         public final void addLast(Map.Entry<K,V> e) { throw new UnsupportedOperationException(); }
         public final Map.Entry<K,V> getFirst() { return nsee(reversed ? tail : head); }
         public final Map.Entry<K,V> getLast() { return nsee(reversed ? head : tail); }
@@ -1066,7 +1066,7 @@ public class LinkedHashMap<K,V>
             return e;
         }
 
-        public final void remove() {
+        public final void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             Node<K,V> p = current;
             if (p == null)
                 throw new IllegalStateException();

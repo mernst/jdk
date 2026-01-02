@@ -812,7 +812,7 @@ public class Vector<E>
      * bytecode size under 35 (the -XX:MaxInlineSize default value),
      * which helps when add(E) is called in a C1-compiled loop.
      */
-    private void add(E e, Object[] elementData, int s) {
+    private void add(@GuardSatisfied @Modifiable ThisClass<E> this, E e, Object[] elementData, int s) {
         if (s == elementData.length)
             elementData = grow();
         elementData[s] = e;
@@ -860,7 +860,7 @@ public class Vector<E>
      *         ({@code index < 0 || index > size()})
      * @since 1.2
      */
-    public void add(@GuardSatisfied Vector<E> this, @NonNegative int index, E element) {
+    public void add(@GuardSatisfied @Modifiable Vector<E> this, @NonNegative int index, E element) {
         insertElementAt(element, index);
     }
 
@@ -930,7 +930,7 @@ public class Vector<E>
      * @throws NullPointerException if the specified collection is null
      * @since 1.2
      */
-    public boolean addAll(@GuardSatisfied Vector<E> this, Collection<? extends E> c) {
+    public boolean addAll(@GuardSatisfied @Modifiable Vector<E> this, Collection<? extends E> c) {
         Object[] a = c.toArray();
         modCount++;
         int numNew = a.length;
@@ -1067,7 +1067,7 @@ public class Vector<E>
      * @throws NullPointerException if the specified collection is null
      * @since 1.2
      */
-    public synchronized boolean addAll(@GuardSatisfied Vector<E> this, @NonNegative int index, Collection<? extends E> c) {
+    public synchronized boolean addAll(@GuardSatisfied @Modifiable Vector<E> this, @NonNegative int index, Collection<? extends E> c) {
         if (index < 0 || index > elementCount)
             throw new ArrayIndexOutOfBoundsException(index);
 
@@ -1301,7 +1301,7 @@ public class Vector<E>
             }
         }
 
-        public void remove() {
+        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
             if (lastRet == -1)
                 throw new IllegalStateException();
             synchronized (Vector.this) {
@@ -1372,7 +1372,7 @@ public class Vector<E>
             }
         }
 
-        public void set(E e) {
+        public void set(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
             if (lastRet == -1)
                 throw new IllegalStateException();
             synchronized (Vector.this) {
@@ -1381,7 +1381,7 @@ public class Vector<E>
             }
         }
 
-        public void add(E e) {
+        public void add(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
             int i = cursor;
             synchronized (Vector.this) {
                 checkForComodification();
@@ -1413,7 +1413,7 @@ public class Vector<E>
      */
     @SuppressWarnings({"unchecked"})
     @Override
-    public synchronized void replaceAll(UnaryOperator<E> operator) {
+    public synchronized void replaceAll(@GuardSatisfied @Modifiable ThisClass<E> this, UnaryOperator<E> operator) {
         Objects.requireNonNull(operator);
         final int expectedModCount = modCount;
         final Object[] es = elementData;

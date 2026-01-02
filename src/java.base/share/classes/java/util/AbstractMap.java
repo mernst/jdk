@@ -395,7 +395,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
                             return i.next().getKey();
                         }
 
-                        public void remove() {
+                        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
                             i.remove();
                         }
                     };
@@ -462,7 +462,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
                             return i.next().getValue();
                         }
 
-                        public void remove() {
+                        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
                             i.remove();
                         }
                     };
@@ -962,7 +962,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
         abstract Collection<E> view();
 
         public boolean add(E t) { throw uoe(); }
-        public boolean addAll(Collection<? extends E> c) { throw uoe(); }
+        public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends E> c) { throw uoe(); }
         public void clear() { view().clear(); }
         public boolean contains(Object o) { return view().contains(o); }
         public boolean containsAll(Collection<?> c) { return view().containsAll(c); }
@@ -971,7 +971,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
         public Iterator<E> iterator() { return view().iterator(); }
         public Stream<E> parallelStream() { return view().parallelStream(); }
         public boolean remove(Object o) { return view().remove(o); }
-        public boolean removeAll(Collection<?> c) { return view().removeAll(c); }
+        public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<?> c) { return view(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, ).removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, c); }
         public boolean removeIf(Predicate<? super E> filter) { return view().removeIf(filter); }
         public boolean retainAll(Collection<?> c) { return view().retainAll(c); }
         public int size() { return view().size(); }
