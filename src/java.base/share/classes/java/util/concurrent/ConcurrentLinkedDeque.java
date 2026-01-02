@@ -855,7 +855,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      *
      * @throws NullPointerException if the specified element is null
      */
-    public void addLast(E e) {
+    public void addLast(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
         linkLast(e);
     }
 
@@ -976,14 +976,14 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E removeFirst(@GuardSatisfied @NonEmpty @Shrinkable ConcurrentLinkedDeque<E> this) {
+    public E removeFirst(@GuardSatisfied @NonEmpty @Modifiable @Shrinkable ConcurrentLinkedDeque<E> this) {
         return screenNullResult(pollFirst());
     }
 
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
-    public E removeLast(@GuardSatisfied @NonEmpty @Shrinkable ConcurrentLinkedDeque<E> this) {
+    public E removeLast(@GuardSatisfied @NonEmpty @Modifiable @Shrinkable ConcurrentLinkedDeque<E> this) {
         return screenNullResult(pollLast());
     }
 
@@ -1167,7 +1167,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      * @return {@code true} if the deque contained the specified element
      * @throws NullPointerException if the specified element is null
      */
-    public boolean remove(@Shrinkable ConcurrentLinkedDeque<E> this, @GuardSatisfied @UnknownSignedness Object o) {
+    public boolean remove(@Modifiable @Shrinkable ConcurrentLinkedDeque<E> this, @GuardSatisfied @UnknownSignedness Object o) {
         return removeFirstOccurrence(o);
     }
 

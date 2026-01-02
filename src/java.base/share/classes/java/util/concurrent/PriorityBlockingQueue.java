@@ -662,7 +662,7 @@ public class PriorityBlockingQueue<E extends Object> extends AbstractQueue<E>
      * @param o element to be removed from this queue, if present
      * @return {@code true} if this queue changed as a result of the call
      */
-    public boolean remove(@Shrinkable PriorityBlockingQueue<E> this, @Nullable @UnknownSignedness Object o) {
+    public boolean remove(@Modifiable @Shrinkable PriorityBlockingQueue<E> this, @Nullable @UnknownSignedness Object o) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {

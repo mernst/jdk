@@ -246,7 +246,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      * @throws NullPointerException if the specified element is null
      * @throws IllegalArgumentException {@inheritDoc}
      */
-    void addLast(E e);
+    void addLast(@GuardSatisfied @Modifiable ThisClass<E> this, E e);
 
     /**
      * Inserts the specified element at the front of this deque if it is
@@ -614,7 +614,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      * @throws NullPointerException if the specified element is null
      * (<a href="{@docRoot}/java.base/java/util/Collection.html#optional-restrictions">optional</a>)
      */
-    boolean remove(@Shrinkable BlockingDeque<E> this, @UnknownSignedness Object o);
+    boolean remove(@Modifiable @Shrinkable BlockingDeque<E> this, @UnknownSignedness Object o);
 
     /**
      * Returns {@code true} if this deque contains the specified element.

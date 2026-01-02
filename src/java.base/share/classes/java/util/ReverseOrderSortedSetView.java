@@ -145,7 +145,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
         return StreamSupport.stream(spliterator(), true);
     }
 
-    public boolean remove(Object o) {
+    public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, Object o) {
         return base.remove(o);
     }
 
@@ -154,7 +154,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
     }
 
     // copied from AbstractCollection
-    public boolean retainAll(Collection<?> c) {
+    public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<?> c) {
         return base.retainAll(c);
     }
 
@@ -311,7 +311,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
                 throw new IllegalArgumentException();
         }
 
-        public boolean remove(Object o) {
+        public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, Object o) {
             @SuppressWarnings("unchecked")
             E e = (E) o;
             if (aboveHead(e) && belowTail(e))

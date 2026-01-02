@@ -160,10 +160,10 @@ class ImmutableCollections {
         public boolean add(@GuardSatisfied @Modifiable AbstractImmutableCollection<E> this, E e) { throw uoe(); }
         @Override public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends E> c) { throw uoe(); }
         @Override public void    clear() { throw uoe(); }
-        @Override public boolean remove(@UnknownSignedness Object o) { throw uoe(); }
+        @Override public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @UnknownSignedness Object o) { throw uoe(); }
         @Override public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @UnknownSignedness Object> c) { throw uoe(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, ); }
         @Override public boolean removeIf(Predicate<? super E> filter) { throw uoe(); }
-        @Override public boolean retainAll(Collection<? extends @UnknownSignedness Object> c) { throw uoe(); }
+        @Override public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<? extends @UnknownSignedness Object> c) { throw uoe(); }
     }
 
     // ---------- List Static Factory Methods ----------
@@ -1118,7 +1118,7 @@ class ImmutableCollections {
         @Override public void putAll(Map<? extends K,? extends V> m) { throw uoe(); }
         @Override public V putIfAbsent(K key, V value) { throw uoe(); }
         @Override public V remove(Object key) { throw uoe(); }
-        @Override public boolean remove(@UnknownSignedness Object key, @UnknownSignedness Object value) { throw uoe(); }
+        @Override public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @UnknownSignedness Object key, @UnknownSignedness Object value) { throw uoe(); }
         @Override public V replace(K key, V value) { throw uoe(); }
         @Override public boolean replace(K key, V oldValue, V newValue) { throw uoe(); }
         @Override public void replaceAll(@GuardSatisfied @Modifiable ThisClass<E> this, BiFunction<? super K,? super V,? extends V> f) { throw uoe(); }

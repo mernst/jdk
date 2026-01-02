@@ -1425,7 +1425,7 @@ public class Properties extends Hashtable<Object,Object> {
         @Override public Object[] toArray() { return entrySet.toArray(); }
         @Override public <T> @Nullable T[] toArray(@PolyNull T[] a) { return entrySet.toArray(a); }
         @Override public void clear() { entrySet.clear(); }
-        @Override public boolean remove(@UnknownSignedness Object o) { return entrySet.remove(o); }
+        @Override public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @UnknownSignedness Object o) { return entrySet.remove(o); }
 
         @Override
         public boolean add(Map.Entry<Object, Object> e) {
@@ -1464,7 +1464,7 @@ public class Properties extends Hashtable<Object,Object> {
         }
 
         @Override
-        public boolean retainAll(Collection<? extends @UnknownSignedness Object> c) {
+        public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<? extends @UnknownSignedness Object> c) {
             return entrySet.retainAll(c);
         }
 
@@ -1506,7 +1506,7 @@ public class Properties extends Hashtable<Object,Object> {
     }
 
     @Override
-    public synchronized boolean remove(@GuardSatisfied @Nullable @UnknownSignedness Object key, @GuardSatisfied @Nullable @UnknownSignedness Object value) {
+    public synchronized boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @GuardSatisfied @Nullable @UnknownSignedness Object key, @GuardSatisfied @Nullable @UnknownSignedness Object value) {
         return map.remove(key, value);
     }
 

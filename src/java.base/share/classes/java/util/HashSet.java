@@ -266,7 +266,7 @@ public class HashSet<E>
      * @return {@code true} if the set contained the specified element
      */
     @SideEffectsOnly("this")
-    public boolean remove(@GuardSatisfied HashSet<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
+    public boolean remove(@GuardSatisfied @Modifiable HashSet<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         return map.remove(o)==PRESENT;
     }
 

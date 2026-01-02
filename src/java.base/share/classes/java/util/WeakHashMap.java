@@ -929,7 +929,7 @@ public class WeakHashMap<K,V>
             return containsKey(o);
         }
 
-        public boolean remove(@Nullable @UnknownSignedness Object o) {
+        public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @Nullable @UnknownSignedness Object o) {
             if (containsKey(o)) {
                 WeakHashMap.this.remove(o);
                 return true;
@@ -1032,7 +1032,7 @@ public class WeakHashMap<K,V>
                     && getEntry(e.getKey()).equals(e);
         }
 
-        public boolean remove(@Nullable @UnknownSignedness Object o) {
+        public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @Nullable @UnknownSignedness Object o) {
             return removeMapping(o);
         }
 

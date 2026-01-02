@@ -534,7 +534,7 @@ public class CopyOnWriteArrayList<E>
      *
      * @since 21
      */
-    public void addLast(E e) {
+    public void addLast(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
         synchronized (lock) {
             add(getArray().length, e);
         }
@@ -573,7 +573,7 @@ public class CopyOnWriteArrayList<E>
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
-    public E removeFirst() {
+    public E removeFirst(@GuardSatisfied @Modifiable ThisClass<E> this) {
         synchronized (lock) {
             if (getArray().length == 0)
                 throw new NoSuchElementException();
@@ -588,7 +588,7 @@ public class CopyOnWriteArrayList<E>
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
-    public E removeLast() {
+    public E removeLast(@GuardSatisfied @Modifiable ThisClass<E> this) {
         synchronized (lock) {
             int size = getArray().length;
             if (size == 0)
@@ -610,7 +610,7 @@ public class CopyOnWriteArrayList<E>
      * @param o element to be removed from this list, if present
      * @return {@code true} if this list contained the specified element
      */
-    public boolean remove(@Shrinkable CopyOnWriteArrayList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
+    public boolean remove(@Modifiable @Shrinkable CopyOnWriteArrayList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         Object[] snapshot = getArray();
         int index = indexOfRange(o, snapshot, 0, snapshot.length);
         return index >= 0 && remove(o, snapshot, index);
@@ -620,7 +620,7 @@ public class CopyOnWriteArrayList<E>
      * A version of remove(Object) using the strong hint that given
      * recent snapshot contains o at the given index.
      */
-    private boolean remove(@Shrinkable CopyOnWriteArrayList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o, Object[] snapshot, int index) {
+    private boolean remove(@Modifiable @Shrinkable CopyOnWriteArrayList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o, Object[] snapshot, int index) {
         synchronized (lock) {
             Object[] current = getArray();
             int len = current.length;
@@ -1531,7 +1531,7 @@ public class CopyOnWriteArrayList<E>
             add(0, e);
         }
 
-        public void addLast(E e) {
+        public void addLast(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
             synchronized (lock) {
                 add(size, e);
             }
@@ -1578,7 +1578,7 @@ public class CopyOnWriteArrayList<E>
             }
         }
 
-        public E removeFirst() {
+        public E removeFirst(@GuardSatisfied @Modifiable ThisClass<E> this) {
             synchronized (lock) {
                 if (size == 0)
                     throw new NoSuchElementException();
@@ -1587,7 +1587,7 @@ public class CopyOnWriteArrayList<E>
             }
         }
 
-        public E removeLast() {
+        public E removeLast(@GuardSatisfied @Modifiable ThisClass<E> this) {
             synchronized (lock) {
                 if (size == 0)
                     throw new NoSuchElementException();
@@ -1596,7 +1596,7 @@ public class CopyOnWriteArrayList<E>
             }
         }
 
-        public boolean remove(@Nullable @UnknownSignedness Object o) {
+        public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @Nullable @UnknownSignedness Object o) {
             synchronized (lock) {
                 checkForComodification();
                 int index = indexOf(o);
@@ -1666,7 +1666,7 @@ public class CopyOnWriteArrayList<E>
             return bulkRemove(e -> c.contains(e));
         }
 
-        public boolean retainAll(Collection<? extends @NonNull @UnknownSignedness Object> c) {
+        public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
             Objects.requireNonNull(c);
             return bulkRemove(e -> !c.contains(e));
         }
@@ -1934,7 +1934,7 @@ public class CopyOnWriteArrayList<E>
             return StreamSupport.stream(spliterator(), true);
         }
 
-        public boolean remove(Object o) {
+        public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, Object o) {
             synchronized (lock) {
                 int index = indexOf(o);
                 if (index == -1)
@@ -1948,7 +1948,7 @@ public class CopyOnWriteArrayList<E>
             return base.removeAll(c);
         }
 
-        public boolean retainAll(Collection<?> c) {
+        public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<?> c) {
             return base.retainAll(c);
         }
 
@@ -2003,7 +2003,7 @@ public class CopyOnWriteArrayList<E>
             base.add(e);
         }
 
-        public void addLast(E e) {
+        public void addLast(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
             base.add(0, e);
         }
 
@@ -2074,7 +2074,7 @@ public class CopyOnWriteArrayList<E>
             }
         }
 
-        public E removeFirst() {
+        public E removeFirst(@GuardSatisfied @Modifiable ThisClass<E> this) {
             synchronized (lock) {
                 int size = base.size();
                 if (size == 0)
@@ -2084,7 +2084,7 @@ public class CopyOnWriteArrayList<E>
             }
         }
 
-        public E removeLast() {
+        public E removeLast(@GuardSatisfied @Modifiable ThisClass<E> this) {
             synchronized (lock) {
                 if (base.size() == 0)
                     throw new NoSuchElementException();

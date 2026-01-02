@@ -102,7 +102,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
             public int size() { return base.size(); }
             public void clear() { base.keySet().clear(); }
             public boolean contains(Object o) { return base.keySet().contains(o); }
-            public boolean remove(Object o) { return base.keySet().remove(o); }
+            public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, Object o) { return base.keySet().remove(o); }
         };
     }
 
@@ -113,7 +113,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
             public int size() { return base.size(); }
             public void clear() { base.values().clear(); }
             public boolean contains(Object o) { return base.values().contains(o); }
-            public boolean remove(Object o) { return base.values().remove(o); }
+            public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, Object o) { return base.values().remove(o); }
         };
     }
 
@@ -124,7 +124,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
             public int size() { return base.size(); }
             public void clear() { base.entrySet().clear(); }
             public boolean contains(Object o) { return base.entrySet().contains(o); }
-            public boolean remove(Object o) { return base.entrySet().remove(o); }
+            public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, Object o) { return base.entrySet().remove(o); }
         };
     }
 
@@ -150,19 +150,19 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
         return base.firstEntry();
     }
 
-    public Map.Entry<K,V> pollFirstEntry() {
+    public Map.Entry<K,V> pollFirstEntry(@GuardSatisfied @Modifiable ThisClass<E> this) {
         return base.pollLastEntry();
     }
 
-    public Map.Entry<K,V> pollLastEntry() {
+    public Map.Entry<K,V> pollLastEntry(@GuardSatisfied @Modifiable ThisClass<E> this) {
         return base.pollFirstEntry();
     }
 
-    public V putFirst(K k, V v) {
+    public V putFirst(@GuardSatisfied @Modifiable ThisClass<K,V> this, K k, V v) {
         return base.putLast(k, v);
     }
 
-    public V putLast(K k, V v) {
+    public V putLast(@GuardSatisfied @Modifiable ThisClass<K,V> this, K k, V v) {
         return base.putFirst(k, v);
     }
 

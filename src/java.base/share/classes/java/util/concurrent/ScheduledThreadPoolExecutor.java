@@ -1052,7 +1052,7 @@ public class ScheduledThreadPoolExecutor
             }
         }
 
-        public boolean remove(@UnknownSignedness Object x) {
+        public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @UnknownSignedness Object x) {
             final ReentrantLock lock = this.lock;
             lock.lock();
             try {

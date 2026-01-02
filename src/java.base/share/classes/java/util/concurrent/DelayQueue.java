@@ -520,7 +520,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      * Removes a single instance of the specified element from this
      * queue, if it is present, whether or not it has expired.
      */
-    public boolean remove(@Shrinkable DelayQueue<E> this, @UnknownSignedness Object o) {
+    public boolean remove(@Modifiable @Shrinkable DelayQueue<E> this, @UnknownSignedness Object o) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {

@@ -992,7 +992,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @param o the element to remove
      * @return {@code false}
      */
-    public boolean remove(@Shrinkable SynchronousQueue<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
+    public boolean remove(@Modifiable @Shrinkable SynchronousQueue<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         return false;
     }
 

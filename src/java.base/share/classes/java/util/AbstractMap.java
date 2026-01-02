@@ -970,10 +970,10 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
         public boolean isEmpty() { return view().isEmpty(); }
         public Iterator<E> iterator() { return view().iterator(); }
         public Stream<E> parallelStream() { return view().parallelStream(); }
-        public boolean remove(Object o) { return view().remove(o); }
+        public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, Object o) { return view().remove(o); }
         public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<?> c) { return view(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, ).removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, c); }
         public boolean removeIf(Predicate<? super E> filter) { return view().removeIf(filter); }
-        public boolean retainAll(Collection<?> c) { return view().retainAll(c); }
+        public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<?> c) { return view().retainAll(c); }
         public int size() { return view().size(); }
         public Spliterator<E> spliterator() { return view().spliterator(); }
         public Stream<E> stream() { return view().stream(); }

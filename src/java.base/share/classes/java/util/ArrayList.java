@@ -576,7 +576,7 @@ public class ArrayList<E> extends AbstractList<E>
      *
      * @since 21
      */
-    public void addLast(E element) {
+    public void addLast(@GuardSatisfied @Modifiable ThisClass<E> this, E element) {
         add(element);
     }
 
@@ -605,7 +605,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
-    public E removeFirst() {
+    public E removeFirst(@GuardSatisfied @Modifiable ThisClass<E> this) {
         if (size == 0) {
             throw new NoSuchElementException();
         } else {
@@ -622,7 +622,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
-    public E removeLast() {
+    public E removeLast(@GuardSatisfied @Modifiable ThisClass<E> this) {
         int last = size - 1;
         if (last < 0) {
             throw new NoSuchElementException();
@@ -1334,7 +1334,7 @@ public class ArrayList<E> extends AbstractList<E>
             return batchRemove(c, false);
         }
 
-        public boolean retainAll(Collection<? extends @UnknownSignedness Object> c) {
+        public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<? extends @UnknownSignedness Object> c) {
             return batchRemove(c, true);
         }
 

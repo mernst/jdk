@@ -237,7 +237,7 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      *         element prevents it from being added to this deque
      */
     @EnsuresNonEmpty("this")
-    void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, @GuardSatisfied Deque<E> this, E e);
+    void addFirst(@GuardSatisfied @Modifiable Deque<E> this, E e);
 
     /**
      * Inserts the specified element at the end of this deque if it is
@@ -259,7 +259,7 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      *         element prevents it from being added to this deque
      */
     @EnsuresNonEmpty("this")
-    void addLast(@GuardSatisfied Deque<E> this, E e);
+    void addLast(@GuardSatisfied @Modifiable Deque<E> this, E e);
 
     /**
      * Inserts the specified element at the front of this deque unless it would
@@ -305,7 +305,7 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      * @return the head of this deque
      * @throws NoSuchElementException if this deque is empty
      */
-    E removeFirst(@GuardSatisfied @NonEmpty @Shrinkable Deque<E> this);
+    E removeFirst(@GuardSatisfied @NonEmpty @Modifiable @Shrinkable Deque<E> this);
 
     /**
      * Retrieves and removes the last element of this deque.  This method
@@ -315,7 +315,7 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      * @return the tail of this deque
      * @throws NoSuchElementException if this deque is empty
      */
-    E removeLast(@GuardSatisfied @NonEmpty @Shrinkable Deque<E> this);
+    E removeLast(@GuardSatisfied @NonEmpty @Modifiable @Shrinkable Deque<E> this);
 
     /**
      * Retrieves and removes the first element of this deque,

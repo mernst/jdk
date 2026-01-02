@@ -297,7 +297,7 @@ public class LinkedList<E>
      * @return the first element from this list
      * @throws NoSuchElementException if this list is empty
      */
-    public E removeFirst(@GuardSatisfied @NonEmpty @Shrinkable LinkedList<E> this) {
+    public E removeFirst(@GuardSatisfied @NonEmpty @Modifiable @Shrinkable LinkedList<E> this) {
         final Node<E> f = first;
         if (f == null)
             throw new NoSuchElementException();
@@ -310,7 +310,7 @@ public class LinkedList<E>
      * @return the last element from this list
      * @throws NoSuchElementException if this list is empty
      */
-    public E removeLast(@GuardSatisfied @NonEmpty @Shrinkable LinkedList<E> this) {
+    public E removeLast(@GuardSatisfied @NonEmpty @Modifiable @Shrinkable LinkedList<E> this) {
         final Node<E> l = last;
         if (l == null)
             throw new NoSuchElementException();
@@ -322,7 +322,7 @@ public class LinkedList<E>
      *
      * @param e the element to add
      */
-    public void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, @GuardSatisfied LinkedList<E> this, E e) {
+    public void addFirst(@GuardSatisfied @Modifiable LinkedList<E> this, E e) {
         linkFirst(e);
     }
 
@@ -333,7 +333,7 @@ public class LinkedList<E>
      *
      * @param e the element to add
      */
-    public void addLast(@GuardSatisfied LinkedList<E> this, E e) {
+    public void addLast(@GuardSatisfied @Modifiable LinkedList<E> this, E e) {
         linkLast(e);
     }
 
@@ -1348,7 +1348,7 @@ public class LinkedList<E>
             return rlist.toString();
         }
 
-        public boolean retainAll(Collection<?> c) {
+        public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<?> c) {
             return rlist.retainAll(c);
         }
 
@@ -1532,7 +1532,7 @@ public class LinkedList<E>
             return rlist.addAll(c);
         }
 
-        public boolean remove(Object o) {
+        public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, Object o) {
             return rlist.remove(o);
         }
 
@@ -1548,7 +1548,7 @@ public class LinkedList<E>
             return rlist.contains(o);
         }
 
-        public void addLast(E e) {
+        public void addLast(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
             rdeque.addLast(e);
         }
 
@@ -1556,11 +1556,11 @@ public class LinkedList<E>
             rdeque.addFirst(e);
         }
 
-        public E removeLast() {
+        public E removeLast(@GuardSatisfied @Modifiable ThisClass<E> this) {
             return rdeque.removeLast();
         }
 
-        public E removeFirst() {
+        public E removeFirst(@GuardSatisfied @Modifiable ThisClass<E> this) {
             return rdeque.removeFirst();
         }
 

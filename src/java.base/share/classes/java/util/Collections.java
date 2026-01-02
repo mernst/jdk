@@ -1143,7 +1143,7 @@ public class Collections {
         public boolean add(@GuardSatisfied @Modifiable UnmodifiableCollection<E> this, E e) {
             throw new UnsupportedOperationException();
         }
-        public boolean remove(@UnknownSignedness Object o) {
+        public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @UnknownSignedness Object o) {
             throw new UnsupportedOperationException();
         }
 
@@ -1157,7 +1157,7 @@ public class Collections {
         public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @UnknownSignedness Object> coll) {
             throw new UnsupportedOperationException();
         }
-        public boolean retainAll(Collection<? extends @UnknownSignedness Object> coll) {
+        public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<? extends @UnknownSignedness Object> coll) {
             throw new UnsupportedOperationException();
         }
         public void clear(@GuardSatisfied @Modifiable @Shrinkable UnmodifiableCollection<E> this) {
@@ -1251,7 +1251,7 @@ public class Collections {
             throw new UnsupportedOperationException();
         }
 
-        public void addLast(E e) {
+        public void addLast(@GuardSatisfied @Modifiable ThisClass<E> this, E e) {
             throw new UnsupportedOperationException();
         }
 
@@ -1263,11 +1263,11 @@ public class Collections {
             return sc().getLast();
         }
 
-        public E removeFirst() {
+        public E removeFirst(@GuardSatisfied @Modifiable ThisClass<E> this) {
             throw new UnsupportedOperationException();
         }
 
-        public E removeLast() {
+        public E removeLast(@GuardSatisfied @Modifiable ThisClass<E> this) {
             throw new UnsupportedOperationException();
         }
     }
@@ -1790,7 +1790,7 @@ public class Collections {
         }
 
         @Override
-        public boolean remove(@UnknownSignedness Object key, @UnknownSignedness Object value) {
+        public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @UnknownSignedness Object key, @UnknownSignedness Object value) {
             throw new UnsupportedOperationException();
         }
 
@@ -2091,19 +2091,19 @@ public class Collections {
             return new UnmodifiableSequencedMap<>(sm().reversed());
         }
 
-        public Entry<K, V> pollFirstEntry() {
+        public Entry<K, V> pollFirstEntry(@GuardSatisfied @Modifiable ThisClass<E> this) {
             throw new UnsupportedOperationException();
         }
 
-        public Entry<K, V> pollLastEntry() {
+        public Entry<K, V> pollLastEntry(@GuardSatisfied @Modifiable ThisClass<E> this) {
             throw new UnsupportedOperationException();
         }
 
-        public V putFirst(K k, V v) {
+        public V putFirst(@GuardSatisfied @Modifiable ThisClass<K,V> this, K k, V v) {
             throw new UnsupportedOperationException();
         }
 
-        public V putLast(K k, V v) {
+        public V putLast(@GuardSatisfied @Modifiable ThisClass<K,V> this, K k, V v) {
             throw new UnsupportedOperationException();
         }
     }
@@ -2291,9 +2291,9 @@ public class Collections {
                 : null;
         }
 
-        public Entry<K, V> pollFirstEntry()
+        public Entry<K, V> pollFirstEntry(@GuardSatisfied @Modifiable ThisClass<E> this)
                                  { throw new UnsupportedOperationException(); }
-        public Entry<K, V> pollLastEntry()
+        public Entry<K, V> pollLastEntry(@GuardSatisfied @Modifiable ThisClass<E> this)
                                  { throw new UnsupportedOperationException(); }
         @SideEffectFree
         public NavigableMap<K, V> descendingMap()
@@ -2419,7 +2419,7 @@ public class Collections {
         public boolean add(@GuardSatisfied @Modifiable SynchronizedCollection<E> this, E e) {
             synchronized (mutex) {return c.add(e);}
         }
-        public boolean remove(@UnknownSignedness Object o) {
+        public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @UnknownSignedness Object o) {
             synchronized (mutex) {return c.remove(o);}
         }
 
@@ -2433,7 +2433,7 @@ public class Collections {
         public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @UnknownSignedness Object> coll) {
             synchronized (mutex) {return c.removeAll(coll);}
         }
-        public boolean retainAll(Collection<? extends @UnknownSignedness Object> coll) {
+        public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<? extends @UnknownSignedness Object> coll) {
             synchronized (mutex) {return c.retainAll(coll);}
         }
         public void clear(@GuardSatisfied @Modifiable @Shrinkable SynchronizedCollection<E> this) {
@@ -3071,7 +3071,7 @@ public class Collections {
             synchronized (mutex) {return m.putIfAbsent(key, value);}
         }
         @Override
-        public boolean remove(@UnknownSignedness Object key, @UnknownSignedness Object value) {
+        public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @UnknownSignedness Object key, @UnknownSignedness Object value) {
             synchronized (mutex) {return m.remove(key, value);}
         }
         @Override
@@ -3307,9 +3307,9 @@ public class Collections {
                            { synchronized (mutex) { return nm.firstEntry(); } }
         public Entry<K, V> lastEntry()
                             { synchronized (mutex) { return nm.lastEntry(); } }
-        public Entry<K, V> pollFirstEntry()
+        public Entry<K, V> pollFirstEntry(@GuardSatisfied @Modifiable ThisClass<E> this)
                        { synchronized (mutex) { return nm.pollFirstEntry(); } }
-        public Entry<K, V> pollLastEntry()
+        public Entry<K, V> pollLastEntry(@GuardSatisfied @Modifiable ThisClass<E> this)
                         { synchronized (mutex) { return nm.pollLastEntry(); } }
 
         @SideEffectFree
@@ -3500,7 +3500,7 @@ public class Collections {
         public <T> @Nullable T[] toArray(@PolyNull T[] a)              { return c.toArray(a); }
         public <T> T[] toArray(IntFunction<T[]> f) { return c.toArray(f); }
         public String toString()                   { return c.toString(); }
-        public boolean remove(@UnknownSignedness Object o)            { return c.remove(o); }
+        public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @UnknownSignedness Object o)            { return c.remove(o); }
         public void clear(@GuardSatisfied @Modifiable @Shrinkable Collections.CheckedCollection<E> this)                        {        c.clear(); }
 
         @Pure
@@ -3510,7 +3510,7 @@ public class Collections {
         public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @UnknownSignedness Object> coll) {
             return c.removeAll(coll);
         }
-        public boolean retainAll(Collection<? extends @UnknownSignedness Object> coll) {
+        public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<? extends @UnknownSignedness Object> coll) {
             return c.retainAll(coll);
         }
 
@@ -4155,7 +4155,7 @@ public class Collections {
         }
 
         @Override
-        public boolean remove(@UnknownSignedness Object key, @UnknownSignedness Object value) {
+        public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @UnknownSignedness Object key, @UnknownSignedness Object value) {
             return m.remove(key, value);
         }
 
@@ -4324,7 +4324,7 @@ public class Collections {
                 return true;
             }
 
-            public boolean remove(@UnknownSignedness Object o) {
+            public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @UnknownSignedness Object o) {
                 if (!(o instanceof Map.Entry))
                     return false;
                 return s.remove(new AbstractMap.SimpleImmutableEntry
@@ -4334,7 +4334,7 @@ public class Collections {
             public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @UnknownSignedness Object> c) {
                 return batchRemove(c, false);
             }
-            public boolean retainAll(Collection<? extends @UnknownSignedness Object> c) {
+            public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<? extends @UnknownSignedness Object> c) {
                 return batchRemove(c, true);
             }
             private boolean batchRemove(Collection<?> c, boolean complement) {
@@ -4600,14 +4600,14 @@ public class Collections {
                 : null;
         }
 
-        public Entry<K, V> pollFirstEntry() {
+        public Entry<K, V> pollFirstEntry(@GuardSatisfied @Modifiable ThisClass<E> this) {
             Entry<K,V> entry = nm.pollFirstEntry();
             return (null == entry)
                 ? null
                 : new CheckedMap.CheckedEntrySet.CheckedEntry<>(entry, valueType);
         }
 
-        public Entry<K, V> pollLastEntry() {
+        public Entry<K, V> pollLastEntry(@GuardSatisfied @Modifiable ThisClass<E> this) {
             Entry<K,V> entry = nm.pollLastEntry();
             return (null == entry)
                 ? null
@@ -5178,7 +5178,7 @@ public class Collections {
         }
 
         @Override
-        public boolean remove(@UnknownSignedness Object key, @UnknownSignedness Object value) {
+        public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @UnknownSignedness Object key, @UnknownSignedness Object value) {
             throw new UnsupportedOperationException();
         }
 
@@ -5530,7 +5530,7 @@ public class Collections {
         }
 
         @Override
-        public boolean remove(@UnknownSignedness Object key, @UnknownSignedness Object value) {
+        public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @UnknownSignedness Object key, @UnknownSignedness Object value) {
             throw new UnsupportedOperationException();
         }
 
@@ -6176,7 +6176,7 @@ public class Collections {
         @Pure
         @EnsuresNonEmptyIf(result = true, expression = "this")
         public boolean contains(@UnknownSignedness Object o) { return m.containsKey(o); }
-        public boolean remove(@UnknownSignedness Object o)   { return m.remove(o) != null; }
+        public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @UnknownSignedness Object o)   { return m.remove(o) != null; }
         @EnsuresNonEmpty("this")
         public boolean add(@GuardSatisfied @Modifiable SetFromMap<E> this, E e) { return m.put(e, Boolean.TRUE) == null; }
         @SideEffectFree
@@ -6191,7 +6191,7 @@ public class Collections {
         @Pure
         public boolean containsAll(Collection<? extends @UnknownSignedness Object> c) {return s.containsAll(c);}
         public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @UnknownSignedness Object> c)   {return s.removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, c);}
-        public boolean retainAll(Collection<? extends @UnknownSignedness Object> c)   {return s.retainAll(c);}
+        public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<? extends @UnknownSignedness Object> c)   {return s.retainAll(c);}
         // addAll is the only inherited implementation
 
         // Override default methods in Collection
@@ -6299,11 +6299,11 @@ public class Collections {
         public SequencedSet<E> reversed() { return new SequencedSetFromMap<>(map().reversed()); }
 
         public void addFirst(@GuardSatisfied @Modifiable ThisClass<E> this, E e) { map().putFirst(e, Boolean.TRUE); }
-        public void addLast(E e)  { map().putLast(e, Boolean.TRUE); }
+        public void addLast(@GuardSatisfied @Modifiable ThisClass<E> this, E e)  { map().putLast(e, Boolean.TRUE); }
         public E getFirst()       { return nsee(map().firstEntry()); }
         public E getLast()        { return nsee(map().lastEntry()); }
-        public E removeFirst()    { return nsee(map().pollFirstEntry()); }
-        public E removeLast()     { return nsee(map().pollLastEntry()); }
+        public E removeFirst(@GuardSatisfied @Modifiable ThisClass<E> this)    { return nsee(map().pollFirstEntry()); }
+        public E removeLast(@GuardSatisfied @Modifiable ThisClass<E> this)     { return nsee(map().pollLastEntry()); }
 
         @java.io.Serial
         private static final long serialVersionUID = -3943479744841433802L;
@@ -6363,7 +6363,7 @@ public class Collections {
         @Pure
         @EnsuresNonEmptyIf(result = true, expression = "this")
         public boolean contains(@UnknownSignedness Object o)           { return q.contains(o); }
-        public boolean remove(@UnknownSignedness Object o)             { return q.remove(o); }
+        public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @UnknownSignedness Object o)             { return q.remove(o); }
         @SideEffectFree
         public Iterator<E> iterator()               { return q.iterator(); }
         @SideEffectFree
@@ -6375,7 +6375,7 @@ public class Collections {
         @Pure
         public boolean containsAll(Collection<? extends @UnknownSignedness Object> c) { return q.containsAll(c); }
         public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @UnknownSignedness Object> c)   { return q.removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, c); }
-        public boolean retainAll(Collection<? extends @UnknownSignedness Object> c)   { return q.retainAll(c); }
+        public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<? extends @UnknownSignedness Object> c)   { return q.retainAll(c); }
         // We use inherited addAll; forwarding addAll would be wrong
 
         // Override default methods in Collection
