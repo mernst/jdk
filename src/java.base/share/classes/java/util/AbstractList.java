@@ -833,7 +833,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
             updateSizeAndModCount(1);
         }
 
-        public @GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, @IndexFor({"this"})  {
+        public E remove(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, @IndexFor({"this"} int index) {
             Objects.checkIndex(index, size);
             checkForComodification();
             E result = root.remove(offset + index);

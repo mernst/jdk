@@ -149,7 +149,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
         return base.remove(o);
     }
 
-    public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<?> c) {
+    public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, Collection<?> c) {
         return base.removeAll(c);
     }
 

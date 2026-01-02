@@ -80,7 +80,7 @@ class ReverseOrderDequeView<E> implements Deque<E> {
         return modified;
     }
 
-    public void clear(@GuardSatisfied @Modifiable @Shrinkable ReverseOrderDequeView<E>) {
+    public void clear(@GuardSatisfied @Modifiable @Shrinkable ReverseOrderDequeView<E> this) {
         base.clear();
     }
 
@@ -122,7 +122,7 @@ class ReverseOrderDequeView<E> implements Deque<E> {
     }
 
     // copied from AbstractCollection
-    public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<?> c) {
+    public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, Collection<?> c) {
         Objects.requireNonNull(c);
         boolean modified = false;
         Iterator<?> it = iterator();

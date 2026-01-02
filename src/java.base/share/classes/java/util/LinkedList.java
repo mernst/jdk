@@ -1352,7 +1352,7 @@ public class LinkedList<E>
             return rlist.retainAll(c);
         }
 
-        public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<?> c) {
+        public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, Collection<?> c) {
             return rlist.removeAll(c);
         }
 
@@ -1504,7 +1504,7 @@ public class LinkedList<E>
             return rlist.indexOf(o);
         }
 
-        public @GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, @IndexFor({"this"})  {
+        public E remove(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, @IndexFor({"this"}) int index) {
             return rlist.remove(index);
         }
 
@@ -1520,7 +1520,7 @@ public class LinkedList<E>
             return rlist.get(index);
         }
 
-        public void clear(@GuardSatisfied @Modifiable @Shrinkable LinkedList<E>) {
+        public void clear(@GuardSatisfied @Modifiable @Shrinkable LinkedList<E> this) {
             rlist.clear();
         }
 

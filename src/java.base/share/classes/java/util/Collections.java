@@ -1154,7 +1154,7 @@ public class Collections {
         public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends E> coll) {
             throw new UnsupportedOperationException();
         }
-        public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @UnknownSignedness Object> coll) {
+        public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, Collection<? extends @UnknownSignedness Object> coll) {
             throw new UnsupportedOperationException();
         }
         public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<? extends @UnknownSignedness Object> coll) {
@@ -1562,7 +1562,7 @@ public class Collections {
         public void add(@GuardSatisfied @Modifiable ThisClass<E> this, @IndexOrHigh({"this"}) int index, E element) {
             throw new UnsupportedOperationException();
         }
-        public @GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, @IndexFor({"this"})  {
+        public E remove(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, @IndexFor({"this"} int index) {
             throw new UnsupportedOperationException();
         }
         public int indexOf(Object o)            {return list.indexOf(o);}
@@ -2430,7 +2430,7 @@ public class Collections {
         public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends E> coll) {
             synchronized (mutex) {return c.addAll(coll);}
         }
-        public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @UnknownSignedness Object> coll) {
+        public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, Collection<? extends @UnknownSignedness Object> coll) {
             synchronized (mutex) {return c.removeAll(coll);}
         }
         public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<? extends @UnknownSignedness Object> coll) {
@@ -2821,7 +2821,7 @@ public class Collections {
         public void add(@GuardSatisfied @Modifiable ThisClass<E> this, @IndexOrHigh({"this"}) int index, E element) {
             synchronized (mutex) {list.add(index, element);}
         }
-        public @GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, @IndexFor({"this"})  {
+        public E remove(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, @IndexFor({"this"}) int index) {
             synchronized (mutex) {return list.remove(index);}
         }
 
@@ -3507,7 +3507,7 @@ public class Collections {
         public boolean containsAll(Collection<? extends @UnknownSignedness Object> coll) {
             return c.containsAll(coll);
         }
-        public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @UnknownSignedness Object> coll) {
+        public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, Collection<? extends @UnknownSignedness Object> coll) {
             return c.removeAll(coll);
         }
         public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<? extends @UnknownSignedness Object> coll) {
@@ -3898,7 +3898,7 @@ public class Collections {
         public boolean equals(Object o)  { return o == this || list.equals(o); }
         public int hashCode()            { return list.hashCode(); }
         public E get(int index)          { return list.get(index); }
-        public @GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, @IndexFor({"this"})        { return list.remove(index); }
+        public E remove(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, @IndexFor({"this"}) int index)       { return list.remove(index); }
         public int indexOf(Object o)     { return list.indexOf(o); }
         public int lastIndexOf(Object o) { return list.lastIndexOf(o); }
 
@@ -4331,7 +4331,7 @@ public class Collections {
                                 <>((Map.Entry<?,?>)o));
             }
 
-            public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @UnknownSignedness Object> c) {
+            public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, Collection<? extends @UnknownSignedness Object> c) {
                 return batchRemove(c, false);
             }
             public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<? extends @UnknownSignedness Object> c) {
@@ -4704,7 +4704,7 @@ public class Collections {
         public boolean hasNext() { return false; }
         @SideEffectsOnly("this")
         public E next(@NonEmpty EmptyIterator<E> this) { throw new NoSuchElementException(); }
-        public void remove(@GuardSatisfied @Modifiable ThisClass<E> this@GuardSatisfied @Modifiable @NonEmpty EmptyIterator<E> this) { throw new IllegalStateException(); }
+        public void remove(@GuardSatisfied @Modifiable @NonEmpty EmptyIterator<E> this) { throw new IllegalStateException(); }
         @Override
         public void forEachRemaining(Consumer<? super E> action) {
             Objects.requireNonNull(action);
@@ -4842,7 +4842,7 @@ public class Collections {
         @Pure
         @EnsuresNonEmptyIf(result = false, expression = "this")
         public boolean isEmpty() {return true;}
-        public void clear(@GuardSatisfied @Modifiable @Shrinkable EmptySet<E>) {}
+        public void clear(@GuardSatisfied @Modifiable @Shrinkable EmptySet<E> this) {}
 
         @Pure
         @EnsuresNonEmptyIf(result = true, expression = "this")
@@ -4986,7 +4986,7 @@ public class Collections {
         @Pure
         @EnsuresNonEmptyIf(result = false, expression = "this")
         public boolean isEmpty() {return true;}
-        public void clear(@GuardSatisfied @Modifiable @Shrinkable EmptyList<E>) {}
+        public void clear(@GuardSatisfied @Modifiable @Shrinkable EmptyList<E> this) {}
 
         @Pure
         @EnsuresNonEmptyIf(result = true, expression = "this")
@@ -6167,7 +6167,7 @@ public class Collections {
             s = map.keySet();
         }
 
-        public void clear(@GuardSatisfied @Modifiable @Shrinkable SetFromMap<E>)               {        m.clear(); }
+        public void clear(@GuardSatisfied @Modifiable @Shrinkable SetFromMap<E> this)               {        m.clear(); }
         @Pure
         public @NonNegative int size()                 { return m.size(); }
         @Pure
@@ -6190,8 +6190,8 @@ public class Collections {
         public boolean equals(Object o)   { return o == this || s.equals(o); }
         @Pure
         public boolean containsAll(Collection<? extends @UnknownSignedness Object> c) {return s.containsAll(c);}
-        public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @UnknownSignedness Object> c)   {return s.removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, c);}
-        public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<? extends @UnknownSignedness Object> c)   {return s.retainAll(c);}
+        public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, Collection<? extends @UnknownSignedness Object> c)   {return s.removeAll(c);}
+        public boolean retainAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<> this, Collection<? extends @UnknownSignedness Object> c)   {return s.retainAll(c);}
         // addAll is the only inherited implementation
 
         // Override default methods in Collection
@@ -6354,7 +6354,7 @@ public class Collections {
         @Pure
         public E peek()                             { return q.peekFirst(); }
         public E element()                          { return q.getFirst(); }
-        public void clear(@GuardSatisfied @Modifiable @Shrinkable AsLIFOQueue<E>)                         {        q.clear(); }
+        public void clear(@GuardSatisfied @Modifiable @Shrinkable AsLIFOQueue<E> this)                         {        q.clear(); }
         @Pure
         public @NonNegative int size()                           { return q.size(); }
         @Pure
@@ -6374,8 +6374,8 @@ public class Collections {
         public String toString()                    { return q.toString(); }
         @Pure
         public boolean containsAll(Collection<? extends @UnknownSignedness Object> c) { return q.containsAll(c); }
-        public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @UnknownSignedness Object> c)   { return q.removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, c); }
-        public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<? extends @UnknownSignedness Object> c)   { return q.retainAll(c); }
+        public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, Collection<? extends @UnknownSignedness Object> c)   { return q.removeAll(c); }
+        public boolean retainAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<> this, Collection<? extends @UnknownSignedness Object> c)   { return q.retainAll(c); }
         // We use inherited addAll; forwarding addAll would be wrong
 
         // Override default methods in Collection

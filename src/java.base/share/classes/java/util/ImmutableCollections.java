@@ -161,7 +161,7 @@ class ImmutableCollections {
         @Override public boolean addAll(@GuardSatisfied @Modifiable ThisClass<E> this, Collection<? extends E> c) { throw uoe(); }
         @Override public void    clear() { throw uoe(); }
         @Override public boolean remove(@GuardSatisfied @Modifiable ThisClass<> this, @UnknownSignedness Object o) { throw uoe(); }
-        @Override public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, Collection<? extends @UnknownSignedness Object> c) { throw uoe(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E>, ); }
+        @Override public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable ThisClass<E> this, Collection<? extends @UnknownSignedness Object> c) { throw uoe(); }
         @Override public boolean removeIf(Predicate<? super E> filter) { throw uoe(); }
         @Override public boolean retainAll(@GuardSatisfied @Modifiable ThisClass<> this, Collection<? extends @UnknownSignedness Object> c) { throw uoe(); }
     }

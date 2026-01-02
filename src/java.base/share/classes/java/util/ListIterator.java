@@ -166,7 +166,7 @@ public interface ListIterator<E> extends Iterator<E> {
      *         {@code add} have been called after the last call to
      *         {@code next} or {@code previous}
      */
-    void remove(@GuardSatisfied @Modifiable ThisClass<E> this@GuardSatisfied @Modifiable ListIterator<E> this);
+    void remove(@GuardSatisfied @Modifiable ListIterator<E> this);
 
     /**
      * Replaces the last element returned by {@link #next} or
