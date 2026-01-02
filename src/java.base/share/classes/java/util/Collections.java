@@ -4229,7 +4229,7 @@ public class Collections {
             public boolean isEmpty() { return s.isEmpty(); }
             public String toString() { return s.toString(); }
             public int hashCode()    { return s.hashCode(); }
-            public void clear(@GuardSatisfied @Modifiable @Shrinkable CheckedEntrySet<K,V> this)      {        s.clear(); }
+            public void clear(@GuardSatisfied @Modifiable CheckedEntrySet<K,V> this)      {        s.clear(); }
 
             @EnsuresNonEmpty("this")
             public boolean add(@GuardSatisfied @Modifiable CheckedEntrySet<K,V> this, Map.Entry<K, V> e) {
@@ -4331,7 +4331,7 @@ public class Collections {
                                 <>((Map.Entry<?,?>)o));
             }
 
-            public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable CheckedEntrySet<K,V> this, Collection<? extends @UnknownSignedness Object> c) {
+            public boolean removeAll(@GuardSatisfied @Modifiable CheckedEntrySet<K,V> this, Collection<? extends @UnknownSignedness Object> c) {
                 return batchRemove(c, false);
             }
             public boolean retainAll(@GuardSatisfied @Modifiable CheckedEntrySet<K,V> this, Collection<? extends @UnknownSignedness Object> c) {
@@ -4842,7 +4842,7 @@ public class Collections {
         @Pure
         @EnsuresNonEmptyIf(result = false, expression = "this")
         public boolean isEmpty() {return true;}
-        public void clear(@GuardSatisfied @Modifiable @Shrinkable EmptySet<E> this) {}
+        public void clear(@GuardSatisfied @Modifiable EmptySet<E> this) {}
 
         @Pure
         @EnsuresNonEmptyIf(result = true, expression = "this")
@@ -6167,7 +6167,7 @@ public class Collections {
             s = map.keySet();
         }
 
-        public void clear(@GuardSatisfied @Modifiable @Shrinkable SetFromMap<E> this)               {        m.clear(); }
+        public void clear(@GuardSatisfied @Modifiable SetFromMap<E> this)               {        m.clear(); }
         @Pure
         public @NonNegative int size()                 { return m.size(); }
         @Pure
@@ -6190,8 +6190,8 @@ public class Collections {
         public boolean equals(Object o)   { return o == this || s.equals(o); }
         @Pure
         public boolean containsAll(Collection<? extends @UnknownSignedness Object> c) {return s.containsAll(c);}
-        public boolean removeAll(@GuardSatisfied @Modifiable @Shrinkable SetFromMap<E> this, Collection<? extends @UnknownSignedness Object> c)   {return s.removeAll(c);}
-        public boolean retainAll(@GuardSatisfied @Modifiable @Shrinkable SetFromMap<E> this, Collection<? extends @UnknownSignedness Object> c)   {return s.retainAll(c);}
+        public boolean removeAll(@GuardSatisfied @Modifiable SetFromMap<E> this, Collection<? extends @UnknownSignedness Object> c)   {return s.removeAll(c);}
+        public boolean retainAll(@GuardSatisfied @Modifiable SetFromMap<E> this, Collection<? extends @UnknownSignedness Object> c)   {return s.retainAll(c);}
         // addAll is the only inherited implementation
 
         // Override default methods in Collection
