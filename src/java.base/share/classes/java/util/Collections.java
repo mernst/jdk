@@ -1173,7 +1173,7 @@ public class Collections {
             c.forEach(action);
         }
         @Override
-        public boolean removeIf(Predicate<? super E> filter) {
+        public boolean removeIf(@GuardSatisfied @Modifiable UnmodifiableCollection<E> this, Predicate<? super E> filter) {
             throw new UnsupportedOperationException();
         }
         @SideEffectFree
@@ -1736,7 +1736,7 @@ public class Collections {
         public void putAll(Map<? extends K, ? extends V> m) {
             throw new UnsupportedOperationException();
         }
-        public void clear(UnmodifiableMap<K,V> this) {
+        public void clear(@Modifiable UnmodifiableMap<K,V> this) {
             throw new UnsupportedOperationException();
         }
 
@@ -2451,7 +2451,7 @@ public class Collections {
             synchronized (mutex) {c.forEach(consumer);}
         }
         @Override
-        public boolean removeIf(Predicate<? super E> filter) {
+        public boolean removeIf(@Modifiable SynchronizedCollection<E> this, Predicate<? super E> filter) {
             synchronized (mutex) {return c.removeIf(filter);}
         }
         @SideEffectFree
@@ -3009,7 +3009,7 @@ public class Collections {
         public void putAll(Map<? extends K, ? extends V> map) {
             synchronized (mutex) {m.putAll(map);}
         }
-        public void clear() {
+        public void clear(@Modifiable SynchronizedMap<E> this) {
             synchronized (mutex) {m.clear();}
         }
 
@@ -3581,7 +3581,7 @@ public class Collections {
         @Override
         public void forEach(Consumer<? super E> action) {c.forEach(action);}
         @Override
-        public boolean removeIf(Predicate<? super E> filter) {
+        public boolean removeIf(@Modifiable CheckedCollection<E> this, Predicate<? super E> filter) {
             return c.removeIf(filter);
         }
         @SideEffectFree
@@ -4096,7 +4096,7 @@ public class Collections {
         public boolean containsValue(@UnknownSignedness Object v) { return m.containsValue(v); }
         public V get(Object key)               { return m.get(key); }
         public V remove(Object key)            { return m.remove(key); }
-        public void clear()                    { m.clear(); }
+        public void clear(@Modifiable CheckedMap<E> this)                    { m.clear(); }
         public Set<K> keySet()                 { return m.keySet(); }
         public Collection<V> values()          { return m.values(); }
         public boolean equals(Object o)        { return o == this || m.equals(o); }
@@ -4869,7 +4869,7 @@ public class Collections {
             Objects.requireNonNull(action);
         }
         @Override
-        public boolean removeIf(Predicate<? super E> filter) {
+        public boolean removeIf(@Modifiable EmptySet<E> this, Predicate<? super E> filter) {
             Objects.requireNonNull(filter);
             return false;
         }
@@ -5018,7 +5018,7 @@ public class Collections {
         public int hashCode() { return 1; }
 
         @Override
-        public boolean removeIf(Predicate<? super E> filter) {
+        public boolean removeIf(@Modifiable EmptyList<E> this, Predicate<? super E> filter) {
             Objects.requireNonNull(filter);
             return false;
         }
@@ -5139,7 +5139,7 @@ public class Collections {
         @Pure
         @EnsuresNonEmptyIf(result = false, expression = "this")
         public boolean isEmpty()                   {return true;}
-        public void clear()                        {}
+        public void clear(@Modifiable EmptyMap<K,V> this)                        {}
         @Pure
         @EnsuresKeyForIf(expression={"#1"}, result=true, map={"this"})
         public boolean containsKey(@UnknownSignedness Object key)     {return false;}
@@ -5354,7 +5354,7 @@ public class Collections {
             return singletonSpliterator(element);
         }
         @Override
-        public boolean removeIf(Predicate<? super E> filter) {
+        public boolean removeIf(@Modifiable SingletonSet<E> this, Predicate<? super E> filter) {
             throw new UnsupportedOperationException();
         }
         @Override
@@ -5417,7 +5417,7 @@ public class Collections {
             action.accept(element);
         }
         @Override
-        public boolean removeIf(Predicate<? super E> filter) {
+        public boolean removeIf(@Modifiable SingletonList<E> this, Predicate<? super E> filter) {
             throw new UnsupportedOperationException();
         }
         @Override
@@ -6203,7 +6203,7 @@ public class Collections {
             s.forEach(action);
         }
         @Override
-        public boolean removeIf(Predicate<? super E> filter) {
+        public boolean removeIf(@Modifiable SetFromMap<E> this, Predicate<? super E> filter) {
             return s.removeIf(filter);
         }
 
@@ -6385,7 +6385,7 @@ public class Collections {
         @Override
         public void forEach(Consumer<? super E> action) {q.forEach(action);}
         @Override
-        public boolean removeIf(Predicate<? super E> filter) {
+        public boolean removeIf(@Modifiable AsLIFOQueue<E> this, Predicate<? super E> filter) {
             return q.removeIf(filter);
         }
         @SideEffectFree

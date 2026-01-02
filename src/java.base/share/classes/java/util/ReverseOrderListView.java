@@ -374,7 +374,7 @@ class ReverseOrderListView<E> implements List<E> {
         return base.remove(size - index - 1);
     }
 
-    public boolean removeIf(Predicate<? super E> filter) {
+    public boolean removeIf(@GuardSatisfied @Modifiable @Shrinkable ReverseOrderListView<E> this, Predicate<? super E> filter) {
         checkModifiable();
         return base.removeIf(filter);
     }
