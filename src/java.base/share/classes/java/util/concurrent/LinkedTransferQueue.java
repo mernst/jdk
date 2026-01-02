@@ -942,7 +942,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
                 lastRet = q;
         }
 
-        public final void remove(@GuardSatisfied @Modifiable ThisClass<E> this) {
+        public final void remove(@GuardSatisfied @Modifiable Itr this) {
             final Node lastRet = this.lastRet;
             if (lastRet == null)
                 throw new IllegalStateException();
