@@ -5418,7 +5418,7 @@ public class Collections {
             throw new UnsupportedOperationException();
         }
         @Override
-        public void replaceAll(@GuardSatisfied @Modifiable UnmodifiableSequencedCollection<E> this, UnaryOperator<E> operator) {
+        public void replaceAll(@GuardSatisfied @Modifiable SingletonList<E> this, UnaryOperator<E> operator) {
             throw new UnsupportedOperationException();
         }
         @Override

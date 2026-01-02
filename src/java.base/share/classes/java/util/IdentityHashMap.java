@@ -796,7 +796,7 @@ public class IdentityHashMap<K,V>
             return lastReturnedIndex;
         }
 
-        public void remove(@GuardSatisfied @Modifiable IdentityHashMapIterator<E> this) {
+        public void remove(@GuardSatisfied @Modifiable IdentityHashMapIterator<T> this) {
             if (lastReturnedIndex == -1)
                 throw new IllegalStateException();
             if (modCount != expectedModCount)
