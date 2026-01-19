@@ -110,7 +110,7 @@ import java.util.stream.Stream;
 
 @CFComment({"lock/nullness: This class permits null elements"})
 @AnnotatedFor({"lock", "nullness", "index"})
-public class LinkedList<E>
+public @Modifiable class LinkedList<E>
     extends AbstractSequentialList<E>
     implements List<E>, Deque<E>, Cloneable, java.io.Serializable
 {

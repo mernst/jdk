@@ -189,7 +189,7 @@ import java.util.function.Function;
  * @since   1.4
  */
 @AnnotatedFor({"lock", "nullness", "index"})
-public class LinkedHashMap<K,V>
+public @Modifiable class LinkedHashMap<K,V>
     extends HashMap<K,V>
     implements SequencedMap<K,V>
 {

@@ -158,7 +158,7 @@ import jdk.internal.access.SharedSecrets;
  * @since   1.2
  */
 @AnnotatedFor({"lock", "nullness", "index"})
-public class HashMap<K,V> extends AbstractMap<K,V>
+public @Modifiable class HashMap<K,V> extends AbstractMap<K,V>
     implements Map<K,V>, Cloneable, Serializable {
 
     @java.io.Serial

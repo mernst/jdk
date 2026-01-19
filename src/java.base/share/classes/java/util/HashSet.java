@@ -106,7 +106,7 @@ import jdk.internal.access.SharedSecrets;
  */
 
 @AnnotatedFor({"lock", "nullness", "index"})
-public class HashSet<E>
+public @Modifiable class HashSet<E>
     extends AbstractSet<E>
     implements Set<E>, Cloneable, java.io.Serializable
 {

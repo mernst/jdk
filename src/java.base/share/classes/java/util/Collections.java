@@ -482,7 +482,7 @@ public class Collections {
      * @throws UnsupportedOperationException if the specified list or its
      *         list-iterator does not support the {@code set} operation.
      */
-    public static void shuffle(List<?> list, Random rnd) {
+    public static void shuffle(@Modifiable List<?> list, Random rnd) {
         shuffle(list, (RandomGenerator) rnd);
     }
 
@@ -4693,7 +4693,7 @@ public class Collections {
      */
     @SuppressWarnings("unchecked")
     @SideEffectFree
-    public static <T> @Unmodifiable Iterator<T> emptyIterator() {
+    public static <T> @Modifiable Iterator<T> emptyIterator() {
         return (Iterator<T>) EmptyIterator.EMPTY_ITERATOR;
     }
 

@@ -140,7 +140,7 @@ import java.util.function.Function;
 
 @CFComment({"lock/nullness: This permits null element when using a custom comparator that allows null"})
 @AnnotatedFor({"lock", "nullness", "index"})
-public class TreeMap<K,V>
+public @Modifiable class TreeMap<K,V>
     extends AbstractMap<K,V>
     implements NavigableMap<K,V>, Cloneable, java.io.Serializable
 {

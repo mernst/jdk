@@ -30,6 +30,7 @@ import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.index.qual.Shrinkable;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -110,7 +111,7 @@ import jdk.internal.util.ArraysSupport;
  */
 @CFComment({"lock/nullness: permits nullable object"})
 @AnnotatedFor({"lock", "nullness", "index"})
-public class Vector<E>
+public @Modifiable class Vector<E>
     extends AbstractList<E>
     implements List<E>, RandomAccess, Cloneable, java.io.Serializable
 {
@@ -159,7 +160,7 @@ public class Vector<E>
      * @throws IllegalArgumentException if the specified initial capacity
      *         is negative
      */
-    public Vector(@NonNegative int initialCapacity, int capacityIncrement) {
+    public @Modifiable Vector(@NonNegative int initialCapacity, int capacityIncrement) {
         super();
         if (initialCapacity < 0)
             throw new IllegalArgumentException("Illegal Capacity: "+
@@ -176,7 +177,7 @@ public class Vector<E>
      * @throws IllegalArgumentException if the specified initial capacity
      *         is negative
      */
-    public Vector(@NonNegative int initialCapacity) {
+    public @Modifiable Vector(@NonNegative int initialCapacity) {
         this(initialCapacity, 0);
     }
 
@@ -185,7 +186,7 @@ public class Vector<E>
      * has size {@code 10} and its standard capacity increment is
      * zero.
      */
-    public Vector() {
+    public @Modifiable Vector() {
         this(10);
     }
 
@@ -199,7 +200,7 @@ public class Vector<E>
      * @throws NullPointerException if the specified collection is null
      * @since   1.2
      */
-    public @PolyNonEmpty Vector(@PolyNonEmpty Collection<? extends E> c) {
+    public @Modifiable @PolyNonEmpty Vector(@PolyNonEmpty Collection<? extends E> c) {
         Object[] a = c.toArray();
         elementCount = a.length;
         if (c.getClass() == ArrayList.class) {
