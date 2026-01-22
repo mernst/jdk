@@ -28,6 +28,7 @@ package java.util;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.WillThrowUOE;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.checker.nonempty.qual.PolyNonEmpty;
@@ -342,6 +343,7 @@ public @Modifiable class TreeMap<K,V>
      * @throws UnsupportedOperationException always
      * @since 21
      */
+    @WillThrowUOE
      public V putFirst(K k, V v) {
         throw new UnsupportedOperationException();
     }
@@ -354,6 +356,7 @@ public @Modifiable class TreeMap<K,V>
      * @throws UnsupportedOperationException always
      * @since 21
      */
+    @WillThrowUOE
     public V putLast(K k, V v) {
         throw new UnsupportedOperationException();
     }

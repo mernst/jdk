@@ -26,6 +26,7 @@
 package java.util;
 
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.WillThrowUOE;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.dataflow.qual.Pure;
@@ -291,6 +292,7 @@ public interface SortedSet<E> extends Set<E>, SequencedSet<E> {
      * @throws UnsupportedOperationException always
      * @since 21
      */
+    @WillThrowUOE
     default void addFirst(E e) {
         throw new UnsupportedOperationException();
     }
@@ -306,6 +308,7 @@ public interface SortedSet<E> extends Set<E>, SequencedSet<E> {
      * @throws UnsupportedOperationException always
      * @since 21
      */
+    @WillThrowUOE
     default void addLast(E e) {
         throw new UnsupportedOperationException();
     }

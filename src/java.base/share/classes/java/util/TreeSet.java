@@ -29,6 +29,7 @@ import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.WillThrowUOE;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -507,6 +508,7 @@ public @Modifiable class TreeSet<E> extends AbstractSet<E>
      * @throws UnsupportedOperationException always
      * @since 21
      */
+    @WillThrowUOE
     public void addFirst(E e) {
         throw new UnsupportedOperationException();
     }
@@ -519,6 +521,7 @@ public @Modifiable class TreeSet<E> extends AbstractSet<E>
      * @throws UnsupportedOperationException always
      * @since 21
      */
+    @WillThrowUOE
     public void addLast(E e) {
         throw new UnsupportedOperationException();
     }
