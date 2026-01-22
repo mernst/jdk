@@ -26,6 +26,7 @@
 package java.util;
 
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.WillThrowUOE;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -161,7 +162,7 @@ public interface SortedSet<E> extends Set<E>, SequencedSet<E> {
      *         {@code toElement} lies outside the bounds of the range
      */
     @SideEffectFree
-    SortedSet<E> subSet(@GuardSatisfied SortedSet<E> this, @GuardSatisfied E fromElement, @GuardSatisfied E toElement);
+    @PolyModifiable SortedSet<E> subSet(@PolyModifiable @GuardSatisfied SortedSet<E> this, @GuardSatisfied E fromElement, @GuardSatisfied E toElement);
 
     /**
      * Returns a view of the portion of this set whose elements are
@@ -189,7 +190,7 @@ public interface SortedSet<E> extends Set<E>, SequencedSet<E> {
      *         bounds of the range
      */
     @SideEffectFree
-    SortedSet<E> headSet(@GuardSatisfied SortedSet<E> this, E toElement);
+    @PolyModifiable SortedSet<E> headSet(@PolyModifiable @GuardSatisfied SortedSet<E> this, E toElement);
 
     /**
      * Returns a view of the portion of this set whose elements are
@@ -217,7 +218,7 @@ public interface SortedSet<E> extends Set<E>, SequencedSet<E> {
      *         bounds of the range
      */
     @SideEffectFree
-    SortedSet<E> tailSet(@GuardSatisfied SortedSet<E> this, E fromElement);
+    @PolyModifiable SortedSet<E> tailSet(@PolyModifiable @GuardSatisfied SortedSet<E> this, E fromElement);
 
     /**
      * Returns the first (lowest) element currently in this set.
@@ -351,7 +352,7 @@ public interface SortedSet<E> extends Set<E>, SequencedSet<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
-    default E removeFirst() {
+    default E removeFirst(@Modifiable SortedSet<E> this) {
         E e = this.first();
         this.remove(e);
         return e;
@@ -369,7 +370,7 @@ public interface SortedSet<E> extends Set<E>, SequencedSet<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
-    default E removeLast() {
+    default E removeLast(@Modifiable SortedSet<E> this) {
         E e = this.last();
         this.remove(e);
         return e;
@@ -385,7 +386,7 @@ public interface SortedSet<E> extends Set<E>, SequencedSet<E> {
      * @return a reverse-ordered view of this collection, as a {@code SortedSet}
      * @since 21
      */
-    default SortedSet<E> reversed() {
+    default @PolyModifiable SortedSet<E> reversed(@PolyModifiable SortedSet<E> this) {
         return ReverseOrderSortedSetView.of(this);
     }
 }

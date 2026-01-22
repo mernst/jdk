@@ -25,6 +25,9 @@
 
 package java.util;
 
+
+import org.checkerframework.checker.modifiability.qual.Modifiable;
+
 /**
  * A collection that has a well-defined encounter order, that supports operations at both ends,
  * and that is reversible. The elements of a sequenced collection have an <a id="encounter">
@@ -103,7 +106,7 @@ public interface SequencedCollection<E> extends Collection<E> {
      * @throws UnsupportedOperationException if this collection implementation
      *         does not support this operation
      */
-    default void addFirst(E e) {
+    default void addFirst(@Modifiable SequencedCollection<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 
@@ -121,7 +124,7 @@ public interface SequencedCollection<E> extends Collection<E> {
      * @throws UnsupportedOperationException if this collection implementation
      *         does not support this operation
      */
-    default void addLast(E e) {
+    default void addLast(@Modifiable SequencedCollection<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 
@@ -172,7 +175,7 @@ public interface SequencedCollection<E> extends Collection<E> {
      * @throws UnsupportedOperationException if this collection implementation
      *         does not support this operation
      */
-    default E removeFirst() {
+    default E removeFirst(@Modifiable SequencedCollection<E> this) {
         var it = this.iterator();
         E e = it.next();
         it.remove();
@@ -194,7 +197,7 @@ public interface SequencedCollection<E> extends Collection<E> {
      * @throws UnsupportedOperationException if this collection implementation
      *         does not support this operation
      */
-    default E removeLast() {
+    default E removeLast(@Modifiable SequencedCollection<E> this) {
         var it = this.reversed().iterator();
         E e = it.next();
         it.remove();

@@ -27,6 +27,8 @@ package java.util;
 
 import jdk.internal.util.NullableKeyValueHolder;
 
+import org.checkerframework.checker.modifiability.qual.Modifiable;
+
 /**
  * A Map that has a well-defined encounter order, that supports operations at both ends, and
  * that is reversible. The <a href="SequencedCollection.html#encounter">encounter order</a>
@@ -184,7 +186,7 @@ public interface SequencedMap<K, V> extends Map<K, V> {
      * @throws UnsupportedOperationException if this collection implementation does not
      *         support this operation
      */
-    default Map.Entry<K,V> pollFirstEntry() {
+    default Map.Entry<K,V> pollFirstEntry(@Modifiable SequencedMap<K,V> this) {
         var it = entrySet().iterator();
         if (it.hasNext()) {
             var entry = new NullableKeyValueHolder<>(it.next());
@@ -209,7 +211,7 @@ public interface SequencedMap<K, V> extends Map<K, V> {
      * @throws UnsupportedOperationException if this collection implementation does not
      *         support this operation
      */
-    default Map.Entry<K,V> pollLastEntry() {
+    default Map.Entry<K,V> pollLastEntry(@Modifiable SequencedMap<K,V> this) {
         var it = reversed().entrySet().iterator();
         if (it.hasNext()) {
             var entry = new NullableKeyValueHolder<>(it.next());
@@ -235,7 +237,7 @@ public interface SequencedMap<K, V> extends Map<K, V> {
      * @throws UnsupportedOperationException if this collection implementation does not
      *         support this operation
      */
-    default V putFirst(K k, V v) {
+    default V putFirst(@Modifiable SequencedMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
     }
 
@@ -254,7 +256,7 @@ public interface SequencedMap<K, V> extends Map<K, V> {
      * @throws UnsupportedOperationException if this collection implementation does not
      *         support this operation
      */
-    default V putLast(K k, V v) {
+    default V putLast(@Modifiable SequencedMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
     }
 
