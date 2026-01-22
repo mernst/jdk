@@ -27,6 +27,7 @@ package java.util;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -152,7 +153,7 @@ import jdk.internal.access.SharedSecrets;
  */
 @CFComment({"lock: This collection can only contain nonnull values"})
 @AnnotatedFor({"lock", "nullness", "index"})
-public class Hashtable<K extends @NonNull Object,V extends @NonNull Object>
+public @Modifiable class Hashtable<K extends @NonNull Object,V extends @NonNull Object>
     extends Dictionary<K,V>
     implements Map<K,V>, Cloneable, java.io.Serializable {
 

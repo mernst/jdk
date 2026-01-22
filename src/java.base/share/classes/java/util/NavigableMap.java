@@ -36,8 +36,8 @@
 package java.util;
 
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
-import org.checkerframework.checker.lock.qual.Modifiable;
-import org.checkerframework.checker.lock.qual.PolyModifiable;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.nullness.qual.KeyFor;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.dataflow.qual.SideEffectFree;

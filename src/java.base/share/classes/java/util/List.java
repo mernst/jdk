@@ -848,7 +848,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
-    default void addFirst(E e) {
+    default void addFirst(@Modifiable List<E> this, E e) {
         this.add(0, e);
     }
 
@@ -862,7 +862,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
-    default void addLast(E e) {
+    default void addLast(@Modifiable List<E> this, E e) {
         this.add(e);
     }
 
@@ -913,7 +913,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
-    default E removeFirst() {
+    default E removeFirst(@Modifiable List<E> this) {
         if (this.isEmpty()) {
             throw new NoSuchElementException();
         } else {
@@ -932,7 +932,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
-    default E removeLast() {
+    default E removeLast(@Modifiable List<E> this) {
         if (this.isEmpty()) {
             throw new NoSuchElementException();
         } else {
