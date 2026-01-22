@@ -35,6 +35,7 @@
 
 package java.util.concurrent;
 
+import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 
 import java.util.NavigableMap;
@@ -62,7 +63,8 @@ public interface ConcurrentNavigableMap<K,V>
      * @throws IllegalArgumentException {@inheritDoc}
      */
     @SideEffectFree
-    ConcurrentNavigableMap<K,V> subMap(K fromKey, boolean fromInclusive,
+    @PolyModifiable ConcurrentNavigableMap<K,V> subMap(@PolyModifiable ConcurrentNavigableMap<K,V> this,
+                                       K fromKey, boolean fromInclusive,
                                        K toKey,   boolean toInclusive);
 
     /**
@@ -71,7 +73,8 @@ public interface ConcurrentNavigableMap<K,V>
      * @throws IllegalArgumentException {@inheritDoc}
      */
     @SideEffectFree
-    ConcurrentNavigableMap<K,V> headMap(K toKey, boolean inclusive);
+    @PolyModifiable ConcurrentNavigableMap<K,V> headMap(@PolyModifiable ConcurrentNavigableMap<K,V> this, 
+                                        K toKey, boolean inclusive);
 
     /**
      * @throws ClassCastException       {@inheritDoc}
@@ -79,7 +82,8 @@ public interface ConcurrentNavigableMap<K,V>
      * @throws IllegalArgumentException {@inheritDoc}
      */
     @SideEffectFree
-    ConcurrentNavigableMap<K,V> tailMap(K fromKey, boolean inclusive);
+    @PolyModifiable ConcurrentNavigableMap<K,V> tailMap(@PolyModifiable ConcurrentNavigableMap<K,V> this, 
+                                        K fromKey, boolean inclusive);
 
     /**
      * @throws ClassCastException       {@inheritDoc}
@@ -87,7 +91,8 @@ public interface ConcurrentNavigableMap<K,V>
      * @throws IllegalArgumentException {@inheritDoc}
      */
     @SideEffectFree
-    ConcurrentNavigableMap<K,V> subMap(K fromKey, K toKey);
+    @PolyModifiable ConcurrentNavigableMap<K,V> subMap(@PolyModifiable ConcurrentNavigableMap<K,V> this, 
+                                       K fromKey, K toKey);
 
     /**
      * @throws ClassCastException       {@inheritDoc}
@@ -95,7 +100,8 @@ public interface ConcurrentNavigableMap<K,V>
      * @throws IllegalArgumentException {@inheritDoc}
      */
     @SideEffectFree
-    ConcurrentNavigableMap<K,V> headMap(K toKey);
+    @PolyModifiable ConcurrentNavigableMap<K,V> headMap(@PolyModifiable ConcurrentNavigableMap<K,V> this, 
+                                        K toKey);
 
     /**
      * @throws ClassCastException       {@inheritDoc}
@@ -103,7 +109,8 @@ public interface ConcurrentNavigableMap<K,V>
      * @throws IllegalArgumentException {@inheritDoc}
      */
     @SideEffectFree
-    ConcurrentNavigableMap<K,V> tailMap(K fromKey);
+    @PolyModifiable ConcurrentNavigableMap<K,V> tailMap(@PolyModifiable ConcurrentNavigableMap<K,V> this, 
+                                        K fromKey);
 
     /**
      * Returns a reverse order view of the mappings contained in this map.
@@ -118,7 +125,7 @@ public interface ConcurrentNavigableMap<K,V>
      * @return a reverse order view of this map
      */
     @SideEffectFree
-    ConcurrentNavigableMap<K,V> descendingMap();
+    @PolyModifiable ConcurrentNavigableMap<K,V> descendingMap(@PolyModifiable ConcurrentNavigableMap<K,V> this);
 
     /**
      * Returns a {@link NavigableSet} view of the keys contained in this map.
