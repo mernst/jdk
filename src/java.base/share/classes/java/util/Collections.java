@@ -1217,7 +1217,7 @@ public class Collections {
      * @since 21
      */
     @SuppressWarnings("unchecked")
-    public static <T> SequencedCollection<T> unmodifiableSequencedCollection(SequencedCollection<? extends T> c) {
+    public static <T> @Unmodifiable SequencedCollection<T> unmodifiableSequencedCollection(SequencedCollection<? extends T> c) {
         if (c.getClass() == UnmodifiableSequencedCollection.class) {
             return (SequencedCollection<T>) c;
         }
@@ -1328,7 +1328,7 @@ public class Collections {
      * @since 21
      */
     @SuppressWarnings("unchecked")
-    public static <T> SequencedSet<T> unmodifiableSequencedSet(SequencedSet<? extends T> s) {
+    public static <T> @Unmodifiable SequencedSet<T> unmodifiableSequencedSet(SequencedSet<? extends T> s) {
         // Not checking for subclasses because of heap pollution and information leakage.
         if (s.getClass() == UnmodifiableSequencedSet.class) {
             return (SequencedSet<T>) s;
@@ -2062,7 +2062,7 @@ public class Collections {
      * @since 21
      */
     @SuppressWarnings("unchecked")
-    public static <K,V> SequencedMap<K,V> unmodifiableSequencedMap(SequencedMap<? extends K, ? extends V> m) {
+    public static <K,V> @Unmodifiable SequencedMap<K,V> unmodifiableSequencedMap(SequencedMap<? extends K, ? extends V> m) {
         // Not checking for subclasses because of heap pollution and information leakage.
         if (m.getClass() == UnmodifiableSequencedMap.class) {
             return (SequencedMap<K,V>) m;
