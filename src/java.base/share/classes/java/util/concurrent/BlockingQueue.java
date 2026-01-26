@@ -37,6 +37,7 @@ package java.util.concurrent;
 
 import org.checkerframework.checker.index.qual.Shrinkable;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -188,7 +189,7 @@ import java.util.Queue;
  * @param <E> the type of elements held in this queue
  */
 @AnnotatedFor({"nullness"})
-public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
+public @Modifiable interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
     /**
      * Inserts the specified element into this queue if it is possible to do
      * so immediately without violating capacity restrictions, returning

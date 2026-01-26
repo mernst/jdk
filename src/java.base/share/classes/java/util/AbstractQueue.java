@@ -37,6 +37,7 @@ package java.util;
 
 import org.checkerframework.checker.index.qual.Shrinkable;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.framework.qual.AnnotatedFor;
@@ -68,7 +69,7 @@ import org.checkerframework.framework.qual.AnnotatedFor;
  * @param <E> the type of elements held in this queue
  */
 @AnnotatedFor({"lock", "nullness"})
-public abstract class AbstractQueue<E>
+public @Modifiable abstract class AbstractQueue<E>
     extends AbstractCollection<E>
     implements Queue<E> {
 

@@ -38,6 +38,7 @@ package java.util.concurrent;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.index.qual.Shrinkable;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -210,7 +211,7 @@ import java.util.NoSuchElementException;
  * @param <E> the type of elements held in this deque
  */
 @AnnotatedFor({"nullness"})
-public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<E>, Deque<E> {
+public @Modifiable interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<E>, Deque<E> {
     /*
      * We have "diamond" multiple interface inheritance here, and that
      * introduces ambiguities.  Methods might end up with different
