@@ -37,7 +37,7 @@ package java.util.concurrent;
 
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
-import org.checkerframework.checker.modifiability.qual.UnknownModifiable;
+import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.nullness.qual.EnsuresKeyFor;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -95,7 +95,7 @@ public interface ConcurrentMap<K extends @NonNull Object,V extends @NonNull Obje
      */
     @Override
     @Pure
-    default V getOrDefault(@UnknownModifiable ConcurrentMap<K,V> this,Object key, V defaultValue) {
+    default V getOrDefault(@UnknownModifiability ConcurrentMap<K,V> this,Object key, V defaultValue) {
         V v;
         return ((v = get(key)) != null) ? v : defaultValue;
     }
@@ -119,7 +119,7 @@ public interface ConcurrentMap<K extends @NonNull Object,V extends @NonNull Obje
      * @since 1.8
      */
     @Override
-    default void forEach(@UnknownModifiable ConcurrentMap<K,V> this,BiConsumer<? super K, ? super V> action) {
+    default void forEach(@UnknownModifiability ConcurrentMap<K,V> this,BiConsumer<? super K, ? super V> action) {
         Objects.requireNonNull(action);
         for (Map.Entry<K,V> entry : entrySet()) {
             K k;
