@@ -166,7 +166,7 @@ import jdk.internal.access.SharedSecrets;
 
 @CFComment({"lock/nullness: This collection can only contain null values"})
 @AnnotatedFor({"lock", "nullness", "index"})
-public class IdentityHashMap<K,V>
+public @Modifiable class IdentityHashMap<K,V>
     extends AbstractMap<K,V>
     implements Map<K,V>, java.io.Serializable, Cloneable
 {
@@ -1255,7 +1255,7 @@ public class IdentityHashMap<K,V>
 
     private class EntrySet extends AbstractSet<Map.Entry<K,V>> {
         @SideEffectFree
-        public Iterator<Map.Entry<K,V>> iterator() {
+        public Iterator<Map.@Modifiable Entry<K,V>> iterator() {
             return new EntryIterator();
         }
         @Pure
