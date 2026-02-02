@@ -36,6 +36,9 @@
 package java.util.concurrent;
 
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.WillThrowUOE;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.checker.nullness.qual.EnsuresNonNullIf;
@@ -122,7 +125,7 @@ import java.util.concurrent.atomic.LongAdder;
  * @param <V> the type of mapped values
  * @since 1.6
  */
-public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
+public @Modifiable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
     implements ConcurrentNavigableMap<K,V>, Cloneable, Serializable {
     /*
      * This class implements a tree-like two-dimensionally linked skip
@@ -1695,7 +1698,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      *         sorted in ascending key order
      */
     @SideEffectFree
-    public Set<Map.Entry<K,V>> entrySet() {
+    public Set<Map.@Unmodifiable Entry<K,V>> entrySet() {
         EntrySet<K,V> es;
         if ((es = entrySet) != null) return es;
         return entrySet = new EntrySet<K,V>(this);
@@ -1903,6 +1906,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * @throws UnsupportedOperationException always
      * @since 21
      */
+    @WillThrowUOE
      public V putFirst(K k, V v) {
         throw new UnsupportedOperationException();
     }
@@ -1915,6 +1919,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * @throws UnsupportedOperationException always
      * @since 21
      */
+    @WillThrowUOE
     public V putLast(K k, V v) {
         throw new UnsupportedOperationException();
     }
@@ -2004,7 +2009,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * @throws ClassCastException {@inheritDoc}
      * @throws NullPointerException if the specified key is null
      */
-    public Map.Entry<K,V> lowerEntry(K key) {
+    public Map.@Unmodifiable Entry<K,V> lowerEntry(K key) {
         return findNearEntry(key, LT, comparator);
     }
 
@@ -2027,7 +2032,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * @throws ClassCastException {@inheritDoc}
      * @throws NullPointerException if the specified key is null
      */
-    public Map.Entry<K,V> floorEntry(K key) {
+    public Map.@Unmodifiable Entry<K,V> floorEntry(K key) {
         return findNearEntry(key, LT|EQ, comparator);
     }
 
@@ -2050,7 +2055,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * @throws ClassCastException {@inheritDoc}
      * @throws NullPointerException if the specified key is null
      */
-    public Map.Entry<K,V> ceilingEntry(K key) {
+    public Map.@Unmodifiable Entry<K,V> ceilingEntry(K key) {
         return findNearEntry(key, GT|EQ, comparator);
     }
 
@@ -2073,7 +2078,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * @throws ClassCastException {@inheritDoc}
      * @throws NullPointerException if the specified key is null
      */
-    public Map.Entry<K,V> higherEntry(K key) {
+    public Map.@Unmodifiable Entry<K,V> higherEntry(K key) {
         return findNearEntry(key, GT, comparator);
     }
 
@@ -2093,7 +2098,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * The returned entry does <em>not</em> support
      * the {@code Entry.setValue} method.
      */
-    public Map.Entry<K,V> firstEntry() {
+    public Map.@Unmodifiable Entry<K,V> firstEntry() {
         return findFirstEntry();
     }
 
@@ -2103,7 +2108,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * The returned entry does <em>not</em> support
      * the {@code Entry.setValue} method.
      */
-    public Map.Entry<K,V> lastEntry() {
+    public Map.@Unmodifiable Entry<K,V> lastEntry() {
         return findLastEntry();
     }
 
@@ -2113,7 +2118,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * The returned entry does <em>not</em> support
      * the {@code Entry.setValue} method.
      */
-    public Map.Entry<K,V> pollFirstEntry() {
+    public Map.@Unmodifiable Entry<K,V> pollFirstEntry() {
         return doRemoveFirstEntry();
     }
 
@@ -2123,7 +2128,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * The returned entry does <em>not</em> support
      * the {@code Entry.setValue} method.
      */
-    public Map.Entry<K,V> pollLastEntry() {
+    public Map.@Unmodifiable Entry<K,V> pollLastEntry() {
         return doRemoveLastEntry();
     }
 
