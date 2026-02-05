@@ -25,7 +25,7 @@
 
 package java.util;
 
-import org.checkerframework.checker.index.qual.Shrinkable;
+import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -117,7 +117,7 @@ public interface Iterator<E> {
      *         been called after the last call to the {@code next}
      *         method
      */
-    default void remove(@Modifiable @GuardSatisfied @Shrinkable Iterator<E> this) {
+    default void remove(@Modifiable @GuardSatisfied @CanShrink Iterator<E> this) {
         throw new UnsupportedOperationException("remove");
     }
 

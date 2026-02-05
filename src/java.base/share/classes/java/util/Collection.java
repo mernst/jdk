@@ -25,9 +25,9 @@
 
 package java.util;
 
+import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
-import org.checkerframework.checker.index.qual.Shrinkable;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
@@ -515,7 +515,7 @@ public interface Collection<E> extends Iterable<E> {
      * @throws UnsupportedOperationException if the {@code remove} operation
      *         is not supported by this collection
      */
-    boolean remove(@Modifiable @GuardSatisfied @Shrinkable Collection<E> this, @UnknownSignedness Object o);
+    boolean remove(@Modifiable @GuardSatisfied @CanShrink Collection<E> this, @UnknownSignedness Object o);
 
 
     // Bulk Operations
@@ -592,7 +592,7 @@ public interface Collection<E> extends Iterable<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    boolean removeAll(@Modifiable @GuardSatisfied @Shrinkable Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean removeAll(@Modifiable @GuardSatisfied @CanShrink Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Removes all of the elements of this collection that satisfy the given
@@ -616,7 +616,7 @@ public interface Collection<E> extends Iterable<E> {
      *         supported.
      * @since 1.8
      */
-    default boolean removeIf(@Modifiable @Shrinkable Collection<E> this, Predicate<? super E> filter) {
+    default boolean removeIf(@Modifiable @CanShrink Collection<E> this, Predicate<? super E> filter) {
         Objects.requireNonNull(filter);
         boolean removed = false;
         final Iterator<E> each = iterator();
@@ -651,7 +651,7 @@ public interface Collection<E> extends Iterable<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    boolean retainAll(@Modifiable @GuardSatisfied @Shrinkable Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean retainAll(@Modifiable @GuardSatisfied @CanShrink Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Removes all of the elements from this collection (optional operation).
@@ -660,7 +660,7 @@ public interface Collection<E> extends Iterable<E> {
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this collection
      */
-    void clear(@Modifiable @GuardSatisfied @Shrinkable Collection<E> this);
+    void clear(@Modifiable @GuardSatisfied @CanShrink Collection<E> this);
 
 
     // Comparison and hashing

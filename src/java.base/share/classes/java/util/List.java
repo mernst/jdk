@@ -25,12 +25,12 @@
 
 package java.util;
 
+import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.IndexFor;
 import org.checkerframework.checker.index.qual.IndexOrHigh;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
-import org.checkerframework.checker.index.qual.Shrinkable;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.lock.qual.ReleasesNoLocks;
 import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
@@ -329,7 +329,7 @@ public interface List<E> extends SequencedCollection<E> {
      *         is not supported by this list
      */
     @SideEffectsOnly("this")
-    boolean remove(@Modifiable @GuardSatisfied @Shrinkable List<E> this, @UnknownSignedness Object o);
+    boolean remove(@Modifiable @GuardSatisfied @CanShrink List<E> this, @UnknownSignedness Object o);
 
 
     // Bulk Modification Operations
@@ -429,7 +429,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    boolean removeAll(@Modifiable @GuardSatisfied @Shrinkable List<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean removeAll(@Modifiable @GuardSatisfied @CanShrink List<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Retains only the elements in this list that are contained in the
@@ -451,7 +451,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    boolean retainAll(@Modifiable @GuardSatisfied @Shrinkable List<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean retainAll(@Modifiable @GuardSatisfied @CanShrink List<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Replaces each element of this list with the result of applying the
@@ -567,7 +567,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this list
      */
-    void clear(@Modifiable @GuardSatisfied @Shrinkable List<E> this);
+    void clear(@Modifiable @GuardSatisfied @CanShrink List<E> this);
 
 
     // Comparison and hashing
@@ -680,7 +680,7 @@ public interface List<E> extends SequencedCollection<E> {
      *         ({@code index < 0 || index >= size()})
      */
     @ReleasesNoLocks
-    E remove(@Modifiable @GuardSatisfied @Shrinkable List<E> this, @IndexFor({"this"}) int index);
+    E remove(@Modifiable @GuardSatisfied @CanShrink List<E> this, @IndexFor({"this"}) int index);
 
 
     // Search Operations

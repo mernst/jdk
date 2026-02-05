@@ -25,8 +25,8 @@
 
 package java.util;
 
+import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
-import org.checkerframework.checker.index.qual.Shrinkable;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
@@ -183,7 +183,7 @@ public abstract class AbstractSequentialList<E> extends AbstractList<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
-    public E remove(@Modifiable @GuardSatisfied @Shrinkable AbstractSequentialList<E> this, int index) {
+    public E remove(@Modifiable @GuardSatisfied @CanShrink AbstractSequentialList<E> this, int index) {
         try {
             ListIterator<E> e = listIterator(index);
             E outCast = e.next();

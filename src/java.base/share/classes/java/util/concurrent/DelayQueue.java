@@ -53,7 +53,7 @@ import static java.util.concurrent.TimeUnit.NANOSECONDS;
 import org.checkerframework.checker.nonempty.qual.PolyNonEmpty;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
-import org.checkerframework.checker.index.qual.Shrinkable;
+import org.checkerframework.checker.index.qual.CanShrink;
 import java.util.AbstractQueue;
 import java.util.Collection;
 import java.util.Iterator;
@@ -230,7 +230,7 @@ public @Modifiable class DelayQueue<E extends @NonNull Delayed> extends Abstract
      * @return the <em>expired head</em> of this queue, or {@code null} if this
      *         queue has no elements with an expired delay
      */
-    public @Nullable E poll(@GuardSatisfied @Shrinkable DelayQueue<E> this) {
+    public @Nullable E poll(@GuardSatisfied @CanShrink DelayQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -251,7 +251,7 @@ public @Modifiable class DelayQueue<E extends @NonNull Delayed> extends Abstract
      * @return the <em>expired head</em> of this queue
      * @throws InterruptedException {@inheritDoc}
      */
-    public E take(@GuardSatisfied @Shrinkable DelayQueue<E> this) throws InterruptedException {
+    public E take(@GuardSatisfied @CanShrink DelayQueue<E> this) throws InterruptedException {
         final ReentrantLock lock = this.lock;
         lock.lockInterruptibly();
         try {
@@ -296,7 +296,7 @@ public @Modifiable class DelayQueue<E extends @NonNull Delayed> extends Abstract
      *         an expired delay becomes available
      * @throws InterruptedException {@inheritDoc}
      */
-    public @Nullable E poll(@GuardSatisfied @Shrinkable DelayQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
+    public @Nullable E poll(@GuardSatisfied @CanShrink DelayQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
         long nanos = unit.toNanos(timeout);
         final ReentrantLock lock = this.lock;
         lock.lockInterruptibly();
@@ -387,7 +387,7 @@ public @Modifiable class DelayQueue<E extends @NonNull Delayed> extends Abstract
      * @throws NullPointerException          {@inheritDoc}
      * @throws IllegalArgumentException      {@inheritDoc}
      */
-    public int drainTo(@GuardSatisfied @Shrinkable DelayQueue<E> this, @Modifiable Collection<? super E> c) {
+    public int drainTo(@GuardSatisfied @CanShrink DelayQueue<E> this, @Modifiable Collection<? super E> c) {
         return drainTo(c, Integer.MAX_VALUE);
     }
 
@@ -397,7 +397,7 @@ public @Modifiable class DelayQueue<E extends @NonNull Delayed> extends Abstract
      * @throws NullPointerException          {@inheritDoc}
      * @throws IllegalArgumentException      {@inheritDoc}
      */
-    public int drainTo(@GuardSatisfied @Shrinkable DelayQueue<E> this, @Modifiable Collection<? super E> c, int maxElements) {
+    public int drainTo(@GuardSatisfied @CanShrink DelayQueue<E> this, @Modifiable Collection<? super E> c, int maxElements) {
         Objects.requireNonNull(c);
         if (c == this)
             throw new IllegalArgumentException();
@@ -427,7 +427,7 @@ public @Modifiable class DelayQueue<E extends @NonNull Delayed> extends Abstract
      * Elements with an unexpired delay are not waited for; they are
      * simply discarded from the queue.
      */
-    public void clear(@GuardSatisfied @Shrinkable DelayQueue<E> this) {
+    public void clear(@GuardSatisfied @CanShrink DelayQueue<E> this) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
@@ -521,7 +521,7 @@ public @Modifiable class DelayQueue<E extends @NonNull Delayed> extends Abstract
      * Removes a single instance of the specified element from this
      * queue, if it is present, whether or not it has expired.
      */
-    public boolean remove(@Shrinkable DelayQueue<E> this, @UnknownSignedness Object o) {
+    public boolean remove(@CanShrink DelayQueue<E> this, @UnknownSignedness Object o) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {

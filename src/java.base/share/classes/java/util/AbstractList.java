@@ -25,11 +25,11 @@
 
 package java.util;
 
+import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.IndexFor;
 import org.checkerframework.checker.index.qual.IndexOrHigh;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
-import org.checkerframework.checker.index.qual.Shrinkable;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
@@ -192,7 +192,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws UnsupportedOperationException {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
-    public E remove(@Modifiable @GuardSatisfied @Shrinkable AbstractList<E> this, @IndexFor({"this"}) int index) {
+    public E remove(@Modifiable @GuardSatisfied @CanShrink AbstractList<E> this, @IndexFor({"this"}) int index) {
         throw new UnsupportedOperationException();
     }
 
@@ -270,7 +270,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this list
      */
-    public void clear(@Modifiable @GuardSatisfied @Shrinkable AbstractList<E> this) {
+    public void clear(@Modifiable @GuardSatisfied @CanShrink AbstractList<E> this) {
         removeRange(0, size());
     }
 
@@ -629,7 +629,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @param fromIndex index of first element to be removed
      * @param toIndex index after last element to be removed
      */
-    protected void removeRange(@Modifiable @GuardSatisfied @Shrinkable AbstractList<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex) {
+    protected void removeRange(@Modifiable @GuardSatisfied @CanShrink AbstractList<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex) {
         ListIterator<E> it = listIterator(fromIndex);
         for (int i=0, n=toIndex-fromIndex; i<n; i++) {
             it.next();

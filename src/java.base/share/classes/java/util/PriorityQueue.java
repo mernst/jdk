@@ -25,10 +25,10 @@
 
 package java.util;
 
+import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.index.qual.Positive;
-import org.checkerframework.checker.index.qual.Shrinkable;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
@@ -382,7 +382,7 @@ public @Modifiable class PriorityQueue<E extends @NonNull Object> extends Abstra
      * @param o element to be removed from this queue, if present
      * @return {@code true} if this queue changed as a result of the call
      */
-    public boolean remove(@GuardSatisfied @Shrinkable PriorityQueue<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
+    public boolean remove(@GuardSatisfied @CanShrink PriorityQueue<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         int i = indexOf(o);
         if (i == -1)
             return false;
@@ -397,7 +397,7 @@ public @Modifiable class PriorityQueue<E extends @NonNull Object> extends Abstra
      *
      * @param o element to be removed from this queue, if present
      */
-    void removeEq(@GuardSatisfied @Shrinkable PriorityQueue<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
+    void removeEq(@GuardSatisfied @CanShrink PriorityQueue<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         final Object[] es = queue;
         for (int i = 0, n = size; i < n; i++) {
             if (o == es[i]) {
@@ -594,7 +594,7 @@ public @Modifiable class PriorityQueue<E extends @NonNull Object> extends Abstra
      * Removes all of the elements from this priority queue.
      * The queue will be empty after this call returns.
      */
-    public void clear(@GuardSatisfied @Shrinkable PriorityQueue<E> this) {
+    public void clear(@GuardSatisfied @CanShrink PriorityQueue<E> this) {
         modCount++;
         final Object[] es = queue;
         for (int i = 0, n = size; i < n; i++)
@@ -602,7 +602,7 @@ public @Modifiable class PriorityQueue<E extends @NonNull Object> extends Abstra
         size = 0;
     }
 
-    public @Nullable E poll(@GuardSatisfied @Shrinkable PriorityQueue<E> this) {
+    public @Nullable E poll(@GuardSatisfied @CanShrink PriorityQueue<E> this) {
         final Object[] es;
         final E result;
 
@@ -634,7 +634,7 @@ public @Modifiable class PriorityQueue<E extends @NonNull Object> extends Abstra
      * position before i. This fact is used by iterator.remove so as to
      * avoid missing traversing elements.
      */
-    E removeAt(@GuardSatisfied @NonEmpty @Shrinkable PriorityQueue<E> this, int i) {
+    E removeAt(@GuardSatisfied @NonEmpty @CanShrink PriorityQueue<E> this, int i) {
         // assert i >= 0 && i < size;
         final Object[] es = queue;
         modCount++;
@@ -925,7 +925,7 @@ public @Modifiable class PriorityQueue<E extends @NonNull Object> extends Abstra
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public boolean removeIf(@GuardSatisfied @Shrinkable PriorityQueue<E> this, Predicate<? super E> filter) {
+    public boolean removeIf(@GuardSatisfied @CanShrink PriorityQueue<E> this, Predicate<? super E> filter) {
         Objects.requireNonNull(filter);
         return bulkRemove(filter);
     }
@@ -933,7 +933,7 @@ public @Modifiable class PriorityQueue<E extends @NonNull Object> extends Abstra
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public boolean removeAll(@GuardSatisfied @Shrinkable PriorityQueue<E> this, Collection<? extends @UnknownSignedness Object> c) {
+    public boolean removeAll(@GuardSatisfied @CanShrink PriorityQueue<E> this, Collection<? extends @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         return bulkRemove(e -> c.contains(e));
     }
@@ -941,7 +941,7 @@ public @Modifiable class PriorityQueue<E extends @NonNull Object> extends Abstra
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    public boolean retainAll(@GuardSatisfied @Shrinkable PriorityQueue<E> this, Collection<? extends @UnknownSignedness Object> c) {
+    public boolean retainAll(@GuardSatisfied @CanShrink PriorityQueue<E> this, Collection<? extends @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         return bulkRemove(e -> !c.contains(e));
     }

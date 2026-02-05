@@ -25,10 +25,10 @@
 
 package java.util;
 
+import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
-import org.checkerframework.checker.index.qual.Shrinkable;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
@@ -593,7 +593,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      * @return the element that was removed from the list
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public E remove(@GuardSatisfied @Shrinkable ArrayList<E> this, @NonNegative int index) {
+    public E remove(@GuardSatisfied @CanShrink ArrayList<E> this, @NonNegative int index) {
         Objects.checkIndex(index, size);
         final Object[] es = elementData;
 
@@ -740,7 +740,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      * @param o element to be removed from this list, if present
      * @return {@code true} if this list contained the specified element
      */
-    public boolean remove(@GuardSatisfied @Shrinkable ArrayList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
+    public boolean remove(@GuardSatisfied @CanShrink ArrayList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         final Object[] es = elementData;
         final int size = this.size;
         int i = 0;
@@ -776,7 +776,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      * Removes all of the elements from this list.  The list will
      * be empty after this call returns.
      */
-    public void clear(@GuardSatisfied @Shrinkable ArrayList<E> this) {
+    public void clear(@GuardSatisfied @CanShrink ArrayList<E> this) {
         modCount++;
         final Object[] es = elementData;
         for (int to = size, i = size = 0; i < to; i++)
@@ -864,7 +864,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      *          toIndex > size() ||
      *          toIndex < fromIndex})
      */
-    protected void removeRange(@GuardSatisfied @Shrinkable ArrayList<E> this, int fromIndex, int toIndex) {
+    protected void removeRange(@GuardSatisfied @CanShrink ArrayList<E> this, int fromIndex, int toIndex) {
         if (fromIndex > toIndex) {
             throw new IndexOutOfBoundsException(
                     outOfBoundsMsg(fromIndex, toIndex));
@@ -919,7 +919,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      *         or if the specified collection is null
      * @see Collection#contains(Object)
      */
-    public boolean removeAll(@Shrinkable ArrayList<E> this, Collection<? extends @UnknownSignedness Object> c) {
+    public boolean removeAll(@CanShrink ArrayList<E> this, Collection<? extends @UnknownSignedness Object> c) {
         return batchRemove(c, false, 0, size);
     }
 
@@ -939,7 +939,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      *         or if the specified collection is null
      * @see Collection#contains(Object)
      */
-    public boolean retainAll(@GuardSatisfied @Shrinkable ArrayList<E> this, Collection<? extends @UnknownSignedness Object> c) {
+    public boolean retainAll(@GuardSatisfied @CanShrink ArrayList<E> this, Collection<? extends @UnknownSignedness Object> c) {
         return batchRemove(c, true, 0, size);
     }
 
@@ -1801,7 +1801,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public boolean removeIf(@Shrinkable ArrayList<E> this, Predicate<? super E> filter) {
+    public boolean removeIf(@CanShrink ArrayList<E> this, Predicate<? super E> filter) {
         return removeIf(filter, 0, size);
     }
 
@@ -1809,7 +1809,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      * Removes all elements satisfying the given predicate, from index
      * i (inclusive) to index end (exclusive).
      */
-    boolean removeIf(@Shrinkable ArrayList<E> this, Predicate<? super E> filter, int i, final int end) {
+    boolean removeIf(@CanShrink ArrayList<E> this, Predicate<? super E> filter, int i, final int end) {
         Objects.requireNonNull(filter);
         int expectedModCount = modCount;
         final Object[] es = elementData;
