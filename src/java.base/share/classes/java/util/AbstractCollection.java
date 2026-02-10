@@ -394,7 +394,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    public boolean removeAll(@GuardSatisfied @Shrinkable AbstractCollection<E> this, Collection<? extends @UnknownSignedness Object> c) {
+    public boolean removeAll(@Modifiable @GuardSatisfied @CanShrink AbstractCollection<E> this, Collection<? extends @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         boolean modified = false;
         Iterator<?> it = iterator();
@@ -429,7 +429,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    public boolean retainAll(@GuardSatisfied @Shrinkable AbstractCollection<E> this, Collection<? extends @UnknownSignedness Object> c) {
+    public boolean retainAll(@Modifiable @GuardSatisfied @CanShrink AbstractCollection<E> this, Collection<? extends @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         boolean modified = false;
         Iterator<E> it = iterator();
@@ -458,7 +458,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      *
      * @throws UnsupportedOperationException {@inheritDoc}
      */
-    public void clear(@GuardSatisfied @Shrinkable AbstractCollection<E> this) {
+    public void clear(@Modifiable @GuardSatisfied @CanShrink AbstractCollection<E> this) {
         Iterator<E> it = iterator();
         while (it.hasNext()) {
             it.next();
