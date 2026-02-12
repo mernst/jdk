@@ -40,6 +40,7 @@ import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.PolyNonEmpty;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -1104,7 +1105,7 @@ public @Modifiable class SynchronousQueue<E extends @NonNull Object> extends Abs
      * @throws NullPointerException          {@inheritDoc}
      * @throws IllegalArgumentException      {@inheritDoc}
      */
-    public int drainTo(@GuardSatisfied @CanShrink SynchronousQueue<E> this, @Modifiable Collection<? super E> c) {
+    public int drainTo(@GuardSatisfied @CanShrink SynchronousQueue<E> this, @Growable Collection<? super E> c) {
         Objects.requireNonNull(c);
         if (c == this)
             throw new IllegalArgumentException();
@@ -1120,7 +1121,7 @@ public @Modifiable class SynchronousQueue<E extends @NonNull Object> extends Abs
      * @throws NullPointerException          {@inheritDoc}
      * @throws IllegalArgumentException      {@inheritDoc}
      */
-    public int drainTo(@GuardSatisfied @CanShrink SynchronousQueue<E> this, @Modifiable Collection<? super E> c, int maxElements) {
+    public int drainTo(@GuardSatisfied @CanShrink SynchronousQueue<E> this, @Growable Collection<? super E> c, int maxElements) {
         Objects.requireNonNull(c);
         if (c == this)
             throw new IllegalArgumentException();

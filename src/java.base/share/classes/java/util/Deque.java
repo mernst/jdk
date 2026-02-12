@@ -40,8 +40,6 @@ import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
-import org.checkerframework.checker.modifiability.qual.Unmodifiable;
-import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -240,7 +238,7 @@ public @Modifiable interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      *         element prevents it from being added to this deque
      */
     @EnsuresNonEmpty("this")
-    void addFirst(@Modifiable @GuardSatisfied Deque<E> this, E e);
+    void addFirst(@GuardSatisfied Deque<E> this, E e);
 
     /**
      * Inserts the specified element at the end of this deque if it is
@@ -262,7 +260,7 @@ public @Modifiable interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      *         element prevents it from being added to this deque
      */
     @EnsuresNonEmpty("this")
-    void addLast(@Modifiable @GuardSatisfied Deque<E> this, E e);
+    void addLast(@GuardSatisfied Deque<E> this, E e);
 
     /**
      * Inserts the specified element at the front of this deque unless it would
@@ -308,7 +306,7 @@ public @Modifiable interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      * @return the head of this deque
      * @throws NoSuchElementException if this deque is empty
      */
-    E removeFirst(@Modifiable @GuardSatisfied @NonEmpty @CanShrink Deque<E> this);
+    E removeFirst(@GuardSatisfied @NonEmpty @CanShrink Deque<E> this);
 
     /**
      * Retrieves and removes the last element of this deque.  This method
@@ -318,7 +316,7 @@ public @Modifiable interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      * @return the tail of this deque
      * @throws NoSuchElementException if this deque is empty
      */
-    E removeLast(@Modifiable @GuardSatisfied @NonEmpty @CanShrink Deque<E> this);
+    E removeLast(@GuardSatisfied @NonEmpty @CanShrink Deque<E> this);
 
     /**
      * Retrieves and removes the first element of this deque,
@@ -326,7 +324,7 @@ public @Modifiable interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      *
      * @return the head of this deque, or {@code null} if this deque is empty
      */
-    @Nullable E pollFirst(@Modifiable @GuardSatisfied @CanShrink Deque<E> this);
+    @Nullable E pollFirst(@GuardSatisfied @CanShrink Deque<E> this);
 
     /**
      * Retrieves and removes the last element of this deque,
@@ -334,7 +332,7 @@ public @Modifiable interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      *
      * @return the tail of this deque, or {@code null} if this deque is empty
      */
-    @Nullable E pollLast(@Modifiable @GuardSatisfied @CanShrink Deque<E> this);
+    @Nullable E pollLast(@GuardSatisfied @CanShrink Deque<E> this);
 
     /**
      * Retrieves, but does not remove, the first element of this deque.

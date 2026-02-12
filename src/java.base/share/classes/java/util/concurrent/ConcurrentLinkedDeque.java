@@ -38,6 +38,7 @@ package java.util.concurrent;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -112,7 +113,7 @@ import java.util.function.Predicate;
  * @param <E> the type of elements held in this deque
  */
 @AnnotatedFor({"nullness"})
-public class ConcurrentLinkedDeque<E extends @NonNull Object>
+public @Modifiable class ConcurrentLinkedDeque<E extends @NonNull Object>
     extends AbstractCollection<E>
     implements Deque<E>, java.io.Serializable {
 

@@ -39,6 +39,7 @@ import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -744,7 +745,7 @@ public @Modifiable class LinkedBlockingDeque<E extends Object>
      * @throws NullPointerException          {@inheritDoc}
      * @throws IllegalArgumentException      {@inheritDoc}
      */
-    public int drainTo(@GuardSatisfied @CanShrink LinkedBlockingDeque<E> this, @Modifiable Collection<? super E> c) {
+    public int drainTo(@GuardSatisfied @CanShrink LinkedBlockingDeque<E> this, @Growable Collection<? super E> c) {
         return drainTo(c, Integer.MAX_VALUE);
     }
 
@@ -754,7 +755,7 @@ public @Modifiable class LinkedBlockingDeque<E extends Object>
      * @throws NullPointerException          {@inheritDoc}
      * @throws IllegalArgumentException      {@inheritDoc}
      */
-    public int drainTo(@GuardSatisfied @CanShrink LinkedBlockingDeque<E> this, @Modifiable Collection<? super E> c, int maxElements) {
+    public int drainTo(@GuardSatisfied @CanShrink LinkedBlockingDeque<E> this, @Growable Collection<? super E> c, int maxElements) {
         Objects.requireNonNull(c);
         if (c == this)
             throw new IllegalArgumentException();
