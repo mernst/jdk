@@ -26,7 +26,7 @@
 package java.util;
 
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
-import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.WillThrowUOE;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -352,7 +352,7 @@ public interface SortedSet<E> extends Set<E>, SequencedSet<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
-    default E removeFirst(@Modifiable SortedSet<E> this) {
+    default E removeFirst(@Shrinkable SortedSet<E> this) {
         E e = this.first();
         this.remove(e);
         return e;
@@ -370,7 +370,7 @@ public interface SortedSet<E> extends Set<E>, SequencedSet<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
-    default E removeLast(@Modifiable SortedSet<E> this) {
+    default E removeLast(@Shrinkable SortedSet<E> this) {
         E e = this.last();
         this.remove(e);
         return e;

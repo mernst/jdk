@@ -37,6 +37,8 @@ package java.util.concurrent;
 
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -110,7 +112,7 @@ import java.util.function.Predicate;
  * @author Doug Lea
  * @param <E> the type of elements held in this set
  */
-public class CopyOnWriteArraySet<E> extends AbstractSet<E>
+public @Modifiable class CopyOnWriteArraySet<E> extends AbstractSet<E>
         implements java.io.Serializable {
     private static final long serialVersionUID = 5457747651344034263L;
 
@@ -407,7 +409,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      *
      * @return an iterator over the elements in this set
      */
-    public @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty CopyOnWriteArraySet<E> this) {
+    public @Unmodifiable @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty CopyOnWriteArraySet<E> this) {
         return al.iterator();
     }
 

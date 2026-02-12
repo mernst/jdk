@@ -37,7 +37,7 @@ package java.util;
 
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
-import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.nonempty.qual.PolyNonEmpty;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -351,7 +351,7 @@ public interface NavigableSet<E> extends SortedSet<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
-    default E removeFirst(@Modifiable NavigableSet<E> this) {
+    default E removeFirst(@Shrinkable NavigableSet<E> this) {
         if (this.isEmpty()) {
             throw new NoSuchElementException();
         } else {
@@ -370,7 +370,7 @@ public interface NavigableSet<E> extends SortedSet<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
-    default E removeLast(@Modifiable NavigableSet<E> this) {
+    default E removeLast(@Shrinkable NavigableSet<E> this) {
         if (this.isEmpty()) {
             throw new NoSuchElementException();
         } else {
