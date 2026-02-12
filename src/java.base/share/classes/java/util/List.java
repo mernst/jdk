@@ -35,9 +35,11 @@ import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.lock.qual.ReleasesNoLocks;
 import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
-import org.checkerframework.checker.modifiability.qual.BottomModifiable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
+import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
+import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -305,7 +307,7 @@ public interface List<E> extends SequencedCollection<E> {
     @ReleasesNoLocks
     @SideEffectsOnly("this")
     @EnsuresNonEmpty("this")
-    boolean add(@Modifiable @GuardSatisfied List<E> this, E e);
+    boolean add(@Growable @GuardSatisfied List<E> this, E e);
 
     /**
      * Removes the first occurrence of the specified element from this list,
@@ -329,7 +331,7 @@ public interface List<E> extends SequencedCollection<E> {
      *         is not supported by this list
      */
     @SideEffectsOnly("this")
-    boolean remove(@Modifiable @GuardSatisfied @CanShrink List<E> this, @UnknownSignedness Object o);
+    boolean remove(@Shrinkable @GuardSatisfied @CanShrink List<E> this, @UnknownSignedness Object o);
 
 
     // Bulk Modification Operations
@@ -378,7 +380,7 @@ public interface List<E> extends SequencedCollection<E> {
      */
     @SideEffectsOnly("this")
     @EnsuresNonEmptyIf(result = true, expression = "this")
-    boolean addAll(@Modifiable @GuardSatisfied List<E> this, Collection<? extends E> c);
+    boolean addAll(@Growable @GuardSatisfied List<E> this, Collection<? extends E> c);
 
     /**
      * Inserts all of the elements in the specified collection into this
@@ -409,7 +411,7 @@ public interface List<E> extends SequencedCollection<E> {
      */
     @SideEffectsOnly("this")
     @EnsuresNonEmptyIf(result = true, expression = "this")
-    boolean addAll(@Modifiable @GuardSatisfied List<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c);
+    boolean addAll(@Growable @GuardSatisfied List<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c);
 
     /**
      * Removes from this list all of its elements that are contained in the
@@ -429,7 +431,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    boolean removeAll(@Modifiable @GuardSatisfied @CanShrink List<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean removeAll(@Shrinkable @GuardSatisfied @CanShrink List<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Retains only the elements in this list that are contained in the
@@ -451,7 +453,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    boolean retainAll(@Modifiable @GuardSatisfied @CanShrink List<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean retainAll(@Shrinkable @GuardSatisfied @CanShrink List<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Replaces each element of this list with the result of applying the
@@ -482,7 +484,7 @@ public interface List<E> extends SequencedCollection<E> {
      *         (<a href="Collection.html#optional-restrictions">optional</a>)
      * @since 1.8
      */
-    default void replaceAll(@Modifiable List<E> this, UnaryOperator<E> operator) {
+    default void replaceAll(@Replaceable List<E> this, UnaryOperator<E> operator) {
         Objects.requireNonNull(operator);
         final ListIterator<E> li = this.listIterator();
         while (li.hasNext()) {
@@ -550,7 +552,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @since 1.8
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
-    default void sort(@Modifiable List<E> this, Comparator<? super E> c) {
+    default void sort(@Replaceable List<E> this, Comparator<? super E> c) {
         Object[] a = this.toArray();
         Arrays.sort(a, (Comparator) c);
         ListIterator<E> i = this.listIterator();
@@ -567,7 +569,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this list
      */
-    void clear(@Modifiable @GuardSatisfied @CanShrink List<E> this);
+    void clear(@Shrinkable @GuardSatisfied @CanShrink List<E> this);
 
 
     // Comparison and hashing
@@ -641,7 +643,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws IndexOutOfBoundsException if the index is out of range
      *         ({@code index < 0 || index >= size()})
      */
-    E set(@Modifiable @GuardSatisfied List<E> this, @IndexFor({"this"}) int index, E element);
+    E set(@Replaceable @GuardSatisfied List<E> this, @IndexFor({"this"}) int index, E element);
 
     /**
      * Inserts the specified element at the specified position in this list
@@ -664,7 +666,7 @@ public interface List<E> extends SequencedCollection<E> {
      */
     @ReleasesNoLocks
     @SideEffectsOnly("this")
-    void add(@Modifiable @GuardSatisfied List<E> this, @IndexOrHigh({"this"}) int index, E element);
+    void add(@Growable @GuardSatisfied List<E> this, @IndexOrHigh({"this"}) int index, E element);
 
     /**
      * Removes the element at the specified position in this list (optional
@@ -680,7 +682,7 @@ public interface List<E> extends SequencedCollection<E> {
      *         ({@code index < 0 || index >= size()})
      */
     @ReleasesNoLocks
-    E remove(@Modifiable @GuardSatisfied @CanShrink List<E> this, @IndexFor({"this"}) int index);
+    E remove(@Shrinkable @GuardSatisfied @CanShrink List<E> this, @IndexFor({"this"}) int index);
 
 
     // Search Operations
@@ -848,7 +850,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
-    default void addFirst(@Modifiable List<E> this, E e) {
+    default void addFirst(@Growable List<E> this, E e) {
         this.add(0, e);
     }
 
@@ -862,7 +864,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
-    default void addLast(@Modifiable List<E> this, E e) {
+    default void addLast(@Growable List<E> this, E e) {
         this.add(e);
     }
 
@@ -913,7 +915,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
-    default E removeFirst(@Modifiable List<E> this) {
+    default E removeFirst(@Shrinkable List<E> this) {
         if (this.isEmpty()) {
             throw new NoSuchElementException();
         } else {
@@ -932,7 +934,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
-    default E removeLast(@Modifiable List<E> this) {
+    default E removeLast(@Shrinkable List<E> this) {
         if (this.isEmpty()) {
             throw new NoSuchElementException();
         } else {

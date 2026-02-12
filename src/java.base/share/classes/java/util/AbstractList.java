@@ -31,7 +31,9 @@ import org.checkerframework.checker.index.qual.IndexFor;
 import org.checkerframework.checker.index.qual.IndexOrHigh;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
-import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
+import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
@@ -135,7 +137,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      *         prevents it from being added to this list
      */
     @EnsuresNonEmpty("this")
-    public boolean add(@Modifiable @GuardSatisfied AbstractList<E> this, E e) {
+    public boolean add(@Growable @GuardSatisfied AbstractList<E> this, E e) {
         add(size(), e);
         return true;
     }
@@ -161,7 +163,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws IllegalArgumentException      {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
-    public E set(@Modifiable @GuardSatisfied AbstractList<E> this, @IndexFor({"this"}) int index, E element) {
+    public E set(@Replaceable @GuardSatisfied AbstractList<E> this, @IndexFor({"this"}) int index, E element) {
         throw new UnsupportedOperationException();
     }
 
@@ -178,7 +180,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws IllegalArgumentException      {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
-    public void add(@Modifiable @GuardSatisfied AbstractList<E> this, @IndexOrHigh({"this"}) int index, E element) {
+    public void add(@Growable @GuardSatisfied AbstractList<E> this, @IndexOrHigh({"this"}) int index, E element) {
         throw new UnsupportedOperationException();
     }
 
@@ -192,7 +194,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws UnsupportedOperationException {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
-    public E remove(@Modifiable @GuardSatisfied @CanShrink AbstractList<E> this, @IndexFor({"this"}) int index) {
+    public E remove(@Shrinkable @GuardSatisfied @CanShrink AbstractList<E> this, @IndexFor({"this"}) int index) {
         throw new UnsupportedOperationException();
     }
 
@@ -270,7 +272,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this list
      */
-    public void clear(@Modifiable @GuardSatisfied @CanShrink AbstractList<E> this) {
+    public void clear(@Shrinkable @GuardSatisfied @CanShrink AbstractList<E> this) {
         removeRange(0, size());
     }
 
@@ -294,7 +296,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @throws IllegalArgumentException      {@inheritDoc}
      * @throws IndexOutOfBoundsException     {@inheritDoc}
      */
-    public boolean addAll(@Modifiable @GuardSatisfied AbstractList<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c) {
+    public boolean addAll(@Growable @GuardSatisfied AbstractList<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c) {
         rangeCheckForAdd(index);
         boolean modified = false;
         for (E e : c) {
@@ -629,7 +631,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @param fromIndex index of first element to be removed
      * @param toIndex index after last element to be removed
      */
-    protected void removeRange(@Modifiable @GuardSatisfied @CanShrink AbstractList<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex) {
+    protected void removeRange(@Shrinkable @GuardSatisfied @CanShrink AbstractList<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex) {
         ListIterator<E> it = listIterator(fromIndex);
         for (int i=0, n=toIndex-fromIndex; i<n; i++) {
             it.next();

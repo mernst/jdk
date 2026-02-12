@@ -37,6 +37,8 @@ package java.util.concurrent;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -113,7 +115,7 @@ import jdk.internal.util.ArraysSupport;
  * @author Doug Lea
  * @param <E> the type of elements held in this list
  */
-public class CopyOnWriteArrayList<E>
+public @Modifiable class CopyOnWriteArrayList<E>
     implements List<E>, RandomAccess, Cloneable, java.io.Serializable {
     private static final long serialVersionUID = 8673264195747942595L;
 
@@ -1130,7 +1132,7 @@ public class CopyOnWriteArrayList<E>
      *
      * @return an iterator over the elements in this list in proper sequence
      */
-    public @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty CopyOnWriteArrayList<E> this) {
+    public @Unmodifiable @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty CopyOnWriteArrayList<E> this) {
         return new COWIterator<E>(getArray(), 0);
     }
 
@@ -1142,7 +1144,7 @@ public class CopyOnWriteArrayList<E>
      * traversing the iterator. The iterator does <em>NOT</em> support the
      * {@code remove}, {@code set} or {@code add} methods.
      */
-    public @PolyGrowShrink @PolyNonEmpty ListIterator<E> listIterator(@PolyGrowShrink @PolyNonEmpty CopyOnWriteArrayList<E> this) {
+    public @Unmodifiable @PolyGrowShrink @PolyNonEmpty ListIterator<E> listIterator(@PolyGrowShrink @PolyNonEmpty CopyOnWriteArrayList<E> this) {
         return new COWIterator<E>(getArray(), 0);
     }
 
@@ -1156,7 +1158,7 @@ public class CopyOnWriteArrayList<E>
      *
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public @PolyGrowShrink ListIterator<E> listIterator(@PolyGrowShrink CopyOnWriteArrayList<E> this, int index) {
+    public @Unmodifiable @PolyGrowShrink ListIterator<E> listIterator(@PolyGrowShrink CopyOnWriteArrayList<E> this, int index) {
         Object[] es = getArray();
         int len = es.length;
         if (index < 0 || index > len)

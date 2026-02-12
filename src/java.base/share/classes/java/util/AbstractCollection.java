@@ -31,8 +31,10 @@ import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
-import org.checkerframework.checker.modifiability.qual.BottomModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.WillThrowUOE;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -280,7 +282,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @throws IllegalArgumentException      {@inheritDoc}
      * @throws IllegalStateException         {@inheritDoc}
      */
-    public boolean add(@Modifiable @GuardSatisfied AbstractCollection<E> this, E e) {
+    public boolean add(@Growable @GuardSatisfied AbstractCollection<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 
@@ -301,7 +303,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @throws ClassCastException            {@inheritDoc}
      * @throws NullPointerException          {@inheritDoc}
      */
-    public boolean remove(@Modifiable @GuardSatisfied @CanShrink AbstractCollection<E> this, @GuardSatisfied @UnknownSignedness Object o) {
+    public boolean remove(@Shrinkable @GuardSatisfied @CanShrink AbstractCollection<E> this, @GuardSatisfied @UnknownSignedness Object o) {
         Iterator<E> it = iterator();
         if (o==null) {
             while (it.hasNext()) {
@@ -364,7 +366,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      *
      * @see #add(Object)
      */
-    public boolean addAll(@Modifiable @GuardSatisfied AbstractCollection<E> this, Collection<? extends E> c) {
+    public boolean addAll(@Growable @GuardSatisfied AbstractCollection<E> this, Collection<? extends E> c) {
         boolean modified = false;
         for (E e : c)
             if (add(e))
@@ -394,7 +396,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    public boolean removeAll(@Modifiable @GuardSatisfied @CanShrink AbstractCollection<E> this, Collection<? extends @UnknownSignedness Object> c) {
+    public boolean removeAll(@Shrinkable @GuardSatisfied @CanShrink AbstractCollection<E> this, Collection<? extends @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         boolean modified = false;
         Iterator<?> it = iterator();
@@ -429,7 +431,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    public boolean retainAll(@Modifiable @GuardSatisfied @CanShrink AbstractCollection<E> this, Collection<? extends @UnknownSignedness Object> c) {
+    public boolean retainAll(@Shrinkable @GuardSatisfied @CanShrink AbstractCollection<E> this, Collection<? extends @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         boolean modified = false;
         Iterator<E> it = iterator();
@@ -458,7 +460,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      *
      * @throws UnsupportedOperationException {@inheritDoc}
      */
-    public void clear(@Modifiable @GuardSatisfied @CanShrink AbstractCollection<E> this) {
+    public void clear(@Shrinkable @GuardSatisfied @CanShrink AbstractCollection<E> this) {
         Iterator<E> it = iterator();
         while (it.hasNext()) {
             it.next();
