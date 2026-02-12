@@ -31,6 +31,7 @@ import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.modifiability.qual.BottomModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
@@ -660,7 +661,7 @@ public interface Collection<E> extends Iterable<E> {
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this collection
      */
-    void clear(@Modifiable @GuardSatisfied @CanShrink Collection<E> this);
+    void clear(@Shrinkable @GuardSatisfied @CanShrink Collection<E> this);
 
 
     // Comparison and hashing
