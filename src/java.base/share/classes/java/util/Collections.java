@@ -31,8 +31,9 @@ import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
-import org.checkerframework.checker.modifiability.qual.BottomModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -172,7 +173,7 @@ public class Collections {
      * @see List#sort(Comparator)
      */
     @SuppressWarnings("unchecked")
-    public static <T extends Comparable<? super T>> void sort(@Modifiable List<T> list) {
+    public static <T extends Comparable<? super T>> void sort(@Replaceable List<T> list) {
         list.sort(null);
     }
 
@@ -206,7 +207,7 @@ public class Collections {
      * @see List#sort(Comparator)
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public static <T> void sort(@Modifiable List<T> list, @Nullable Comparator<? super T> c) {
+    public static <T> void sort(@Replaceable List<T> list, @Nullable Comparator<? super T> c) {
         list.sort(c);
     }
 
@@ -412,7 +413,7 @@ public class Collections {
      * @see    List#reversed List.reversed
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public static void reverse(@Modifiable @GuardSatisfied List<?> list) {
+    public static void reverse(@Replaceable @GuardSatisfied List<?> list) {
         int size = list.size();
         if (size < REVERSE_THRESHOLD || list instanceof RandomAccess) {
             for (int i=0, mid=size>>1, j=size-1; i<mid; i++, j--)
@@ -459,7 +460,7 @@ public class Collections {
      * @throws UnsupportedOperationException if the specified list or
      *         its list-iterator does not support the {@code set} operation.
      */
-    public static void shuffle(@Modifiable @GuardSatisfied List<?> list) {
+    public static void shuffle(@Replaceable @GuardSatisfied List<?> list) {
         Random rnd = r;
         if (rnd == null)
             r = rnd = new Random(); // harmless race.
@@ -482,7 +483,7 @@ public class Collections {
      * @throws UnsupportedOperationException if the specified list or its
      *         list-iterator does not support the {@code set} operation.
      */
-    public static void shuffle(@Modifiable List<?> list, Random rnd) {
+    public static void shuffle(@Replaceable List<?> list, Random rnd) {
         shuffle(list, (RandomGenerator) rnd);
     }
 
@@ -511,7 +512,7 @@ public class Collections {
      * @since 21
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public static void shuffle(@Modifiable @GuardSatisfied List<?> list, RandomGenerator rnd) {
+    public static void shuffle(@Replaceable @GuardSatisfied List<?> list, RandomGenerator rnd) {
         int size = list.size();
         if (size < SHUFFLE_THRESHOLD || list instanceof RandomAccess) {
             for (int i=size; i>1; i--)
@@ -549,7 +550,7 @@ public class Collections {
      * @since 1.4
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public static void swap(@Modifiable @GuardSatisfied List<?> list, int i, int j) {
+    public static void swap(@Replaceable @GuardSatisfied List<?> list, int i, int j) {
         // instead of using a raw type here, it's possible to capture
         // the wildcard but it will require a call to a supplementary
         // private method
@@ -578,7 +579,7 @@ public class Collections {
      * @throws UnsupportedOperationException if the specified list or its
      *         list-iterator does not support the {@code set} operation.
      */
-    public static <T> void fill(@Modifiable @GuardSatisfied List<? super T> list, T obj) {
+    public static <T> void fill(@Replaceable @GuardSatisfied List<? super T> list, T obj) {
         int size = list.size();
 
         if (size < FILL_THRESHOLD || list instanceof RandomAccess) {
@@ -611,7 +612,7 @@ public class Collections {
      * @throws UnsupportedOperationException if the destination list's
      *         list-iterator does not support the {@code set} operation.
      */
-    public static <T> void copy(@Modifiable List<? super T> dest, @UnknownModifiability List<? extends T> src) {
+    public static <T> void copy(@Replaceable List<? super T> dest, @UnknownModifiability List<? extends T> src) {
         int srcSize = src.size();
         if (srcSize > dest.size())
             throw new IndexOutOfBoundsException("Source does not fit in dest");
@@ -839,7 +840,7 @@ public class Collections {
      *         its list-iterator does not support the {@code set} operation.
      * @since 1.4
      */
-    public static void rotate(@Modifiable @GuardSatisfied List<?> list, int distance) {
+    public static void rotate(@Replaceable @GuardSatisfied List<?> list, int distance) {
         if (list instanceof RandomAccess || list.size() < ROTATE_THRESHOLD)
             rotate1(list, distance);
         else
@@ -903,7 +904,7 @@ public class Collections {
      *         its list-iterator does not support the {@code set} operation.
      * @since  1.4
      */
-    public static <T> boolean replaceAll(@Modifiable List<T> list, @Nullable T oldVal, T newVal) {
+    public static <T> boolean replaceAll(@Replaceable List<T> list, @Nullable T oldVal, T newVal) {
         boolean result = false;
         int size = list.size();
         if (size < REPLACEALL_THRESHOLD || list instanceof RandomAccess) {
@@ -6109,7 +6110,7 @@ public class Collections {
      * @since 1.5
      */
     @SafeVarargs
-    public static <T> boolean addAll(@Modifiable @GuardSatisfied Collection<? super T> c, T... elements) {
+    public static <T> boolean addAll(@Growable @GuardSatisfied Collection<? super T> c, T... elements) {
         boolean result = false;
         for (T element : elements)
             result |= c.add(element);
