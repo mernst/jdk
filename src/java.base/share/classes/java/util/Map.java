@@ -30,8 +30,12 @@ import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.lock.qual.ReleasesNoLocks;
 import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
+import org.checkerframework.checker.modifiability.qual.GrowReplace;
+import org.checkerframework.checker.modifiability.qual.ShrinkReplace;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
-import org.checkerframework.checker.modifiability.qual.BottomModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -307,7 +311,7 @@ public interface Map<K, V> {
     @ReleasesNoLocks
     @EnsuresKeyFor(value={"#1"}, map={"this"})
     @EnsuresNonEmpty("this")
-    @Nullable V put(@Modifiable @GuardSatisfied Map<K, V> this, K key, V value);
+    @Nullable V put(@GrowReplace @GuardSatisfied Map<K, V> this, K key, V value);
 
     /**
      * Removes the mapping for a key from this map if it is present
@@ -338,7 +342,7 @@ public interface Map<K, V> {
      *         map does not permit null keys ({@linkplain Collection##optional-restrictions optional})
      */
     @CFComment("nullness: key is not @Nullable because this map might not permit null values")
-    @Nullable V remove(@Modifiable @GuardSatisfied Map<K, V> this, @GuardSatisfied @UnknownSignedness Object key);
+    @Nullable V remove(@Shrinkable @GuardSatisfied Map<K, V> this, @GuardSatisfied @UnknownSignedness Object key);
 
 
     // Bulk Operations
@@ -364,7 +368,7 @@ public interface Map<K, V> {
      * @throws IllegalArgumentException if some property of a key or value in
      *         the specified map prevents it from being stored in this map
      */
-    void putAll(@Modifiable @GuardSatisfied Map<K, V> this, Map<? extends K, ? extends V> m);
+    void putAll(@GrowReplace @GuardSatisfied Map<K, V> this, Map<? extends K, ? extends V> m);
 
     /**
      * Removes all of the mappings from this map (optional operation).
@@ -373,7 +377,7 @@ public interface Map<K, V> {
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this map
      */
-    void clear(@Modifiable @GuardSatisfied Map<K, V> this);
+    void clear(@Shrinkable @GuardSatisfied Map<K, V> this);
 
 
     // Views
@@ -537,7 +541,7 @@ public interface Map<K, V> {
          *         required to, throw this exception if the entry has been
          *         removed from the backing map.
          */
-        V setValue(Map.@Modifiable @GuardSatisfied Entry<K, V> this, V value);
+        V setValue(Map.@Replaceable @GuardSatisfied Entry<K, V> this, V value);
 
         /**
          * Compares the specified object with this entry for equality.
@@ -824,7 +828,7 @@ public interface Map<K, V> {
      *         removed during iteration
      * @since 1.8
      */
-    default void replaceAll(@Modifiable Map<K, V> this, BiFunction<? super K, ? super V, ? extends V> function) {
+    default void replaceAll(@Replaceable Map<K, V> this, BiFunction<? super K, ? super V, ? extends V> function) {
         Objects.requireNonNull(function);
         for (Map.Entry<K, V> entry : entrySet()) {
             K k;
@@ -891,7 +895,7 @@ public interface Map<K, V> {
      * @since 1.8
      */
     @EnsuresKeyFor(value={"#1"}, map={"this"})
-    default @Nullable V putIfAbsent(@Modifiable Map<K, V> this, K key, V value) {
+    default @Nullable V putIfAbsent(@Growable Map<K, V> this, K key, V value) {
         V v = get(key);
         if (v == null) {
             v = put(key, value);
@@ -935,7 +939,7 @@ public interface Map<K, V> {
      * @since 1.8
      */
     @CFComment("nullness: key and value are not @Nullable because this map might not permit null values")
-    default boolean remove(@Modifiable Map<K, V> this, @GuardSatisfied @UnknownSignedness Object key, @GuardSatisfied @UnknownSignedness Object value) {
+    default boolean remove(@Shrinkable Map<K, V> this, @GuardSatisfied @UnknownSignedness Object key, @GuardSatisfied @UnknownSignedness Object value) {
         Object curValue = get(key);
         if (!Objects.equals(curValue, value) ||
             (curValue == null && !containsKey(key))) {
@@ -985,7 +989,7 @@ public interface Map<K, V> {
      *         or value prevents it from being stored in this map
      * @since 1.8
      */
-    default boolean replace(@Modifiable Map<K, V> this, K key, V oldValue, V newValue) {
+    default boolean replace(@Replaceable Map<K, V> this, K key, V oldValue, V newValue) {
         Object curValue = get(key);
         if (!Objects.equals(curValue, oldValue) ||
             (curValue == null && !containsKey(key))) {
@@ -1033,7 +1037,7 @@ public interface Map<K, V> {
      *         or value prevents it from being stored in this map
      * @since 1.8
      */
-    default @Nullable V replace(@Modifiable Map<K, V> this, K key, V value) {
+    default @Nullable V replace(@Replaceable Map<K, V> this, K key, V value) {
         V curValue;
         if (((curValue = get(key)) != null) || containsKey(key)) {
             curValue = put(key, value);
@@ -1115,7 +1119,7 @@ public interface Map<K, V> {
      *         ({@linkplain Collection##optional-restrictions optional})
      * @since 1.8
      */
-    default @PolyNull V computeIfAbsent(@Modifiable Map<K, V> this, K key,
+    default @PolyNull V computeIfAbsent(@Growable Map<K, V> this, K key,
             Function<? super K, ? extends @PolyNull V> mappingFunction) {
         Objects.requireNonNull(mappingFunction);
         V v;
@@ -1192,7 +1196,7 @@ public interface Map<K, V> {
      *         ({@linkplain Collection##optional-restrictions optional})
      * @since 1.8
      */
-    default @Nullable V computeIfPresent(@Modifiable Map<K, V> this, K key,
+    default @Nullable V computeIfPresent(@ShrinkReplace Map<K, V> this, K key,
             BiFunction<? super K, ? super V, ? extends @Nullable V> remappingFunction) {
         Objects.requireNonNull(remappingFunction);
         V oldValue;

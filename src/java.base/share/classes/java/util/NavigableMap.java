@@ -36,7 +36,7 @@
 package java.util;
 
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
-import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.nullness.qual.KeyFor;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -253,7 +253,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @return the removed first entry of this map,
      *         or {@code null} if this map is empty
      */
-    Map.@Nullable Entry<K,V> pollFirstEntry(@Modifiable @GuardSatisfied NavigableMap<K, V> this);
+    Map.@Nullable Entry<K,V> pollFirstEntry(@Shrinkable @GuardSatisfied NavigableMap<K, V> this);
 
     /**
      * Removes and returns a key-value mapping associated with
@@ -262,7 +262,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @return the removed last entry of this map,
      *         or {@code null} if this map is empty
      */
-    Map.@Nullable Entry<K,V> pollLastEntry(@Modifiable @GuardSatisfied NavigableMap<K, V> this);
+    Map.@Nullable Entry<K,V> pollLastEntry(@Shrinkable @GuardSatisfied NavigableMap<K, V> this);
 
     /**
      * Returns a reverse order view of the mappings contained in this map.

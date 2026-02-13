@@ -27,7 +27,8 @@ package java.util;
 
 import jdk.internal.util.NullableKeyValueHolder;
 
-import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.GrowReplace;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 
 /**
  * A Map that has a well-defined encounter order, that supports operations at both ends, and
@@ -186,7 +187,7 @@ public interface SequencedMap<K, V> extends Map<K, V> {
      * @throws UnsupportedOperationException if this collection implementation does not
      *         support this operation
      */
-    default Map.Entry<K,V> pollFirstEntry(@Modifiable SequencedMap<K,V> this) {
+    default Map.Entry<K,V> pollFirstEntry(@Shrinkable SequencedMap<K,V> this) {
         var it = entrySet().iterator();
         if (it.hasNext()) {
             var entry = new NullableKeyValueHolder<>(it.next());
@@ -211,7 +212,7 @@ public interface SequencedMap<K, V> extends Map<K, V> {
      * @throws UnsupportedOperationException if this collection implementation does not
      *         support this operation
      */
-    default Map.Entry<K,V> pollLastEntry(@Modifiable SequencedMap<K,V> this) {
+    default Map.Entry<K,V> pollLastEntry(@Shrinkable SequencedMap<K,V> this) {
         var it = reversed().entrySet().iterator();
         if (it.hasNext()) {
             var entry = new NullableKeyValueHolder<>(it.next());
@@ -237,7 +238,7 @@ public interface SequencedMap<K, V> extends Map<K, V> {
      * @throws UnsupportedOperationException if this collection implementation does not
      *         support this operation
      */
-    default V putFirst(@Modifiable SequencedMap<K,V> this, K k, V v) {
+    default V putFirst(@GrowReplace SequencedMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
     }
 
@@ -256,7 +257,7 @@ public interface SequencedMap<K, V> extends Map<K, V> {
      * @throws UnsupportedOperationException if this collection implementation does not
      *         support this operation
      */
-    default V putLast(@Modifiable SequencedMap<K,V> this, K k, V v) {
+    default V putLast(@GrowReplace SequencedMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
     }
 

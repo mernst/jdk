@@ -37,6 +37,9 @@ package java.util.concurrent;
 
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.ShrinkReplace;
 import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.nullness.qual.EnsuresKeyFor;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -167,7 +170,7 @@ public interface ConcurrentMap<K extends @NonNull Object,V extends @NonNull Obje
      *         or value prevents it from being stored in this map
      */
     @EnsuresKeyFor(value={"#1"}, map={"this"})
-    @Nullable V putIfAbsent(@Modifiable ConcurrentMap<K,V> this, K key, V value);
+    @Nullable V putIfAbsent(@Growable ConcurrentMap<K,V> this, K key, V value);
 
     /**
      * Removes the entry for a key only if currently mapped to a given value.
@@ -198,7 +201,7 @@ public interface ConcurrentMap<K extends @NonNull Object,V extends @NonNull Obje
      *         and this map does not permit null keys or values
      * (<a href="{@docRoot}/java.base/java/util/Collection.html#optional-restrictions">optional</a>)
      */
-    boolean remove(@Modifiable ConcurrentMap<K,V> this, @UnknownSignedness Object key, @UnknownSignedness Object value);
+    boolean remove(@Shrinkable ConcurrentMap<K,V> this, @UnknownSignedness Object key, @UnknownSignedness Object value);
 
     /**
      * Replaces the entry for a key only if currently mapped to a given value.
@@ -230,7 +233,7 @@ public interface ConcurrentMap<K extends @NonNull Object,V extends @NonNull Obje
      * @throws IllegalArgumentException if some property of a specified key
      *         or value prevents it from being stored in this map
      */
-    boolean replace(@Modifiable ConcurrentMap<K,V> this, K key, V oldValue, V newValue);
+    boolean replace(@Replaceable ConcurrentMap<K,V> this, K key, V oldValue, V newValue);
 
     /**
      * Replaces the entry for a key only if currently mapped to some value.
@@ -262,7 +265,7 @@ public interface ConcurrentMap<K extends @NonNull Object,V extends @NonNull Obje
      * @throws IllegalArgumentException if some property of the specified key
      *         or value prevents it from being stored in this map
      */
-    @Nullable V replace(@Modifiable ConcurrentMap<K,V> this, K key, V value);
+    @Nullable V replace(@Replaceable ConcurrentMap<K,V> this, K key, V value);
 
     /**
      * {@inheritDoc}
@@ -295,7 +298,7 @@ public interface ConcurrentMap<K extends @NonNull Object,V extends @NonNull Obje
      * @since 1.8
      */
     @Override
-    default void replaceAll(@Modifiable ConcurrentMap<K,V> this, BiFunction<? super K, ? super V, ? extends V> function) {
+    default void replaceAll(@Replaceable ConcurrentMap<K,V> this, BiFunction<? super K, ? super V, ? extends V> function) {
         Objects.requireNonNull(function);
         forEach((k,v) -> {
             while (!replace(k, v, function.apply(k, v))) {
@@ -335,7 +338,7 @@ public interface ConcurrentMap<K extends @NonNull Object,V extends @NonNull Obje
      * @since 1.8
      */
     @Override
-    default @PolyNull V computeIfAbsent(@Modifiable ConcurrentMap<K,V> this, K key,
+    default @PolyNull V computeIfAbsent(@Growable ConcurrentMap<K,V> this, K key,
             Function<? super K, ? extends @PolyNull V> mappingFunction) {
         Objects.requireNonNull(mappingFunction);
         V oldValue, newValue;
@@ -377,7 +380,7 @@ public interface ConcurrentMap<K extends @NonNull Object,V extends @NonNull Obje
      * @since 1.8
      */
     @Override
-    default @PolyNull V computeIfPresent(@Modifiable ConcurrentMap<K,V> this, K key,
+    default @PolyNull V computeIfPresent(@ShrinkReplace ConcurrentMap<K,V> this, K key,
             BiFunction<? super K, ? super V, ? extends @PolyNull V> remappingFunction) {
         Objects.requireNonNull(remappingFunction);
         for (V oldValue; (oldValue = get(key)) != null; ) {
