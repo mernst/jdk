@@ -36,7 +36,7 @@
 package java.util.concurrent;
 
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
-import org.checkerframework.checker.modifiability.qual.WillThrowUOE;
+import org.checkerframework.checker.modifiability.qual.ThrowsUOE;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -1906,7 +1906,7 @@ public @Modifiable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * @throws UnsupportedOperationException always
      * @since 21
      */
-    @WillThrowUOE
+    @ThrowsUOE
      public V putFirst(K k, V v) {
         throw new UnsupportedOperationException();
     }
@@ -1919,7 +1919,7 @@ public @Modifiable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * @throws UnsupportedOperationException always
      * @since 21
      */
-    @WillThrowUOE
+    @ThrowsUOE
     public V putLast(K k, V v) {
         throw new UnsupportedOperationException();
     }

@@ -28,7 +28,7 @@ package java.util;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
-import org.checkerframework.checker.modifiability.qual.WillThrowUOE;
+import org.checkerframework.checker.modifiability.qual.ThrowsUOE;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.checker.nullness.qual.KeyFor;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -316,7 +316,7 @@ public interface SortedMap<K,V> extends SequencedMap<K,V> {
      * @throws UnsupportedOperationException always
      * @since 21
      */
-    @WillThrowUOE
+    @ThrowsUOE
      default V putFirst(K k, V v) {
         throw new UnsupportedOperationException();
     }
@@ -332,7 +332,7 @@ public interface SortedMap<K,V> extends SequencedMap<K,V> {
      * @throws UnsupportedOperationException always
      * @since 21
      */
-    @WillThrowUOE
+    @ThrowsUOE
     default V putLast(K k, V v) {
         throw new UnsupportedOperationException();
     }
