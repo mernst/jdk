@@ -28,7 +28,8 @@ package java.util;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
-import org.checkerframework.checker.modifiability.qual.GrowShrink;
+import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -105,7 +106,7 @@ import jdk.internal.access.SharedSecrets;
  */
 
 @AnnotatedFor({"lock", "nullness", "index"})
-public @GrowShrink class HashSet<E>
+public @Growable @Shrinkable class HashSet<E>
     extends AbstractSet<E>
     implements Set<E>, Cloneable, java.io.Serializable
 {
@@ -121,7 +122,7 @@ public @GrowShrink class HashSet<E>
      * Constructs a new, empty set; the backing {@code HashMap} instance has
      * default initial capacity (16) and load factor (0.75).
      */
-    public @GrowShrink HashSet() {
+    public HashSet() {
         map = new HashMap<>();
     }
 
@@ -134,7 +135,7 @@ public @GrowShrink class HashSet<E>
      * @param c the collection whose elements are to be placed into this set
      * @throws NullPointerException if the specified collection is null
      */
-    public @GrowShrink @PolyNonEmpty HashSet(@PolyNonEmpty Collection<? extends E> c) {
+    public @PolyNonEmpty HashSet(@PolyNonEmpty Collection<? extends E> c) {
         map = HashMap.newHashMap(Math.max(c.size(), 12));
         addAll(c);
     }
@@ -152,7 +153,7 @@ public @GrowShrink class HashSet<E>
      * @throws     IllegalArgumentException if the initial capacity is less
      *             than zero, or if the load factor is nonpositive
      */
-    public @GrowShrink HashSet(@NonNegative int initialCapacity, float loadFactor) {
+    public HashSet(@NonNegative int initialCapacity, float loadFactor) {
         map = new HashMap<>(initialCapacity, loadFactor);
     }
 
@@ -168,7 +169,7 @@ public @GrowShrink class HashSet<E>
      * @throws     IllegalArgumentException if the initial capacity is less
      *             than zero
      */
-    public @GrowShrink HashSet(@NonNegative int initialCapacity) {
+    public HashSet(@NonNegative int initialCapacity) {
         map = new HashMap<>(initialCapacity);
     }
 
@@ -185,7 +186,7 @@ public @GrowShrink class HashSet<E>
      * @throws     IllegalArgumentException if the initial capacity is less
      *             than zero, or if the load factor is nonpositive
      */
-    @GrowShrink HashSet(int initialCapacity, float loadFactor, boolean dummy) {
+    HashSet(int initialCapacity, float loadFactor, boolean dummy) {
         map = new LinkedHashMap<>(initialCapacity, loadFactor);
     }
 

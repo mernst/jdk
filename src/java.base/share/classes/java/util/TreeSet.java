@@ -28,7 +28,8 @@ package java.util;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
-import org.checkerframework.checker.modifiability.qual.GrowShrink;
+import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.ThrowsUOE;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -112,13 +113,13 @@ import org.checkerframework.framework.qual.CFComment;
 
 @CFComment({"lock/nullness: Subclasses of this interface/class may opt to prohibit null elements"})
 @AnnotatedFor({"lock", "nullness"})
-public @GrowShrink class TreeSet<E> extends AbstractSet<E>
+public @Growable @Shrinkable class TreeSet<E> extends AbstractSet<E>
     implements NavigableSet<E>, Cloneable, java.io.Serializable
 {
     /**
      * The backing map.
      */
-    private transient @GrowShrink NavigableMap<E,Object> m;
+    private transient @Growable @Shrinkable NavigableMap<E,Object> m;
 
     // Dummy value to associate with an Object in the backing Map
     private static final Object PRESENT = new Object();
@@ -143,7 +144,7 @@ public @GrowShrink class TreeSet<E> extends AbstractSet<E>
      * integers), the {@code add} call will throw a
      * {@code ClassCastException}.
      */
-    public @GrowShrink TreeSet() {
+    public TreeSet() {
         this(new TreeMap<>());
     }
 
@@ -160,7 +161,7 @@ public @GrowShrink class TreeSet<E> extends AbstractSet<E>
      *        If {@code null}, the {@linkplain Comparable natural
      *        ordering} of the elements will be used.
      */
-    public @GrowShrink TreeSet(@Nullable Comparator<? super E> comparator) {
+    public TreeSet(@Nullable Comparator<? super E> comparator) {
         this(new TreeMap<>(comparator));
     }
 
@@ -178,7 +179,7 @@ public @GrowShrink class TreeSet<E> extends AbstractSet<E>
      *         not {@link Comparable}, or are not mutually comparable
      * @throws NullPointerException if the specified collection is null
      */
-    public @GrowShrink @PolyNonEmpty TreeSet(@PolyNonEmpty Collection<? extends E> c) {
+    public @PolyNonEmpty TreeSet(@PolyNonEmpty Collection<? extends E> c) {
         this();
         addAll(c);
     }
@@ -190,7 +191,7 @@ public @GrowShrink class TreeSet<E> extends AbstractSet<E>
      * @param s sorted set whose elements will comprise the new set
      * @throws NullPointerException if the specified sorted set is null
      */
-    public @GrowShrink @PolyNonEmpty TreeSet(@PolyNonEmpty SortedSet<E> s) {
+    public @PolyNonEmpty TreeSet(@PolyNonEmpty SortedSet<E> s) {
         this(s.comparator());
         addAll(s);
     }

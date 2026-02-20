@@ -39,7 +39,7 @@ import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
-import org.checkerframework.checker.modifiability.qual.ShrinkReplace;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.nullness.qual.EnsuresKeyFor;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -380,7 +380,7 @@ public interface ConcurrentMap<K extends @NonNull Object,V extends @NonNull Obje
      * @since 1.8
      */
     @Override
-    default @PolyNull V computeIfPresent(@ShrinkReplace ConcurrentMap<K,V> this, K key,
+    default @PolyNull V computeIfPresent(@Shrinkable @Replaceable ConcurrentMap<K,V> this, K key,
             BiFunction<? super K, ? super V, ? extends @PolyNull V> remappingFunction) {
         Objects.requireNonNull(remappingFunction);
         for (V oldValue; (oldValue = get(key)) != null; ) {

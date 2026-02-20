@@ -33,8 +33,6 @@ import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
-import org.checkerframework.checker.modifiability.qual.GrowReplace;
-import org.checkerframework.checker.modifiability.qual.ShrinkReplace;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
@@ -311,7 +309,7 @@ public interface Map<K, V> {
     @ReleasesNoLocks
     @EnsuresKeyFor(value={"#1"}, map={"this"})
     @EnsuresNonEmpty("this")
-    @Nullable V put(@GrowReplace @GuardSatisfied Map<K, V> this, K key, V value);
+    @Nullable V put(@Growable @Replaceable @GuardSatisfied Map<K, V> this, K key, V value);
 
     /**
      * Removes the mapping for a key from this map if it is present
@@ -368,7 +366,7 @@ public interface Map<K, V> {
      * @throws IllegalArgumentException if some property of a key or value in
      *         the specified map prevents it from being stored in this map
      */
-    void putAll(@GrowReplace @GuardSatisfied Map<K, V> this, Map<? extends K, ? extends V> m);
+    void putAll(@Growable @Replaceable @GuardSatisfied Map<K, V> this, Map<? extends K, ? extends V> m);
 
     /**
      * Removes all of the mappings from this map (optional operation).
@@ -1196,7 +1194,7 @@ public interface Map<K, V> {
      *         ({@linkplain Collection##optional-restrictions optional})
      * @since 1.8
      */
-    default @Nullable V computeIfPresent(@ShrinkReplace Map<K, V> this, K key,
+    default @Nullable V computeIfPresent(@Shrinkable @Replaceable Map<K, V> this, K key,
             BiFunction<? super K, ? super V, ? extends @Nullable V> remappingFunction) {
         Objects.requireNonNull(remappingFunction);
         V oldValue;

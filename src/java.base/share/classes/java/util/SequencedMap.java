@@ -27,7 +27,8 @@ package java.util;
 
 import jdk.internal.util.NullableKeyValueHolder;
 
-import org.checkerframework.checker.modifiability.qual.GrowReplace;
+import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 
 /**
@@ -238,7 +239,7 @@ public interface SequencedMap<K, V> extends Map<K, V> {
      * @throws UnsupportedOperationException if this collection implementation does not
      *         support this operation
      */
-    default V putFirst(@GrowReplace SequencedMap<K,V> this, K k, V v) {
+    default V putFirst(@Growable @Replaceable SequencedMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
     }
 
@@ -257,7 +258,7 @@ public interface SequencedMap<K, V> extends Map<K, V> {
      * @throws UnsupportedOperationException if this collection implementation does not
      *         support this operation
      */
-    default V putLast(@GrowReplace SequencedMap<K,V> this, K k, V v) {
+    default V putLast(@Growable @Replaceable SequencedMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
     }
 
