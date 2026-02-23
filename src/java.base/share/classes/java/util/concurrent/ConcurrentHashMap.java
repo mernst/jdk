@@ -38,6 +38,8 @@ package java.util.concurrent;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
+import org.checkerframework.checker.modifiability.qual.PolyShrink;
+import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -1288,7 +1290,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
      * @return the collection view
      */
     @SideEffectFree
-    public Collection<V> values() {
+    public @PolyShrink Collection<V> values(@PolyShrink ConcurrentHashMap<K,V> this) {
         ValuesView<K,V> vs;
         if ((vs = values) != null) return vs;
         return values = new ValuesView<K,V>(this);
@@ -1312,7 +1314,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
      * @return the set view
      */
     @SideEffectFree
-    public Set<Map.@Modifiable Entry<@KeyFor({"this"}) K,V>> entrySet() {
+    public @PolyShrink Set<Map.@Modifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyShrink ConcurrentHashMap<K,V> this) {
         EntrySetView<K,V> es;
         if ((es = entrySet) != null) return es;
         return entrySet = new EntrySetView<K,V>(this);
