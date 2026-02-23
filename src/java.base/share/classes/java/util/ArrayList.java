@@ -135,7 +135,7 @@ import jdk.internal.util.ArraysSupport;
  */
 @CFComment("lock/nullness: Permit null elements")
 @AnnotatedFor({"lock", "nullness", "index"})
-public @Growable @Shrinkable @Replaceable class ArrayList<E> extends AbstractList<E>
+public @Modifiable class ArrayList<E> extends AbstractList<E>
         implements List<E>, RandomAccess, Cloneable, java.io.Serializable
 {
     @java.io.Serial
