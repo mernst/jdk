@@ -184,7 +184,7 @@ public interface Set<E> extends Collection<E> {
      * @return an iterator over the elements in this set
      */
     @SideEffectFree
-    @PolyModifiable @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyModifiable @PolyGrowShrink @PolyNonEmpty Set<E> this);
+    @UnknownModifiability @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@UnknownModifiability @PolyGrowShrink @PolyNonEmpty Set<E> this);
 
     /**
      * Returns an array containing all of the elements in this set.

@@ -1247,7 +1247,7 @@ public @Modifiable class IdentityHashMap<K,V>
      * @return a set view of the identity-mappings contained in this map
      */
     @SideEffectFree
-    public @PolyShrink Set<Map.Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyShrink @GuardSatisfied IdentityHashMap<K, V> this) {
+    public @PolyShrink Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyModifiable @GuardSatisfied IdentityHashMap<K, V> this) {
         Set<Map.Entry<K,V>> es = entrySet;
         if (es != null)
             return es;

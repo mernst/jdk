@@ -27,6 +27,7 @@ package java.util;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
@@ -1019,12 +1020,12 @@ public @Modifiable class HashMap<K,V> extends AbstractMap<K,V>
         return a;
     }
 
-    final class KeySet extends AbstractSet<K> {
+    final @Shrinkable class KeySet extends AbstractSet<K> {
         @Pure
         public final @NonNegative int size()                 { return size; }
         public final void clear()               { HashMap.this.clear(); }
         @SideEffectFree
-        public final Iterator<K> iterator()     { return new KeyIterator(); }
+        public final @Modifiable Iterator<K> iterator()     { return new KeyIterator(); }
         @Pure
         @EnsuresNonEmptyIf(result = true, expression = "this")
         public final boolean contains(@Nullable @UnknownSignedness Object o) { return containsKey(o); }
@@ -1085,12 +1086,12 @@ public @Modifiable class HashMap<K,V> extends AbstractMap<K,V>
         return vs;
     }
 
-    final class Values extends AbstractCollection<V> {
+    final @Shrinkable class Values extends AbstractCollection<V> {
         @Pure
         public final @NonNegative int size()                 { return size; }
         public final void clear()               { HashMap.this.clear(); }
         @SideEffectFree
-        public final Iterator<V> iterator()     { return new ValueIterator(); }
+        public final @Modifiable Iterator<V> iterator()     { return new ValueIterator(); }
         @Pure
         @EnsuresNonEmptyIf(result = true, expression = "this")
         public final boolean contains(@Nullable @UnknownSignedness Object o) { return containsValue(o); }
@@ -1145,12 +1146,12 @@ public @Modifiable class HashMap<K,V> extends AbstractMap<K,V>
         return (es = entrySet) == null ? (entrySet = new EntrySet()) : es;
     }
 
-    final class EntrySet extends AbstractSet<Map.Entry<K,V>> {
+    final @Shrinkable class EntrySet extends AbstractSet<Map.Entry<K,V>> {
         @Pure
         public final @NonNegative int size()                 { return size; }
         public final void clear()               { HashMap.this.clear(); }
         @SideEffectFree
-        public final Iterator<Map.Entry<K,V>> iterator() {
+        public final @Modifiable Iterator<Map.Entry<K,V>> iterator() {
             return new EntryIterator();
         }
         @Pure
@@ -1632,7 +1633,7 @@ public @Modifiable class HashMap<K,V> extends AbstractMap<K,V>
     /* ------------------------------------------------------------ */
     // iterators
 
-    abstract class HashIterator {
+    abstract @Modifiable class HashIterator {
         Node<K,V> next;        // next entry to return
         Node<K,V> current;     // current entry
         int expectedModCount;  // for fast-fail
@@ -1680,17 +1681,17 @@ public @Modifiable class HashMap<K,V> extends AbstractMap<K,V>
         }
     }
 
-    final class KeyIterator extends HashIterator
+    final @Modifiable class KeyIterator extends HashIterator
         implements Iterator<K> {
         public final K next(@NonEmpty KeyIterator this) { return nextNode().key; }
     }
 
-    final class ValueIterator extends HashIterator
+    final @Modifiable class ValueIterator extends HashIterator
         implements Iterator<V> {
         public final V next(@NonEmpty ValueIterator this) { return nextNode().value; }
     }
 
-    final class EntryIterator extends HashIterator
+    final @Modifiable class EntryIterator extends HashIterator
         implements Iterator<Map.Entry<K,V>> {
         public final Map.Entry<K,V> next(@NonEmpty EntryIterator this) { return nextNode(); }
     }

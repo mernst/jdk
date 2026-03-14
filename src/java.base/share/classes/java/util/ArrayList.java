@@ -135,7 +135,7 @@ import jdk.internal.util.ArraysSupport;
  */
 @CFComment("lock/nullness: Permit null elements")
 @AnnotatedFor({"lock", "nullness", "index"})
-public @Modifiable class ArrayList<E> extends AbstractList<E>
+public class ArrayList<E> extends AbstractList<E>
         implements List<E>, RandomAccess, Cloneable, java.io.Serializable
 {
     @java.io.Serial
@@ -510,7 +510,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
     @SideEffectsOnly("this")
-    public E set(@GuardSatisfied ArrayList<E> this, @NonNegative int index, E element) {
+    public E set(@Replaceable @GuardSatisfied ArrayList<E> this, @NonNegative int index, E element) {
         Objects.checkIndex(index, size);
         E oldValue = elementData(index);
         elementData[index] = element;
@@ -538,7 +538,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      */
     @SideEffectsOnly("this")
     @EnsuresNonEmpty("this")
-    public boolean add(@GuardSatisfied ArrayList<E> this, E e) {
+    public boolean add(@Growable @GuardSatisfied ArrayList<E> this, E e) {
         modCount++;
         add(e, elementData, size);
         return true;
@@ -554,7 +554,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
     @SideEffectsOnly("this")
-    public void add(@GuardSatisfied ArrayList<E> this, @NonNegative int index, E element) {
+    public void add(@Growable @GuardSatisfied ArrayList<E> this, @NonNegative int index, E element) {
         rangeCheckForAdd(index);
         modCount++;
         final int s;
@@ -573,7 +573,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      *
      * @since 21
      */
-    public void addFirst(E element) {
+    public void addFirst(@Growable ArrayList<E> this, E element) {
         add(0, element);
     }
 
@@ -582,7 +582,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      *
      * @since 21
      */
-    public void addLast(E element) {
+    public void addLast(@Growable ArrayList<E> this, E element) {
         add(element);
     }
 
@@ -595,7 +595,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      * @return the element that was removed from the list
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public E remove(@GuardSatisfied @CanShrink ArrayList<E> this, @NonNegative int index) {
+    public E remove(@Shrinkable @GuardSatisfied @CanShrink ArrayList<E> this, @NonNegative int index) {
         Objects.checkIndex(index, size);
         final Object[] es = elementData;
 
@@ -611,7 +611,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
-    public E removeFirst() {
+    public E removeFirst(@Shrinkable ArrayList<E> this) {
         if (size == 0) {
             throw new NoSuchElementException();
         } else {
@@ -628,7 +628,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
-    public E removeLast() {
+    public E removeLast(@Shrinkable ArrayList<E> this) {
         int last = size - 1;
         if (last < 0) {
             throw new NoSuchElementException();
@@ -742,7 +742,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      * @param o element to be removed from this list, if present
      * @return {@code true} if this list contained the specified element
      */
-    public boolean remove(@GuardSatisfied @CanShrink ArrayList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
+    public boolean remove(@Shrinkable @GuardSatisfied @CanShrink ArrayList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         final Object[] es = elementData;
         final int size = this.size;
         int i = 0;
@@ -778,7 +778,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      * Removes all of the elements from this list.  The list will
      * be empty after this call returns.
      */
-    public void clear(@GuardSatisfied @CanShrink ArrayList<E> this) {
+    public void clear(@Shrinkable @GuardSatisfied @CanShrink ArrayList<E> this) {
         modCount++;
         final Object[] es = elementData;
         for (int to = size, i = size = 0; i < to; i++)
@@ -799,7 +799,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      * @throws NullPointerException if the specified collection is null
      */
     @SideEffectsOnly("this")
-    public boolean addAll(@GuardSatisfied ArrayList<E> this, Collection<? extends E> c) {
+    public boolean addAll(@Growable @GuardSatisfied ArrayList<E> this, Collection<? extends E> c) {
         Object[] a = c.toArray();
         modCount++;
         int numNew = a.length;
@@ -830,7 +830,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      * @throws NullPointerException if the specified collection is null
      */
     @SideEffectsOnly("this")
-    public boolean addAll(@GuardSatisfied ArrayList<E> this, @NonNegative int index, Collection<? extends E> c) {
+    public boolean addAll(@Growable @GuardSatisfied ArrayList<E> this, @NonNegative int index, Collection<? extends E> c) {
         rangeCheckForAdd(index);
 
         Object[] a = c.toArray();
@@ -866,7 +866,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      *          toIndex > size() ||
      *          toIndex < fromIndex})
      */
-    protected void removeRange(@GuardSatisfied @CanShrink ArrayList<E> this, int fromIndex, int toIndex) {
+    protected void removeRange(@Shrinkable @GuardSatisfied @CanShrink ArrayList<E> this, int fromIndex, int toIndex) {
         if (fromIndex > toIndex) {
             throw new IndexOutOfBoundsException(
                     outOfBoundsMsg(fromIndex, toIndex));
@@ -921,7 +921,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      *         or if the specified collection is null
      * @see Collection#contains(Object)
      */
-    public boolean removeAll(@CanShrink ArrayList<E> this, Collection<? extends @UnknownSignedness Object> c) {
+    public boolean removeAll(@Shrinkable @CanShrink ArrayList<E> this, Collection<? extends @UnknownSignedness Object> c) {
         return batchRemove(c, false, 0, size);
     }
 
@@ -941,7 +941,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      *         or if the specified collection is null
      * @see Collection#contains(Object)
      */
-    public boolean retainAll(@GuardSatisfied @CanShrink ArrayList<E> this, Collection<? extends @UnknownSignedness Object> c) {
+    public boolean retainAll(@Shrinkable @GuardSatisfied @CanShrink ArrayList<E> this, Collection<? extends @UnknownSignedness Object> c) {
         return batchRemove(c, true, 0, size);
     }
 
@@ -1053,7 +1053,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      *
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public @PolyGrowShrink ListIterator<E> listIterator(@PolyGrowShrink ArrayList<E> this, @NonNegative int index) {
+    public @PolyModifiable @PolyGrowShrink ListIterator<E> listIterator(@PolyModifiable @PolyGrowShrink ArrayList<E> this, @NonNegative int index) {
         rangeCheckForAdd(index);
         return new ListItr(index);
     }
@@ -1066,7 +1066,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      *
      * @see #listIterator(int)
      */
-    public @PolyGrowShrink @PolyNonEmpty ListIterator<E> listIterator(@PolyGrowShrink @PolyNonEmpty ArrayList<E> this) {
+    public @PolyModifiable @PolyGrowShrink ListIterator<E> listIterator(@PolyModifiable @PolyGrowShrink ArrayList<E> this) {
         return new ListItr(0);
     }
 
@@ -1078,7 +1078,7 @@ public @Modifiable class ArrayList<E> extends AbstractList<E>
      * @return an iterator over the elements in this list in proper sequence
      */
     @SideEffectFree
-    public @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty ArrayList<E> this) {
+    public @PolyModifiable @PolyGrowShrink Iterator<E> iterator(@PolyModifiable @PolyGrowShrink ArrayList<E> this) {
         return new Itr();
     }
 

@@ -104,7 +104,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @return an iterator over the elements contained in this collection
      */
     @SideEffectFree
-    public abstract @PolyModifiable @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyModifiable @PolyGrowShrink @PolyNonEmpty AbstractCollection<E> this);
+    public abstract @UnknownModifiability @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@UnknownModifiability @PolyGrowShrink @PolyNonEmpty AbstractCollection<E> this);
     @Pure
     public abstract @NonNegative int size(@UnknownModifiability @GuardSatisfied AbstractCollection<E> this);
 

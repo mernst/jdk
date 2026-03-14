@@ -720,7 +720,7 @@ public @Modifiable class LinkedHashMap<K,V>
         public final int size()                 { return size; }
         public final void clear()               { LinkedHashMap.this.clear(); }
         @SideEffectFree
-        public final Iterator<K> iterator() {
+        public final @Modifiable Iterator<K> iterator() {
             return new LinkedKeyIterator(reversed);
         }
         @Pure
@@ -1038,7 +1038,7 @@ public @Modifiable class LinkedHashMap<K,V>
 
     // Iterators
 
-    abstract class LinkedHashIterator {
+    abstract @Modifiable class LinkedHashIterator {
         LinkedHashMap.Entry<K,V> next;
         LinkedHashMap.Entry<K,V> current;
         int expectedModCount;
@@ -1081,19 +1081,19 @@ public @Modifiable class LinkedHashMap<K,V>
         }
     }
 
-    final class LinkedKeyIterator extends LinkedHashIterator
+    final @Modifiable class LinkedKeyIterator extends LinkedHashIterator
         implements Iterator<K> {
         LinkedKeyIterator(boolean reversed) { super(reversed); }
         public final K next(@NonEmpty LinkedKeyIterator this) { return nextNode().getKey(); }
     }
 
-    final class LinkedValueIterator extends LinkedHashIterator
+    final @Modifiable class LinkedValueIterator extends LinkedHashIterator
         implements Iterator<V> {
         LinkedValueIterator(boolean reversed) { super(reversed); }
         public final V next(@NonEmpty LinkedValueIterator this) { return nextNode().value; }
     }
 
-    final class LinkedEntryIterator extends LinkedHashIterator
+    final @Modifiable class LinkedEntryIterator extends LinkedHashIterator
         implements Iterator<Map.Entry<K,V>> {
         LinkedEntryIterator(boolean reversed) { super(reversed); }
         public final Map.Entry<K,V> next(@NonEmpty LinkedEntryIterator this) { return nextNode(); }

@@ -334,7 +334,7 @@ public interface Collection<E> extends Iterable<E> {
      * @return an {@code Iterator} over the elements in this collection
      */
     @SideEffectFree
-    @PolyModifiable @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyModifiable @PolyGrowShrink @PolyNonEmpty Collection<E> this);
+    @UnknownModifiability @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@UnknownModifiability @PolyGrowShrink @PolyNonEmpty Collection<E> this);
 
     /**
      * Returns an array containing all of the elements in this collection.
