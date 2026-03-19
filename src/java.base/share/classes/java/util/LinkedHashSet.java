@@ -25,7 +25,9 @@
 
 package java.util;
 
+import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 
@@ -127,8 +129,8 @@ import org.checkerframework.framework.qual.CFComment;
  */
 
 @CFComment({"lock/nullness: This class permits null elements"})
-@AnnotatedFor({"lock", "nullness"})
-public @Modifiable class LinkedHashSet<E>
+@AnnotatedFor({"lock", "nullness", "modifiability"})
+public class LinkedHashSet<E>
     extends HashSet<E>
     implements SequencedSet<E>, Cloneable, java.io.Serializable {
 
@@ -247,7 +249,7 @@ public @Modifiable class LinkedHashSet<E>
      *
      * @since 21
      */
-    public void addFirst(E e) {
+    public void addFirst(@Growable LinkedHashSet<E> this, E e) {
         map().putFirst(e, PRESENT);
     }
 
@@ -259,7 +261,7 @@ public @Modifiable class LinkedHashSet<E>
      *
      * @since 21
      */
-    public void addLast(E e) {
+    public void addLast(@Growable LinkedHashSet<E> this, E e) {
         map().putLast(e, PRESENT);
     }
 
@@ -289,7 +291,7 @@ public @Modifiable class LinkedHashSet<E>
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
-    public E removeFirst() {
+    public E removeFirst(@Shrinkable LinkedHashSet<E> this) {
         return map().sequencedKeySet().removeFirst();
     }
 
@@ -299,7 +301,7 @@ public @Modifiable class LinkedHashSet<E>
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
-    public E removeLast() {
+    public E removeLast(@Shrinkable LinkedHashSet<E> this) {
         return map().sequencedKeySet().removeLast();
     }
 
@@ -316,13 +318,13 @@ public @Modifiable class LinkedHashSet<E>
         class ReverseLinkedHashSetView extends AbstractSet<E> implements SequencedSet<E> {
             public int size()                  { return LinkedHashSet.this.size(); }
             public Iterator<E> iterator()      { return map().sequencedKeySet().reversed().iterator(); }
-            public boolean add(E e)            { return LinkedHashSet.this.add(e); }
-            public void addFirst(E e)          { LinkedHashSet.this.addLast(e); }
-            public void addLast(E e)           { LinkedHashSet.this.addFirst(e); }
+            public boolean add(@Growable ReverseLinkedHashSetView this, E e)            { return LinkedHashSet.this.add(e); }
+            public void addFirst(@Growable ReverseLinkedHashSetView this, E e)          { LinkedHashSet.this.addLast(e); }
+            public void addLast(@Growable ReverseLinkedHashSetView this, E e)           { LinkedHashSet.this.addFirst(e); }
             public E getFirst()                { return LinkedHashSet.this.getLast(); }
             public E getLast()                 { return LinkedHashSet.this.getFirst(); }
-            public E removeFirst()             { return LinkedHashSet.this.removeLast(); }
-            public E removeLast()              { return LinkedHashSet.this.removeFirst(); }
+            public E removeFirst(@Shrinkable ReverseLinkedHashSetView this)             { return LinkedHashSet.this.removeLast(); }
+            public E removeLast(@Shrinkable ReverseLinkedHashSetView this)              { return LinkedHashSet.this.removeFirst(); }
             public SequencedSet<E> reversed()  { return LinkedHashSet.this; }
             public Object[] toArray() { return map().keysToArray(new Object[map.size()], true); }
             public <T> T[] toArray(T[] a) { return map().keysToArray(map.prepareArray(a), true); }

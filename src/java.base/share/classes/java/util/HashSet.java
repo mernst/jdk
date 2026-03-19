@@ -30,7 +30,10 @@ import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
+import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.PolyModifiable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -106,8 +109,8 @@ import jdk.internal.access.SharedSecrets;
  * @since   1.2
  */
 
-@AnnotatedFor({"lock", "nullness", "index"})
-public @Modifiable class HashSet<E>
+@AnnotatedFor({"lock", "nullness", "index", "modifiability"})
+public class HashSet<E>
     extends AbstractSet<E>
     implements Set<E>, Cloneable, java.io.Serializable
 {
@@ -123,7 +126,7 @@ public @Modifiable class HashSet<E>
      * Constructs a new, empty set; the backing {@code HashMap} instance has
      * default initial capacity (16) and load factor (0.75).
      */
-    public HashSet() {
+    public @Modifiable HashSet() {
         map = new HashMap<>();
     }
 
@@ -136,7 +139,7 @@ public @Modifiable class HashSet<E>
      * @param c the collection whose elements are to be placed into this set
      * @throws NullPointerException if the specified collection is null
      */
-    public @PolyNonEmpty HashSet(@PolyNonEmpty Collection<? extends E> c) {
+    public @Modifiable @PolyNonEmpty HashSet(@PolyNonEmpty Collection<? extends E> c) {
         map = HashMap.newHashMap(Math.max(c.size(), 12));
         addAll(c);
     }
@@ -154,7 +157,7 @@ public @Modifiable class HashSet<E>
      * @throws     IllegalArgumentException if the initial capacity is less
      *             than zero, or if the load factor is nonpositive
      */
-    public HashSet(@NonNegative int initialCapacity, float loadFactor) {
+    public @Modifiable HashSet(@NonNegative int initialCapacity, float loadFactor) {
         map = new HashMap<>(initialCapacity, loadFactor);
     }
 
@@ -170,7 +173,7 @@ public @Modifiable class HashSet<E>
      * @throws     IllegalArgumentException if the initial capacity is less
      *             than zero
      */
-    public HashSet(@NonNegative int initialCapacity) {
+    public @Modifiable HashSet(@NonNegative int initialCapacity) {
         map = new HashMap<>(initialCapacity);
     }
 
@@ -187,7 +190,7 @@ public @Modifiable class HashSet<E>
      * @throws     IllegalArgumentException if the initial capacity is less
      *             than zero, or if the load factor is nonpositive
      */
-    HashSet(int initialCapacity, float loadFactor, boolean dummy) {
+    @Modifiable HashSet(int initialCapacity, float loadFactor, boolean dummy) {
         map = new LinkedHashMap<>(initialCapacity, loadFactor);
     }
 
@@ -199,7 +202,7 @@ public @Modifiable class HashSet<E>
      * @see ConcurrentModificationException
      */
     @SideEffectFree
-    public @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty HashSet<E> this) {
+    public @PolyModifiable @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyModifiable @PolyGrowShrink @PolyNonEmpty HashSet<E> this) {
         return map.keySet().iterator();
     }
 
@@ -253,7 +256,7 @@ public @Modifiable class HashSet<E>
      */
     @SideEffectsOnly("this")
     @EnsuresNonEmpty("this")
-    public boolean add(@GuardSatisfied HashSet<E> this, E e) {
+    public boolean add(@Growable @GuardSatisfied HashSet<E> this, E e) {
         return map.put(e, PRESENT)==null;
     }
 
@@ -270,7 +273,7 @@ public @Modifiable class HashSet<E>
      * @return {@code true} if the set contained the specified element
      */
     @SideEffectsOnly("this")
-    public boolean remove(@GuardSatisfied HashSet<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
+    public boolean remove(@Shrinkable @GuardSatisfied HashSet<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         return map.remove(o)==PRESENT;
     }
 
@@ -279,7 +282,7 @@ public @Modifiable class HashSet<E>
      * The set will be empty after this call returns.
      */
     @SideEffectsOnly("this")
-    public void clear(@GuardSatisfied HashSet<E> this) {
+    public void clear(@Shrinkable @GuardSatisfied HashSet<E> this) {
         map.clear();
     }
 

@@ -30,12 +30,10 @@ import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
-import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -134,7 +132,7 @@ import jdk.internal.util.ArraysSupport;
  * @since   1.2
  */
 @CFComment("lock/nullness: Permit null elements")
-@AnnotatedFor({"lock", "nullness", "index"})
+@AnnotatedFor({"lock", "nullness", "index", "modifiability"})
 public class ArrayList<E> extends AbstractList<E>
         implements List<E>, RandomAccess, Cloneable, java.io.Serializable
 {
@@ -1243,7 +1241,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws IndexOutOfBoundsException {@inheritDoc}
      * @throws IllegalArgumentException {@inheritDoc}
      */
-    public @PolyGrowShrink List<E> subList(@GuardSatisfied @PolyGrowShrink ArrayList<E> this, @NonNegative int fromIndex, @NonNegative int toIndex) {
+    public @PolyModifiable @PolyGrowShrink List<E> subList(@PolyModifiable @GuardSatisfied @PolyGrowShrink ArrayList<E> this, @NonNegative int fromIndex, @NonNegative int toIndex) {
         subListRangeCheck(fromIndex, toIndex, size);
         return new SubList<>(this, fromIndex, toIndex);
     }
@@ -1803,7 +1801,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public boolean removeIf(@CanShrink ArrayList<E> this, Predicate<? super E> filter) {
+    public boolean removeIf(@Shrinkable @CanShrink ArrayList<E> this, Predicate<? super E> filter) {
         return removeIf(filter, 0, size);
     }
 
@@ -1811,7 +1809,7 @@ public class ArrayList<E> extends AbstractList<E>
      * Removes all elements satisfying the given predicate, from index
      * i (inclusive) to index end (exclusive).
      */
-    boolean removeIf(@CanShrink ArrayList<E> this, Predicate<? super E> filter, int i, final int end) {
+    boolean removeIf(@Shrinkable @CanShrink ArrayList<E> this, Predicate<? super E> filter, int i, final int end) {
         Objects.requireNonNull(filter);
         int expectedModCount = modCount;
         final Object[] es = elementData;
@@ -1846,13 +1844,13 @@ public class ArrayList<E> extends AbstractList<E>
 
     @SuppressWarnings({"unchecked"})
     @Override
-    public void replaceAll(UnaryOperator<E> operator) {
+    public void replaceAll(@Replaceable ArrayList<E> this, UnaryOperator<E> operator) {
         replaceAllRange(operator, 0, size);
         // TODO(8203662): remove increment of modCount from ...
         modCount++;
     }
 
-    private void replaceAllRange(UnaryOperator<E> operator, int i, int end) {
+    private void replaceAllRange(@Replaceable ArrayList<E> this, UnaryOperator<E> operator, int i, int end) {
         Objects.requireNonNull(operator);
         final int expectedModCount = modCount;
         final Object[] es = elementData;
@@ -1864,7 +1862,7 @@ public class ArrayList<E> extends AbstractList<E>
 
     @Override
     @SuppressWarnings("unchecked")
-    public void sort(Comparator<? super E> c) {
+    public void sort(@Replaceable ArrayList<E> this, Comparator<? super E> c) {
         final int expectedModCount = modCount;
         Arrays.sort((E[]) elementData, 0, size, c);
         if (modCount != expectedModCount)
