@@ -33,6 +33,8 @@ import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.modifiability.qual.PolyShrink;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
+import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.checker.nonempty.qual.PolyNonEmpty;
@@ -160,8 +162,8 @@ import jdk.internal.access.SharedSecrets;
  * @see     Hashtable
  * @since   1.2
  */
-@AnnotatedFor({"lock", "nullness", "index"})
-public @Modifiable class HashMap<K,V> extends AbstractMap<K,V>
+@AnnotatedFor({"lock", "nullness", "index", "modifiability"})
+public class HashMap<K,V> extends AbstractMap<K,V>
     implements Map<K,V>, Cloneable, Serializable {
 
     @java.io.Serial
@@ -646,7 +648,7 @@ public @Modifiable class HashMap<K,V> extends AbstractMap<K,V>
      *         previously associated {@code null} with {@code key}.)
      */
     @EnsuresKeyFor(value={"#1"}, map={"this"})
-    public @Nullable V put(@GuardSatisfied HashMap<K, V> this, K key, V value) {
+    public @Nullable V put(@Growable @Replaceable @GuardSatisfied HashMap<K, V> this, K key, V value) {
         return putVal(hash(key), key, value, false, true);
     }
 
@@ -820,7 +822,7 @@ public @Modifiable class HashMap<K,V> extends AbstractMap<K,V>
      * @param m mappings to be stored in this map
      * @throws NullPointerException if the specified map is null
      */
-    public void putAll(@GuardSatisfied HashMap<K, V> this, Map<? extends K, ? extends V> m) {
+    public void putAll(@Growable @Replaceable @GuardSatisfied HashMap<K, V> this, Map<? extends K, ? extends V> m) {
         putMapEntries(m, true);
     }
 
@@ -833,7 +835,7 @@ public @Modifiable class HashMap<K,V> extends AbstractMap<K,V>
      *         (A {@code null} return can also indicate that the map
      *         previously associated {@code null} with {@code key}.)
      */
-    public @Nullable V remove(@GuardSatisfied HashMap<K, V> this, @GuardSatisfied @Nullable @UnknownSignedness Object key) {
+    public @Nullable V remove(@Shrinkable @GuardSatisfied HashMap<K, V> this, @GuardSatisfied @Nullable @UnknownSignedness Object key) {
         Node<K,V> e;
         return (e = removeNode(hash(key), key, null, false, true)) == null ?
             null : e.value;
@@ -894,7 +896,7 @@ public @Modifiable class HashMap<K,V> extends AbstractMap<K,V>
      * Removes all of the mappings from this map.
      * The map will be empty after this call returns.
      */
-    public void clear(@GuardSatisfied HashMap<K, V> this) {
+    public void clear(@Shrinkable @GuardSatisfied HashMap<K, V> this) {
         Node<K,V>[] tab;
         modCount++;
         if ((tab = table) != null && size > 0) {
@@ -1202,17 +1204,17 @@ public @Modifiable class HashMap<K,V> extends AbstractMap<K,V>
 
     @EnsuresKeyFor(value={"#1"}, map={"this"})
     @Override
-    public @Nullable V putIfAbsent(K key, V value) {
+    public @Nullable V putIfAbsent(@Growable HashMap<K,V> this, K key, V value) {
         return putVal(hash(key), key, value, true, true);
     }
 
     @Override
-    public boolean remove(@GuardSatisfied @Nullable @UnknownSignedness Object key, @GuardSatisfied @Nullable @UnknownSignedness Object value) {
+    public boolean remove(@Shrinkable HashMap<K,V> this, @GuardSatisfied @Nullable @UnknownSignedness Object key, @GuardSatisfied @Nullable @UnknownSignedness Object value) {
         return removeNode(hash(key), key, value, true, true) != null;
     }
 
     @Override
-    public boolean replace(K key, V oldValue, V newValue) {
+    public boolean replace(@Replaceable HashMap<K,V> this, K key, V oldValue, V newValue) {
         Node<K,V> e; V v;
         if ((e = getNode(key)) != null &&
             ((v = e.value) == oldValue || (v != null && v.equals(oldValue)))) {
@@ -1224,7 +1226,7 @@ public @Modifiable class HashMap<K,V> extends AbstractMap<K,V>
     }
 
     @Override
-    public @Nullable V replace(K key, V value) {
+    public @Nullable V replace(@Replaceable HashMap<K,V> this, K key, V value) {
         Node<K,V> e;
         if ((e = getNode(key)) != null) {
             V oldValue = e.value;
@@ -1246,7 +1248,7 @@ public @Modifiable class HashMap<K,V> extends AbstractMap<K,V>
      * mapping function modified this map
      */
     @Override
-    public @PolyNull V computeIfAbsent(K key,
+    public @PolyNull V computeIfAbsent(@Growable HashMap<K,V> this, K key,
                              Function<? super K, ? extends @PolyNull V> mappingFunction) {
         if (mappingFunction == null)
             throw new NullPointerException();
@@ -1312,7 +1314,7 @@ public @Modifiable class HashMap<K,V> extends AbstractMap<K,V>
      * remapping function modified this map
      */
     @Override
-    public @PolyNull V computeIfPresent(K key,
+    public @PolyNull V computeIfPresent(@Shrinkable @Replaceable HashMap<K,V> this, K key,
                               BiFunction<? super K, ? super V, ? extends @PolyNull V> remappingFunction) {
         if (remappingFunction == null)
             throw new NullPointerException();
@@ -1346,7 +1348,7 @@ public @Modifiable class HashMap<K,V> extends AbstractMap<K,V>
      * remapping function modified this map
      */
     @Override
-    public @PolyNull V compute(K key,
+    public @PolyNull V compute(@Modifiable HashMap<K,V> this, K key,
                      BiFunction<? super K, ? super V, ? extends @PolyNull V> remappingFunction) {
         if (remappingFunction == null)
             throw new NullPointerException();
@@ -1411,7 +1413,7 @@ public @Modifiable class HashMap<K,V> extends AbstractMap<K,V>
      * remapping function modified this map
      */
     @Override
-    public @PolyNull V merge(K key, @NonNull V value,
+    public @PolyNull V merge(@Modifiable HashMap<K,V> this, K key, @NonNull V value,
                    BiFunction<? super V, ? super V, ? extends @PolyNull V> remappingFunction) {
         if (value == null || remappingFunction == null)
             throw new NullPointerException();
@@ -1488,7 +1490,7 @@ public @Modifiable class HashMap<K,V> extends AbstractMap<K,V>
     }
 
     @Override
-    public void replaceAll(BiFunction<? super K, ? super V, ? extends V> function) {
+    public void replaceAll(@Replaceable HashMap<K,V> this, BiFunction<? super K, ? super V, ? extends V> function) {
         Node<K,V>[] tab;
         if (function == null)
             throw new NullPointerException();

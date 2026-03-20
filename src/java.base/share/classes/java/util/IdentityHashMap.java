@@ -27,9 +27,12 @@ package java.util;
 
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrink;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
+import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.checker.nullness.qual.EnsuresKeyFor;
@@ -167,8 +170,8 @@ import jdk.internal.access.SharedSecrets;
  */
 
 @CFComment({"lock/nullness: This collection can only contain null values"})
-@AnnotatedFor({"lock", "nullness", "index"})
-public @Modifiable class IdentityHashMap<K,V>
+@AnnotatedFor({"lock", "nullness", "index", "modifiability"})
+public class IdentityHashMap<K,V>
     extends AbstractMap<K,V>
     implements Map<K,V>, java.io.Serializable, Cloneable
 {
@@ -294,7 +297,7 @@ public @Modifiable class IdentityHashMap<K,V>
      * @param m the map whose mappings are to be placed into this map
      * @throws NullPointerException if the specified map is null
      */
-    public IdentityHashMap(Map<? extends K, ? extends V> m) {
+    public @Modifiable IdentityHashMap(Map<? extends K, ? extends V> m) {
         // Allow for a bit of growth
         this((int) ((1 + m.size()) * 1.1));
         putAll(m);
@@ -460,7 +463,7 @@ public @Modifiable class IdentityHashMap<K,V>
      * @see     #containsKey(Object)
      */
     @EnsuresKeyFor(value={"#1"}, map={"this"})
-    public @Nullable V put(@GuardSatisfied IdentityHashMap<K, V> this, K key, V value) {
+    public @Nullable V put(@Growable @Replaceable @GuardSatisfied IdentityHashMap<K, V> this, K key, V value) {
         final Object k = maskNull(key);
 
         retryAfterResize: for (;;) {
@@ -541,7 +544,7 @@ public @Modifiable class IdentityHashMap<K,V>
      * @param m mappings to be stored in this map
      * @throws NullPointerException if the specified map is null
      */
-    public void putAll(@GuardSatisfied IdentityHashMap<K, V> this, Map<? extends K, ? extends V> m) {
+    public void putAll(@Growable @Replaceable @GuardSatisfied IdentityHashMap<K, V> this, Map<? extends K, ? extends V> m) {
         int n = m.size();
         if (n == 0)
             return;
@@ -563,7 +566,7 @@ public @Modifiable class IdentityHashMap<K,V>
      *         (A {@code null} return can also indicate that the map
      *         previously associated {@code null} with {@code key}.)
      */
-    public @Nullable V remove(@GuardSatisfied IdentityHashMap<K, V> this, @GuardSatisfied @Nullable @UnknownSignedness Object key) {
+    public @Nullable V remove(@Shrinkable @GuardSatisfied IdentityHashMap<K, V> this, @GuardSatisfied @Nullable @UnknownSignedness Object key) {
         Object k = maskNull(key);
         Object[] tab = table;
         int len = tab.length;
@@ -659,7 +662,7 @@ public @Modifiable class IdentityHashMap<K,V>
      * Removes all of the mappings from this map.
      * The map will be empty after this call returns.
      */
-    public void clear(@GuardSatisfied IdentityHashMap<K, V> this) {
+    public void clear(@Shrinkable @GuardSatisfied IdentityHashMap<K, V> this) {
         modCount++;
         Object[] tab = table;
         for (int i = 0; i < tab.length; i++)
@@ -1442,7 +1445,7 @@ public @Modifiable class IdentityHashMap<K,V>
 
     @SuppressWarnings("unchecked")
     @Override
-    public void replaceAll(BiFunction<? super K, ? super V, ? extends V> function) {
+    public void replaceAll(@Replaceable IdentityHashMap<K,V> this, BiFunction<? super K, ? super V, ? extends V> function) {
         Objects.requireNonNull(function);
         int expectedModCount = modCount;
 
@@ -1469,7 +1472,7 @@ public @Modifiable class IdentityHashMap<K,V>
      * {@code false}.
      */
     @Override
-    public boolean remove(Object key, Object value) {
+    public boolean remove(@Shrinkable IdentityHashMap<K,V> this, Object key, Object value) {
         return removeMapping(key, value);
     }
 
@@ -1483,7 +1486,7 @@ public @Modifiable class IdentityHashMap<K,V>
      * otherwise it returns {@code false}.
      */
     @Override
-    public boolean replace(K key, V oldValue, V newValue) {
+    public boolean replace(@Replaceable IdentityHashMap<K,V> this, K key, V oldValue, V newValue) {
         Object k = maskNull(key);
         Object[] tab = table;
         int len = tab.length;

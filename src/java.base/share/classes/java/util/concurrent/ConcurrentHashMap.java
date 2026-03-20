@@ -36,10 +36,13 @@
 package java.util.concurrent;
 
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrink;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
+import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -283,8 +286,8 @@ import jdk.internal.misc.Unsafe;
  * @param <K> the type of keys maintained by this map
  * @param <V> the type of mapped values
  */
-@AnnotatedFor({"nullness"})
-public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Object> extends AbstractMap<K,V>
+@AnnotatedFor({"nullness", "modifiability"})
+public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Object> extends AbstractMap<K,V>
     implements ConcurrentMap<K,V>, Serializable {
     private static final long serialVersionUID = 7249069246763182397L;
 
@@ -848,7 +851,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
     /**
      * Creates a new, empty map with the default initial table size (16).
      */
-    public ConcurrentHashMap() {
+    public @Modifiable ConcurrentHashMap() {
     }
 
     /**
@@ -861,7 +864,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
      * @throws IllegalArgumentException if the initial capacity of
      * elements is negative
      */
-    public ConcurrentHashMap(int initialCapacity) {
+    public @Modifiable ConcurrentHashMap(int initialCapacity) {
         this(initialCapacity, LOAD_FACTOR, 1);
     }
 
@@ -870,7 +873,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
      *
      * @param m the map
      */
-    public ConcurrentHashMap(Map<? extends K, ? extends V> m) {
+    public @Modifiable ConcurrentHashMap(Map<? extends K, ? extends V> m) {
         this.sizeCtl = DEFAULT_CAPACITY;
         putAll(m);
     }
@@ -890,7 +893,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
      *
      * @since 1.6
      */
-    public ConcurrentHashMap(int initialCapacity, float loadFactor) {
+    public @Modifiable ConcurrentHashMap(int initialCapacity, float loadFactor) {
         this(initialCapacity, loadFactor, 1);
     }
 
@@ -912,7 +915,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
      * negative or the load factor or concurrencyLevel are
      * nonpositive
      */
-    public ConcurrentHashMap(int initialCapacity,
+    public @Modifiable ConcurrentHashMap(int initialCapacity,
                              float loadFactor, int concurrencyLevel) {
         if (!(loadFactor > 0.0f) || initialCapacity < 0 || concurrencyLevel <= 0)
             throw new IllegalArgumentException();
@@ -1033,7 +1036,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
      * @throws NullPointerException if the specified key or value is null
      */
     @EnsuresKeyFor(value={"#1"}, map={"this"})
-    public @Nullable V put(K key, V value) {
+    public @Nullable V put(@Growable @Replaceable ConcurrentHashMap<K,V> this, K key, V value) {
         return putVal(key, value, false);
     }
 
@@ -1114,7 +1117,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
      *
      * @param m mappings to be stored in this map
      */
-    public void putAll(Map<? extends K, ? extends V> m) {
+    public void putAll(@Growable @Replaceable ConcurrentHashMap<K,V> this, Map<? extends K, ? extends V> m) {
         tryPresize(m.size());
         for (Map.Entry<? extends K, ? extends V> e : m.entrySet())
             putVal(e.getKey(), e.getValue(), false);
@@ -1129,7 +1132,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
      *         {@code null} if there was no mapping for {@code key}
      * @throws NullPointerException if the specified key is null
      */
-    public @Nullable V remove(@GuardSatisfied @UnknownSignedness Object key) {
+    public @Nullable V remove(@Shrinkable ConcurrentHashMap<K,V> this, @GuardSatisfied @UnknownSignedness Object key) {
         return replaceNode(key, null, null);
     }
 
@@ -1214,7 +1217,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
     /**
      * Removes all of the mappings from this map.
      */
-    public void clear() {
+    public void clear(@Shrinkable ConcurrentHashMap<K,V> this) {
         long delta = 0L; // negative number of deletions
         int i = 0;
         Node<K,V>[] tab = table;
@@ -1574,7 +1577,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
      * @throws NullPointerException if the specified key or value is null
      */
     @EnsuresKeyFor(value={"#1"}, map={"this"})
-    public @Nullable V putIfAbsent(K key, V value) {
+    public @Nullable V putIfAbsent(@Growable ConcurrentHashMap<K,V> this, K key, V value) {
         return putVal(key, value, true);
     }
 
@@ -1583,7 +1586,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
      *
      * @throws NullPointerException if the specified key is null
      */
-    public boolean remove(@GuardSatisfied @UnknownSignedness Object key, @GuardSatisfied @UnknownSignedness Object value) {
+    public boolean remove(@Shrinkable ConcurrentHashMap<K,V> this, @GuardSatisfied @UnknownSignedness Object key, @GuardSatisfied @UnknownSignedness Object value) {
         if (key == null)
             throw new NullPointerException();
         return value != null && replaceNode(key, null, value) != null;
@@ -1594,7 +1597,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
      *
      * @throws NullPointerException if any of the arguments are null
      */
-    public boolean replace(K key, V oldValue, V newValue) {
+    public boolean replace(@Replaceable ConcurrentHashMap<K,V> this, K key, V oldValue, V newValue) {
         if (key == null || oldValue == null || newValue == null)
             throw new NullPointerException();
         return replaceNode(key, newValue, oldValue) != null;
@@ -1607,7 +1610,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
      *         or {@code null} if there was no mapping for the key
      * @throws NullPointerException if the specified key or value is null
      */
-    public @Nullable V replace(K key, V value) {
+    public @Nullable V replace(@Replaceable ConcurrentHashMap<K,V> this, K key, V value) {
         if (key == null || value == null)
             throw new NullPointerException();
         return replaceNode(key, value, null);
@@ -1643,7 +1646,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
         }
     }
 
-    public void replaceAll(BiFunction<? super K, ? super V, ? extends V> function) {
+    public void replaceAll(@Replaceable ConcurrentHashMap<K,V> this, BiFunction<? super K, ? super V, ? extends V> function) {
         if (function == null) throw new NullPointerException();
         Node<K,V>[] t;
         if ((t = table) != null) {
@@ -1726,7 +1729,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
      * @throws RuntimeException or Error if the mappingFunction does so,
      *         in which case the mapping is left unestablished
      */
-    public @PolyNull V computeIfAbsent(K key, Function<? super K, ? extends @PolyNull V> mappingFunction) {
+    public @PolyNull V computeIfAbsent(@Growable ConcurrentHashMap<K,V> this, K key, Function<? super K, ? extends @PolyNull V> mappingFunction) {
         if (key == null || mappingFunction == null)
             throw new NullPointerException();
         int h = spread(key.hashCode());
@@ -1838,7 +1841,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
      * @throws RuntimeException or Error if the remappingFunction does so,
      *         in which case the mapping is unchanged
      */
-    public @PolyNull V computeIfPresent(K key, BiFunction<? super K, ? super V, ? extends @PolyNull V> remappingFunction) {
+    public @PolyNull V computeIfPresent(@Shrinkable @Replaceable ConcurrentHashMap<K,V> this, K key, BiFunction<? super K, ? super V, ? extends @PolyNull V> remappingFunction) {
         if (key == null || remappingFunction == null)
             throw new NullPointerException();
         int h = spread(key.hashCode());
@@ -1932,7 +1935,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
      * @throws RuntimeException or Error if the remappingFunction does so,
      *         in which case the mapping is unchanged
      */
-    public @PolyNull V compute(K key,
+    public @PolyNull V compute(@Modifiable ConcurrentHashMap<K,V> this, K key,
                      BiFunction<? super K, ? super @Nullable V, ? extends @PolyNull V> remappingFunction) {
         if (key == null || remappingFunction == null)
             throw new NullPointerException();
@@ -2061,7 +2064,7 @@ public @Modifiable class ConcurrentHashMap<K extends @NonNull Object,V extends @
      * @throws RuntimeException or Error if the remappingFunction does so,
      *         in which case the mapping is unchanged
      */
-    public @PolyNull V merge(K key, @NonNull V value, BiFunction<? super V, ? super V, ? extends @PolyNull V> remappingFunction) {
+    public @PolyNull V merge(@Modifiable ConcurrentHashMap<K,V> this, K key, @NonNull V value, BiFunction<? super V, ? super V, ? extends @PolyNull V> remappingFunction) {
         if (key == null || value == null || remappingFunction == null)
             throw new NullPointerException();
         int h = spread(key.hashCode());
