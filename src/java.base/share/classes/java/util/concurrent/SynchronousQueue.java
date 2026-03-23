@@ -39,8 +39,10 @@ package java.util.concurrent;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
-import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.PolyModifiable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.PolyNonEmpty;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -103,8 +105,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author Doug Lea and Bill Scherer and Michael Scott
  * @param <E> the type of elements held in this queue
  */
-@AnnotatedFor({"nullness"})
-public @Modifiable class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E>
+@AnnotatedFor({"nullness", "modifiability"})
+public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E>
     implements BlockingQueue<E>, java.io.Serializable {
     private static final long serialVersionUID = -3223113410248163686L;
 
@@ -830,7 +832,7 @@ public @Modifiable class SynchronousQueue<E extends @NonNull Object> extends Abs
     /**
      * Creates a {@code SynchronousQueue} with nonfair access policy.
      */
-    public SynchronousQueue() {
+    public @Modifiable SynchronousQueue() {
         this(false);
     }
 
@@ -840,7 +842,7 @@ public @Modifiable class SynchronousQueue<E extends @NonNull Object> extends Abs
      * @param fair if true, waiting threads contend in FIFO order for
      *        access; otherwise the order is unspecified.
      */
-    public SynchronousQueue(boolean fair) {
+    public @Modifiable SynchronousQueue(boolean fair) {
         transferer = fair ? new TransferQueue<E>() : new TransferStack<E>();
     }
 
@@ -851,7 +853,7 @@ public @Modifiable class SynchronousQueue<E extends @NonNull Object> extends Abs
      * @throws InterruptedException {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
-    public void put(E e) throws InterruptedException {
+    public void put(@Growable SynchronousQueue<E> this, E e) throws InterruptedException {
         if (e == null) throw new NullPointerException();
         if (transferer.transfer(e, false, 0) == null) {
             Thread.interrupted();
@@ -868,7 +870,7 @@ public @Modifiable class SynchronousQueue<E extends @NonNull Object> extends Abs
      * @throws InterruptedException {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
-    public boolean offer(E e, long timeout, TimeUnit unit)
+    public boolean offer(@Growable SynchronousQueue<E> this, E e, long timeout, TimeUnit unit)
         throws InterruptedException {
         if (e == null) throw new NullPointerException();
         if (transferer.transfer(e, true, unit.toNanos(timeout)) != null)
@@ -887,7 +889,7 @@ public @Modifiable class SynchronousQueue<E extends @NonNull Object> extends Abs
      *         {@code false}
      * @throws NullPointerException if the specified element is null
      */
-    public boolean offer(E e) {
+    public boolean offer(@Growable SynchronousQueue<E> this, E e) {
         if (e == null) throw new NullPointerException();
         return transferer.transfer(e, true, 0) != null;
     }
@@ -899,7 +901,7 @@ public @Modifiable class SynchronousQueue<E extends @NonNull Object> extends Abs
      * @return the head of this queue
      * @throws InterruptedException {@inheritDoc}
      */
-    public E take(@GuardSatisfied @CanShrink SynchronousQueue<E> this) throws InterruptedException {
+    public E take(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this) throws InterruptedException {
         E e = transferer.transfer(null, false, 0);
         if (e != null)
             return e;
@@ -916,7 +918,7 @@ public @Modifiable class SynchronousQueue<E extends @NonNull Object> extends Abs
      *         specified waiting time elapses before an element is present
      * @throws InterruptedException {@inheritDoc}
      */
-    public E poll(@GuardSatisfied @CanShrink SynchronousQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
+    public E poll(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
         E e = transferer.transfer(null, true, unit.toNanos(timeout));
         if (e != null || !Thread.interrupted())
             return e;
@@ -930,7 +932,7 @@ public @Modifiable class SynchronousQueue<E extends @NonNull Object> extends Abs
      * @return the head of this queue, or {@code null} if no
      *         element is available
      */
-    public E poll(@GuardSatisfied @CanShrink SynchronousQueue<E> this) {
+    public E poll(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this) {
         return transferer.transfer(null, true, 0);
     }
 
@@ -971,7 +973,7 @@ public @Modifiable class SynchronousQueue<E extends @NonNull Object> extends Abs
      * Does nothing.
      * A {@code SynchronousQueue} has no internal capacity.
      */
-    public void clear(@GuardSatisfied @CanShrink SynchronousQueue<E> this) {
+    public void clear(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this) {
     }
 
     /**
@@ -994,7 +996,7 @@ public @Modifiable class SynchronousQueue<E extends @NonNull Object> extends Abs
      * @param o the element to remove
      * @return {@code false}
      */
-    public boolean remove(@CanShrink SynchronousQueue<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
+    public boolean remove(@Shrinkable @CanShrink SynchronousQueue<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         return false;
     }
 
@@ -1017,7 +1019,7 @@ public @Modifiable class SynchronousQueue<E extends @NonNull Object> extends Abs
      * @param c the collection
      * @return {@code false}
      */
-    public boolean removeAll(@CanShrink SynchronousQueue<E> this, Collection<? extends @UnknownSignedness Object> c) {
+    public boolean removeAll(@Shrinkable @CanShrink SynchronousQueue<E> this, Collection<? extends @UnknownSignedness Object> c) {
         return false;
     }
 
@@ -1028,7 +1030,7 @@ public @Modifiable class SynchronousQueue<E extends @NonNull Object> extends Abs
      * @param c the collection
      * @return {@code false}
      */
-    public boolean retainAll(@GuardSatisfied @CanShrink SynchronousQueue<E> this, Collection<? extends @UnknownSignedness Object> c) {
+    public boolean retainAll(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, Collection<? extends @UnknownSignedness Object> c) {
         return false;
     }
 
@@ -1051,7 +1053,7 @@ public @Modifiable class SynchronousQueue<E extends @NonNull Object> extends Abs
      * @return an empty iterator
      */
     @SideEffectFree
-    public @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty SynchronousQueue<E> this) {
+    public @PolyModifiable @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyModifiable @PolyGrowShrink @PolyNonEmpty SynchronousQueue<E> this) {
         return Collections.emptyIterator();
     }
 
@@ -1105,7 +1107,7 @@ public @Modifiable class SynchronousQueue<E extends @NonNull Object> extends Abs
      * @throws NullPointerException          {@inheritDoc}
      * @throws IllegalArgumentException      {@inheritDoc}
      */
-    public int drainTo(@GuardSatisfied @CanShrink SynchronousQueue<E> this, @Growable Collection<? super E> c) {
+    public int drainTo(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, @Growable Collection<? super E> c) {
         Objects.requireNonNull(c);
         if (c == this)
             throw new IllegalArgumentException();
@@ -1121,7 +1123,7 @@ public @Modifiable class SynchronousQueue<E extends @NonNull Object> extends Abs
      * @throws NullPointerException          {@inheritDoc}
      * @throws IllegalArgumentException      {@inheritDoc}
      */
-    public int drainTo(@GuardSatisfied @CanShrink SynchronousQueue<E> this, @Growable Collection<? super E> c, int maxElements) {
+    public int drainTo(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, @Growable Collection<? super E> c, int maxElements) {
         Objects.requireNonNull(c);
         if (c == this)
             throw new IllegalArgumentException();

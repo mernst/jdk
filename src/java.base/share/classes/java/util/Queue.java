@@ -149,8 +149,8 @@ import org.checkerframework.framework.qual.CFComment;
  * @param <E> the type of elements held in this queue
  */
 @CFComment({"lock/nullness: Subclasses of this interface/class may opt to prohibit null elements"})
-@AnnotatedFor({"lock", "nullness"})
-public @Modifiable interface Queue<E> extends Collection<E> {
+@AnnotatedFor({"lock", "nullness", "modifiability"})
+public interface Queue<E> extends Collection<E> {
     /**
      * Inserts the specified element into this queue if it is possible to do so
      * immediately without violating capacity restrictions, returning
@@ -169,7 +169,7 @@ public @Modifiable interface Queue<E> extends Collection<E> {
      *         prevents it from being added to this queue
      */
     @EnsuresNonEmpty("this")
-    boolean add(@GuardSatisfied Queue<E> this, E e);
+    boolean add(@Growable @GuardSatisfied Queue<E> this, E e);
 
     /**
      * Inserts the specified element into this queue if it is possible to do
@@ -188,7 +188,7 @@ public @Modifiable interface Queue<E> extends Collection<E> {
      * @throws IllegalArgumentException if some property of this element
      *         prevents it from being added to this queue
      */
-    boolean offer(E e);
+    boolean offer(@Growable Queue<E> this, E e);
 
     /**
      * Retrieves and removes the head of this queue.  This method differs
@@ -198,7 +198,7 @@ public @Modifiable interface Queue<E> extends Collection<E> {
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
-    E remove(@GuardSatisfied @NonEmpty @CanShrink Queue<E> this);
+    E remove(@Shrinkable @GuardSatisfied @NonEmpty @CanShrink Queue<E> this);
 
     /**
      * Retrieves and removes the head of this queue,
@@ -206,7 +206,7 @@ public @Modifiable interface Queue<E> extends Collection<E> {
      *
      * @return the head of this queue, or {@code null} if this queue is empty
      */
-    @Nullable E poll(@GuardSatisfied @CanShrink Queue<E> this);
+    @Nullable E poll(@Shrinkable @GuardSatisfied @CanShrink Queue<E> this);
 
     /**
      * Retrieves, but does not remove, the head of this queue.  This method
