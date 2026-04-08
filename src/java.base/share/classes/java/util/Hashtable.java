@@ -595,7 +595,7 @@ public class Hashtable<K extends @NonNull Object,V extends @NonNull Object>
      * @return  a clone of the hashtable
      */
     @SideEffectFree
-    public synchronized Object clone(@GuardSatisfied Hashtable<K, V> this) {
+    public synchronized @Modifiable Object clone(@GuardSatisfied Hashtable<K, V> this) {
         Hashtable<?,?> t = cloneHashtable();
         t.table = new Entry<?,?>[table.length];
         for (int i = table.length ; i-- > 0 ; ) {

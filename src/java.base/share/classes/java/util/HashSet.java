@@ -294,7 +294,7 @@ public class HashSet<E>
      */
     @SideEffectFree
     @SuppressWarnings("unchecked")
-    public Object clone(@GuardSatisfied HashSet<E> this) {
+    public @Modifiable Object clone(@GuardSatisfied HashSet<E> this) {
         try {
             HashSet<E> newSet = (HashSet<E>) super.clone();
             newSet.map = (HashMap<E, Object>) map.clone();

@@ -792,7 +792,7 @@ public class EnumMap<K extends Enum<K>, V> extends AbstractMap<K, V>
      * @return a shallow copy of this enum map
      */
     @SuppressWarnings("unchecked")
-    public EnumMap<K, V> clone() {
+    public @Modifiable EnumMap<K, V> clone() {
         EnumMap<K, V> result = null;
         try {
             result = (EnumMap<K, V>) super.clone();

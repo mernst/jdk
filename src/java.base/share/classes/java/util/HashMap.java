@@ -1518,7 +1518,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
     @SideEffectFree
     @SuppressWarnings("unchecked")
     @Override
-    public Object clone(@GuardSatisfied HashMap<K, V> this) {
+    public @Modifiable Object clone(@GuardSatisfied HashMap<K, V> this) {
         HashMap<K,V> result;
         try {
             result = (HashMap<K,V>)super.clone();

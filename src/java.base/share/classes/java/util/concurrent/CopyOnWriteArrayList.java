@@ -328,7 +328,7 @@ public class CopyOnWriteArrayList<E>
      *
      * @return a clone of this list
      */
-    public Object clone() {
+    public @Modifiable Object clone() {
         try {
             @SuppressWarnings("unchecked")
             CopyOnWriteArrayList<E> clone =

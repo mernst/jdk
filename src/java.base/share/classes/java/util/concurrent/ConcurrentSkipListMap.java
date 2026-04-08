@@ -1144,7 +1144,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      *
      * @return a shallow copy of this map
      */
-    public ConcurrentSkipListMap<K,V> clone() {
+    public @Modifiable ConcurrentSkipListMap<K,V> clone() {
         try {
             @SuppressWarnings("unchecked")
             ConcurrentSkipListMap<K,V> clone =

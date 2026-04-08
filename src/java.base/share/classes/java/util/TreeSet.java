@@ -539,7 +539,7 @@ public class TreeSet<E> extends AbstractSet<E>
      */
     @SideEffectFree
     @SuppressWarnings("unchecked")
-    public Object clone(@GuardSatisfied TreeSet<E> this) {
+    public @Modifiable Object clone(@GuardSatisfied TreeSet<E> this) {
         TreeSet<E> clone;
         try {
             clone = (TreeSet<E>) super.clone();

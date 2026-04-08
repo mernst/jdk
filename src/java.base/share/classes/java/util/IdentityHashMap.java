@@ -755,7 +755,7 @@ public class IdentityHashMap<K,V>
      * @return a shallow copy of this map
      */
     @SideEffectFree
-    public Object clone(@GuardSatisfied IdentityHashMap<K, V> this) {
+    public @Modifiable Object clone(@GuardSatisfied IdentityHashMap<K, V> this) {
         try {
             IdentityHashMap<?,?> m = (IdentityHashMap<?,?>) super.clone();
             m.entrySet = null;

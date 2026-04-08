@@ -189,7 +189,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @return a shallow copy of this set
      */
     @SideEffectFree
-    public ConcurrentSkipListSet<E> clone() {
+    public @Modifiable ConcurrentSkipListSet<E> clone() {
         try {
             @SuppressWarnings("unchecked")
             ConcurrentSkipListSet<E> clone =
