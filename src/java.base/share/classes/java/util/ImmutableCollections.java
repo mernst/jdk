@@ -405,6 +405,7 @@ class ImmutableCollections {
             throw uoe();
         }
 
+        @Pure
         public boolean hasPrevious() {
             if (!isListIterator) {
                 throw uoe();
@@ -483,6 +484,7 @@ class ImmutableCollections {
             return new SubList<>(list, fromIndex, toIndex - fromIndex);
         }
 
+        @Pure
         public E get(int index) {
             Objects.checkIndex(index, size);
             return root.get(offset + index);
@@ -518,6 +520,8 @@ class ImmutableCollections {
         }
 
         @Override
+        @Pure
+        @StaticallyExecutable
         public int indexOf(Object o) {
             if (!allowNulls() && o == null) {
                 throw new NullPointerException();
@@ -531,6 +535,8 @@ class ImmutableCollections {
         }
 
         @Override
+        @Pure
+        @StaticallyExecutable
         public int lastIndexOf(Object o) {
             if (!allowNulls() && o == null) {
                 throw new NullPointerException();
@@ -544,6 +550,7 @@ class ImmutableCollections {
         }
 
         @Override
+        @SideEffectFree
         public Object[] toArray() {
             Object[] array = new Object[size];
             for (int i = 0; i < size; i++) {
@@ -603,6 +610,7 @@ class ImmutableCollections {
         }
 
         @Override
+        @Pure
         @SuppressWarnings("unchecked")
         public E get(int index) {
             if (index == 0) {
@@ -614,6 +622,8 @@ class ImmutableCollections {
         }
 
         @Override
+        @Pure
+        @StaticallyExecutable
         public int indexOf(Object o) {
             Objects.requireNonNull(o);
             if (o.equals(e0)) {
@@ -626,6 +636,8 @@ class ImmutableCollections {
         }
 
         @Override
+        @Pure
+        @StaticallyExecutable
         public int lastIndexOf(Object o) {
             Objects.requireNonNull(o);
             if (e1 != EMPTY && o.equals(e1)) {
@@ -652,6 +664,7 @@ class ImmutableCollections {
         }
 
         @Override
+        @SideEffectFree
         public Object[] toArray() {
             if (e1 == EMPTY) {
                 return new Object[] { e0 };
@@ -707,6 +720,7 @@ class ImmutableCollections {
         }
 
         @Override
+        @Pure
         public E get(int index) {
             return elements[index];
         }
@@ -722,6 +736,7 @@ class ImmutableCollections {
         }
 
         @Override
+        @SideEffectFree
         public Object[] toArray() {
             return Arrays.copyOf(elements, elements.length);
         }
@@ -742,6 +757,8 @@ class ImmutableCollections {
         }
 
         @Override
+        @Pure
+        @StaticallyExecutable
         public int indexOf(Object o) {
             if (!allowNulls && o == null) {
                 throw new NullPointerException();
@@ -756,6 +773,8 @@ class ImmutableCollections {
         }
 
         @Override
+        @Pure
+        @StaticallyExecutable
         public int lastIndexOf(Object o) {
             if (!allowNulls && o == null) {
                 throw new NullPointerException();
@@ -894,6 +913,7 @@ class ImmutableCollections {
         }
 
         @Override
+        @SideEffectFree
         public Object[] toArray() {
             if (e1 == EMPTY) {
                 return new Object[] { e0 };
@@ -1080,6 +1100,7 @@ class ImmutableCollections {
         }
 
         @Override
+        @SideEffectFree
         public Object[] toArray() {
             Object[] array = new Object[size];
             Iterator<E> it = iterator();

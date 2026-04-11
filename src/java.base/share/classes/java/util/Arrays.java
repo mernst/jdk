@@ -4305,7 +4305,6 @@ public final class Arrays {
             return Arrays.copyOf(a, a.length, Object[].class);
         }
 
-        @SideEffectFree
         @Override
         @SuppressWarnings("unchecked")
         public <T> T[] toArray(T[] a) {
@@ -4320,6 +4319,7 @@ public final class Arrays {
         }
 
         @Override
+        @Pure
         public E get(int index) {
             return a[index];
         }
@@ -4332,6 +4332,8 @@ public final class Arrays {
         }
 
         @Override
+        @Pure
+        @StaticallyExecutable
         public int indexOf(Object o) {
             E[] a = this.a;
             if (o == null) {

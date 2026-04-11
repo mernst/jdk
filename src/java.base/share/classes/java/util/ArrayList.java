@@ -30,11 +30,11 @@ import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
-import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -45,6 +45,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
+import org.checkerframework.dataflow.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
@@ -227,6 +228,7 @@ public class ArrayList<E> extends AbstractList<E>
      * list's current size.  An application can use this operation to minimize
      * the storage of an {@code ArrayList} instance.
      */
+    @SideEffectFree
     public void trimToSize(@GuardSatisfied ArrayList<E> this) {
         modCount++;
         if (size < elementData.length) {
@@ -243,6 +245,7 @@ public class ArrayList<E> extends AbstractList<E>
      *
      * @param minCapacity the desired minimum capacity
      */
+    @SideEffectFree
     public void ensureCapacity(@GuardSatisfied ArrayList<E> this, int minCapacity) {
         if (minCapacity > elementData.length
             && !(elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA
@@ -319,6 +322,7 @@ public class ArrayList<E> extends AbstractList<E>
      * or -1 if there is no such index.
      */
     @Pure
+    @StaticallyExecutable
     public @GTENegativeOne int indexOf(@GuardSatisfied ArrayList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         return indexOfRange(o, 0, size);
     }
@@ -349,6 +353,7 @@ public class ArrayList<E> extends AbstractList<E>
      * or -1 if there is no such index.
      */
     @Pure
+    @StaticallyExecutable
     public @GTENegativeOne int lastIndexOf(@GuardSatisfied ArrayList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         return lastIndexOfRange(o, 0, size);
     }
@@ -433,7 +438,6 @@ public class ArrayList<E> extends AbstractList<E>
      *         this list
      * @throws NullPointerException if the specified array is null
      */
-    @SideEffectFree
     @SuppressWarnings("unchecked")
     public <T> @Nullable T[] toArray(@PolyNull T[] a) {
         if (a.length < size)
@@ -476,6 +480,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
+    @Pure
     public E getFirst() {
         if (size == 0) {
             throw new NoSuchElementException();
@@ -490,6 +495,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
+    @Pure
     public E getLast() {
         int last = size - 1;
         if (last < 0) {
@@ -509,6 +515,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
     @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public E set(@Replaceable @GuardSatisfied ArrayList<E> this, @NonNegative int index, E element) {
         Objects.checkIndex(index, size);
         E oldValue = elementData(index);
@@ -572,6 +579,7 @@ public class ArrayList<E> extends AbstractList<E>
      *
      * @since 21
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public void addFirst(@Growable ArrayList<E> this, E element) {
         add(0, element);
     }
@@ -581,6 +589,7 @@ public class ArrayList<E> extends AbstractList<E>
      *
      * @since 21
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public void addLast(@Growable ArrayList<E> this, E element) {
         add(element);
     }
@@ -594,6 +603,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @return the element that was removed from the list
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public E remove(@Shrinkable @GuardSatisfied @CanShrink ArrayList<E> this, @NonNegative int index) {
         Objects.checkIndex(index, size);
         final Object[] es = elementData;
@@ -610,6 +620,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public E removeFirst(@Shrinkable ArrayList<E> this) {
         if (size == 0) {
             throw new NoSuchElementException();
@@ -627,6 +638,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public E removeLast(@Shrinkable ArrayList<E> this) {
         int last = size - 1;
         if (last < 0) {
@@ -708,6 +720,7 @@ public class ArrayList<E> extends AbstractList<E>
     /**
      * {@inheritDoc}
      */
+    @Pure
     public int hashCode() {
         int expectedModCount = modCount;
         int hash = hashCodeRange(0, size);
@@ -715,6 +728,7 @@ public class ArrayList<E> extends AbstractList<E>
         return hash;
     }
 
+    @Pure
     int hashCodeRange(int from, int to) {
         final Object[] es = elementData;
         if (to > es.length) {
@@ -741,6 +755,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @param o element to be removed from this list, if present
      * @return {@code true} if this list contained the specified element
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean remove(@Shrinkable @GuardSatisfied @CanShrink ArrayList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         final Object[] es = elementData;
         final int size = this.size;
@@ -777,6 +792,7 @@ public class ArrayList<E> extends AbstractList<E>
      * Removes all of the elements from this list.  The list will
      * be empty after this call returns.
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public void clear(@Shrinkable @GuardSatisfied @CanShrink ArrayList<E> this) {
         modCount++;
         final Object[] es = elementData;
@@ -920,6 +936,7 @@ public class ArrayList<E> extends AbstractList<E>
      *         or if the specified collection is null
      * @see Collection#contains(Object)
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean removeAll(@Shrinkable @CanShrink ArrayList<E> this, Collection<? extends @UnknownSignedness Object> c) {
         return batchRemove(c, false, 0, size);
     }
@@ -940,6 +957,7 @@ public class ArrayList<E> extends AbstractList<E>
      *         or if the specified collection is null
      * @see Collection#contains(Object)
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean retainAll(@Shrinkable @GuardSatisfied @CanShrink ArrayList<E> this, Collection<? extends @UnknownSignedness Object> c) {
         return batchRemove(c, true, 0, size);
     }
@@ -1052,7 +1070,7 @@ public class ArrayList<E> extends AbstractList<E>
      *
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public @PolyModifiable @PolyGrowShrink ListIterator<E> listIterator(@PolyModifiable @PolyGrowShrink ArrayList<E> this, @NonNegative int index) {
+    public @PolyGrowShrink @PolyModifiable ListIterator<E> listIterator(@PolyGrowShrink @PolyModifiable ArrayList<E> this, @NonNegative int index) {
         rangeCheckForAdd(index);
         return new ListItr(index);
     }
@@ -1065,7 +1083,7 @@ public class ArrayList<E> extends AbstractList<E>
      *
      * @see #listIterator(int)
      */
-    public @PolyModifiable @PolyGrowShrink ListIterator<E> listIterator(@PolyModifiable @PolyGrowShrink ArrayList<E> this) {
+    public @PolyGrowShrink @PolyModifiable ListIterator<E> listIterator(@PolyGrowShrink @PolyModifiable ArrayList<E> this) {
         return new ListItr(0);
     }
 
@@ -1077,7 +1095,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @return an iterator over the elements in this list in proper sequence
      */
     @SideEffectFree
-    public @PolyModifiable @PolyGrowShrink Iterator<E> iterator(@PolyModifiable @PolyGrowShrink ArrayList<E> this) {
+    public @PolyGrowShrink @PolyModifiable Iterator<E> iterator(@PolyGrowShrink @PolyModifiable ArrayList<E> this) {
         return new Itr();
     }
 
@@ -1100,6 +1118,7 @@ public class ArrayList<E> extends AbstractList<E>
 
         @SuppressWarnings("unchecked")
         @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public E next(@NonEmpty Itr this) {
             checkForComodification();
             int i = cursor;
@@ -1112,6 +1131,7 @@ public class ArrayList<E> extends AbstractList<E>
             return (E) elementData[lastRet = i];
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         public void remove() {
             if (lastRet < 0)
                 throw new IllegalStateException();
@@ -1161,19 +1181,23 @@ public class ArrayList<E> extends AbstractList<E>
             cursor = index;
         }
 
+        @Pure
         public boolean hasPrevious() {
             return cursor != 0;
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         public int nextIndex() {
             return cursor;
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         public int previousIndex() {
             return cursor - 1;
         }
 
         @SuppressWarnings("unchecked")
+        @DoesNotUnrefineReceiver("modifiability")
         public E previous() {
             checkForComodification();
             int i = cursor - 1;
@@ -1186,6 +1210,7 @@ public class ArrayList<E> extends AbstractList<E>
             return (E) elementData[lastRet = i];
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         public void set(E e) {
             if (lastRet < 0)
                 throw new IllegalStateException();
@@ -1198,6 +1223,7 @@ public class ArrayList<E> extends AbstractList<E>
             }
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         public void add(E e) {
             checkForComodification();
 
@@ -1242,7 +1268,8 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws IndexOutOfBoundsException {@inheritDoc}
      * @throws IllegalArgumentException {@inheritDoc}
      */
-    public @PolyModifiable @PolyGrowShrink List<E> subList(@PolyModifiable @GuardSatisfied @PolyGrowShrink ArrayList<E> this, @NonNegative int fromIndex, @NonNegative int toIndex) {
+    @DoesNotUnrefineReceiver("modifiability")
+    public @PolyGrowShrink @PolyModifiable List<E> subList(@PolyModifiable @GuardSatisfied @PolyGrowShrink ArrayList<E> this, @NonNegative int fromIndex, @NonNegative int toIndex) {
         subListRangeCheck(fromIndex, toIndex, size);
         return new SubList<>(this, fromIndex, toIndex);
     }
@@ -1275,6 +1302,7 @@ public class ArrayList<E> extends AbstractList<E>
             this.modCount = parent.modCount;
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         public E set(@NonNegative int index, E element) {
             Objects.checkIndex(index, size);
             checkForComodification();
@@ -1283,6 +1311,7 @@ public class ArrayList<E> extends AbstractList<E>
             return oldValue;
         }
 
+        @Pure
         public E get(@NonNegative int index) {
             Objects.checkIndex(index, size);
             checkForComodification();
@@ -1295,6 +1324,7 @@ public class ArrayList<E> extends AbstractList<E>
             return size;
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         public void add(@NonNegative int index, E element) {
             rangeCheckForAdd(index);
             checkForComodification();
@@ -1302,6 +1332,7 @@ public class ArrayList<E> extends AbstractList<E>
             updateSizeAndModCount(1);
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         public E remove(@NonNegative int index) {
             Objects.checkIndex(index, size);
             checkForComodification();
@@ -1310,16 +1341,19 @@ public class ArrayList<E> extends AbstractList<E>
             return result;
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         protected void removeRange(int fromIndex, int toIndex) {
             checkForComodification();
             root.removeRange(offset + fromIndex, offset + toIndex);
             updateSizeAndModCount(fromIndex - toIndex);
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         public boolean addAll(Collection<? extends E> c) {
             return addAll(this.size, c);
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         public boolean addAll(@NonNegative int index, Collection<? extends E> c) {
             rangeCheckForAdd(index);
             int cSize = c.size();
@@ -1331,14 +1365,17 @@ public class ArrayList<E> extends AbstractList<E>
             return true;
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         public void replaceAll(UnaryOperator<E> operator) {
             root.replaceAllRange(operator, offset, offset + size);
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         public boolean removeAll(Collection<? extends @UnknownSignedness Object> c) {
             return batchRemove(c, false);
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         public boolean retainAll(Collection<? extends @UnknownSignedness Object> c) {
             return batchRemove(c, true);
         }
@@ -1353,6 +1390,7 @@ public class ArrayList<E> extends AbstractList<E>
             return modified;
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         public boolean removeIf(Predicate<? super E> filter) {
             checkForComodification();
             int oldSize = root.size;
@@ -1362,6 +1400,7 @@ public class ArrayList<E> extends AbstractList<E>
             return modified;
         }
 
+        @SideEffectFree
         public @PolyNull @PolySigned Object[] toArray(SubList<@PolyNull @PolySigned E> this) {
             checkForComodification();
             return Arrays.copyOfRange(root.elementData, offset, offset + size);
@@ -1379,6 +1418,7 @@ public class ArrayList<E> extends AbstractList<E>
             return a;
         }
 
+        @Pure
         public boolean equals(@Nullable Object o) {
             if (o == this) {
                 return true;
@@ -1393,18 +1433,23 @@ public class ArrayList<E> extends AbstractList<E>
             return equal;
         }
 
+        @Pure
         public int hashCode() {
             int hash = root.hashCodeRange(offset, offset + size);
             checkForComodification();
             return hash;
         }
 
+        @Pure
+        @StaticallyExecutable
         public int indexOf(@GuardSatisfied @Nullable @UnknownSignedness Object o) {
             int index = root.indexOfRange(o, offset, offset + size);
             checkForComodification();
             return index >= 0 ? index - offset : -1;
         }
 
+        @Pure
+        @StaticallyExecutable
         public int lastIndexOf(@GuardSatisfied @Nullable @UnknownSignedness Object o) {
             int index = root.lastIndexOfRange(o, offset, offset + size);
             checkForComodification();
@@ -1450,6 +1495,7 @@ public class ArrayList<E> extends AbstractList<E>
                     return (E) elementData[offset + (lastRet = i)];
                 }
 
+                @Pure
                 public boolean hasPrevious() {
                     return cursor != 0;
                 }
@@ -1647,6 +1693,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
+    @DoesNotUnrefineReceiver("modifiability")
     public void forEach(Consumer<? super E> action) {
         Objects.requireNonNull(action);
         final int expectedModCount = modCount;
@@ -1802,6 +1849,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean removeIf(@Shrinkable @CanShrink ArrayList<E> this, Predicate<? super E> filter) {
         return removeIf(filter, 0, size);
     }
@@ -1845,6 +1893,7 @@ public class ArrayList<E> extends AbstractList<E>
 
     @SuppressWarnings({"unchecked"})
     @Override
+    @DoesNotUnrefineReceiver("modifiability")
     public void replaceAll(@Replaceable ArrayList<E> this, UnaryOperator<E> operator) {
         replaceAllRange(operator, 0, size);
         // TODO(8203662): remove increment of modCount from ...
@@ -1863,6 +1912,7 @@ public class ArrayList<E> extends AbstractList<E>
 
     @Override
     @SuppressWarnings("unchecked")
+    @DoesNotUnrefineReceiver("modifiability")
     public void sort(@Replaceable ArrayList<E> this, Comparator<? super E> c) {
         final int expectedModCount = modCount;
         Arrays.sort((E[]) elementData, 0, size, c);

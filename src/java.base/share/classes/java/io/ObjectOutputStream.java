@@ -2344,6 +2344,7 @@ public class ObjectOutputStream
         /**
          * Returns the number of mappings currently in table.
          */
+        @Pure
         int size() {
             return size;
         }
@@ -2444,6 +2445,7 @@ public class ObjectOutputStream
         /**
          * Returns the number of mappings currently in table.
          */
+        @Pure
         int size() {
             return htab.size();
         }

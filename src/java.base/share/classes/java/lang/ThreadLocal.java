@@ -495,6 +495,7 @@ public @UsesObjectEquals class ThreadLocal<@Nullable T> {
         /**
          * Returns the number of elements in the map.
          */
+        @Pure
         int size() {
             return size;
         }

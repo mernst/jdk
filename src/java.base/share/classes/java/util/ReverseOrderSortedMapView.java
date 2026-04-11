@@ -168,6 +168,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
 
     // ========== SortedMap ==========
 
+    @Pure
     public Comparator<? super K> comparator() {
         return cmp;
     }
@@ -428,6 +429,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
             return entrySet().size();
         }
 
+        @Pure
         public Comparator<? super K> comparator() {
             return cmp;
         }

@@ -30,6 +30,7 @@ import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
+import org.checkerframework.dataflow.qual.DoesNotUnrefineReceiver;
 
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
@@ -213,6 +214,7 @@ public class LinkedHashSet<E>
      * @since 1.8
      */
     @Override
+    @DoesNotUnrefineReceiver("modifiability")
     public Spliterator<E> spliterator() {
         return Spliterators.spliterator(this, Spliterator.DISTINCT | Spliterator.ORDERED);
     }
@@ -237,6 +239,7 @@ public class LinkedHashSet<E>
     }
 
     @SuppressWarnings("unchecked")
+    @Deterministic
     LinkedHashMap<E, Object> map() {
         return (LinkedHashMap<E, Object>) map;
     }
@@ -249,6 +252,7 @@ public class LinkedHashSet<E>
      *
      * @since 21
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public void addFirst(@Growable LinkedHashSet<E> this, E e) {
         map().putFirst(e, PRESENT);
     }
@@ -261,6 +265,7 @@ public class LinkedHashSet<E>
      *
      * @since 21
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public void addLast(@Growable LinkedHashSet<E> this, E e) {
         map().putLast(e, PRESENT);
     }
@@ -271,6 +276,7 @@ public class LinkedHashSet<E>
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
+    @Pure
     public E getFirst() {
         return map().sequencedKeySet().getFirst();
     }
@@ -281,6 +287,7 @@ public class LinkedHashSet<E>
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
+    @Pure
     public E getLast() {
         return map().sequencedKeySet().getLast();
     }
@@ -291,6 +298,7 @@ public class LinkedHashSet<E>
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public E removeFirst(@Shrinkable LinkedHashSet<E> this) {
         return map().sequencedKeySet().removeFirst();
     }
@@ -301,6 +309,7 @@ public class LinkedHashSet<E>
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public E removeLast(@Shrinkable LinkedHashSet<E> this) {
         return map().sequencedKeySet().removeLast();
     }
@@ -314,6 +323,7 @@ public class LinkedHashSet<E>
      * @return {@inheritDoc}
      * @since 21
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public SequencedSet<E> reversed() {
         class ReverseLinkedHashSetView extends AbstractSet<E> implements SequencedSet<E> {
             public int size()                  { return LinkedHashSet.this.size(); }

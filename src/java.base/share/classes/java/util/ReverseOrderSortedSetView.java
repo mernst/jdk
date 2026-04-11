@@ -166,6 +166,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
         return StreamSupport.stream(spliterator(), false);
     }
 
+    @SideEffectFree
     public Object[] toArray() {
         return ArraysSupport.reverse(base.toArray());
     }
@@ -175,18 +176,22 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
         return ArraysSupport.toArrayReversed(base, a);
     }
 
+    @SideEffectFree
     public <T> T[] toArray(IntFunction<T[]> generator) {
         return ArraysSupport.reverse(base.toArray(generator));
     }
 
     // ========== SortedSet ==========
 
+    @Pure
     public Comparator<? super E> comparator() {
         return comp;
     }
 
+    @Pure
     public E first() { return base.last(); }
 
+    @Pure
     public E last() { return base.first(); }
 
     public SortedSet<E> headSet(E to) {
@@ -327,6 +332,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
             return sz;
         }
 
+        @Pure
         public Comparator<? super E> comparator() {
             return ReverseOrderSortedSetView.this.comparator();
         }

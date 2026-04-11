@@ -125,6 +125,7 @@ interface LiveStackFrame extends StackFrame {
         /**
          * Returns the size, in bytes, of the slot.
          */
+        @Pure
         public abstract int size();
 
         /**
