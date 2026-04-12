@@ -7,7 +7,6 @@ define([canary_os], [ubuntu])dnl
 define([canary_version], [25])dnl
 define([latest_version], [25])dnl
 define([canary_test], [canary_os[]canary_version])dnl
-define([jdku_version], [21u])dnl
 define([docker_testing], [])dnl
 ifelse([uncomment the next line to use the "testing" Docker images])dnl
 ifelse([define([docker_testing], [-testing])])dnl
@@ -77,6 +76,8 @@ ifelse($1,canary_version,[dnl
       - bash: export ORG_GRADLE_PROJECT_jdkTestVersion=$1 && ./checker/bin-devel/test-cftests-inference-part1.sh
         displayName: test-cftests-inference-part1.sh
   - job: inference_part2_jdk$1
+    dependsOn:
+      - canary_jobs
     pool:
       vmImage: 'ubuntu-latest'
     container: mdernst/cf-ubuntu-jdk$1[]docker_testing:latest
@@ -134,6 +135,8 @@ ifelse($1,canary_version,[dnl
       - bash: export ORG_GRADLE_PROJECT_jdkTestVersion=$1 && ./checker/bin-devel/test-typecheck-part1.sh
         displayName: test-typecheck-part1.sh
   - job: typecheck_part2_jdk$1
+    dependsOn:
+      - canary_jobs
     pool:
       vmImage: 'ubuntu-latest'
     container: mdernst/cf-ubuntu-jdk$1[]docker_testing:latest
