@@ -25,6 +25,10 @@
 
 package java.util;
 
+import org.checkerframework.common.value.qual.StaticallyExecutable;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.IntFunction;

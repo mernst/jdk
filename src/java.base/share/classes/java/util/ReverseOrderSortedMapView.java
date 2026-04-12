@@ -25,6 +25,8 @@
 
 package java.util;
 
+import org.checkerframework.dataflow.qual.Pure;
+
 /**
  * Provides a reversed-ordered view of a SortedMap. Not serializable.
  *

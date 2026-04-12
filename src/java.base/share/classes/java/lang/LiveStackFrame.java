@@ -24,6 +24,8 @@
  */
 package java.lang;
 
+import org.checkerframework.dataflow.qual.Pure;
+
 import java.lang.StackWalker.StackFrame;
 import java.util.EnumSet;
 import java.util.Set;

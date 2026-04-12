@@ -25,6 +25,9 @@
 
 package java.lang;
 
+import org.checkerframework.common.value.qual.StaticallyExecutable;
+import org.checkerframework.dataflow.qual.Pure;
+
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Spliterator;

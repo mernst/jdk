@@ -25,14 +25,15 @@
 
 package java.util;
 
-import jdk.internal.util.NullableKeyValueHolder;
-
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrink;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.dataflow.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+
+import jdk.internal.util.NullableKeyValueHolder;
 
 /**
  * A Map that has a well-defined encounter order, that supports operations at both ends, and
