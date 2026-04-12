@@ -12,20 +12,20 @@ ifelse([uncomment the next line to use the "testing" Docker images])dnl
 ifelse([define([docker_testing], [-testing])])dnl
 dnl
 define([cftests_job], [dnl
-- job: cftests_$1_jdk$3
-  timeoutInMinutes: 120
-  pool:
-    vmImage: 'ubuntu-latest'
-  container: mdernst/cf-ubuntu-jdk$3:latest
-  steps:
-  - checkout: self
-    fetchDepth: 25
-  - bash: mkdir -p /tmp/$USER && git -C /tmp/$USER clone --depth=1 -q https://github.com/plume-lib/git-scripts.git
-    displayName: clone git-scripts
-  - bash: /tmp/$USER/git-scripts/git-clone-related typetools checker-framework
-    displayName: clone checker-framework
-  - bash: (cd ../checker-framework && checker/bin-devel/test-$2.sh)
-    displayName: test-$2.sh])dnl
+  - job: cftests_$1_jdk$3
+    timeoutInMinutes: 120
+    pool:
+      vmImage: 'ubuntu-latest'
+    container: mdernst/cf-ubuntu-jdk$3:latest
+    steps:
+      - checkout: self
+        fetchDepth: 25
+      - bash: mkdir -p /tmp/$USER && git -C /tmp/$USER clone --depth=1 -q https://github.com/plume-lib/git-scripts.git
+        displayName: clone git-scripts
+      - bash: /tmp/$USER/git-scripts/git-clone-related typetools checker-framework
+        displayName: clone checker-framework
+      - bash: (cd ../checker-framework && checker/bin-devel/test-$2.sh)
+        displayName: test-$2.sh])dnl
 dnl
 define([junit_job], [dnl
   - job: junit_jdk$1
@@ -150,35 +150,35 @@ ifelse($1,canary_version,[dnl
         displayName: test-typecheck.sh])])dnl
 dnl
 define([daikon_job], [dnl
-- job: test_daikon_part$1
-  pool:
-    vmImage: 'ubuntu-latest'
-  container: mdernst/cf-ubuntu-jdk17:latest
-  timeoutInMinutes: 70
-  steps:
-  - checkout: self
-    fetchDepth: 25
-  - bash: mkdir -p /tmp/$USER && git -C /tmp/$USER clone --depth=1 -q https://github.com/plume-lib/git-scripts.git
-    displayName: clone git-scripts
-  - bash: /tmp/$USER/git-scripts/git-clone-related typetools checker-framework
-    displayName: clone checker-framework
-  - bash: (cd ../checker-framework && checker/bin-devel/test-daikon-part$1.sh)
-    displayName: test-daikon-part$1.sh])dnl
+  - job: test_daikon_part$1
+    pool:
+      vmImage: 'ubuntu-latest'
+    container: mdernst/cf-ubuntu-jdk17:latest
+    timeoutInMinutes: 70
+    steps:
+      - checkout: self
+        fetchDepth: 25
+      - bash: mkdir -p /tmp/$USER && git -C /tmp/$USER clone --depth=1 -q https://github.com/plume-lib/git-scripts.git
+        displayName: clone git-scripts
+      - bash: /tmp/$USER/git-scripts/git-clone-related typetools checker-framework
+        displayName: clone checker-framework
+      - bash: (cd ../checker-framework && checker/bin-devel/test-daikon-part$1.sh)
+        displayName: test-daikon-part$1.sh])dnl
 dnl
 define([plume_lib_job], [dnl
-- job: test_plume_lib
-  pool:
-    vmImage: 'ubuntu-latest'
-  container: mdernst/cf-ubuntu-jdk17:latest
-  steps:
-  - checkout: self
-    fetchDepth: 25
-  - bash: mkdir -p /tmp/$USER && git -C /tmp/$USER clone --depth=1 -q https://github.com/plume-lib/git-scripts.git
-    displayName: clone git-scripts
-  - bash: /tmp/$USER/git-scripts/git-clone-related typetools checker-framework
-    displayName: clone checker-framework
-  - bash: (cd ../checker-framework && checker/bin-devel/test-plume-lib.sh)
-    displayName: test-plume-lib.sh])dnl
+  - job: test_plume_lib
+    pool:
+      vmImage: 'ubuntu-latest'
+    container: mdernst/cf-ubuntu-jdk17:latest
+    steps:
+      - checkout: self
+        fetchDepth: 25
+      - bash: mkdir -p /tmp/$USER && git -C /tmp/$USER clone --depth=1 -q https://github.com/plume-lib/git-scripts.git
+        displayName: clone git-scripts
+      - bash: /tmp/$USER/git-scripts/git-clone-related typetools checker-framework
+        displayName: clone checker-framework
+      - bash: (cd ../checker-framework && checker/bin-devel/test-plume-lib.sh)
+        displayName: test-plume-lib.sh])dnl
 ifelse([
 Local Variables:
 eval: (add-hook 'after-save-hook '(lambda () (run-command nil "make")) nil 'local)
