@@ -116,6 +116,16 @@ jobs:
         #   timeoutInMinutes: 0
         #   displayName: make run-test
 
+  - job: canary_jobs
+    dependsOn:
+      - build_jdk
+      - build_jdk21u
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - bash: true
+        displayName: canary_jobs
+
 cftests_job(junit, cftests-junit, 17)
 cftests_job(nonjunit, cftests-nonjunit, 17)
 cftests_job(typecheck, typecheck, 17)

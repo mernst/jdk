@@ -7,12 +7,15 @@ define([canary_os], [ubuntu])dnl
 define([canary_version], [25])dnl
 define([latest_version], [25])dnl
 define([canary_test], [canary_os[]canary_version])dnl
+define([jdku_version], [21u])dnl
 define([docker_testing], [])dnl
 ifelse([uncomment the next line to use the "testing" Docker images])dnl
 ifelse([define([docker_testing], [-testing])])dnl
 dnl
 define([cftests_job], [dnl
   - job: cftests_$1_jdk$3
+    dependsOn:
+      - canary_jobs
     timeoutInMinutes: 120
     pool:
       vmImage: 'ubuntu-latest'
@@ -29,9 +32,9 @@ define([cftests_job], [dnl
 dnl
 define([junit_job], [dnl
   - job: junit_jdk$1
-ifelse($1,canary_version,,[    dependsOn:
+    dependsOn:
       - canary_jobs
-      - junit_jdk[]canary_version
+ifelse($1,canary_version,,[      - junit_jdk[]canary_version
 ])dnl
     pool:
       vmImage: 'ubuntu-latest'
@@ -45,9 +48,9 @@ ifelse($1,canary_version,,[    dependsOn:
 dnl
 define([nonjunit_job], [dnl
   - job: nonjunit_jdk$1
-ifelse($1,canary_version,,[    dependsOn:
+    dependsOn:
       - canary_jobs
-      - nonjunit_jdk[]canary_version
+ifelse($1,canary_version,,[      - nonjunit_jdk[]canary_version
 ])dnl
     pool:
       vmImage: 'ubuntu-latest'
@@ -62,6 +65,8 @@ define([inference_job], [dnl
 ifelse($1,canary_version,[dnl
   # Split into part1 and part2 only for the inference job that "canary_jobs" depends on.
   - job: inference_part1_jdk$1
+    dependsOn:
+      - canary_jobs
     pool:
       vmImage: 'ubuntu-latest'
     container: mdernst/cf-ubuntu-jdk$1[]docker_testing:latest
@@ -101,9 +106,9 @@ ifelse($1,canary_version,[dnl
 dnl
 define([misc_job], [dnl
   - job: misc_jdk$1
-ifelse($1,canary_version,,$1,latest_version,,[    dependsOn:
+    dependsOn:
       - canary_jobs
-      - misc_jdk[]canary_version
+ifelse($1,canary_version,,$1,latest_version,,[      - misc_jdk[]canary_version
 ])dnl
     pool:
       vmImage: 'ubuntu-latest'
@@ -118,6 +123,8 @@ dnl
 define([typecheck_job], [dnl
 ifelse($1,canary_version,[dnl
   - job: typecheck_part1_jdk$1
+    dependsOn:
+      - canary_jobs
     pool:
       vmImage: 'ubuntu-latest'
     container: mdernst/cf-ubuntu-jdk$1[]docker_testing:latest
@@ -151,6 +158,8 @@ ifelse($1,canary_version,[dnl
 dnl
 define([daikon_job], [dnl
   - job: test_daikon_part$1
+    dependsOn:
+      - canary_jobs
     pool:
       vmImage: 'ubuntu-latest'
     container: mdernst/cf-ubuntu-jdk17:latest
@@ -167,6 +176,8 @@ define([daikon_job], [dnl
 dnl
 define([plume_lib_job], [dnl
   - job: test_plume_lib
+    dependsOn:
+      - canary_jobs
     pool:
       vmImage: 'ubuntu-latest'
     container: mdernst/cf-ubuntu-jdk17:latest
