@@ -31,6 +31,7 @@ import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrink;
+import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
@@ -696,7 +697,7 @@ public class Hashtable<K extends @NonNull Object,V extends @NonNull Object>
      * @since 1.2
      */
     @SideEffectFree
-    public @PolyShrink Set<@KeyFor({"this"}) K> keySet(@PolyShrink @GuardSatisfied Hashtable<K, V> this) {
+    public @PolyShrink @Ungrowable Set<@KeyFor({"this"}) K> keySet(@PolyShrink @GuardSatisfied Hashtable<K, V> this) {
         if (keySet == null)
             keySet = Collections.synchronizedSet(new KeySet(), this);
         return keySet;
@@ -741,7 +742,7 @@ public class Hashtable<K extends @NonNull Object,V extends @NonNull Object>
      * @since 1.2
      */
     @SideEffectFree
-    public @PolyShrink Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyModifiable @GuardSatisfied Hashtable<K, V> this) {
+    public @PolyShrink @Ungrowable Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyModifiable @GuardSatisfied Hashtable<K, V> this) {
         if (entrySet==null)
             entrySet = Collections.synchronizedSet(new EntrySet(), this);
         return entrySet;
@@ -826,7 +827,7 @@ public class Hashtable<K extends @NonNull Object,V extends @NonNull Object>
      * @since 1.2
      */
     @SideEffectFree
-    public @PolyShrink Collection<V> values(@PolyShrink @GuardSatisfied Hashtable<K, V> this) {
+    public @PolyShrink @Ungrowable Collection<V> values(@PolyShrink @GuardSatisfied Hashtable<K, V> this) {
         if (values==null)
             values = Collections.synchronizedCollection(new ValueCollection(),
                                                         this);

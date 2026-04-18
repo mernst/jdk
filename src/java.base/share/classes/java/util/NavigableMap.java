@@ -38,6 +38,7 @@ package java.util;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.PolyShrink;
+import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.nullness.qual.KeyFor;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -298,7 +299,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @return a navigable set view of the keys in this map
      */
     @SideEffectFree
-    @PolyShrink NavigableSet<@KeyFor({"this"}) K> navigableKeySet(@PolyShrink NavigableMap<K, V> this);
+    @PolyShrink @Ungrowable NavigableSet<@KeyFor({"this"}) K> navigableKeySet(@PolyShrink NavigableMap<K, V> this);
 
     /**
      * Returns a reverse order {@link NavigableSet} view of the keys contained in this map.
@@ -315,7 +316,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @return a reverse order navigable set view of the keys in this map
      */
     @SideEffectFree
-    @PolyShrink NavigableSet<@KeyFor({"this"}) K> descendingKeySet(@PolyShrink NavigableMap<K, V> this);
+    @PolyShrink @Ungrowable NavigableSet<@KeyFor({"this"}) K> descendingKeySet(@PolyShrink NavigableMap<K, V> this);
 
     /**
      * Returns a view of the portion of this map whose keys range from
