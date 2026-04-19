@@ -42,6 +42,7 @@ import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrink;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
+import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -1303,7 +1304,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
      * @return the collection view
      */
     @SideEffectFree
-    public @PolyShrink Collection<V> values(@PolyShrink ConcurrentHashMap<K,V> this) {
+    public @PolyShrink @Ungrowable Collection<V> values(@PolyShrink ConcurrentHashMap<K,V> this) {
         ValuesView<K,V> vs;
         if ((vs = values) != null) return vs;
         return values = new ValuesView<K,V>(this);
@@ -1327,7 +1328,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
      * @return the set view
      */
     @SideEffectFree
-    public @PolyShrink Set<Map.@Modifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyShrink ConcurrentHashMap<K,V> this) {
+    public @PolyShrink @Ungrowable Set<Map.@Modifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyShrink ConcurrentHashMap<K,V> this) {
         EntrySetView<K,V> es;
         if ((es = entrySet) != null) return es;
         return entrySet = new EntrySetView<K,V>(this);

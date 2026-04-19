@@ -34,6 +34,7 @@ import org.checkerframework.checker.modifiability.qual.PolyShrink;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.ThrowsUOE;
+import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.checker.nonempty.qual.PolyNonEmpty;
@@ -1188,7 +1189,7 @@ public class TreeMap<K,V>
      * operations.
      */
     @DoesNotUnrefineReceiver("modifiability")
-    public @PolyShrink Set<@KeyFor({"this"}) K> keySet(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
+    public @PolyShrink @Ungrowable Set<@KeyFor({"this"}) K> keySet(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
         return navigableKeySet();
     }
 
@@ -1196,7 +1197,7 @@ public class TreeMap<K,V>
      * @since 1.6
      */
     @SideEffectFree
-    public @PolyShrink NavigableSet<@KeyFor({"this"}) K> navigableKeySet(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
+    public @PolyShrink @Ungrowable NavigableSet<@KeyFor({"this"}) K> navigableKeySet(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
         KeySet<K> nks = navigableKeySet;
         return (nks != null) ? nks : (navigableKeySet = new KeySet<>(this));
     }
@@ -1205,7 +1206,7 @@ public class TreeMap<K,V>
      * @since 1.6
      */
     @SideEffectFree
-    public @PolyShrink NavigableSet<@KeyFor({"this"}) K> descendingKeySet(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
+    public @PolyShrink @Ungrowable NavigableSet<@KeyFor({"this"}) K> descendingKeySet(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
         return descendingMap().navigableKeySet();
     }
 
@@ -1230,7 +1231,7 @@ public class TreeMap<K,V>
      * {@code retainAll} and {@code clear} operations.  It does not
      * support the {@code add} or {@code addAll} operations.
      */
-    public @PolyShrink Collection<V> values(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
+    public @PolyShrink @Ungrowable Collection<V> values(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
         Collection<V> vs = values;
         if (vs == null) {
             vs = new Values();
@@ -1262,7 +1263,7 @@ public class TreeMap<K,V>
      * {@code add} or {@code addAll} operations.
      */
     @SideEffectFree
-    public @PolyShrink Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyModifiable @GuardSatisfied TreeMap<K, V> this) {
+    public @PolyShrink @Ungrowable Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyModifiable @GuardSatisfied TreeMap<K, V> this) {
         EntrySet es = entrySet;
         return (es != null) ? es : (entrySet = new EntrySet());
     }

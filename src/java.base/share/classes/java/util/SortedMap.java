@@ -29,6 +29,7 @@ import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrink;
+import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.checker.modifiability.qual.ThrowsUOE;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.checker.nullness.qual.KeyFor;
@@ -263,7 +264,7 @@ public interface SortedMap<K,V> extends SequencedMap<K,V> {
      *         ascending order
      */
     @SideEffectFree
-    @PolyShrink Set<@KeyFor({"this"}) K> keySet(@PolyShrink @GuardSatisfied SortedMap<K, V> this);
+    @PolyShrink @Ungrowable Set<@KeyFor({"this"}) K> keySet(@PolyShrink @GuardSatisfied SortedMap<K, V> this);
 
     /**
      * Returns a {@link Collection} view of the values contained in this map.
@@ -284,7 +285,7 @@ public interface SortedMap<K,V> extends SequencedMap<K,V> {
      *         sorted in ascending key order
      */
     @SideEffectFree
-    @PolyShrink Collection<V> values(@PolyShrink @GuardSatisfied SortedMap<K, V> this);
+    @PolyShrink @Ungrowable Collection<V> values(@PolyShrink @GuardSatisfied SortedMap<K, V> this);
 
     /**
      * Returns a {@link Set} view of the mappings contained in this map.
@@ -305,7 +306,7 @@ public interface SortedMap<K,V> extends SequencedMap<K,V> {
      *         sorted in ascending key order
      */
     @SideEffectFree
-    @PolyShrink Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K, V>> entrySet(@PolyModifiable @GuardSatisfied SortedMap<K, V> this);
+    @PolyShrink @Ungrowable Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K, V>> entrySet(@PolyModifiable @GuardSatisfied SortedMap<K, V> this);
 
     /**
      * Throws {@code UnsupportedOperationException}. The encounter order induced by this
