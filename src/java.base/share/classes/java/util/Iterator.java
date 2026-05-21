@@ -34,6 +34,7 @@ import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.Covariant;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 import java.util.function.Consumer;
 
@@ -89,6 +90,7 @@ public interface Iterator<E> {
      * @throws NoSuchElementException if the iteration has no more elements
      */
     // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     E next(@GuardSatisfied @NonEmpty Iterator<E> this);
 
     /**
@@ -116,6 +118,8 @@ public interface Iterator<E> {
      *         been called after the last call to the {@code next}
      *         method
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     default void remove(@GuardSatisfied @CanShrink Iterator<E> this) {
         throw new UnsupportedOperationException("remove");
     }
@@ -145,6 +149,7 @@ public interface Iterator<E> {
      * @throws NullPointerException if the specified action is null
      * @since 1.8
      */
+    @DoesNotUnrefineReceiver("modifiability")
     default void forEachRemaining(Consumer<? super E> action) {
         Objects.requireNonNull(action);
         while (hasNext())
