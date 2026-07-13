@@ -26,6 +26,7 @@
 package java.util;
 
 import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 import jdk.internal.util.NullableKeyValueHolder;
