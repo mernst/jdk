@@ -248,7 +248,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      * Removes all of the elements from this set.
      * The set will be empty after this call returns.
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public void clear() {
         al.clear();
@@ -265,7 +265,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      * @param o object to be removed from this set, if present
      * @return {@code true} if this set contained the specified element
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean remove(@GuardSatisfied @Nullable @UnknownSignedness Object o) {
         return al.remove(o);
@@ -284,7 +284,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      *         element
      */
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean add(E e) {
         return al.addIfAbsent(e);
@@ -356,7 +356,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      * @throws NullPointerException if the specified collection is null
      * @see #add(Object)
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean addAll(Collection<? extends E> c) {
         return al.addAllAbsent(c) > 0;
@@ -379,7 +379,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      *         or if the specified collection is null
      * @see #remove(Object)
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean removeAll(Collection<? extends @NonNull @UnknownSignedness Object> c) {
         return al.removeAll(c);
@@ -404,7 +404,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
      *         or if the specified collection is null
      * @see #remove(Object)
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean retainAll(Collection<? extends @NonNull @UnknownSignedness Object> c) {
         return al.retainAll(c);
@@ -453,7 +453,7 @@ public class CopyOnWriteArraySet<E> extends AbstractSet<E>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean removeIf(Predicate<? super E> filter) {
         return al.removeIf(filter);

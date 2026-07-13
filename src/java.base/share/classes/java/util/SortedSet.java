@@ -295,7 +295,7 @@ public interface SortedSet<E> extends Set<E>, SequencedSet<E> {
      * @since 21
      */
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     default void addFirst(E e) {
         throw new UnsupportedOperationException();
@@ -313,7 +313,7 @@ public interface SortedSet<E> extends Set<E>, SequencedSet<E> {
      * @since 21
      */
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     default void addLast(E e) {
         throw new UnsupportedOperationException();
@@ -361,7 +361,7 @@ public interface SortedSet<E> extends Set<E>, SequencedSet<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     default E removeFirst() {
         E e = this.first();
@@ -381,7 +381,7 @@ public interface SortedSet<E> extends Set<E>, SequencedSet<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     default E removeLast() {
         E e = this.last();
@@ -399,7 +399,7 @@ public interface SortedSet<E> extends Set<E>, SequencedSet<E> {
      * @return a reverse-ordered view of this collection, as a {@code SortedSet}
      * @since 21
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     default SortedSet<E> reversed() {
         return ReverseOrderSortedSetView.of(this);

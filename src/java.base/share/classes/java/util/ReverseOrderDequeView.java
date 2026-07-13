@@ -75,14 +75,14 @@ class ReverseOrderDequeView<E> implements Deque<E> {
     // ========== Collection ==========
 
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean add(E e) {
         base.addFirst(e);
         return true;
     }
 
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean addAll(Collection<? extends E> c) {
         boolean modified = false;

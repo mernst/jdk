@@ -182,7 +182,7 @@ class ComparableTimSort {
      * @param workLen usable size of work array
      * @since 1.8
      */
-    // @SideEffectsOnly("#1")
+    @SideEffectsOnly("#1")
     static void sort(Object[] a, @IndexOrHigh({"#1"}) int lo, @IndexOrHigh({"#1"}) int hi, Object[] work, int workBase, int workLen) {
         assert a != null && lo >= 0 && lo <= hi && hi <= a.length;
 

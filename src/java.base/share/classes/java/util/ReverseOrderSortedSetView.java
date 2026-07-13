@@ -128,7 +128,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
     // ========== Collection ==========
 
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean add(E e) {
         base.add(e);

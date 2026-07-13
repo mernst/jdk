@@ -218,7 +218,7 @@ public class TreeSet<E> extends AbstractSet<E>
     /**
      * @since 1.6
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public NavigableSet<E> descendingSet() {
         return new TreeSet<>(m.descendingMap());
@@ -284,7 +284,7 @@ public class TreeSet<E> extends AbstractSet<E>
      *         does not permit null elements
      */
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean add(@GuardSatisfied TreeSet<E> this, E e) {
         return m.put(e, PRESENT)==null;
@@ -307,7 +307,7 @@ public class TreeSet<E> extends AbstractSet<E>
      *         and this set uses natural ordering, or its comparator
      *         does not permit null elements
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean remove(@GuardSatisfied TreeSet<E> this, @GuardSatisfied @UnknownSignedness Object o) {
         return m.remove(o)==PRESENT;
@@ -317,7 +317,7 @@ public class TreeSet<E> extends AbstractSet<E>
      * Removes all of the elements from this set.
      * The set will be empty after this call returns.
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public void clear(@GuardSatisfied TreeSet<E> this) {
         m.clear();
@@ -334,7 +334,7 @@ public class TreeSet<E> extends AbstractSet<E>
      *         if any element is null and this set uses natural ordering, or
      *         its comparator does not permit null elements
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public  boolean addAll(@GuardSatisfied TreeSet<E> this, Collection<? extends E> c) {
         // Use linear-time version if applicable
@@ -501,7 +501,7 @@ public class TreeSet<E> extends AbstractSet<E>
     /**
      * @since 1.6
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public @Nullable E pollFirst(@GuardSatisfied TreeSet<E> this) {
         Map.Entry<E,?> e = m.pollFirstEntry();
@@ -511,7 +511,7 @@ public class TreeSet<E> extends AbstractSet<E>
     /**
      * @since 1.6
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public @Nullable E pollLast(@GuardSatisfied TreeSet<E> this) {
         Map.Entry<E,?> e = m.pollLastEntry();
@@ -527,7 +527,7 @@ public class TreeSet<E> extends AbstractSet<E>
      * @since 21
      */
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public void addFirst(E e) {
         throw new UnsupportedOperationException();
@@ -542,7 +542,7 @@ public class TreeSet<E> extends AbstractSet<E>
      * @since 21
      */
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public void addLast(E e) {
         throw new UnsupportedOperationException();
