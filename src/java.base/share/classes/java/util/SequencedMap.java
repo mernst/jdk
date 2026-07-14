@@ -26,6 +26,7 @@
 package java.util;
 
 import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
@@ -138,7 +139,7 @@ public interface SequencedMap<K, V> extends Map<K, V> {
      *
      * @return a reverse-ordered view of this map
      */
-    @SideEffectsOnly("this")
+    @SideEffectFree
     @DoesNotUnrefineReceiver("modifiability")
     SequencedMap<K, V> reversed();
 
@@ -293,6 +294,7 @@ public interface SequencedMap<K, V> extends Map<K, V> {
             Collection<K> view() {
                 return SequencedMap.this.keySet();
             }
+            @SideEffectFree
             public SequencedSet<K> reversed() {
                 return SequencedMap.this.reversed().sequencedKeySet();
             }
@@ -330,6 +332,7 @@ public interface SequencedMap<K, V> extends Map<K, V> {
             Collection<V> view() {
                 return SequencedMap.this.values();
             }
+            @SideEffectFree
             public SequencedCollection<V> reversed() {
                 return SequencedMap.this.reversed().sequencedValues();
             }
@@ -359,6 +362,7 @@ public interface SequencedMap<K, V> extends Map<K, V> {
             Collection<Map.Entry<K, V>> view() {
                 return SequencedMap.this.entrySet();
             }
+            @SideEffectFree
             public SequencedSet<Map.Entry<K, V>> reversed() {
                 return SequencedMap.this.reversed().sequencedEntrySet();
             }

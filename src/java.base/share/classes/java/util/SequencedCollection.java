@@ -27,6 +27,7 @@ package java.util;
 
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
@@ -92,7 +93,7 @@ public interface SequencedCollection<E> extends Collection<E> {
      *
      * @return a reverse-ordered view of this collection
      */
-    @SideEffectsOnly("this")
+    @SideEffectFree
     @DoesNotUnrefineReceiver("modifiability")
     SequencedCollection<E> reversed();
 
