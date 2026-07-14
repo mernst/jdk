@@ -45,10 +45,10 @@ import org.checkerframework.common.value.qual.MinLen;
 import org.checkerframework.common.value.qual.StaticallyExecutable;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
-import org.checkerframework.dataflow.qual.SideEffectsOnly;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -1201,14 +1201,14 @@ public class Collections {
         }
         @SuppressWarnings("unchecked")
         @Override
-        @SideEffectsOnly("this")
+        @SideEffectFree
         @DoesNotUnrefineReceiver("modifiability")
         public Stream<E> stream() {
             return (Stream<E>)c.stream();
         }
         @SuppressWarnings("unchecked")
         @Override
-        @SideEffectsOnly("this")
+        @SideEffectFree
         @DoesNotUnrefineReceiver("modifiability")
         public Stream<E> parallelStream() {
             return (Stream<E>)c.parallelStream();
@@ -1268,7 +1268,7 @@ public class Collections {
         // Even though this wrapper class is serializable, the reversed view is effectively
         // not serializable because it points to the reversed collection view, which usually isn't
         // serializable.
-        @SideEffectsOnly("this")
+        @SideEffectFree
         @DoesNotUnrefineReceiver("modifiability")
         public SequencedCollection<E> reversed() {
             return new UnmodifiableSequencedCollection<>(sc().reversed());
@@ -1398,7 +1398,7 @@ public class Collections {
         // Even though this wrapper class is serializable, the reversed view is effectively
         // not serializable because it points to the reversed set view, which usually isn't
         // serializable.
-        @SideEffectsOnly("this")
+        @SideEffectFree
         @DoesNotUnrefineReceiver("modifiability")
         public SequencedSet<E> reversed() {
             return new UnmodifiableSequencedSet<>(ss().reversed());
@@ -1447,17 +1447,17 @@ public class Collections {
         @Pure
         public Comparator<? super E> comparator() {return ss.comparator();}
 
-        @SideEffectsOnly("this")
+        @SideEffectFree
         @DoesNotUnrefineReceiver("modifiability")
         public SortedSet<E> subSet(E fromElement, E toElement) {
             return new UnmodifiableSortedSet<>(ss.subSet(fromElement,toElement));
         }
-        @SideEffectsOnly("this")
+        @SideEffectFree
         @DoesNotUnrefineReceiver("modifiability")
         public SortedSet<E> headSet(E toElement) {
             return new UnmodifiableSortedSet<>(ss.headSet(toElement));
         }
-        @SideEffectsOnly("this")
+        @SideEffectFree
         @DoesNotUnrefineReceiver("modifiability")
         public SortedSet<E> tailSet(E fromElement) {
             return new UnmodifiableSortedSet<>(ss.tailSet(fromElement));
@@ -1547,7 +1547,7 @@ public class Collections {
         @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public E pollLast()      { throw new UnsupportedOperationException(); }
-        @SideEffectsOnly("this")
+        @SideEffectFree
         @DoesNotUnrefineReceiver("modifiability")
         public NavigableSet<E> descendingSet()
                  { return new UnmodifiableNavigableSet<>(ns.descendingSet()); }
@@ -1555,21 +1555,21 @@ public class Collections {
         public Iterator<E> descendingIterator()
                                          { return descendingSet().iterator(); }
 
-        @SideEffectsOnly("this")
+        @SideEffectFree
         @DoesNotUnrefineReceiver("modifiability")
         public NavigableSet<E> subSet(E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
             return new UnmodifiableNavigableSet<>(
                 ns.subSet(fromElement, fromInclusive, toElement, toInclusive));
         }
 
-        @SideEffectsOnly("this")
+        @SideEffectFree
         @DoesNotUnrefineReceiver("modifiability")
         public NavigableSet<E> headSet(E toElement, boolean inclusive) {
             return new UnmodifiableNavigableSet<>(
                 ns.headSet(toElement, inclusive));
         }
 
-        @SideEffectsOnly("this")
+        @SideEffectFree
         @DoesNotUnrefineReceiver("modifiability")
         public NavigableSet<E> tailSet(E fromElement, boolean inclusive) {
             return new UnmodifiableNavigableSet<>(
@@ -1668,7 +1668,7 @@ public class Collections {
 
         public @PolyGrowShrink @PolyNonEmpty ListIterator<E> listIterator(@PolyGrowShrink @PolyNonEmpty UnmodifiableList<E> this)   {return listIterator(0);}
 
-        @SideEffectsOnly("this")
+        @SideEffectFree
         @DoesNotUnrefineReceiver("modifiability")
         public ListIterator<E> listIterator(final int index) {
             return new ListIterator<>() {

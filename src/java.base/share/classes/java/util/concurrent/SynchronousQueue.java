@@ -1125,7 +1125,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @throws NullPointerException          {@inheritDoc}
      * @throws IllegalArgumentException      {@inheritDoc}
      */
-    @SideEffectsOnly("this")
+    @SideEffectsOnly({"this", "#1"})
     @DoesNotUnrefineReceiver("modifiability")
     public int drainTo(@GuardSatisfied @CanShrink SynchronousQueue<E> this, Collection<? super E> c) {
         Objects.requireNonNull(c);
@@ -1143,7 +1143,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @throws NullPointerException          {@inheritDoc}
      * @throws IllegalArgumentException      {@inheritDoc}
      */
-    @SideEffectsOnly("this")
+    @SideEffectsOnly({"this", "#1"})
     @DoesNotUnrefineReceiver("modifiability")
     public int drainTo(@GuardSatisfied @CanShrink SynchronousQueue<E> this, Collection<? super E> c, int maxElements) {
         Objects.requireNonNull(c);

@@ -377,7 +377,7 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      *         queue, or some property of an element of this queue prevents
      *         it from being added to the specified collection
      */
-    @SideEffectsOnly("this")
+    @SideEffectsOnly({"this", "#1"})
     @DoesNotUnrefineReceiver("modifiability")
     int drainTo(@GuardSatisfied @CanShrink BlockingQueue<E> this, Collection<? super E> c);
 
@@ -404,7 +404,7 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      *         queue, or some property of an element of this queue prevents
      *         it from being added to the specified collection
      */
-    @SideEffectsOnly("this")
+    @SideEffectsOnly({"this", "#1"})
     @DoesNotUnrefineReceiver("modifiability")
     int drainTo(@GuardSatisfied @CanShrink BlockingQueue<E> this, Collection<? super E> c, int maxElements);
 }
