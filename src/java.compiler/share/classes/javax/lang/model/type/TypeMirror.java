@@ -26,6 +26,7 @@
 package javax.lang.model.type;
 
 import org.checkerframework.checker.signature.qual.FullyQualifiedName;
+
 import java.lang.annotation.Annotation;
 import java.util.List;
 import javax.lang.model.element.*;
