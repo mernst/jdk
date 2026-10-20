@@ -31,6 +31,10 @@ import org.checkerframework.checker.collectionownership.qual.OwningCollectionWit
 import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.mustcall.qual.NotOwning;
 import org.checkerframework.checker.mustcall.qual.Owning;
@@ -66,12 +70,12 @@ import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
  * @since   1.0
  */
 @CFComment({"lock/nullness: permit null elements"})
-@AnnotatedFor({"lock", "nullness", "mustcall", "resourceleak"})
+@AnnotatedFor({"lock", "nullness", "modifiability", "mustcall", "resourceleak"})
 public class Stack<E extends @MustCallUnknown Object> extends Vector<E> {
     /**
      * Creates an empty Stack.
      */
-    public Stack() {
+    public @Modifiable @IteratorPolyMod Stack() {
     }
 
     /**
@@ -86,7 +90,7 @@ public class Stack<E extends @MustCallUnknown Object> extends Vector<E> {
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E push(@GuardSatisfied @OwningCollection Stack<E> this, @Owning E item) {
+    public E push(@Growable @GuardSatisfied @OwningCollection Stack<E> this, @Owning E item) {
         addElement(item);
 
         return item;
@@ -102,7 +106,7 @@ public class Stack<E extends @MustCallUnknown Object> extends Vector<E> {
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public synchronized E pop(@GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Stack<E> this) {
+    public synchronized E pop(@Shrinkable @GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Stack<E> this) {
         E       obj;
         int     len = size();
 
@@ -155,6 +159,7 @@ public class Stack<E extends @MustCallUnknown Object> extends Vector<E> {
      *          the object is located; the return value {@code -1}
      *          indicates that the object is not on the stack.
      */
+    @Pure
     public synchronized int search(Object o) {
         int i = lastIndexOf(o);
 

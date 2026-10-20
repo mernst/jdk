@@ -33,6 +33,12 @@ import org.checkerframework.checker.collectionownership.qual.PolyOwningCollectio
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.MaybeModifiable;
+import org.checkerframework.checker.modifiability.qual.PolyModifiable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
+import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.mustcall.qual.NotOwning;
 import org.checkerframework.checker.mustcall.qual.Owning;
@@ -151,7 +157,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      * @return the number of elements in this set (its cardinality)
      */
     @Pure
-    @NonNegative int size(@GuardSatisfied @NotOwningCollection Set<E> this);
+    @NonNegative int size(@MaybeModifiable @GuardSatisfied @NotOwningCollection Set<E> this);
 
     /**
      * Returns {@code true} if this set contains no elements.
@@ -160,7 +166,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      */
     @Pure
     @EnsuresNonEmptyIf(result = false, expression = "this")
-    boolean isEmpty(@GuardSatisfied @NotOwningCollection Set<E> this);
+    boolean isEmpty(@MaybeModifiable @GuardSatisfied @NotOwningCollection Set<E> this);
 
     /**
      * Returns {@code true} if this set contains the specified element.
@@ -179,7 +185,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      */
     @Pure
     @EnsuresNonEmptyIf(result = true, expression = "this")
-    boolean contains(@GuardSatisfied @NotOwningCollection Set<E> this, @GuardSatisfied @UnknownSignedness Object o);
+    boolean contains(@MaybeModifiable @GuardSatisfied @NotOwningCollection Set<E> this, @GuardSatisfied @UnknownSignedness Object o);
 
     /**
      * Returns an iterator over the elements in this set.  The elements are
@@ -189,7 +195,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      * @return an iterator over the elements in this set
      */
     @SideEffectFree
-    @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Set<E> this);
+    @MaybeModifiable @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Iterator<E> iterator(@MaybeModifiable @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Set<E> this);
 
     /**
      * Returns an array containing all of the elements in this set.
@@ -208,7 +214,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      * @return an array containing all the elements in this set
      */
     @SideEffectFree
-    @PolyNull @PolySigned Object[] toArray(Set<@PolyNull @PolySigned E> this);
+    @PolyNull @PolySigned Object[] toArray(@MaybeModifiable Set<@PolyNull @PolySigned E> this);
 
     /**
      * Returns an array containing all of the elements in this set; the
@@ -252,7 +258,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      *         set
      * @throws NullPointerException if the specified array is null
      */
-    <T> @Nullable T [] toArray(@PolyNull T[] a);
+    <T> @Nullable T [] toArray(@MaybeModifiable Set<E> this, @PolyNull T[] a);
 
 
     // Modification Operations
@@ -291,7 +297,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
     @CreatesCollectionObligation
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean add(@GuardSatisfied @NotOwningCollection Set<E> this, E e);
+    boolean add(@Growable @GuardSatisfied @NotOwningCollection Set<E> this, E e);
 
 
     /**
@@ -317,7 +323,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean remove(@GuardSatisfied @OwningCollectionWithoutObligation Set<E> this, @UnknownSignedness Object o);
+    boolean remove(@Shrinkable @GuardSatisfied @OwningCollectionWithoutObligation Set<E> this, @UnknownSignedness Object o);
 
 
     // Bulk Operations
@@ -342,7 +348,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      * @see    #contains(Object)
      */
     @Pure
-    boolean containsAll(@GuardSatisfied Set<E> this, @GuardSatisfied Collection<? extends @UnknownSignedness Object> c);
+    boolean containsAll(@MaybeModifiable @GuardSatisfied Set<E> this, @GuardSatisfied Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Adds all of the elements in the specified collection to this set if
@@ -369,7 +375,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
     @EnsuresNonEmptyIf(result = true, expression = "this")
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean addAll(@GuardSatisfied Set<E> this, Collection<? extends E> c);
+    boolean addAll(@Growable @GuardSatisfied Set<E> this, Collection<? extends E> c);
 
     /**
      * Retains only the elements in this set that are contained in the
@@ -394,7 +400,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean retainAll(@GuardSatisfied Set<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean retainAll(@Shrinkable @GuardSatisfied Set<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Removes from this set all of its elements that are contained in the
@@ -419,7 +425,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean removeAll(@GuardSatisfied Set<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean removeAll(@IteratorPolyMod @Shrinkable @GuardSatisfied Set<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Removes all of the elements from this set (optional operation).
@@ -430,7 +436,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    void clear(@GuardSatisfied @OwningCollectionWithoutObligation Set<E> this);
+    void clear(@Shrinkable @GuardSatisfied @OwningCollectionWithoutObligation Set<E> this);
 
 
     // Comparison and hashing
@@ -448,7 +454,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      * @return {@code true} if the specified object is equal to this set
      */
     @Pure
-    boolean equals(@GuardSatisfied @NotOwningCollection Set<E> this, @GuardSatisfied @Nullable Object o);
+    boolean equals(@MaybeModifiable @GuardSatisfied @NotOwningCollection Set<E> this, @GuardSatisfied @Nullable Object o);
 
     /**
      * Returns the hash code value for this set.  The hash code of a set is
@@ -464,7 +470,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      * @see Set#equals(Object)
      */
     @Pure
-    int hashCode(@GuardSatisfied @NotOwningCollection Set<E> this);
+    int hashCode(@MaybeModifiable @GuardSatisfied @NotOwningCollection Set<E> this);
 
     /**
      * Creates a {@code Spliterator} over the elements in this set.
@@ -491,7 +497,8 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      */
     @Override
     @SideEffectFree
-    default Spliterator<E> spliterator() {
+    @DoesNotUnrefineReceiver("modifiability")
+    default Spliterator<E> spliterator(@MaybeModifiable Set<E> this) {
         return Spliterators.spliterator(this, Spliterator.DISTINCT);
     }
 
@@ -506,7 +513,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      */
     @SuppressWarnings("unchecked")
     @SideEffectFree
-    static <E> Set<E> of() {
+    static <E> @Unmodifiable Set<E> of() {
         return (Set<E>) ImmutableCollections.EMPTY_SET;
     }
 
@@ -522,7 +529,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      * @since 9
      */
     @SideEffectFree
-    static <E extends Object> @NonEmpty Set<E> of(E e1) {
+    static <E extends Object> @Unmodifiable @NonEmpty Set<E> of(E e1) {
         return new ImmutableCollections.Set12<>(e1);
     }
 
@@ -540,7 +547,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      * @since 9
      */
     @SideEffectFree
-    static <E extends Object> @NonEmpty Set<E> of(E e1, E e2) {
+    static <E extends Object> @Unmodifiable @NonEmpty Set<E> of(E e1, E e2) {
         return new ImmutableCollections.Set12<>(e1, e2);
     }
 
@@ -559,7 +566,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      * @since 9
      */
     @SideEffectFree
-    static <E extends Object> @NonEmpty Set<E> of(E e1, E e2, E e3) {
+    static <E extends Object> @Unmodifiable @NonEmpty Set<E> of(E e1, E e2, E e3) {
         return new ImmutableCollections.SetN<>(e1, e2, e3);
     }
 
@@ -579,7 +586,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      * @since 9
      */
     @SideEffectFree
-    static <E extends Object> @NonEmpty Set<E> of(E e1, E e2, E e3, E e4) {
+    static <E extends Object> @Unmodifiable @NonEmpty Set<E> of(E e1, E e2, E e3, E e4) {
         return new ImmutableCollections.SetN<>(e1, e2, e3, e4);
     }
 
@@ -600,7 +607,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      * @since 9
      */
     @SideEffectFree
-    static <E extends Object> @NonEmpty Set<E> of(E e1, E e2, E e3, E e4, E e5) {
+    static <E extends Object> @Unmodifiable @NonEmpty Set<E> of(E e1, E e2, E e3, E e4, E e5) {
         return new ImmutableCollections.SetN<>(e1, e2, e3, e4, e5);
     }
 
@@ -622,7 +629,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      * @since 9
      */
     @SideEffectFree
-    static <E extends Object> @NonEmpty Set<E> of(E e1, E e2, E e3, E e4, E e5, E e6) {
+    static <E extends Object> @Unmodifiable @NonEmpty Set<E> of(E e1, E e2, E e3, E e4, E e5, E e6) {
         return new ImmutableCollections.SetN<>(e1, e2, e3, e4, e5,
                                                e6);
     }
@@ -646,7 +653,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      * @since 9
      */
     @SideEffectFree
-    static <E extends Object> @NonEmpty Set<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7) {
+    static <E extends Object> @Unmodifiable @NonEmpty Set<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7) {
         return new ImmutableCollections.SetN<>(e1, e2, e3, e4, e5,
                                                e6, e7);
     }
@@ -671,7 +678,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      * @since 9
      */
     @SideEffectFree
-    static <E extends Object> @NonEmpty Set<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8) {
+    static <E extends Object> @Unmodifiable @NonEmpty Set<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8) {
         return new ImmutableCollections.SetN<>(e1, e2, e3, e4, e5,
                                                e6, e7, e8);
     }
@@ -697,7 +704,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      * @since 9
      */
     @SideEffectFree
-    static <E extends Object> @NonEmpty Set<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9) {
+    static <E extends Object> @Unmodifiable @NonEmpty Set<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9) {
         return new ImmutableCollections.SetN<>(e1, e2, e3, e4, e5,
                                                e6, e7, e8, e9);
     }
@@ -724,7 +731,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      * @since 9
      */
     @SideEffectFree
-    static <E extends Object> @NonEmpty Set<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10) {
+    static <E extends Object> @Unmodifiable @NonEmpty Set<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10) {
         return new ImmutableCollections.SetN<>(e1, e2, e3, e4, e5,
                                                e6, e7, e8, e9, e10);
     }
@@ -758,7 +765,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
     @SafeVarargs
     @SuppressWarnings("varargs")
     @SideEffectFree
-    static <E extends Object> Set<E> of(E... elements) {
+    static <E extends Object> @Unmodifiable Set<E> of(E... elements) {
         switch (elements.length) { // implicit null check of elements
             case 0:
                 @SuppressWarnings("unchecked")
@@ -792,7 +799,7 @@ public interface Set<E extends @MustCallUnknown Object> extends Collection<E> {
      */
     @SuppressWarnings("unchecked")
     @SideEffectFree
-    static <E extends Object> @PolyNonEmpty Set<E> copyOf(@PolyNonEmpty Collection<? extends E> coll) {
+    static <E extends Object> @Unmodifiable @PolyNonEmpty Set<E> copyOf(@MaybeModifiable @PolyNonEmpty Collection<? extends E> coll) {
         if (coll instanceof ImmutableCollections.AbstractImmutableSet) {
             return (Set<E>)coll;
         } else if (coll.isEmpty()) { // Implicit nullcheck of coll

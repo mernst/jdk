@@ -32,6 +32,8 @@ import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.SearchIndexFor;
 import org.checkerframework.checker.interning.qual.PolyInterned;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.mustcall.qual.PolyMustCall;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -43,6 +45,7 @@ import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.checker.signedness.qual.Unsigned;
 import org.checkerframework.common.value.qual.MinLen;
+import org.checkerframework.common.value.qual.StaticallyExecutable;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
@@ -799,6 +802,7 @@ public final class Arrays {
      */
     static final class NaturalOrder implements Comparator<Object> {
         @SuppressWarnings("unchecked")
+        @Pure
         public int compare(Object first, Object second) {
             return ((Comparable<Object>)first).compareTo(second);
         }
@@ -3166,7 +3170,7 @@ public final class Arrays {
      * @since 9
      */
     @Pure
-    public static <T> boolean equals(T[] a, T[] a2, Comparator<? super T> cmp) {
+    public static <T> boolean equals(T @Nullable [] a, T @Nullable [] a2, Comparator<? super T> cmp) {
         Objects.requireNonNull(cmp);
         if (a==a2)
             return true;
@@ -3252,7 +3256,7 @@ public final class Arrays {
      * @param a the array to be filled
      * @param val the value to be stored in all elements of the array
      */
-    @Pure
+    @SideEffectsOnly("#1")
     public static void fill(@PolySigned long[] a, @PolySigned long val) {
         for (int i = 0, len = a.length; i < len; i++)
             a[i] = val;
@@ -4367,7 +4371,7 @@ public final class Arrays {
     @SafeVarargs
     @SideEffectFree
     @SuppressWarnings("varargs")
-    public static <T extends @MustCallUnknown Object> @PolyNonEmpty List<@PolyMustCall T> asList(@PolyMustCall T @PolyNonEmpty... a) {
+    public static <T extends @MustCallUnknown Object> @Replaceable @IteratorPolyMod @PolyNonEmpty List<@PolyMustCall T> asList(@PolyMustCall T @PolyNonEmpty... a) {
         return new ArrayList<>(a);
     }
 
@@ -4425,6 +4429,8 @@ public final class Arrays {
         }
 
         @Override
+        @Pure
+        @StaticallyExecutable
         public int indexOf(Object o) {
             E[] a = this.a;
             if (o == null) {
@@ -5881,7 +5887,7 @@ public final class Arrays {
      * @since 9
      */
     @Pure
-    public static int compare(boolean[] a, boolean[] b) {
+    public static int compare(boolean @Nullable [] a, boolean @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -6019,7 +6025,7 @@ public final class Arrays {
      * @since 9
      */
     @Pure
-    public static int compare(byte[] a, byte[] b) {
+    public static int compare(byte @Nullable [] a, byte @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -6149,7 +6155,7 @@ public final class Arrays {
      * @since 9
      */
     @Pure
-    public static int compareUnsigned(@Unsigned byte[] a, @Unsigned byte[] b) {
+    public static int compareUnsigned(@Unsigned byte @Nullable [] a, @Unsigned byte @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -6278,7 +6284,7 @@ public final class Arrays {
      * @since 9
      */
     @Pure
-    public static int compare(short[] a, short[] b) {
+    public static int compare(short @Nullable [] a, short @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -6408,7 +6414,7 @@ public final class Arrays {
      * @since 9
      */
     @Pure
-    public static int compareUnsigned(@Unsigned short[] a, @Unsigned short[] b) {
+    public static int compareUnsigned(@Unsigned short @Nullable [] a, @Unsigned short @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -6536,7 +6542,7 @@ public final class Arrays {
      * @since 9
      */
     @Pure
-    public static int compare(char[] a, char[] b) {
+    public static int compare(char @Nullable [] a, char @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -6673,7 +6679,7 @@ public final class Arrays {
      * @since 9
      */
     @Pure
-    public static int compare(int[] a, int[] b) {
+    public static int compare(int @Nullable [] a, int @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -6803,7 +6809,7 @@ public final class Arrays {
      * @since 9
      */
     @Pure
-    public static int compareUnsigned(@Unsigned int[] a, @Unsigned int[] b) {
+    public static int compareUnsigned(@Unsigned int @Nullable [] a, @Unsigned int @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -6931,7 +6937,7 @@ public final class Arrays {
      * @since 9
      */
     @Pure
-    public static int compare(long[] a, long[] b) {
+    public static int compare(long @Nullable [] a, long @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -7061,7 +7067,7 @@ public final class Arrays {
      * @since 9
      */
     @Pure
-    public static int compareUnsigned(@Unsigned long[] a, @Unsigned long[] b) {
+    public static int compareUnsigned(@Unsigned long @Nullable [] a, @Unsigned long @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -7189,7 +7195,7 @@ public final class Arrays {
      * @since 9
      */
     @Pure
-    public static int compare(float[] a, float[] b) {
+    public static int compare(float @Nullable [] a, float @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -7326,7 +7332,7 @@ public final class Arrays {
      * @since 9
      */
     @Pure
-    public static int compare(double[] a, double[] b) {
+    public static int compare(double @Nullable [] a, double @Nullable [] b) {
         if (a == b)
             return 0;
         if (a == null || b == null)
@@ -7473,7 +7479,7 @@ public final class Arrays {
      * @since 9
      */
     @Pure
-    public static <T extends Comparable<? super T>> int compare(T[] a, T[] b) {
+    public static <T extends @Nullable Comparable<? super T>> int compare(T @Nullable [] a, T @Nullable [] b) {
         if (a == b)
             return 0;
         // A null array is less than a non-null array
@@ -7564,7 +7570,7 @@ public final class Arrays {
      * @since 9
      */
     @Pure
-    public static <T extends Comparable<? super T>> int compare(
+    public static <T extends @Nullable Comparable<? super T>> int compare(
             T[] a, int aFromIndex, int aToIndex,
             T[] b, int bFromIndex, int bToIndex) {
         rangeCheck(a.length, aFromIndex, aToIndex);
@@ -7629,7 +7635,7 @@ public final class Arrays {
      * @since 9
      */
     @Pure
-    public static <T> int compare(T[] a, T[] b,
+    public static <T> int compare(T @Nullable [] a, T @Nullable [] b,
                                   Comparator<? super T> cmp) {
         Objects.requireNonNull(cmp);
         if (a == b)

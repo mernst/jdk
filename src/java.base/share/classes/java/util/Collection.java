@@ -34,6 +34,13 @@ import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.MaybeModifiable;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.PolyModifiable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
+import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.mustcall.qual.CreatesMustCallFor;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.mustcall.qual.Owning;
@@ -284,7 +291,7 @@ import java.util.stream.StreamSupport;
  */
 
 @CFComment("lock/nullness: Subclasses of this interface/class may opt to prohibit null elements")
-@AnnotatedFor({"lock", "nullness", "index", "resourceleak", "mustcall"})
+@AnnotatedFor({"lock", "nullness", "index", "modifiability", "resourceleak", "mustcall"})
 public interface Collection<E extends @MustCallUnknown Object> extends Iterable<E> {
     // Query Operations
 
@@ -296,7 +303,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @return the number of elements in this collection
      */
     @Pure
-    @NonNegative int size(@GuardSatisfied @NotOwningCollection Collection<E> this);
+    @NonNegative int size(@MaybeModifiable @GuardSatisfied @NotOwningCollection Collection<E> this);
 
     /**
      * Returns {@code true} if this collection contains no elements.
@@ -305,7 +312,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      */
     @Pure
     @EnsuresNonEmptyIf(result = false, expression = "this")
-    boolean isEmpty(@GuardSatisfied @NotOwningCollection Collection<E> this);
+    boolean isEmpty(@MaybeModifiable @GuardSatisfied @NotOwningCollection Collection<E> this);
 
     /**
      * Returns {@code true} if this collection contains the specified element.
@@ -328,7 +335,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
                 "(though I think a nicer specification would be to return false in that case)"})
     @Pure
     @EnsuresNonEmptyIf(result = true, expression = "this")
-    boolean contains(@GuardSatisfied @NotOwningCollection Collection<E> this, @GuardSatisfied @UnknownSignedness Object o);
+    boolean contains(@MaybeModifiable @GuardSatisfied @NotOwningCollection Collection<E> this, @GuardSatisfied @UnknownSignedness Object o);
 
     /**
      * Returns an iterator over the elements in this collection.  There are no
@@ -339,7 +346,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @return an {@code Iterator} over the elements in this collection
      */
     @SideEffectFree
-    @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Collection<E> this);
+    @MaybeModifiable @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Iterator<E> iterator(@MaybeModifiable @PolyGrowShrink @PolyNonEmpty @PolyOwningCollection Collection<E> this);
 
     /**
      * Returns an array containing all of the elements in this collection.
@@ -368,7 +375,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
     "methods, because the most useful type for toArray is not expressible",
     "in the surface syntax that the nullness annotations support."})
     @SideEffectFree
-    @PolyNull @PolySigned Object[] toArray(@NotOwningCollection Collection<@PolyNull @PolySigned E> this);
+    @PolyNull @PolySigned Object[] toArray(@MaybeModifiable @NotOwningCollection Collection<@PolyNull @PolySigned E> this);
 
     /**
      * Returns an array containing all of the elements in this collection;
@@ -421,7 +428,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      *         runtime component type} of the specified array
      * @throws NullPointerException if the specified array is null
      */
-    <T extends @UnknownSignedness Object> @Nullable T [] toArray(@NotOwningCollection Collection<E> this, @PolyNull T[] a);
+    <T extends @UnknownSignedness Object> @Nullable T[] toArray(@MaybeModifiable @NotOwningCollection Collection<E> this, @PolyNull T[] a);
 
     /**
      * Returns an array containing all of the elements in this collection,
@@ -458,7 +465,8 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @throws NullPointerException if the generator function is null
      * @since 11
      */
-    default <T> T[] toArray(IntFunction<T[]> generator) {
+    @SideEffectFree
+    default <T> T[] toArray(@MaybeModifiable Collection<E> this, IntFunction<T[]> generator) {
         return toArray(generator.apply(0));
     }
 
@@ -501,8 +509,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
     @CreatesCollectionObligation
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean add(@GuardSatisfied @NotOwningCollection Collection<E> this, E e);
-
+    boolean add(@IteratorPolyMod @Growable @GuardSatisfied @NotOwningCollection Collection<E> this, E e);
     /**
      * Removes a single instance of the specified element from this
      * collection, if it is present (optional operation).  More formally,
@@ -526,8 +533,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
     @EnsuresNonNullIf(expression = "#1", result = true)
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean remove(@GuardSatisfied @CanShrink Collection<E> this, @UnknownSignedness Object o);
-
+    boolean remove(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink Collection<E> this, @UnknownSignedness Object o);
 
     // Bulk Operations
 
@@ -550,7 +556,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @see    #contains(Object)
      */
     @Pure
-    boolean containsAll(@GuardSatisfied Collection<E> this, @GuardSatisfied Collection<? extends @UnknownSignedness Object> c);
+    boolean containsAll(@MaybeModifiable @GuardSatisfied Collection<E> this, @GuardSatisfied Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Adds all of the elements in the specified collection to this collection
@@ -581,8 +587,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
     @CreatesCollectionObligation
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean addAll(@GuardSatisfied @OwningCollection Collection<E> this, @OwningCollection Collection<@MustCallUnknown ? extends @MustCallUnknown E> c);
-
+    boolean addAll(@Growable @GuardSatisfied @OwningCollection Collection<E> this, @OwningCollection Collection<@MustCallUnknown ? extends @MustCallUnknown E> c);
     /**
      * Removes all of this collection's elements that are also contained in the
      * specified collection (optional operation).  After this call returns,
@@ -608,8 +613,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean removeAll(@GuardSatisfied @CanShrink Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
-
+    boolean removeAll(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
     /**
      * Removes all of the elements of this collection that satisfy the given
      * predicate.  Errors or runtime exceptions thrown during iteration or by
@@ -634,7 +638,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default boolean removeIf(@CanShrink Collection<E> this, Predicate<? super E> filter) {
+    default boolean removeIf(@IteratorPolyMod @Shrinkable @CanShrink Collection<E> this, Predicate<? super E> filter) {
         Objects.requireNonNull(filter);
         boolean removed = false;
         final Iterator<E> each = iterator();
@@ -671,8 +675,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean retainAll(@GuardSatisfied @CanShrink Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
-
+    boolean retainAll(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink Collection<E> this, Collection<? extends @UnknownSignedness Object> c);
     /**
      * Removes all of the elements from this collection (optional operation).
      * The collection will be empty after this method returns.
@@ -682,8 +685,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    void clear(@GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Collection<E> this);
-
+    void clear(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink @OwningCollectionWithoutObligation Collection<E> this);
 
     // Comparison and hashing
 
@@ -721,7 +723,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @see List#equals(Object)
      */
     @Pure
-    boolean equals(@GuardSatisfied @NotOwningCollection Collection<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o);
+    boolean equals(@MaybeModifiable @GuardSatisfied @NotOwningCollection Collection<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o);
 
     /**
      * Returns the hash code value for this collection.  While the
@@ -739,7 +741,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @see Object#equals(Object)
      */
     @Pure
-    int hashCode(@GuardSatisfied @NotOwningCollection Collection<E> this);
+    int hashCode(@MaybeModifiable @GuardSatisfied @NotOwningCollection Collection<E> this);
 
     /**
      * Creates a {@link Spliterator} over the elements in this collection.
@@ -793,7 +795,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      */
     @SideEffectFree
     @Override
-    default Spliterator<E> spliterator() {
+    default Spliterator<E> spliterator(@MaybeModifiable Collection<E> this) {
         return Spliterators.spliterator(this, 0);
     }
 
@@ -813,7 +815,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @since 1.8
      */
     @DoesNotUnrefineReceiver("modifiability")
-    default @PolyNonEmpty Stream<E> stream(@NotOwningCollection @PolyNonEmpty Collection<E> this) {
+    default @PolyNonEmpty Stream<E> stream(@MaybeModifiable @NotOwningCollection @PolyNonEmpty Collection<E> this) {
         return StreamSupport.stream(spliterator(), false);
     }
 
@@ -835,7 +837,7 @@ public interface Collection<E extends @MustCallUnknown Object> extends Iterable<
      * @since 1.8
      */
     @DoesNotUnrefineReceiver("modifiability")
-    default Stream<E> parallelStream() {
+    default Stream<E> parallelStream(@MaybeModifiable Collection<E> this) {
         return StreamSupport.stream(spliterator(), true);
     }
 }

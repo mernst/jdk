@@ -42,6 +42,9 @@ import org.checkerframework.checker.collectionownership.qual.OwningCollectionWit
 import org.checkerframework.checker.collectionownership.qual.PolyOwningCollection;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.mustcall.qual.NotOwning;
 import org.checkerframework.checker.mustcall.qual.Owning;
@@ -156,7 +159,7 @@ import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
  * @param <E> the type of elements held in this queue
  */
 @CFComment({"lock/nullness: Subclasses of this interface/class may opt to prohibit null elements"})
-@AnnotatedFor({"lock", "nullness", "mustcall", "resourceleak"})
+@AnnotatedFor({"lock", "nullness", "modifiability", "mustcall", "resourceleak"})
 public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> {
     /**
      * Inserts the specified element into this queue if it is possible to do so
@@ -179,8 +182,7 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
     @CreatesCollectionObligation
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean add(@GuardSatisfied @NotOwningCollection Queue<E> this, E e);
-
+    boolean add(@Growable @GuardSatisfied @NotOwningCollection Queue<E> this, E e);
     /**
      * Inserts the specified element into this queue if it is possible to do
      * so immediately without violating capacity restrictions.
@@ -201,8 +203,7 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
     @CreatesCollectionObligation
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean offer(@GuardSatisfied @NotOwningCollection Queue<E> this, E e);
-
+    boolean offer(@Growable @GuardSatisfied @NotOwningCollection Queue<E> this, E e);
     /**
      * Retrieves and removes the head of this queue.  This method differs
      * from {@link #poll() poll()} only in that it throws an exception if
@@ -213,8 +214,7 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    E remove(@GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Queue<E> this);
-
+    E remove(@Shrinkable @GuardSatisfied @NotOwningCollection @NonEmpty @CanShrink Queue<E> this);
     /**
      * Retrieves and removes the head of this queue,
      * or returns {@code null} if this queue is empty.
@@ -223,8 +223,7 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
      */
     @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    @Nullable E poll(@GuardSatisfied @NotOwningCollection @CanShrink Queue<E> this);
-
+    @Nullable E poll(@Shrinkable @GuardSatisfied @NotOwningCollection @CanShrink Queue<E> this);
     /**
      * Retrieves, but does not remove, the head of this queue.  This method
      * differs from {@link #peek peek} only in that it throws an exception
@@ -242,7 +241,6 @@ public interface Queue<E extends @MustCallUnknown Object> extends Collection<E> 
      *
      * @return the head of this queue, or {@code null} if this queue is empty
      */
-    @DoesNotUnrefineReceiver("modifiability")
     @Pure
     @Nullable @NotOwning E peek(@GuardSatisfied @NotOwningCollection Queue<E> this);
 
